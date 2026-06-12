@@ -4,9 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>MusicMein</title>
-<!-- Build: 2026-06-11 UTC v8 — Real brand assets: MM_Logo, MM_FaviconDark, MM_Background -->
-<link rel="icon" type="image/png" href="MM_FaviconDark.png">
-<link rel="apple-touch-icon" href="MM_FaviconDark.png">
+<!-- Build: 2026-06-12 v9. Final brand assets: LOGO_DarkBG, LOGO_LightBG, Favicon_DarkBG, Favicon_LightBG, MM_BackgroundDark, MM_WhiteBG -->
+<link rel="icon" type="image/png" href="Favicon_DarkBG.png">
+<link rel="apple-touch-icon" href="Favicon_DarkBG.png">
 <meta name="application-name" content="MusicMein">
 <meta name="description" content="MusicMein - Authentic Sound &amp; Flow. Piano training across all styles.">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -90,25 +90,31 @@ body {
   overflow-x: hidden;
 }
 
-/* Dark mode: MM_Background.png repeating wood-stain texture */
+/* Dark mode: MM_BackgroundDark.png dark teal wood texture.
+   Cover instead of tiling: the texture has soft edge shading, so a
+   single fixed surface reads seamless while repeat would show seams. */
 [data-theme="dark"] body {
   background-color: var(--bg);
   background-image:
-    linear-gradient(rgba(5,12,12,0.72), rgba(5,12,12,0.84)),
-    url("MM_Background.png");
-  background-repeat: repeat;
-  background-size: 1024px 1024px;
+    linear-gradient(rgba(5,12,12,0.50), rgba(5,12,12,0.66)),
+    url("MM_BackgroundDark.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
   background-attachment: fixed;
 }
 
-/* Light mode: MM_BackgroundLight.png whitewashed distressed wood texture */
+/* Light mode: MM_WhiteBG.png warm cream distressed wood texture.
+   Lighter overlay than before so the artisan grain stays visible
+   while cards and text remain readable on top. */
 [data-theme="light"] body {
   background-color: var(--bg);
   background-image:
-    linear-gradient(rgba(255,252,245,0.70), rgba(255,252,245,0.82)),
-    url("MM_BackgroundLight.png");
-  background-repeat: repeat;
-  background-size: 1024px 1024px;
+    linear-gradient(rgba(252,248,240,0.52), rgba(252,248,240,0.66)),
+    url("MM_WhiteBG.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
   background-attachment: fixed;
 }
 
@@ -174,25 +180,28 @@ body {
 }
 /* Hide old text h1 — replaced by real logo image */
 .logo-wrap h1 { display: none; }
-/* Hide old tagline <p> — tagline is baked into MM_Logo.png */
+/* Hide old tagline <p>. The tagline is baked into the logo art. */
 .logo-wrap p { display: none; }
 /* Hide decorative piano keys — replaced by logo image */
 .logo-keys { display: none; }
 /* Hide the old handmade SVG logo if still present in DOM */
 .mm-full-logo-svg { display: none !important; }
 
-/* MM_Logo.png — welcome/profile screen */
+/* Full MusicMein logo on the welcome/profile screen.
+   Two theme tuned versions; CSS shows the right one. */
 .mm-full-logo-img {
   width: 100%;
   max-width: 480px;
   height: auto;
   display: block;
   margin: 0 auto 1rem;
-  border-radius: 20px;
-  filter: drop-shadow(0 6px 28px rgba(0,0,0,.5));
 }
+.mm-logo-dark  { filter: drop-shadow(0 6px 28px rgba(0,0,0,.55)); }
+.mm-logo-light { filter: drop-shadow(0 5px 20px rgba(60,40,10,.28)); display: none; }
+[data-theme="light"] .mm-logo-dark  { display: none; }
+[data-theme="light"] .mm-logo-light { display: block; }
 
-/* Nav icon: MM_FaviconDark.png */
+/* Nav icon: bowl and treble clef, theme aware pair */
 .nav-logo-icon {
   width: 28px;
   height: 28px;
@@ -201,6 +210,9 @@ body {
   display: block;
   border-radius: 6px;
 }
+.nav-icon-light { display: none; }
+[data-theme="light"] .nav-icon-dark  { display: none; }
+[data-theme="light"] .nav-icon-light { display: block; }
 
 /* Old logo key CSS (kept for JS, visually hidden) */
 .logo-key-w {
@@ -1149,11 +1161,16 @@ body {
       <h1>Music<span>Mein</span></h1>
       <p id="tagline">Authentic Sound &amp; Flow</p>
 
-      <!-- Full brand logo: MM_Logo.png -->
+      <!-- Full brand logo, theme aware -->
       <img
-        src="MM_Logo.png"
-        alt="MusicMein — Authentic Sound &amp; Flow"
-        class="mm-full-logo-img"
+        src="LOGO_DarkBG.png"
+        alt="MusicMein. Authentic Sound &amp; Flow"
+        class="mm-full-logo-img mm-logo-dark"
+      >
+      <img
+        src="LOGO_LightBG.png"
+        alt="MusicMein. Authentic Sound &amp; Flow"
+        class="mm-full-logo-img mm-logo-light"
       >
 
       <!-- logoKeys div kept for JS (buildLogoKeys), hidden by CSS -->
@@ -1243,8 +1260,9 @@ body {
   <!-- TOP NAV -->
   <nav class="top-nav">
     <div class="nav-logo">
-      <!-- Nav icon: MM_FaviconDark.png (bowl + treble clef icon) -->
-      <img src="MM_FaviconDark.png" class="nav-logo-icon" alt="" aria-hidden="true" width="28" height="28">
+      <!-- Nav icon: bowl and treble clef, theme aware -->
+      <img src="Favicon_DarkBG.png" class="nav-logo-icon nav-icon-dark" alt="" aria-hidden="true" width="28" height="28">
+      <img src="Favicon_LightBG.png" class="nav-logo-icon nav-icon-light" alt="" aria-hidden="true" width="28" height="28">
       <span class="nav-logo-word">Music<span>Mein</span></span>
     </div>
 
