@@ -756,6 +756,7 @@ body {
 .r-pulse-dot.downbeat{background:var(--gold);transform:scale(1.7);box-shadow:0 0 7px rgba(201,168,76,.65);}
 .r-countoff-number{display:inline-block;min-width:1.1em;text-align:center;font-family:'DM Mono',monospace;font-size:.82rem;font-weight:800;color:var(--gold);margin-left:.45rem;opacity:0;transition:opacity .05s;}
 .r-countoff-number.active{opacity:1;}
+.rhythm-bar-sep{width:2px;min-height:58px;background:var(--border);border-radius:2px;margin:0 6px;flex-shrink:0;align-self:stretch;}
 .coming-soon {
   min-height: calc(100vh - 56px);
   display: flex;
@@ -1887,8 +1888,22 @@ body {
             </select>
           </div>
           <div class="p-control-group">
-            <label>Guide Click</label>
-            <select id="r-guideClickSelect" onchange="r_onSettingsChange()">
+            <label>Metronome</label>
+            <select id="r-metronomeSelect" onchange="r_onSettingsChange()">
+              <option value="on" selected>On</option>
+              <option value="off">Off</option>
+            </select>
+          </div>
+          <div class="p-control-group">
+            <label>Rhythm Guide</label>
+            <select id="r-rhythmGuideSelect" onchange="r_onSettingsChange()">
+              <option value="on" selected>On</option>
+              <option value="off">Off</option>
+            </select>
+          </div>
+          <div class="p-control-group">
+            <label>Browser Synth</label>
+            <select id="r-browserSynthSelect" onchange="r_onSettingsChange()">
               <option value="on" selected>On</option>
               <option value="off">Off</option>
             </select>
@@ -6125,6 +6140,8 @@ let r_currentPattern=null, r_isPlaying=false, r_isListening=false;
 let r_playTimers=[], r_listenTimer=null, r_startTime=0, r_userTaps=[];
 let r_total=0, r_correct=0, r_streak=0, r_history=[];
 let r_countIn=true, r_guideClick=true;
+let r_rhythmGuide=true;  // controls rhythm pattern hit audio
+let r_browserSynth=true; // controls user tap feedback sound
 let r_countInBars=2;
 let r_focus='random';
 let r_guideTimers=[], r_visualTimer=null, r_countDisplayTimer=null;
@@ -6162,7 +6179,8 @@ function r_getBeatMs(){return 60000/r_bpm;}
 function r_expandPattern(base,bars){
   const beats=[];
   for(let b=0;b<bars;b++) base.beats.forEach(x=>beats.push(x+b*4));
-  return{name:base.name,unit:base.unit,beats,bars};
+  const totalBeats=bars*4;
+  return{name:base.name,unit:base.unit,beats,bars,totalBeats};
 }
 
 function r_pickPattern(){
@@ -6193,6 +6211,7 @@ function r_pickPattern(){
   r_updatePatternInfo();
   r_setStatus('Choose Audition to listen or Practice to test your timing.');
   r_setFeedback('No attempt yet.','neutral');
+  console.log('[Rhythm pattern]',{name:r_currentPattern.name,bars:r_currentPattern.bars,totalBeats:r_currentPattern.totalBeats,beats:r_currentPattern.beats});
 }
 
 function r_onSettingsChange(){
@@ -6201,13 +6220,17 @@ function r_onSettingsChange(){
   const b=document.getElementById('r-bpmSelect');
   const l=document.getElementById('r-lengthSelect');
   const ci=document.getElementById('r-countInBarsSelect');
-  const gc=document.getElementById('r-guideClickSelect');
+  const mt=document.getElementById('r-metronomeSelect');
+  const rg=document.getElementById('r-rhythmGuideSelect');
+  const bs=document.getElementById('r-browserSynthSelect');
   const fc=document.getElementById('r-focusSelect');
   r_diff=d?d.value:'easy';
   r_bpm=b?parseInt(b.value,10):84;
   r_lengthBars=l?parseInt(l.value,10):2;
   r_countInBars=ci?parseInt(ci.value,10):2;
-  r_guideClick=gc?gc.value==='on':true;
+  r_guideClick=mt?mt.value==='on':true;
+  r_rhythmGuide=rg?rg.value==='on':true;
+  r_browserSynth=bs?bs.value==='on':true;
   r_focus=fc?fc.value:'random';
   r_pickPattern();
 }
@@ -6229,9 +6252,15 @@ function r_renderPattern(activeIndex,userIndex,missIndex){
   const el=document.getElementById('r-visual');if(!el)return;
   if(!r_currentPattern){el.innerHTML='<div class="rhythm-empty">Press Audition or Practice to begin.</div>';return;}
   el.innerHTML='';
-  const totalBeats=r_currentPattern.bars*4;
+  const totalBeats=r_currentPattern.totalBeats||r_currentPattern.bars*4;
   const hitSet=new Set(r_currentPattern.beats.map(b=>Math.round(b*1000)/1000));
   for(let i=0;i<totalBeats;i++){
+    // Insert a bar separator at the start of each bar after the first
+    if(i>0&&i%4===0&&r_currentPattern.bars>1){
+      const sep=document.createElement('div');
+      sep.className='rhythm-bar-sep';
+      el.appendChild(sep);
+    }
     const cell=document.createElement('div');
     cell.className='rhythm-beat';
     const hasBeat=hitSet.has(i);
@@ -6261,7 +6290,8 @@ function r_renderCountIn(beatIndex){
 function r_updatePatternInfo(){
   const el=document.getElementById('r-patternInfo');
   if(!el||!r_currentPattern)return;
-  el.innerHTML='<strong>'+r_currentPattern.name+'</strong><br>Difficulty: '+r_diff+'<br>Length: '+r_currentPattern.bars+' bar(s)<br>BPM: '+r_bpm+'<br>Taps: '+r_currentPattern.beats.length;
+  const tb=r_currentPattern.totalBeats||r_currentPattern.bars*4;
+  el.innerHTML='<strong>'+r_currentPattern.name+'</strong><br>Difficulty: '+r_diff+'<br>Length: '+r_currentPattern.bars+' bar(s)<br>Total beats: '+tb+'<br>BPM: '+r_bpm+'<br>Taps: '+r_currentPattern.beats.length;
 }
 
 function r_setStatus(msg){
@@ -6408,12 +6438,12 @@ function r_playPatternOnce(done){
   r_currentPattern.beats.forEach(beat=>{
     const t=setTimeout(()=>{
       if(r_transportState==='stopped')return;
-      r_playRhythmHit(beat%4===0);
+      if(r_rhythmGuide) r_playRhythmHit(beat%4===0);
       r_renderPattern(Math.floor(beat));
     },beat*beatMs);
     r_playTimers.push(t);
   });
-  const totalMs=r_currentPattern.bars*4*beatMs;
+  const totalMs=(r_currentPattern.totalBeats||r_currentPattern.bars*4)*beatMs;
   const endT=setTimeout(()=>{
     if(r_transportState==='stopped')return;
     r_renderPattern();
@@ -6435,25 +6465,25 @@ function r_startAudition(){
   r_setFeedback('Listen to the rhythm as many times as needed before practicing.','neutral');
 
   const beatMs=r_getBeatMs();
-  const totalBeats=r_currentPattern.bars*4;
+  const totalBeats=r_currentPattern.totalBeats;
   const patternMs=totalBeats*beatMs;
 
   function scheduleLoop(loopStartMs){
     if(r_transportState!=='auditioning')return;
     const now=performance.now();
 
-    // Rhythm pattern hits: r_playRhythmHit at each pattern beat
+    // Rhythm pattern hits: sound gated by r_rhythmGuide; visual always updates
     r_currentPattern.beats.forEach(beat=>{
       const delay=Math.max(0,loopStartMs+beat*beatMs-now);
       const t=setTimeout(()=>{
         if(r_transportState!=='auditioning')return;
-        r_playRhythmHit(beat%4===0);
-        r_renderPattern(Math.floor(beat)%(totalBeats));
+        if(r_rhythmGuide) r_playRhythmHit(beat%4===0);
+        r_renderPattern(Math.floor(beat)%totalBeats);
       },delay);
       r_playTimers.push(t);
     });
 
-    // Quarter-note pulse: guide click audio (if enabled) + visual pulse on every integer beat
+    // Quarter-note pulse: metronome audio (if on) + visual pulse always
     for(let q=0;q<totalBeats;q++){
       const delay=Math.max(0,loopStartMs+q*beatMs-now);
       const isDown=q%4===0;
@@ -6523,16 +6553,19 @@ function r_startGuideClick(totalMs){
   r_stopGuideClick();
   const beatMs=r_getBeatMs();
   const totalBeats=Math.ceil(totalMs/beatMs);
-  // Always schedule visual pulse regardless of Guide Click setting.
-  // Audio click is conditional on r_guideClick.
-  for(let i=0;i<=totalBeats;i++){
+  // i < totalBeats: do NOT fire at the loop boundary beat (avoids phantom extra tick).
+  // Visual pulse always fires; metronome audio gated by r_guideClick.
+  for(let i=0;i<totalBeats;i++){
     const beat=i;
     const isDown=beat%4===0;
     const t=setTimeout(()=>{
       if(!r_isListening||r_transportState!=='listening')return;
       if(r_guideClick) r_playClick(isDown);
       r_pulseDot(isDown);
-      if(r_currentPattern) r_renderPattern(beat%(r_currentPattern.bars*4));
+      if(r_currentPattern){
+        const tb=r_currentPattern.totalBeats||r_currentPattern.bars*4;
+        r_renderPattern(beat%tb);
+      }
     },beat*beatMs);
     r_guideTimers.push(t);
   }
@@ -6543,11 +6576,12 @@ function r_beginUserTapAttempt(){
   const cn=document.getElementById('r-countoffNum');
   if(cn){cn.classList.remove('active');cn.textContent='';}
   const beatMs=r_getBeatMs();
-  const totalMs=r_currentPattern.bars*4*beatMs;
+  const totalBeats=r_currentPattern.totalBeats||r_currentPattern.bars*4;
+  const totalMs=totalBeats*beatMs;
   r_transportState='listening';r_isPlaying=false;r_isListening=true;
   r_userTaps=[];r_startTime=performance.now();
   r_updateTransportButtons();
-  r_setStatus(r_guideClick?'Tap now. Guide click is a quarter-note pulse.':'Tap now.');
+  r_setStatus(r_guideClick?'Tap now. Metronome gives the quarter-note pulse.':'Tap now.');
   r_setFeedback('Tap the rhythm.','neutral');
   r_renderPattern();
   r_startGuideClick(totalMs);
@@ -6569,7 +6603,7 @@ function r_registerTap(source){
       r_setFeedback('Press Practice first, then tap after the count-in.','neutral');
     return;
   }
-  r_playUserTapSound();
+  if(r_browserSynth) r_playUserTapSound();
   const now=performance.now();
   const beatMs=r_getBeatMs();
   const elapsedBeats=(now-r_startTime)/beatMs;
@@ -6596,6 +6630,7 @@ function r_gradeAttempt(){
   });
   const penalty=Math.abs(taps.length-target.length);
   const raw=Math.max(0,Math.round((matched/target.length)*100-penalty*8));
+  console.log('[Rhythm grade]',{targetBeats:target,userTaps:taps,matched,finalScore:raw});
   r_total++;
   if(raw>=75){r_correct++;r_streak++;}else{r_streak=0;}
   r_history.unshift({name:r_currentPattern.name,score:raw,taps:taps.length,target:target.length,diff:r_diff});
