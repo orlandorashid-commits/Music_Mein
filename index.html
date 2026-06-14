@@ -751,6 +751,9 @@ body {
 .r-history-item{padding:.42rem .6rem;border-radius:8px;border:1px solid var(--border);background:var(--bg2);font-size:.77rem;margin-bottom:.3rem;font-family:'DM Mono',monospace;}
 .r-history-item.good{color:#3A9E6F;border-color:rgba(58,158,111,.3);}
 .r-history-item.bad{color:#C0614A;border-color:rgba(192,97,74,.3);}
+.r-pulse-dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--border);margin-left:.55rem;vertical-align:middle;flex-shrink:0;transition:background .05s,transform .05s,box-shadow .05s;}
+.r-pulse-dot.beat{background:var(--gold);transform:scale(1.35);box-shadow:0 0 4px rgba(201,168,76,.45);}
+.r-pulse-dot.downbeat{background:var(--gold);transform:scale(1.7);box-shadow:0 0 7px rgba(201,168,76,.65);}
 .coming-soon {
   min-height: calc(100vh - 56px);
   display: flex;
@@ -782,6 +785,73 @@ body {
   border-radius: 50px;
   margin: .5rem auto;
 }
+
+/* ============================================================
+   PROGRESS PAGE STYLES
+   ============================================================ */
+.progress-wrap { max-width:1040px; margin:0 auto; padding:1.25rem 1.25rem 2.5rem; }
+.progress-header { background:var(--surface); border:1px solid var(--border); border-radius:16px; padding:1.4rem 1.6rem; margin-bottom:.9rem; display:flex; align-items:center; gap:1.2rem; flex-wrap:wrap; }
+.progress-avatar { width:54px; height:54px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:1.6rem; flex-shrink:0; }
+.progress-header-info { flex:1; min-width:0; }
+.progress-header-name { font-family:'Playfair Display',serif; font-size:1.4rem; font-weight:700; color:var(--ink); margin-bottom:.15rem; }
+.progress-header-level { font-size:.78rem; color:var(--ink3); text-transform:uppercase; letter-spacing:.07em; font-weight:600; }
+.progress-xp-block { text-align:right; flex-shrink:0; }
+.progress-xp-num { font-family:'Playfair Display',serif; font-size:2rem; font-weight:700; color:var(--gold); line-height:1; }
+.progress-xp-label { font-size:.62rem; text-transform:uppercase; letter-spacing:.1em; color:var(--ink3); font-weight:600; margin-top:.1rem; }
+.progress-xp-bar-wrap { width:100%; margin-top:.55rem; }
+.progress-xp-bar-track { width:100%; height:6px; background:var(--bg2); border-radius:50px; overflow:hidden; border:1px solid var(--border); }
+.progress-xp-bar-fill { height:100%; background:linear-gradient(90deg,var(--gold-dark),var(--gold)); border-radius:50px; transition:width .6s cubic-bezier(.4,0,.2,1); }
+.progress-xp-next { font-size:.7rem; color:var(--ink3); margin-top:.3rem; }
+
+.progress-grid { display:grid; grid-template-columns:1fr 1fr 1fr; gap:.85rem; margin-bottom:.9rem; }
+@media(max-width:700px){ .progress-grid { grid-template-columns:1fr 1fr; } }
+@media(max-width:440px){ .progress-grid { grid-template-columns:1fr; } }
+.progress-stat-card { background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:1.1rem 1.2rem; text-align:center; }
+.progress-stat-val { font-family:'Playfair Display',serif; font-size:1.8rem; font-weight:700; color:var(--ink); line-height:1; margin-bottom:.2rem; }
+.progress-stat-label { font-size:.65rem; text-transform:uppercase; letter-spacing:.08em; color:var(--ink3); font-weight:600; }
+.progress-stat-sub { font-size:.75rem; color:var(--ink3); margin-top:.3rem; font-family:'DM Mono',monospace; }
+
+.progress-section-title { font-family:'Playfair Display',serif; font-size:1.1rem; font-weight:700; color:var(--ink); margin-bottom:.65rem; display:flex; align-items:center; gap:.5rem; }
+.progress-section-title .accent-dot { width:8px; height:8px; border-radius:50%; flex-shrink:0; background:var(--accent-progress); }
+
+.progress-badges-section { background:var(--surface); border:1px solid var(--border); border-radius:16px; padding:1.3rem 1.4rem; margin-bottom:.9rem; }
+.progress-badges-grid { display:flex; flex-wrap:wrap; gap:.65rem; margin-top:.2rem; }
+.progress-badge-item { display:flex; flex-direction:column; align-items:center; gap:.35rem; padding:.8rem .7rem; background:var(--bg2); border:1px solid var(--border); border-radius:12px; min-width:90px; max-width:110px; flex:1; text-align:center; transition:border-color .2s, background .2s; }
+.progress-badge-item.earned { border-color:rgba(201,168,76,.35); background:rgba(201,168,76,.06); }
+.progress-badge-item.locked { opacity:.38; filter:grayscale(1); }
+.progress-badge-icon { font-size:1.7rem; line-height:1; }
+.progress-badge-name { font-size:.65rem; font-weight:700; text-transform:uppercase; letter-spacing:.05em; color:var(--ink2); line-height:1.2; }
+.progress-badge-item.earned .progress-badge-name { color:var(--gold); }
+.progress-badge-desc { font-size:.6rem; color:var(--ink3); line-height:1.3; }
+.progress-badge-earned-date { font-size:.58rem; color:var(--ink3); font-family:'DM Mono',monospace; margin-top:.1rem; }
+
+.progress-two-col { display:grid; grid-template-columns:1fr 1fr; gap:.85rem; margin-bottom:.9rem; }
+@media(max-width:640px){ .progress-two-col { grid-template-columns:1fr; } }
+.progress-card { background:var(--surface); border:1px solid var(--border); border-radius:16px; padding:1.3rem 1.4rem; }
+.progress-activity-list { display:flex; flex-direction:column; gap:.4rem; max-height:240px; overflow-y:auto; }
+.progress-activity-item { display:flex; align-items:center; gap:.65rem; padding:.5rem .7rem; background:var(--bg2); border:1px solid var(--border); border-radius:9px; font-size:.77rem; }
+.progress-activity-icon { font-size:1rem; flex-shrink:0; }
+.progress-activity-name { flex:1; color:var(--ink2); min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.progress-activity-score { font-family:'DM Mono',monospace; font-weight:600; font-size:.74rem; flex-shrink:0; }
+.progress-activity-score.g-a { color:#3A9E6F; }
+.progress-activity-score.g-b { color:#4A9EBF; }
+.progress-activity-score.g-c { color:var(--amber); }
+.progress-activity-score.g-d,.progress-activity-score.g-f { color:#C0614A; }
+.progress-empty { text-align:center; color:var(--ink3); font-size:.8rem; padding:1.5rem 0; }
+
+.progress-chart-section { background:var(--surface); border:1px solid var(--border); border-radius:16px; padding:1.3rem 1.4rem; margin-bottom:.9rem; }
+.progress-bar-chart { display:flex; align-items:flex-end; gap:4px; height:80px; margin-top:.5rem; }
+.progress-bar-col { flex:1; display:flex; flex-direction:column; align-items:center; gap:3px; }
+.progress-bar-fill { width:100%; border-radius:4px 4px 0 0; min-height:2px; transition:height .4s; }
+.progress-bar-label { font-size:.52rem; color:var(--ink3); font-family:'DM Mono',monospace; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:28px; }
+
+.progress-page-accent { display:block; width:40px; height:3px; border-radius:50px; background:var(--accent-progress); margin-bottom:.8rem; }
+.progress-streak-badge { display:inline-flex; align-items:center; gap:.3rem; padding:.25rem .7rem; border-radius:50px; background:rgba(90,143,60,.12); border:1px solid rgba(90,143,60,.25); color:var(--accent-progress); font-size:.75rem; font-weight:700; }
+.progress-new-badge-toast { position:fixed; bottom:1.5rem; right:1.5rem; background:var(--surface); border:1.5px solid var(--gold); border-radius:14px; padding:.9rem 1.2rem; display:flex; align-items:center; gap:.75rem; box-shadow:0 8px 32px var(--shadow); z-index:999; transform:translateY(120%); transition:transform .4s cubic-bezier(.34,1.56,.64,1); pointer-events:none; max-width:280px; }
+.progress-new-badge-toast.show { transform:translateY(0); }
+.progress-new-badge-toast-icon { font-size:1.8rem; }
+.progress-new-badge-toast-text { font-size:.8rem; color:var(--ink); }
+.progress-new-badge-toast-text strong { display:block; color:var(--gold); font-size:.9rem; margin-bottom:.1rem; }
 
 /* PRACTICE PAGE frame (will be filled in Phase 2) */
 #page-practice {
@@ -1837,19 +1907,12 @@ body {
               <option value="mixed">Mixed Review</option>
             </select>
           </div>
-          <div class="p-control-group">
-            <label>Play Flow</label>
-            <select id="r-flowSelect" onchange="r_onSettingsChange()">
-              <option value="show_me_first" selected>Show Me First</option>
-              <option value="tap_only">Tap Only</option>
-              <option value="demo_only">Demo Only</option>
-            </select>
-          </div>
+          <!-- Play Flow removed: use Audition / Practice buttons instead -->
         </div>
 
         <div class="rhythm-main-grid">
           <div class="rhythm-card">
-            <div class="rhythm-mode-label" id="r-modeLabel">Rhythm Replay</div>
+            <div class="rhythm-mode-label" id="r-modeLabel" style="display:flex;align-items:center;justify-content:center;">Rhythm Replay<span class="r-pulse-dot" id="r-pulseDot"></span></div>
             <div class="rhythm-meter" id="r-meterLabel">4 / 4</div>
 
             <div class="rhythm-visual" id="r-visual">
@@ -1860,16 +1923,22 @@ body {
             <div class="rhythm-feedback neutral" id="r-feedback">No attempt yet.</div>
 
             <div class="p-btn-row" style="justify-content:center;margin-top:1rem;flex-wrap:wrap;gap:.5rem;">
-              <button class="p-btn p-btn-primary" id="r-playBtn" onclick="r_playPattern()">&#9654; Play Rhythm</button>
+              <button class="p-btn p-btn-sec" id="r-auditionBtn"
+                onmouseenter="r_setHelpText('audition')"
+                onmouseleave="r_setHelpText('default')"
+                onclick="r_startAudition()">&#9834; Audition</button>
+              <button class="p-btn p-btn-primary" id="r-practiceBtn"
+                onmouseenter="r_setHelpText('practice')"
+                onmouseleave="r_setHelpText('default')"
+                onclick="r_startPractice()">&#9654; Practice</button>
               <button class="p-btn p-btn-sec" id="r-stopBtn" onclick="r_stopPlayback()" disabled>&#9632; Stop</button>
-              <button class="p-btn p-btn-sec" id="r-repeatBtn" onclick="r_repeatPattern()">&#8635; Repeat</button>
-              <button class="p-btn p-btn-primary" id="r-tapBtn" onclick="r_registerTap()">Tap</button>
+              <button class="p-btn p-btn-primary" id="r-tapBtn" onclick="r_registerTap('button')" disabled>Tap</button>
               <button class="p-btn p-btn-sec" id="r-nextBtn" onclick="r_nextPattern()">Next &#8594;</button>
               <button class="p-btn p-btn-sec" onclick="r_reset()">&#8634; Reset</button>
             </div>
 
-            <div class="rhythm-help">
-              Tap with <strong>Spacebar</strong>, the <strong>Tap</strong> button, or any <strong>MIDI note</strong>.
+            <div class="rhythm-help" id="r-helpText">
+              Choose <strong>Audition</strong> to listen or <strong>Practice</strong> to test your timing.
             </div>
           </div>
 
@@ -1938,12 +2007,85 @@ body {
 
     <!-- PROGRESS -->
     <div class="page" id="page-progress">
-      <div class="coming-soon">
-        <div class="coming-soon-icon">🏆</div>
-        <div class="accent-bar" style="background:var(--accent-progress)"></div>
-        <h2 data-i18n="progress_title">Progress &amp; Badges</h2>
-        <p data-i18n="progress_desc">Your progress map, badges, teacher dashboard and student tracking. PDF export. Coming in Phase 8.</p>
+      <div class="progress-wrap">
+
+        <!-- Header: profile + XP -->
+        <div class="progress-header">
+          <div class="progress-avatar" id="pg-avatar" style="background:rgba(201,168,76,.12);color:var(--gold)">🎹</div>
+          <div class="progress-header-info">
+            <div class="progress-header-name" id="pg-name">—</div>
+            <div class="progress-header-level" id="pg-level">—</div>
+            <div class="progress-xp-bar-wrap">
+              <div class="progress-xp-bar-track"><div class="progress-xp-bar-fill" id="pg-xpBar" style="width:0%"></div></div>
+              <div class="progress-xp-next" id="pg-xpNext"></div>
+            </div>
+          </div>
+          <div class="progress-xp-block">
+            <div class="progress-xp-num" id="pg-xpNum">0</div>
+            <div class="progress-xp-label">Total XP</div>
+          </div>
+        </div>
+
+        <!-- Stats row -->
+        <div class="progress-grid" id="pg-statsGrid">
+          <div class="progress-stat-card">
+            <div class="progress-stat-val" id="pg-totalSessions">0</div>
+            <div class="progress-stat-label">Sessions</div>
+            <div class="progress-stat-sub" id="pg-sessionsSub">—</div>
+          </div>
+          <div class="progress-stat-card">
+            <div class="progress-stat-val" id="pg-avgScore">—</div>
+            <div class="progress-stat-label">Avg. Score</div>
+            <div class="progress-stat-sub" id="pg-avgSub">practice</div>
+          </div>
+          <div class="progress-stat-card">
+            <div class="progress-stat-val" id="pg-bestStreak">0</div>
+            <div class="progress-stat-label">Best Streak</div>
+            <div class="progress-stat-sub" id="pg-streakSub">consecutive A grades</div>
+          </div>
+        </div>
+
+        <!-- Score chart -->
+        <div class="progress-chart-section">
+          <div class="progress-section-title"><span class="accent-dot"></span>Recent Practice Scores</div>
+          <div class="progress-bar-chart" id="pg-barChart">
+            <div class="progress-empty" style="padding:.5rem">No sessions yet</div>
+          </div>
+        </div>
+
+        <!-- Badges -->
+        <div class="progress-badges-section">
+          <div class="progress-section-title"><span class="accent-dot"></span>Badges</div>
+          <div class="progress-badges-grid" id="pg-badgesGrid"></div>
+        </div>
+
+        <!-- Activity + Rhythm stats -->
+        <div class="progress-two-col">
+          <div class="progress-card">
+            <div class="progress-section-title"><span class="accent-dot"></span>Recent Activity</div>
+            <div class="progress-activity-list" id="pg-activityList">
+              <div class="progress-empty">No activity yet</div>
+            </div>
+          </div>
+          <div class="progress-card">
+            <div class="progress-section-title"><span class="accent-dot"></span>Ear &amp; Rhythm</div>
+            <div id="pg-earRhythmStats">
+              <div class="progress-empty">Play Ear Training or Rhythm to see stats here</div>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /progress-wrap -->
+
+      <!-- Badge unlock toast -->
+      <div class="progress-new-badge-toast" id="pg-badgeToast">
+        <div class="progress-new-badge-toast-icon" id="pg-badgeToastIcon">🏆</div>
+        <div class="progress-new-badge-toast-text">
+          <strong id="pg-badgeToastName">Badge Unlocked!</strong>
+          <span id="pg-badgeToastDesc"></span>
+        </div>
       </div>
+
     </div>
 
   </div>
@@ -2285,6 +2427,7 @@ function enterApp() {
   p_init();
   e_init();
   r_init();
+  pg_init();
 }
 
 function goToProfiles() {
@@ -4149,6 +4292,7 @@ function p_completeChordBuilder(){
   const _omLabel=p_octaveMatch==='any'?' (Any Oct)':'';
   const entry={name:'Chord Builder · '+p_chordBuilderPrompt.title+_omLabel,score:acc,grade:acc>=90?'A':acc>=80?'B':acc>=70?'C':acc>=60?'D':'F'};
   p_history.unshift(entry);p_saveHistory();p_renderHistory();
+  if(typeof pg_checkBadges==='function') pg_checkBadges();
   p_sessionScores.push(acc);p_sessionCompleted++;
   if(p_sessionActive){
     p_scheduleNextPracticeRound();
@@ -4298,11 +4442,12 @@ function p_complete(){
   ge.textContent='Grade: '+grade; ge.style.display='block';
   ge.style.background=gb; ge.style.color=gc; ge.style.border='1.5px solid '+gc;
   p_showFlash(grade==='A'?'🎉 Perfect!':grade==='B'?'👏 Great!':grade==='C'?'👍 Good effort!':'💪 Keep at it!','complete');
-  const entry={name:p_currentEx.name+' '+p_key,score:overall,grade};
+  const entry={name:p_currentEx.name+' '+p_key,score:overall,grade,style:p_style};
   p_history.unshift(entry); p_saveHistory(); p_renderHistory();
   document.getElementById('p-instruction').innerHTML=
     `✅ Done! Score: <strong>${overall}%</strong> · Grade: <strong>${grade}</strong>.`;
   if(activeProfile){ activeProfile.xp=(activeProfile.xp||0)+Math.round(overall/10); saveProfiles(); }
+  if(typeof pg_checkBadges==='function') pg_checkBadges();
   p_sessionScores.push(overall); p_sessionCompleted++;
   if(p_sessionActive){ p_scheduleNextPracticeRound(); }
   else { p_updateCurrentTaskCard(); p_updateRandomKeyButtonState(); }
@@ -5747,6 +5892,15 @@ function e_updateUI() {
   if (scoreEl) {
     const pct = e_scoreTotal ? Math.round(e_scoreCorrect / e_scoreTotal * 100) : 0;
     scoreEl.textContent = e_scoreCorrect + ' / ' + e_scoreTotal + ' · ' + pct + '%';
+    // Sync to persistent ear stats for Progress page
+    if (e_scoreTotal > 0 && typeof pg_earStats !== 'undefined') {
+      if (e_scoreTotal > pg_earStats.total) {
+        pg_earStats.correct = e_scoreCorrect;
+        pg_earStats.total = e_scoreTotal;
+        pg_earStats.pct = pct;
+        if (typeof pg_saveEarStats === 'function') { pg_saveEarStats(); pg_checkBadges(); }
+      }
+    }
   }
   // Streak
   const streakEl = document.getElementById('e-streak');
@@ -5901,9 +6055,9 @@ function p_handleMIDI(event){
     const dbg=document.getElementById('p-midiDebug');
     if(dbg) dbg.textContent='Last MIDI: '+noteStr+' vel '+velocity;
 
-    // Route to Rhythm Training when on that page
+    // Rhythm page: any note-on is a tap. Return immediately -- no piano sound.
     if (currentPage === 'rhythm') {
-      r_registerTap();
+      r_registerTap('midi');
       return;
     }
 
@@ -5929,7 +6083,9 @@ function p_handleMIDI(event){
       else p_noteOff(noteStr);
       return;
     }
-    // Practice: safe to call regardless — inactive tabs have no active voices
+    // Rhythm: note-off does nothing
+    if (currentPage === 'rhythm') return;
+    // Practice: safe to call regardless -- inactive tabs have no active voices
     p_noteOff(noteStr);
     const el=p_getKey(noteStr);
     if(el) el.classList.remove('midi-held','pressed');
@@ -5969,9 +6125,12 @@ let r_total=0, r_correct=0, r_streak=0, r_history=[];
 let r_countIn=true, r_guideClick=true;
 let r_countInBars=2;
 let r_focus='random';
-let r_playFlow='show_me_first';
 let r_guideTimers=[], r_visualTimer=null, r_countDisplayTimer=null;
-let r_transportState='stopped'; // stopped | counting | playing | listening
+let r_transportState='stopped'; // stopped | auditioning | counting | listening
+let r_isAuditioning=false;
+let r_auditionLoop=null;
+let r_lastMidiTapTime=0; // debounce for MIDI taps
+let r_pulseDotTimer=null; // for flashing the visual pulse dot
 
 const R_PATTERNS={
   easy:[
@@ -6005,35 +6164,24 @@ function r_expandPattern(base,bars){
 }
 
 function r_pickPattern(){
-  // Build candidate list: current diff first, then all diffs as fallback
   const allDiffs=['easy','medium','hard','expert'];
   const allPatterns=allDiffs.flatMap(d=>(R_PATTERNS[d]||[]).map(p=>({...p,_diff:d})));
   const diffPatterns=R_PATTERNS[r_diff]||R_PATTERNS.easy;
 
-  // Focus → unit string(s) mapping
   const focusUnitMap={
-    whole:      ['whole'],
-    half:       ['half'],
-    quarter:    ['quarter'],
-    quarter_rest:['quarter/rest'],
-    eighth:     ['eighth'],
-    offbeat:    ['offbeats'],
-    dotted:     ['dotted'],
-    triplet:    ['triplet'],
-    syncopation:['syncopation'],
-    mixed:      ['mixed']
+    whole:['whole'],half:['half'],quarter:['quarter'],
+    quarter_rest:['quarter/rest'],eighth:['eighth'],offbeat:['offbeats'],
+    dotted:['dotted'],triplet:['triplet'],syncopation:['syncopation'],mixed:['mixed']
   };
 
   let candidates;
   if(r_focus==='random'){
-    // Random: pick from current difficulty
     candidates=diffPatterns;
   } else {
     const units=focusUnitMap[r_focus]||[];
-    // First try current difficulty, fall back to all difficulties
     candidates=diffPatterns.filter(p=>units.includes(p.unit));
     if(!candidates.length) candidates=allPatterns.filter(p=>units.includes(p.unit));
-    if(!candidates.length) candidates=diffPatterns; // ultimate fallback
+    if(!candidates.length) candidates=diffPatterns;
   }
 
   const base=candidates[Math.floor(Math.random()*candidates.length)];
@@ -6041,7 +6189,8 @@ function r_pickPattern(){
   r_userTaps=[];
   r_renderPattern();
   r_updatePatternInfo();
-  r_setFeedback('Listen first, then tap it back.','neutral');
+  r_setStatus('Choose Audition to listen or Practice to test your timing.');
+  r_setFeedback('No attempt yet.','neutral');
 }
 
 function r_onSettingsChange(){
@@ -6058,16 +6207,12 @@ function r_onSettingsChange(){
   r_countInBars=ci?parseInt(ci.value,10):2;
   r_guideClick=gc?gc.value==='on':true;
   r_focus=fc?fc.value:'random';
-  const fl=document.getElementById('r-flowSelect');
-  r_playFlow=fl?fl.value:'show_me_first';
   r_pickPattern();
 }
 
 function r_nextPattern(){
   if(r_transportState!=='stopped') r_stopPlayback();
   r_pickPattern();
-  const s=document.getElementById('r-status');
-  if(s)s.textContent='New rhythm selected. Press Play Rhythm.';
   r_updateTransportButtons();
 }
 
@@ -6075,14 +6220,12 @@ function r_reset(){
   r_stopPlayback();
   r_userTaps=[];r_total=0;r_correct=0;r_streak=0;r_history=[];
   r_updateScore();r_renderHistory();r_pickPattern();
-  const s=document.getElementById('r-status');
-  if(s)s.textContent='Reset. Press Play Rhythm to begin.';
   r_updateTransportButtons();
 }
 
 function r_renderPattern(activeIndex,userIndex,missIndex){
   const el=document.getElementById('r-visual');if(!el)return;
-  if(!r_currentPattern){el.innerHTML='<div class="rhythm-empty">Press Play Rhythm to begin.</div>';return;}
+  if(!r_currentPattern){el.innerHTML='<div class="rhythm-empty">Press Audition or Practice to begin.</div>';return;}
   el.innerHTML='';
   const totalBeats=r_currentPattern.bars*4;
   const hitSet=new Set(r_currentPattern.beats.map(b=>Math.round(b*1000)/1000));
@@ -6094,7 +6237,21 @@ function r_renderPattern(activeIndex,userIndex,missIndex){
     if(i===activeIndex)cell.classList.add('hit');
     if(i===userIndex)cell.classList.add('user-hit');
     if(i===missIndex)cell.classList.add('miss');
-    cell.textContent=hasBeat?(i%4+1):'–';
+    cell.textContent=hasBeat?(i%4+1):'-';
+    el.appendChild(cell);
+  }
+}
+
+// Render a count-in grid showing all count-in beats as plain numbered cells,
+// with the current beat highlighted. beatIndex is 0-based across all count-in beats.
+function r_renderCountIn(beatIndex){
+  const el=document.getElementById('r-visual');if(!el)return;
+  el.innerHTML='';
+  const totalBeats=r_countInBars*4;
+  for(let i=0;i<totalBeats;i++){
+    const cell=document.createElement('div');
+    cell.className='rhythm-beat'+(i===beatIndex?' hit':'');
+    cell.textContent=(i%4)+1;
     el.appendChild(cell);
   }
 }
@@ -6105,11 +6262,26 @@ function r_updatePatternInfo(){
   el.innerHTML='<strong>'+r_currentPattern.name+'</strong><br>Difficulty: '+r_diff+'<br>Length: '+r_currentPattern.bars+' bar(s)<br>BPM: '+r_bpm+'<br>Taps: '+r_currentPattern.beats.length;
 }
 
+function r_setStatus(msg){
+  const el=document.getElementById('r-status');if(el)el.textContent=msg;
+}
+
 function r_setFeedback(msg,type){
   const el=document.getElementById('r-feedback');
   if(!el)return;
   el.textContent=msg;
   el.className='rhythm-feedback '+(type||'neutral');
+}
+
+function r_setHelpText(context){
+  const el=document.getElementById('r-helpText');if(!el)return;
+  if(context==='audition'){
+    el.innerHTML='<strong>Audition</strong>: plays the rhythm repeatedly without grading.';
+  } else if(context==='practice'){
+    el.innerHTML='<strong>Practice</strong>: count-in, then tap the rhythm for a score.';
+  } else {
+    el.innerHTML='Choose <strong>Audition</strong> to listen or <strong>Practice</strong> to test your timing.';
+  }
 }
 
 function r_playClick(accent){
@@ -6127,23 +6299,59 @@ function r_playClick(accent){
   }catch(e){console.warn('r_playClick',e);}
 }
 
-function r_showCount(number,label){
-  const st=document.getElementById('r-status');
-  const fb=document.getElementById('r-feedback');
-  if(st)st.textContent=label||'Count-in...';
-  if(fb){fb.textContent=number?String(number):'';fb.className='rhythm-feedback neutral rhythm-count';}
+// Woodblock/clave sound for rhythm pattern hits -- distinctly lower than the guide click.
+function r_playRhythmHit(accent){
+  try{
+    const ctx=p_getCtx();
+    // Triangle oscillator body (low, warm)
+    const osc=ctx.createOscillator();
+    const gain=ctx.createGain();
+    osc.type='triangle';
+    osc.frequency.value=accent?370:290;
+    gain.gain.setValueAtTime(0.0001,ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(accent?0.28:0.20,ctx.currentTime+0.003);
+    gain.gain.exponentialRampToValueAtTime(0.0001,ctx.currentTime+0.09);
+    // Short noise transient for attack click
+    const bufLen=Math.floor(ctx.sampleRate*0.018);
+    const buf=ctx.createBuffer(1,bufLen,ctx.sampleRate);
+    const data=buf.getChannelData(0);
+    for(let i=0;i<bufLen;i++) data[i]=(Math.random()*2-1)*(1-i/bufLen);
+    const noise=ctx.createBufferSource();
+    noise.buffer=buf;
+    const noiseGain=ctx.createGain();
+    noiseGain.gain.setValueAtTime(accent?0.12:0.08,ctx.currentTime);
+    noiseGain.gain.exponentialRampToValueAtTime(0.0001,ctx.currentTime+0.018);
+    const dest=typeof p_metroGain!=='undefined'?p_metroGain:(typeof p_masterGain!=='undefined'?p_masterGain:ctx.destination);
+    gain.connect(dest);osc.connect(gain);osc.start();osc.stop(ctx.currentTime+0.095);
+    noiseGain.connect(dest);noise.connect(noiseGain);noise.start();noise.stop(ctx.currentTime+0.02);
+  }catch(e){console.warn('r_playRhythmHit',e);}
 }
 
+// Flash the pulse dot. downbeat=true for beat 1 (stronger), false for beats 2-4.
+// Visual only -- fires regardless of Guide Click setting.
+function r_pulseDot(downbeat){
+  const dot=document.getElementById('r-pulseDot');
+  if(!dot)return;
+  dot.classList.remove('beat','downbeat');
+  // Force reflow so the transition re-fires even for rapid beats
+  void dot.offsetWidth;
+  dot.classList.add(downbeat?'downbeat':'beat');
+  clearTimeout(r_pulseDotTimer);
+  r_pulseDotTimer=setTimeout(()=>{
+    const d=document.getElementById('r-pulseDot');
+    if(d){d.classList.remove('beat','downbeat');}
+  },90);
+}
 
 function r_updateTransportButtons(){
-  const pb=document.getElementById('r-playBtn');
+  const ab=document.getElementById('r-auditionBtn');
+  const pb=document.getElementById('r-practiceBtn');
   const sb=document.getElementById('r-stopBtn');
-  const rb=document.getElementById('r-repeatBtn');
   const tb=document.getElementById('r-tapBtn');
   const active=r_transportState!=='stopped';
-  if(pb){pb.disabled=active;pb.textContent=active?'Playing...' :'\u25b6 Play Rhythm';}
+  if(ab)ab.disabled=active;
+  if(pb)pb.disabled=active;
   if(sb)sb.disabled=!active;
-  if(rb)rb.disabled=active;
   if(tb)tb.disabled=r_transportState!=='listening';
 }
 
@@ -6157,36 +6365,129 @@ function r_stopPlayback(){
   if(r_listenTimer){clearTimeout(r_listenTimer);r_listenTimer=null;}
   if(r_visualTimer){clearTimeout(r_visualTimer);r_visualTimer=null;}
   if(r_countDisplayTimer){clearTimeout(r_countDisplayTimer);r_countDisplayTimer=null;}
-  r_isPlaying=false;r_isListening=false;
+  if(r_auditionLoop){clearTimeout(r_auditionLoop);r_auditionLoop=null;}
+  if(r_pulseDotTimer){clearTimeout(r_pulseDotTimer);r_pulseDotTimer=null;}
+  const dot=document.getElementById('r-pulseDot');
+  if(dot)dot.classList.remove('beat','downbeat');
+  r_isPlaying=false;r_isListening=false;r_isAuditioning=false;
   r_transportState='stopped';
-  const st=document.getElementById('r-status');
-  if(st)st.textContent='Stopped. Press Play Rhythm to begin.';
-  r_setFeedback('Stopped.','neutral');
+  r_setStatus('Stopped.');
+  r_setFeedback('Press Audition or Practice.','neutral');
   r_renderPattern();
   r_updateTransportButtons();
 }
 
-function r_repeatPattern(){
-  r_stopPlayback();
-  r_playPattern();
+// Play the pattern once (no grading), fire done() when finished.
+// Used by both Audition (looping) and Practice (demo before tap is NOT used).
+// Play the pattern once (no grading), fire done() when finished.
+// Not used by Audition (which has its own seamless loop); kept for potential future use.
+function r_playPatternOnce(done){
+  if(!r_currentPattern)return;
+  const beatMs=r_getBeatMs();
+  r_currentPattern.beats.forEach(beat=>{
+    const t=setTimeout(()=>{
+      if(r_transportState==='stopped')return;
+      r_playRhythmHit(beat%4===0);
+      r_renderPattern(Math.floor(beat));
+    },beat*beatMs);
+    r_playTimers.push(t);
+  });
+  const totalMs=r_currentPattern.bars*4*beatMs;
+  const endT=setTimeout(()=>{
+    if(r_transportState==='stopped')return;
+    r_renderPattern();
+    if(done)done();
+  },totalMs+200);
+  r_playTimers.push(endT);
 }
 
-function r_playCountIn(label,done){
+// Audition: loop the pattern indefinitely until stopped.
+// Uses absolute time references so each iteration starts at exactly
+// origin + n * patternMs, with zero drift and no gap between loops.
+function r_startAudition(){
+  if(r_transportState!=='stopped')return;
+  if(!r_currentPattern)r_pickPattern();
+  r_isPlaying=true;r_isListening=false;r_isAuditioning=true;
+  r_transportState='auditioning';
+  r_updateTransportButtons();
+  r_setStatus('Auditioning rhythm. Press Stop when ready.');
+  r_setFeedback('Listen to the rhythm as many times as needed before practicing.','neutral');
+
+  const beatMs=r_getBeatMs();
+  const totalBeats=r_currentPattern.bars*4;
+  const patternMs=totalBeats*beatMs;
+
+  function scheduleLoop(loopStartMs){
+    if(r_transportState!=='auditioning')return;
+    const now=performance.now();
+
+    // Rhythm pattern hits: r_playRhythmHit at each pattern beat
+    r_currentPattern.beats.forEach(beat=>{
+      const delay=Math.max(0,loopStartMs+beat*beatMs-now);
+      const t=setTimeout(()=>{
+        if(r_transportState!=='auditioning')return;
+        r_playRhythmHit(beat%4===0);
+        r_renderPattern(Math.floor(beat)%(totalBeats));
+      },delay);
+      r_playTimers.push(t);
+    });
+
+    // Quarter-note visual pulse: fires on every integer beat regardless of pattern
+    for(let q=0;q<totalBeats;q++){
+      const delay=Math.max(0,loopStartMs+q*beatMs-now);
+      const isDown=q%4===0;
+      const t=setTimeout(()=>{
+        if(r_transportState!=='auditioning')return;
+        r_pulseDot(isDown);
+      },delay);
+      r_playTimers.push(t);
+    }
+
+    // Schedule next iteration at exactly loopStartMs + patternMs (no gap, no drift)
+    const nextStart=loopStartMs+patternMs;
+    const nextDelay=Math.max(0,nextStart-performance.now());
+    r_auditionLoop=setTimeout(()=>scheduleLoop(nextStart),nextDelay);
+    r_playTimers.push(r_auditionLoop);
+  }
+
+  scheduleLoop(performance.now());
+}
+
+// Practice: count-in once, then enter listening mode for grading.
+function r_startPractice(){
+  if(r_transportState!=='stopped')return;
+  if(!r_currentPattern)r_pickPattern();
+  r_userTaps=[];r_isPlaying=false;r_isListening=false;r_isAuditioning=false;
+  r_transportState='counting';
+  r_updateTransportButtons();
+  r_setStatus('Count-in, then tap the rhythm.');
+  r_setFeedback('Get ready...','neutral');
+  r_playCountIn(()=>{
+    if(r_transportState==='stopped')return;
+    r_beginUserTapAttempt();
+  });
+}
+
+// Count-in: plays r_countInBars bars of click, advancing the visual across all beats.
+// Calls done() when all count-in beats have sounded.
+function r_playCountIn(done){
   const beatMs=r_getBeatMs();
   const totalBeats=Math.max(0,r_countInBars)*4;
   if(!totalBeats){if(done)done();return;}
-  r_transportState='counting';
-  r_updateTransportButtons();
+
   for(let i=0;i<totalBeats;i++){
     const beatNum=(i%4)+1;
     const barNum=Math.floor(i/4)+1;
     const t=setTimeout(()=>{
       if(r_transportState==='stopped')return;
       r_playClick(beatNum===1);
-      const st=document.getElementById('r-status');
-      if(st)st.textContent=(label||'Count-in...')+' Bar '+barNum+' / '+r_countInBars;
-      r_showCount(beatNum,label||'Count-in...');
-      r_renderPattern(beatNum-1);
+      r_pulseDot(beatNum===1);
+      r_setStatus('Count-in: bar '+barNum+' of '+r_countInBars);
+      // Show big beat number in feedback
+      const fb=document.getElementById('r-feedback');
+      if(fb){fb.textContent=String(beatNum);fb.className='rhythm-feedback neutral rhythm-count';}
+      // Advance the visual across the full count-in grid (never resets)
+      r_renderCountIn(i);
     },i*beatMs);
     r_playTimers.push(t);
   }
@@ -6198,44 +6499,22 @@ function r_playCountIn(label,done){
 }
 
 function r_startGuideClick(totalMs){
-  if(!r_guideClick)return;
   r_stopGuideClick();
   const beatMs=r_getBeatMs();
   const totalBeats=Math.ceil(totalMs/beatMs);
-  // Always click steady quarter notes — do NOT follow target pattern beats
+  // Always schedule visual pulse regardless of Guide Click setting.
+  // Audio click is conditional on r_guideClick.
   for(let i=0;i<=totalBeats;i++){
-    const beat=i; // capture i for closure
+    const beat=i;
+    const isDown=beat%4===0;
     const t=setTimeout(()=>{
       if(!r_isListening||r_transportState!=='listening')return;
-      r_playClick(beat%4===0); // accent beat 1 of each bar
-      if(r_currentPattern){
-        r_renderPattern(beat%(r_currentPattern.bars*4));
-      }
+      if(r_guideClick) r_playClick(isDown);
+      r_pulseDot(isDown);
+      if(r_currentPattern) r_renderPattern(beat%(r_currentPattern.bars*4));
     },beat*beatMs);
     r_guideTimers.push(t);
   }
-}
-
-function r_playPatternOnly(done){
-  if(!r_currentPattern)return;
-  r_transportState='playing';r_isPlaying=true;r_isListening=false;
-  r_updateTransportButtons();
-  const st=document.getElementById('r-status');if(st)st.textContent='Listen...';
-  r_setFeedback('Listen carefully.','neutral');
-  const beatMs=r_getBeatMs();
-  r_currentPattern.beats.forEach(beat=>{
-    const t=setTimeout(()=>{
-      if(r_transportState==='stopped')return;
-      r_playClick(beat%4===0);r_renderPattern(Math.floor(beat));
-    },beat*beatMs);
-    r_playTimers.push(t);
-  });
-  const totalMs=r_currentPattern.bars*4*beatMs;
-  const endT=setTimeout(()=>{
-    r_isPlaying=false;
-    r_renderPattern();if(done)done();
-  },totalMs+350);
-  r_playTimers.push(endT);
 }
 
 function r_beginUserTapAttempt(){
@@ -6244,68 +6523,32 @@ function r_beginUserTapAttempt(){
   r_transportState='listening';r_isPlaying=false;r_isListening=true;
   r_userTaps=[];r_startTime=performance.now();
   r_updateTransportButtons();
-  const st=document.getElementById('r-status');
-  if(st)st.textContent=r_guideClick?'Tap now. Guide click is quarter-note pulse.':'Tap now. No guide click.';
-  r_setFeedback('Tap the rhythm back now.','neutral');
+  r_setStatus(r_guideClick?'Tap now. Guide click is a quarter-note pulse.':'Tap now.');
+  r_setFeedback('Tap the rhythm.','neutral');
   r_renderPattern();
   r_startGuideClick(totalMs);
   r_listenTimer=setTimeout(()=>{if(r_isListening)r_gradeAttempt();},totalMs+beatMs*1.5);
 }
 
-function r_playPattern(){
-  if(r_transportState!=='stopped')return;
-  if(!r_currentPattern)r_pickPattern();
-  r_userTaps=[];r_isPlaying=false;r_isListening=false;
-  r_transportState='counting';
-  r_updateTransportButtons();
-  r_setFeedback('Get ready.','neutral');
-
-  if(r_playFlow==='tap_only'){
-    // Count-in only, then straight to user tapping
-    r_playCountIn('Count-in before tapping...',()=>{
-      if(r_transportState==='stopped')return;
-      r_beginUserTapAttempt();
-    });
-  } else if(r_playFlow==='demo_only'){
-    // Count-in -> demo rhythm -> stop, no grading
-    r_playCountIn('Listen...',()=>{
-      if(r_transportState==='stopped')return;
-      r_playPatternOnly(()=>{
-        if(r_transportState==='stopped')return;
-        r_isPlaying=false;
-        r_transportState='stopped';
-        r_updateTransportButtons();
-        const st=document.getElementById('r-status');
-        if(st)st.textContent='Demo complete. Press Play Rhythm to listen again.';
-        r_setFeedback('Demo only - no grading.','neutral');
-      });
-    });
-  } else {
-    // show_me_first (default): count-in -> demo -> count-in -> user taps
-    r_isPlaying=true;
-    r_playCountIn('Count-in before rhythm...',()=>{
-      if(r_transportState==='stopped')return;
-      r_playPatternOnly(()=>{
-        if(r_transportState==='stopped')return;
-        r_playCountIn('Your turn after count-in...',()=>{
-          if(r_transportState==='stopped')return;
-          r_beginUserTapAttempt();
-        });
-      });
-    });
-  }
-}
-
-function r_registerTap(){
+// r_registerTap: called from Tap button, Spacebar, and MIDI.
+// source: 'button' | 'key' | 'midi'
+function r_registerTap(source){
   if(currentPage!=='rhythm')return;
+  // MIDI debounce: ignore taps closer than 40ms together
+  if(source==='midi'){
+    const now=Date.now();
+    if(now-r_lastMidiTapTime<40)return;
+    r_lastMidiTapTime=now;
+  }
   if(!r_isListening||!r_currentPattern){
-    r_setFeedback('Press Play Rhythm first, then tap after the count-in.','neutral');return;
+    if(r_transportState!=='auditioning')
+      r_setFeedback('Press Practice first, then tap after the count-in.','neutral');
+    return;
   }
   const now=performance.now();
   const beatMs=r_getBeatMs();
   const elapsedBeats=(now-r_startTime)/beatMs;
   r_userTaps.push(elapsedBeats);
-  // Tap is silent — visual feedback only; guide click is the audible reference
   const ni=Math.max(0,Math.min(r_currentPattern.bars*4-1,Math.round(elapsedBeats)));
   r_renderPattern(null,ni);
   if(r_userTaps.length>=r_currentPattern.beats.length)r_gradeAttempt();
@@ -6333,11 +6576,20 @@ function r_gradeAttempt(){
   r_history.unshift({name:r_currentPattern.name,score:raw,taps:taps.length,target:target.length,diff:r_diff});
   r_history=r_history.slice(0,8);
   r_updateScore();r_renderHistory();
-  const st=document.getElementById('r-status');if(st)st.textContent='Attempt complete. Press Repeat or Next.';
+  r_setStatus('Attempt complete. Audition or Practice again.');
   if(raw>=90)r_setFeedback('Excellent timing! Score: '+raw+'%','correct');
   else if(raw>=75)r_setFeedback('Good rhythm. Score: '+raw+'%','correct');
-  else if(taps.length<target.length)r_setFeedback('Needs work. You missed some taps. Score: '+raw+'%','wrong');
-  else r_setFeedback('Needs work. Try again slower. Score: '+raw+'%','wrong');
+  else if(taps.length<target.length)r_setFeedback('Missed some taps. Score: '+raw+'%','wrong');
+  else r_setFeedback('Keep working on it. Score: '+raw+'%','wrong');
+  if(typeof pg_checkBadges==='function')pg_checkBadges();
+  // Sync to progress page
+  if(typeof pg_rhythmHistory!=='undefined'&&r_history.length){
+    const latest=r_history[0];
+    if(!pg_rhythmHistory.length||pg_rhythmHistory[0].score!==latest.score||pg_rhythmHistory[0].name!==latest.name){
+      pg_rhythmHistory.unshift({name:latest.name,score:latest.score,diff:latest.diff,ts:Date.now()});
+      if(typeof pg_saveRhythmHistory==='function')pg_saveRhythmHistory();
+    }
+  }
 }
 
 function r_updateScore(){
@@ -6365,13 +6617,319 @@ function r_init(){
   r_renderHistory();
 }
 
+;
+
+
+
 document.addEventListener('keydown',ev=>{
   if(ev.repeat||ev.target.tagName==='SELECT'||ev.target.tagName==='INPUT') return;
-  if(currentPage==='rhythm'&&ev.code==='Space'){ev.preventDefault();r_registerTap();return;}
+  if(currentPage==='rhythm'&&ev.code==='Space'){ev.preventDefault();r_registerTap('key');return;}
   if(currentPage!=='practice') return;
   const note=P_KEY_MAP[ev.key.toLowerCase()];
   if(note) p_onKey(note,false);
 });
+
+/* ============================================================
+   PROGRESS PAGE & BADGE SYSTEM
+   ============================================================ */
+
+/* ── Badge definitions ──────────────────────────────────────────── */
+const PG_BADGES = [
+  // Practice milestones
+  { id:'first_note',    icon:'🎵', name:'First Note',      desc:'Complete your first exercise',        check: (p,h) => h.length >= 1 },
+  { id:'ten_sessions',  icon:'🔟', name:'Ten Sessions',    desc:'Complete 10 practice exercises',      check: (p,h) => h.length >= 10 },
+  { id:'fifty_sessions',icon:'🎖️', name:'50 Sessions',     desc:'Complete 50 practice exercises',      check: (p,h) => h.length >= 50 },
+  { id:'century',       icon:'💯', name:'Century',         desc:'Complete 100 practice exercises',     check: (p,h) => h.length >= 100 },
+  // Grade achievements
+  { id:'first_a',       icon:'⭐', name:'Gold Star',       desc:'Earn your first A grade',             check: (p,h) => h.some(e=>e.grade==='A') },
+  { id:'three_a_row',   icon:'🌟', name:'On a Roll',       desc:'Score A three times in a row',        check: (p,h) => _pg_streak(h,'A') >= 3 },
+  { id:'five_a_row',    icon:'🔥', name:'On Fire',         desc:'Score A five times in a row',         check: (p,h) => _pg_streak(h,'A') >= 5 },
+  { id:'perfect_ten',   icon:'👑', name:'Perfect Ten',     desc:'Score 100% on any exercise',          check: (p,h) => h.some(e=>e.score===100) },
+  // XP
+  { id:'xp_50',         icon:'🌱', name:'Sprout',          desc:'Earn 50 XP',                          check: (p,h) => (p.xp||0) >= 50 },
+  { id:'xp_200',        icon:'🌿', name:'Growing',         desc:'Earn 200 XP',                         check: (p,h) => (p.xp||0) >= 200 },
+  { id:'xp_500',        icon:'🌳', name:'Deep Roots',      desc:'Earn 500 XP',                         check: (p,h) => (p.xp||0) >= 500 },
+  { id:'xp_1000',       icon:'🏛️', name:'Conservatory',   desc:'Earn 1000 XP',                        check: (p,h) => (p.xp||0) >= 1000 },
+  // Style variety
+  { id:'jazz_fan',      icon:'🎷', name:'Jazz Fan',        desc:'Complete a Jazz exercise',            check: (p,h) => h.some(e=>e.style==='jazz') },
+  { id:'blues_soul',    icon:'🎸', name:'Soul & Blues',    desc:'Complete a Blues exercise',           check: (p,h) => h.some(e=>e.style==='blues') },
+  { id:'classical',     icon:'🎻', name:'Classicist',      desc:'Complete a Classical exercise',       check: (p,h) => h.some(e=>e.style==='classical') },
+  { id:'bossa',         icon:'🌴', name:'Bossa Spirit',    desc:'Complete a Bossa Nova exercise',      check: (p,h) => h.some(e=>e.style==='bossa') },
+  // Rhythm
+  { id:'rhythm_rookie', icon:'🥁', name:'Rhythm Rookie',   desc:'Attempt your first rhythm pattern',   check: (p,h,rh) => rh.length >= 1 },
+  { id:'rhythm_ace',    icon:'🎯', name:'Rhythm Ace',      desc:'Score 90%+ on a rhythm pattern',      check: (p,h,rh) => rh.some(r=>r.score>=90) },
+  { id:'rhythm_streak', icon:'🪘', name:'Drum Major',      desc:'Complete 5 rhythm attempts',          check: (p,h,rh) => rh.length >= 5 },
+  // Ear training
+  { id:'ear_opener',    icon:'👂', name:'Ear Opener',      desc:'Answer your first ear training question', check: (p,h,rh,eh) => (eh.total||0) >= 1 },
+  { id:'ear_sharp',     icon:'🎼', name:'Sharp Ears',      desc:'Reach 80% accuracy in ear training',  check: (p,h,rh,eh) => (eh.total||0)>=5 && (eh.pct||0)>=80 },
+  { id:'ear_maestro',   icon:'🦻', name:'Maestro Ears',    desc:'Answer 50 ear training questions',    check: (p,h,rh,eh) => (eh.total||0) >= 50 },
+];
+
+function _pg_streak(history, grade) {
+  let best = 0, cur = 0;
+  // history is newest-first so reverse for chronological
+  for (const e of [...history].reverse()) {
+    if (e.grade === grade) { cur++; best = Math.max(best, cur); }
+    else cur = 0;
+  }
+  return best;
+}
+
+/* ── Ear Training stats persistence ──────────────────────────────── */
+let pg_earStats = { correct: 0, total: 0, pct: 0 };
+const PG_EAR_KEY = 'mm_earStats';
+
+function pg_loadEarStats() {
+  try { const d=localStorage.getItem(PG_EAR_KEY); if(d) pg_earStats=JSON.parse(d); } catch(e){}
+}
+function pg_saveEarStats() {
+  try { localStorage.setItem(PG_EAR_KEY, JSON.stringify(pg_earStats)); } catch(e){}
+}
+function pg_recordEarAnswer(correct) {
+  pg_earStats.total++;
+  if(correct) pg_earStats.correct++;
+  pg_earStats.pct = Math.round((pg_earStats.correct/pg_earStats.total)*100);
+  pg_saveEarStats();
+  pg_checkBadges();
+}
+
+/* ── Rhythm stats persistence ─────────────────────────────────────── */
+let pg_rhythmHistory = [];
+const PG_RHYTHM_KEY = 'mm_rhythmHistory';
+
+function pg_loadRhythmHistory() {
+  try { const d=localStorage.getItem(PG_RHYTHM_KEY); if(d) pg_rhythmHistory=JSON.parse(d); } catch(e){}
+}
+function pg_saveRhythmHistory() {
+  try { localStorage.setItem(PG_RHYTHM_KEY, JSON.stringify(pg_rhythmHistory.slice(0,50))); } catch(e){}
+}
+function pg_recordRhythm(name, score, diff) {
+  pg_rhythmHistory.unshift({name,score,diff,ts:Date.now()});
+  pg_saveRhythmHistory();
+  pg_checkBadges();
+}
+
+/* ── Badge check & award ──────────────────────────────────────────── */
+function pg_checkBadges() {
+  if (!activeProfile) return;
+  if (!activeProfile.badges) activeProfile.badges = [];
+  const earned = activeProfile.badges.map(b=>b.id);
+  const history = [];
+  try { const d=localStorage.getItem('km_phistory'); if(d) history.push(...JSON.parse(d)); } catch(e){}
+  pg_loadRhythmHistory();
+  pg_loadEarStats();
+
+  let newBadges = [];
+  for (const badge of PG_BADGES) {
+    if (earned.includes(badge.id)) continue;
+    try {
+      if (badge.check(activeProfile, history, pg_rhythmHistory, pg_earStats)) {
+        const entry = { id: badge.id, ts: Date.now() };
+        activeProfile.badges.push(entry);
+        newBadges.push(badge);
+      }
+    } catch(e){}
+  }
+  if (newBadges.length) {
+    saveProfiles();
+    newBadges.forEach((b,i) => setTimeout(()=>pg_showBadgeToast(b), i*2800));
+  }
+}
+
+function pg_showBadgeToast(badge) {
+  const toast = document.getElementById('pg-badgeToast');
+  if (!toast) return;
+  document.getElementById('pg-badgeToastIcon').textContent = badge.icon;
+  document.getElementById('pg-badgeToastName').textContent = badge.name + ' — Badge Unlocked!';
+  document.getElementById('pg-badgeToastDesc').textContent = badge.desc;
+  toast.classList.add('show');
+  setTimeout(() => toast.classList.remove('show'), 2500);
+}
+
+/* ── XP level thresholds ───────────────────────────────────────────── */
+const PG_LEVELS = [
+  { min:0,    label:'Beginner',     next:50   },
+  { min:50,   label:'Learner',      next:150  },
+  { min:150,  label:'Practitioner', next:350  },
+  { min:350,  label:'Performer',    next:650  },
+  { min:650,  label:'Musician',     next:1100 },
+  { min:1100, label:'Virtuoso',     next:2000 },
+  { min:2000, label:'Maestro',      next:Infinity },
+];
+function pg_getLevel(xp) {
+  let lv = PG_LEVELS[0];
+  for (const l of PG_LEVELS) { if(xp >= l.min) lv=l; else break; }
+  return lv;
+}
+
+/* ── Page render ───────────────────────────────────────────────────── */
+function pg_render() {
+  if (!activeProfile) return;
+  pg_loadEarStats();
+  pg_loadRhythmHistory();
+
+  // Header
+  const xp = activeProfile.xp || 0;
+  const lv = pg_getLevel(xp);
+  const pct = lv.next === Infinity ? 100 : Math.min(100, Math.round(((xp - lv.min) / (lv.next - lv.min)) * 100));
+
+  const idx = profiles.findIndex(p => p.id === activeProfile.id);
+  const color = AVATAR_COLORS[idx % AVATAR_COLORS.length] || '#C9A84C';
+  const avatarEl = document.getElementById('pg-avatar');
+  if (avatarEl) { avatarEl.textContent = activeProfile.avatar || '🎹'; avatarEl.style.background = color+'22'; avatarEl.style.color = color; }
+  const nameEl = document.getElementById('pg-name'); if(nameEl) nameEl.textContent = activeProfile.name || '—';
+  const levelEl = document.getElementById('pg-level'); if(levelEl) levelEl.textContent = lv.label + ' · ' + (activeProfile.role==='teacher'?'Teacher':'Student');
+  const xpNum = document.getElementById('pg-xpNum'); if(xpNum) xpNum.textContent = xp.toLocaleString();
+  const xpBar = document.getElementById('pg-xpBar'); if(xpBar) xpBar.style.width = pct + '%';
+  const xpNext = document.getElementById('pg-xpNext');
+  if (xpNext) xpNext.textContent = lv.next===Infinity ? 'Max level reached!' : (lv.next - xp) + ' XP to ' + (PG_LEVELS[PG_LEVELS.indexOf(lv)+1]?.label||'next level');
+
+  // Practice history
+  let history = [];
+  try { const d=localStorage.getItem('km_phistory'); if(d) history=JSON.parse(d); } catch(e){}
+
+  // Stats
+  const totalEl = document.getElementById('pg-totalSessions'); if(totalEl) totalEl.textContent = history.length;
+  const subEl = document.getElementById('pg-sessionsSub'); if(subEl) subEl.textContent = history.length===1?'1 exercise':'all time';
+  const avgScore = history.length ? Math.round(history.reduce((a,b)=>a+(b.score||0),0)/history.length) : null;
+  const avgEl = document.getElementById('pg-avgScore'); if(avgEl) avgEl.textContent = avgScore!==null ? avgScore+'%' : '—';
+  const avgSub = document.getElementById('pg-avgSub'); if(avgSub) avgSub.textContent = 'practice accuracy';
+  const bestA = _pg_streak(history, 'A');
+  const streakEl = document.getElementById('pg-bestStreak'); if(streakEl) streakEl.textContent = bestA;
+  const streakSub = document.getElementById('pg-streakSub'); if(streakSub) streakSub.textContent = 'consecutive A grades';
+
+  // Bar chart (last 10 practice scores)
+  const chart = document.getElementById('pg-barChart');
+  if (chart) {
+    if (!history.length) {
+      chart.innerHTML = '<div class="progress-empty" style="padding:.5rem;flex:1">No sessions yet</div>';
+    } else {
+      chart.innerHTML = '';
+      const recent = [...history].slice(0,10).reverse();
+      recent.forEach(item => {
+        const col = document.createElement('div'); col.className = 'progress-bar-col';
+        const pct = item.score || 0;
+        const clr = pct>=90?'#3A9E6F':pct>=80?'#4A9EBF':pct>=70?'var(--amber)':'#C0614A';
+        col.innerHTML = `<div class="progress-bar-fill" style="height:${pct*0.74}px;background:${clr}"></div><div class="progress-bar-label">${item.grade||'?'}</div>`;
+        chart.appendChild(col);
+      });
+    }
+  }
+
+  // Badges
+  const badgeGrid = document.getElementById('pg-badgesGrid');
+  if (badgeGrid) {
+    badgeGrid.innerHTML = '';
+    const earned = activeProfile.badges || [];
+    PG_BADGES.forEach(badge => {
+      const earnedEntry = earned.find(b=>b.id===badge.id);
+      const div = document.createElement('div');
+      div.className = 'progress-badge-item ' + (earnedEntry ? 'earned' : 'locked');
+      const dateStr = earnedEntry ? new Date(earnedEntry.ts).toLocaleDateString(undefined,{month:'short',day:'numeric'}) : '';
+      div.innerHTML = `<div class="progress-badge-icon">${badge.icon}</div><div class="progress-badge-name">${badge.name}</div><div class="progress-badge-desc">${badge.desc}</div>${earnedEntry?'<div class="progress-badge-earned-date">'+dateStr+'</div>':''}`;
+      badgeGrid.appendChild(div);
+    });
+  }
+
+  // Activity list (combine practice + rhythm history)
+  const actList = document.getElementById('pg-activityList');
+  if (actList) {
+    const combined = [];
+    history.slice(0,20).forEach(h => combined.push({icon:'🎹',name:h.name,score:h.score,grade:h.grade}));
+    pg_rhythmHistory.slice(0,8).forEach(r => combined.push({icon:'🥁',name:r.name+' ('+r.diff+')',score:r.score,grade:r.score>=90?'A':r.score>=80?'B':r.score>=70?'C':r.score>=60?'D':'F'}));
+    combined.sort(()=>0); // keep insertion order mixed
+    if (!combined.length) {
+      actList.innerHTML = '<div class="progress-empty">No activity yet</div>';
+    } else {
+      actList.innerHTML = '';
+      combined.slice(0,16).forEach(item => {
+        const div = document.createElement('div'); div.className='progress-activity-item';
+        div.innerHTML = `<span class="progress-activity-icon">${item.icon}</span><span class="progress-activity-name">${item.name}</span><span class="progress-activity-score g-${(item.grade||'f').toLowerCase()}">${item.score}% (${item.grade||'?'})</span>`;
+        actList.appendChild(div);
+      });
+    }
+  }
+
+  // Ear + Rhythm stats
+  const erEl = document.getElementById('pg-earRhythmStats');
+  if (erEl) {
+    const rTotal = pg_rhythmHistory.length;
+    const rCorrect = pg_rhythmHistory.filter(r=>r.score>=75).length;
+    const rPct = rTotal ? Math.round(rCorrect/rTotal*100) : 0;
+    const hasData = (pg_earStats.total > 0) || rTotal > 0;
+    if (!hasData) {
+      erEl.innerHTML = '<div class="progress-empty">Play Ear Training or Rhythm to see stats here</div>';
+    } else {
+      erEl.innerHTML = `
+        <div style="display:flex;flex-direction:column;gap:.55rem">
+          <div class="progress-stat-card" style="text-align:left;padding:.8rem 1rem">
+            <div style="font-size:.65rem;text-transform:uppercase;letter-spacing:.08em;color:var(--ink3);font-weight:600;margin-bottom:.35rem">👂 Ear Training</div>
+            ${pg_earStats.total>0
+              ? `<div style="font-family:'DM Mono',monospace;font-size:.85rem;color:var(--ink)">${pg_earStats.correct} / ${pg_earStats.total} correct · <strong style="color:${pg_earStats.pct>=80?'#3A9E6F':pg_earStats.pct>=60?'var(--amber)':'#C0614A'}">${pg_earStats.pct}%</strong></div>`
+              : '<div style="color:var(--ink3);font-size:.8rem">No ear training yet</div>'}
+          </div>
+          <div class="progress-stat-card" style="text-align:left;padding:.8rem 1rem">
+            <div style="font-size:.65rem;text-transform:uppercase;letter-spacing:.08em;color:var(--ink3);font-weight:600;margin-bottom:.35rem">🥁 Rhythm Training</div>
+            ${rTotal>0
+              ? `<div style="font-family:'DM Mono',monospace;font-size:.85rem;color:var(--ink)">${rCorrect} / ${rTotal} passed · <strong style="color:${rPct>=80?'#3A9E6F':rPct>=60?'var(--amber)':'#C0614A'}">${rPct}%</strong></div>`
+              : '<div style="color:var(--ink3);font-size:.8rem">No rhythm attempts yet</div>'}
+          </div>
+        </div>`;
+    }
+  }
+}
+
+/* ── Hook switchPage to render progress on demand ─────────────────── */
+const _orig_switchPage = switchPage;
+switchPage = function(page) {
+  _orig_switchPage(page);
+  if (page === 'progress') pg_render();
+};
+
+/* ── Hook history saves to check badges ───────────────────────────── */
+const _orig_p_saveHistory = typeof p_saveHistory !== 'undefined' ? p_saveHistory : null;
+// Badge checks are called explicitly after each exercise completion via patch below
+
+/* ============================================================
+   PATCH: record ear training answers for badge system
+   ============================================================ */
+// We intercept after e_init and patch the ear scoring functions
+// This runs after all functions are defined, in p_init/r_init setup
+
+/* ============================================================
+   PROGRESS INIT (called from enterApp)
+   ============================================================ */
+function pg_init() {
+  pg_loadEarStats();
+  pg_loadRhythmHistory();
+  // Patch rhythm grading to record persistent rhythm history
+  const _origRhythmGrade = typeof r_gradeAttempt === 'function' ? r_gradeAttempt : null;
+  // We'll patch via wrapper since r_gradeAttempt is called internally
+  // Instead, we hook pg_recordRhythm from r_finishListening patch:
+  const _origRFinish = window._pg_r_patched;
+  if (!_origRFinish) {
+    window._pg_r_patched = true;
+    // Monkey-patch: after rhythm session, also record to pg_rhythmHistory
+    // We hook this by checking after r_history updates in r_renderHistory
+    const _origRRender = r_renderHistory;
+    r_renderHistory = function() {
+      _origRRender.call(this);
+      // Sync latest rhythm entry to pg_rhythmHistory
+      if (r_history && r_history.length && activeProfile) {
+        const latest = r_history[0];
+        const already = pg_rhythmHistory[0];
+        if (!already || already.ts !== latest._ts) {
+          const entry = { name: latest.name||'Pattern', score: latest.score||0, diff: latest.diff||r_diff, ts: Date.now() };
+          if (!pg_rhythmHistory.length || pg_rhythmHistory[0].name !== entry.name || pg_rhythmHistory[0].score !== entry.score) {
+            pg_rhythmHistory.unshift(entry);
+            pg_saveRhythmHistory();
+            pg_checkBadges();
+          }
+        }
+      }
+    };
+  }
+}
 
 /* --- PRACTICE INIT (called when entering app) --- */
 function p_init(){
