@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>MusicMein</title>
-<!-- Build: 2026-06-12 v10. Favicon unified: FaviconNew1.png. Nav brand block clickable to profile screen. -->
+<!-- Build: 2026-06-14 v11. Rhythm Browser Synth tap audio fixed. -->
 <link rel="icon" type="image/png" href="FaviconNew1.png">
 <link rel="apple-touch-icon" href="FaviconNew1.png">
 <meta name="application-name" content="MusicMein">
@@ -1902,6 +1902,13 @@ body {
             </select>
           </div>
           <div class="p-control-group">
+            <label>Browser Synth</label>
+            <select id="r-browserSynthSelect" onchange="r_onSettingsChange()">
+              <option value="on" selected>On</option>
+              <option value="off">Off</option>
+            </select>
+          </div>
+          <div class="p-control-group">
             <label>Rhythm Focus</label>
             <select id="r-focusSelect" onchange="r_onSettingsChange()">
               <option value="random" selected>Random</option>
@@ -1949,14 +1956,6 @@ body {
 
             <div class="rhythm-help" id="r-helpText">
               Choose <strong>Audition</strong> to listen or <strong>Practice</strong> to test your timing.
-            </div>
-
-            <div class="p-midi-bar" style="margin-top:.75rem;flex-wrap:wrap;gap:.5rem;">
-              <span style="font-family:'DM Mono',monospace;font-size:.7rem;color:var(--ink3);" id="r-midiInfo">MIDI: ready</span>
-              <label style="display:flex;align-items:center;gap:.35rem;margin-left:auto;font-size:.72rem;font-weight:600;color:var(--ink3);cursor:pointer;">
-                <input type="checkbox" id="r-synthToggle" checked onchange="r_toggleBrowserSynth(this.checked)" style="accent-color:var(--gold);width:13px;height:13px;">
-                Browser Synth
-              </label>
             </div>
           </div>
 
@@ -6075,8 +6074,6 @@ function p_handleMIDI(event){
 
     // Rhythm page: any note-on is a tap. Return immediately -- no piano sound.
     if (currentPage === 'rhythm') {
-      const rmi=document.getElementById('r-midiInfo');
-      if(rmi) rmi.textContent='Last MIDI: '+noteStr;
       r_registerTap('midi');
       return;
     }
@@ -6144,7 +6141,7 @@ let r_playTimers=[], r_listenTimer=null, r_startTime=0, r_userTaps=[];
 let r_total=0, r_correct=0, r_streak=0, r_history=[];
 let r_countIn=true, r_guideClick=true;
 let r_rhythmGuide=true;  // controls rhythm pattern hit audio
-let r_browserSynthOn=true; // controls user tap feedback sound
+let r_browserSynth=true; // controls user tap feedback sound
 let r_countInBars=2;
 let r_focus='random';
 let r_guideTimers=[], r_visualTimer=null, r_countDisplayTimer=null;
@@ -6225,6 +6222,7 @@ function r_onSettingsChange(){
   const ci=document.getElementById('r-countInBarsSelect');
   const mt=document.getElementById('r-metronomeSelect');
   const rg=document.getElementById('r-rhythmGuideSelect');
+  const bs=document.getElementById('r-browserSynthSelect');
   const fc=document.getElementById('r-focusSelect');
   r_diff=d?d.value:'easy';
   r_bpm=b?parseInt(b.value,10):84;
@@ -6232,6 +6230,7 @@ function r_onSettingsChange(){
   r_countInBars=ci?parseInt(ci.value,10):2;
   r_guideClick=mt?mt.value==='on':true;
   r_rhythmGuide=rg?rg.value==='on':true;
+  r_browserSynth=bs?bs.value==='on':true;
   r_focus=fc?fc.value:'random';
   r_pickPattern();
 }
@@ -6360,38 +6359,73 @@ function r_playRhythmHit(accent){
   }catch(e){console.warn('r_playRhythmHit',e);}
 }
 
-// Short feedback tap sound for Rhythm Training -- square wave click around 750 Hz.
-// Completely separate from the Practice piano synth; does not call p_noteOn or
-// p_playPreviewNote; not gated by p_browserSynthEnabled or p_isActiveAudioTab.
+// Rhythm audio wake-up helper. Use this before Rhythm creates any sound.
+function r_ensureAudioReady(){
+  try{
+    if(typeof p_claimAudioOwnership==='function') p_claimAudioOwnership();
+    const ctx=p_getCtx();
+    if(ctx && ctx.state==='suspended'){
+      const rp=ctx.resume();
+      if(rp && typeof rp.catch==='function') rp.catch(err=>console.warn('[Rhythm audio resume blocked]',err));
+    }
+    return ctx;
+  }catch(e){
+    console.warn('[Rhythm audio init error]',e);
+    return null;
+  }
+}
+
+// Short feedback tap sound for Rhythm Training.
+// This is deliberately separate from the Practice piano synth.
+// It does not call p_noteOn or p_playPreviewNote.
 function r_playUserTapSound(){
   console.log('[Rhythm tap sound fired]');
   try{
-    const ctx=p_getCtx();
-    // Explicitly resume if suspended -- resume() is async, so start on a tiny
-    // future offset so audio is guaranteed to play even if the context needed
-    // to wake up from a suspended state.
-    if(ctx.state==='suspended') ctx.resume();
-    const t0=ctx.currentTime+0.01; // 10ms offset: enough for resume, not perceptible
+    const ctx=r_ensureAudioReady();
+    if(!ctx)return;
+
+    const t0=ctx.currentTime+0.015;
+
+    // Main audible tap tone
     const osc=ctx.createOscillator();
     const gain=ctx.createGain();
     osc.type='square';
-    osc.frequency.value=750; // punchy woodblock range, clearly audible
+    osc.frequency.setValueAtTime(820,t0);
+    osc.frequency.exponentialRampToValueAtTime(600,t0+0.055);
+
     gain.gain.setValueAtTime(0.0001,t0);
-    gain.gain.exponentialRampToValueAtTime(0.22,t0+0.005); // fast attack
-    gain.gain.exponentialRampToValueAtTime(0.0001,t0+0.07); // fast release
-    // Route through p_masterGain (safest direct path that bypasses any
-    // practice-synth ownership checks). Fall back to ctx.destination.
-    const dest=(typeof p_masterGain!=='undefined'&&p_masterGain)?p_masterGain:ctx.destination;
+    gain.gain.exponentialRampToValueAtTime(0.34,t0+0.004);
+    gain.gain.exponentialRampToValueAtTime(0.0001,t0+0.08);
+
+    // Tiny attack transient so the hit is easier to hear on small speakers
+    const click=ctx.createOscillator();
+    const clickGain=ctx.createGain();
+    click.type='triangle';
+    click.frequency.setValueAtTime(1500,t0);
+    clickGain.gain.setValueAtTime(0.0001,t0);
+    clickGain.gain.exponentialRampToValueAtTime(0.16,t0+0.002);
+    clickGain.gain.exponentialRampToValueAtTime(0.0001,t0+0.025);
+
+    // Route through the same gain path that the rhythm click uses, because that
+    // path is known to be audible in Rhythm Training.
+    const dest=(typeof p_metroGain!=='undefined'&&p_metroGain)
+      ? p_metroGain
+      : (typeof p_masterGain!=='undefined'&&p_masterGain)
+        ? p_masterGain
+        : ctx.destination;
+
     osc.connect(gain);
     gain.connect(dest);
-    osc.start(t0);
-    osc.stop(t0+0.08);
-  }catch(e){console.warn('[r_playUserTapSound error]',e);}
-}
+    click.connect(clickGain);
+    clickGain.connect(dest);
 
-// Toggle Rhythm Browser Synth on/off. Called from the r-synthToggle checkbox.
-function r_toggleBrowserSynth(enabled){
-  r_browserSynthOn=!!enabled;
+    osc.start(t0);
+    click.start(t0);
+    osc.stop(t0+0.09);
+    click.stop(t0+0.035);
+  }catch(e){
+    console.warn('[r_playUserTapSound error]',e);
+  }
 }
 
 // Flash the pulse dot. downbeat=true for beat 1 (stronger), false for beats 2-4.
@@ -6475,6 +6509,7 @@ function r_playPatternOnce(done){
 // origin + n * patternMs, with zero drift and no gap between loops.
 function r_startAudition(){
   if(r_transportState!=='stopped')return;
+  r_ensureAudioReady();
   if(!r_currentPattern)r_pickPattern();
   r_isPlaying=true;r_isListening=false;r_isAuditioning=true;
   r_transportState='auditioning';
@@ -6526,6 +6561,7 @@ function r_startAudition(){
 // Practice: count-in once, then enter listening mode for grading.
 function r_startPractice(){
   if(r_transportState!=='stopped')return;
+  r_ensureAudioReady();
   if(!r_currentPattern)r_pickPattern();
   r_userTaps=[];r_isPlaying=false;r_isListening=false;r_isAuditioning=false;
   r_transportState='counting';
@@ -6610,19 +6646,32 @@ function r_beginUserTapAttempt(){
 // source: 'button' | 'key' | 'midi'
 function r_registerTap(source){
   if(currentPage!=='rhythm')return;
-  // MIDI debounce: ignore taps closer than 40ms together
+
+  // MIDI debounce: ignore taps closer than 40ms together.
   if(source==='midi'){
     const now=Date.now();
     if(now-r_lastMidiTapTime<40)return;
     r_lastMidiTapTime=now;
   }
+
+  // Browser Synth in Rhythm is user tap feedback.
+  // Play the feedback sound on the Rhythm page whenever the user taps,
+  // even if the tap is not currently being graded. Grading still only happens
+  // during the listening part of Practice.
+  if(r_browserSynth) r_playUserTapSound();
+
   if(!r_isListening||!r_currentPattern){
     if(r_transportState!=='auditioning')
       r_setFeedback('Press Practice first, then tap after the count-in.','neutral');
     return;
   }
-  console.log('[Rhythm tap accepted]',{source,browserSynth:r_browserSynthOn,audioState:p_audioCtx?p_audioCtx.state:'no ctx'});
-  if(r_browserSynthOn) r_playUserTapSound();
+
+  console.log('[Rhythm tap accepted]',{
+    source,
+    browserSynth:r_browserSynth,
+    audioState:p_audioCtx?p_audioCtx.state:'no ctx'
+  });
+
   const now=performance.now();
   const beatMs=r_getBeatMs();
   const elapsedBeats=(now-r_startTime)/beatMs;
@@ -6702,7 +6751,7 @@ function r_init(){
 
 document.addEventListener('keydown',ev=>{
   if(ev.repeat||ev.target.tagName==='SELECT'||ev.target.tagName==='INPUT') return;
-  if(currentPage==='rhythm'&&ev.code==='Space'){ev.preventDefault();r_registerTap('key');return;}
+  if(currentPage==='rhythm'&&ev.code==='Space'){ev.preventDefault();r_ensureAudioReady();r_registerTap('key');return;}
   if(currentPage!=='practice') return;
   const note=P_KEY_MAP[ev.key.toLowerCase()];
   if(note) p_onKey(note,false);
@@ -7044,7 +7093,7 @@ function p_init(){
   document.addEventListener('pointerdown', () => p_claimAudioOwnership());
 
   document.addEventListener('keydown', (ev) => {
-    if (currentPage === 'practice') p_claimAudioOwnership();
+    if (currentPage === 'practice' || currentPage === 'rhythm') p_claimAudioOwnership();
   });
 
   document.addEventListener('visibilitychange', () => {
