@@ -754,6 +754,8 @@ body {
 .r-pulse-dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--border);margin-left:.55rem;vertical-align:middle;flex-shrink:0;transition:background .05s,transform .05s,box-shadow .05s;}
 .r-pulse-dot.beat{background:var(--gold);transform:scale(1.35);box-shadow:0 0 4px rgba(201,168,76,.45);}
 .r-pulse-dot.downbeat{background:var(--gold);transform:scale(1.7);box-shadow:0 0 7px rgba(201,168,76,.65);}
+.r-countoff-number{display:inline-block;min-width:1.1em;text-align:center;font-family:'DM Mono',monospace;font-size:.82rem;font-weight:800;color:var(--gold);margin-left:.45rem;opacity:0;transition:opacity .05s;}
+.r-countoff-number.active{opacity:1;}
 .coming-soon {
   min-height: calc(100vh - 56px);
   display: flex;
@@ -1912,7 +1914,7 @@ body {
 
         <div class="rhythm-main-grid">
           <div class="rhythm-card">
-            <div class="rhythm-mode-label" id="r-modeLabel" style="display:flex;align-items:center;justify-content:center;">Rhythm Replay<span class="r-pulse-dot" id="r-pulseDot"></span></div>
+            <div class="rhythm-mode-label" id="r-modeLabel" style="display:flex;align-items:center;justify-content:center;">Rhythm Replay<span class="r-pulse-dot" id="r-pulseDot"></span><span class="r-countoff-number" id="r-countoffNum"></span></div>
             <div class="rhythm-meter" id="r-meterLabel">4 / 4</div>
 
             <div class="rhythm-visual" id="r-visual">
@@ -6327,6 +6329,23 @@ function r_playRhythmHit(accent){
   }catch(e){console.warn('r_playRhythmHit',e);}
 }
 
+// Short feedback blip when user taps in Practice mode.
+// Sine tone at mid frequency -- distinct from guide click (square) and rhythm hit (triangle+noise).
+function r_playUserTapSound(){
+  try{
+    const ctx=p_getCtx();
+    const osc=ctx.createOscillator();
+    const gain=ctx.createGain();
+    osc.type='sine';
+    osc.frequency.value=520;
+    gain.gain.setValueAtTime(0.0001,ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.07,ctx.currentTime+0.003);
+    gain.gain.exponentialRampToValueAtTime(0.0001,ctx.currentTime+0.045);
+    const dest=typeof p_metroGain!=='undefined'?p_metroGain:(typeof p_masterGain!=='undefined'?p_masterGain:ctx.destination);
+    gain.connect(dest);osc.connect(gain);osc.start();osc.stop(ctx.currentTime+0.05);
+  }catch(e){console.warn('r_playUserTapSound',e);}
+}
+
 // Flash the pulse dot. downbeat=true for beat 1 (stronger), false for beats 2-4.
 // Visual only -- fires regardless of Guide Click setting.
 function r_pulseDot(downbeat){
@@ -6369,6 +6388,8 @@ function r_stopPlayback(){
   if(r_pulseDotTimer){clearTimeout(r_pulseDotTimer);r_pulseDotTimer=null;}
   const dot=document.getElementById('r-pulseDot');
   if(dot)dot.classList.remove('beat','downbeat');
+  const cn=document.getElementById('r-countoffNum');
+  if(cn){cn.classList.remove('active');cn.textContent='';}
   r_isPlaying=false;r_isListening=false;r_isAuditioning=false;
   r_transportState='stopped';
   r_setStatus('Stopped.');
@@ -6432,12 +6453,13 @@ function r_startAudition(){
       r_playTimers.push(t);
     });
 
-    // Quarter-note visual pulse: fires on every integer beat regardless of pattern
+    // Quarter-note pulse: guide click audio (if enabled) + visual pulse on every integer beat
     for(let q=0;q<totalBeats;q++){
       const delay=Math.max(0,loopStartMs+q*beatMs-now);
       const isDown=q%4===0;
       const t=setTimeout(()=>{
         if(r_transportState!=='auditioning')return;
+        if(r_guideClick) r_playClick(isDown);
         r_pulseDot(isDown);
       },delay);
       r_playTimers.push(t);
@@ -6468,7 +6490,8 @@ function r_startPractice(){
   });
 }
 
-// Count-in: plays r_countInBars bars of click, advancing the visual across all beats.
+// Count-in: clicks r_countInBars bars while showing beat number in the count-off span.
+// The rhythm pattern visual is NOT touched -- it stays visible the whole time.
 // Calls done() when all count-in beats have sounded.
 function r_playCountIn(done){
   const beatMs=r_getBeatMs();
@@ -6483,11 +6506,9 @@ function r_playCountIn(done){
       r_playClick(beatNum===1);
       r_pulseDot(beatNum===1);
       r_setStatus('Count-in: bar '+barNum+' of '+r_countInBars);
-      // Show big beat number in feedback
-      const fb=document.getElementById('r-feedback');
-      if(fb){fb.textContent=String(beatNum);fb.className='rhythm-feedback neutral rhythm-count';}
-      // Advance the visual across the full count-in grid (never resets)
-      r_renderCountIn(i);
+      // Show beat number near the pulse dot -- do NOT touch the pattern visual
+      const cn=document.getElementById('r-countoffNum');
+      if(cn){cn.textContent=String(beatNum);cn.classList.add('active');}
     },i*beatMs);
     r_playTimers.push(t);
   }
@@ -6518,6 +6539,9 @@ function r_startGuideClick(totalMs){
 }
 
 function r_beginUserTapAttempt(){
+  // Clear count-off display now that count-in is finished
+  const cn=document.getElementById('r-countoffNum');
+  if(cn){cn.classList.remove('active');cn.textContent='';}
   const beatMs=r_getBeatMs();
   const totalMs=r_currentPattern.bars*4*beatMs;
   r_transportState='listening';r_isPlaying=false;r_isListening=true;
@@ -6545,6 +6569,7 @@ function r_registerTap(source){
       r_setFeedback('Press Practice first, then tap after the count-in.','neutral');
     return;
   }
+  r_playUserTapSound();
   const now=performance.now();
   const beatMs=r_getBeatMs();
   const elapsedBeats=(now-r_startTime)/beatMs;
