@@ -760,6 +760,14 @@ body {
 .r-countoff-number.active{opacity:1;}
 .rhythm-bar-sep{width:2px;min-height:58px;background:var(--border);border-radius:2px;margin:0 6px;flex-shrink:0;align-self:stretch;}
 .rhythm-page-indicator{font-family:'DM Mono',monospace;font-size:.72rem;font-weight:600;color:var(--ink3);text-align:center;margin-bottom:.4rem;letter-spacing:.04em;}
+.r-tap-pad-wrap{display:flex;justify-content:center;margin:1rem 0 .85rem;}
+.r-tap-pad{width:148px;height:148px;border-radius:50%;border:2px solid rgba(201,168,76,.55);background:radial-gradient(circle at 35% 28%,rgba(232,213,160,.25),transparent 34%),linear-gradient(135deg,rgba(201,168,76,.24),rgba(123,94,167,.18));color:var(--ink);box-shadow:0 14px 34px rgba(0,0,0,.28),inset 0 0 0 1px rgba(255,255,255,.05);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.15rem;cursor:pointer;transition:transform .08s,border-color .12s,box-shadow .12s,opacity .12s;touch-action:manipulation;user-select:none;-webkit-user-select:none;font-family:'DM Sans',sans-serif;}
+.r-tap-pad:hover{border-color:var(--gold);box-shadow:0 18px 40px rgba(0,0,0,.34),0 0 18px rgba(201,168,76,.18);}
+.r-tap-pad:active,.r-tap-pad.tapped{transform:scale(.96);border-color:var(--gold);box-shadow:0 8px 22px rgba(0,0,0,.30),0 0 28px rgba(201,168,76,.32);}
+.r-tap-pad:disabled{opacity:.38;cursor:not-allowed;transform:none;box-shadow:none;}
+.r-tap-pad-main{font-family:'DM Mono',monospace;font-size:1.65rem;font-weight:900;letter-spacing:.12em;color:var(--gold);}
+.r-tap-pad-sub{font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--ink3);}
+@media(max-width:780px){.r-tap-pad{width:172px;height:172px;}.r-tap-pad-main{font-size:1.9rem;}}
 .coming-soon {
   min-height: calc(100vh - 56px);
   display: flex;
@@ -1954,6 +1962,13 @@ body {
 
             <div class="rhythm-status" id="r-status">Listen first, then tap the rhythm back.</div>
             <div class="rhythm-feedback neutral" id="r-feedback">No attempt yet.</div>
+
+            <div class="r-tap-pad-wrap">
+              <button class="r-tap-pad" id="r-tapPad" onclick="r_registerTap('button')" disabled>
+                <span class="r-tap-pad-main">TAP</span>
+                <span class="r-tap-pad-sub">Rhythm Pad</span>
+              </button>
+            </div>
 
             <div class="p-btn-row" style="justify-content:center;margin-top:1rem;flex-wrap:wrap;gap:.5rem;">
               <button class="p-btn p-btn-sec" id="r-auditionBtn"
@@ -6579,6 +6594,14 @@ function r_toggleBrowserSynth(enabled){
   r_browserSynthOn=!!enabled;
 }
 
+// Flash the large Tap Pad on accepted button taps.
+function r_flashTapPad(){
+  const pad=document.getElementById('r-tapPad');
+  if(!pad)return;
+  pad.classList.add('tapped');
+  setTimeout(()=>pad.classList.remove('tapped'),90);
+}
+
 // BPM slider -- updates r_bpm and display; does not restart playback mid-session.
 function r_updateBPM(value){
   r_bpm=parseInt(value,10);
@@ -6672,11 +6695,14 @@ function r_updateTransportButtons(){
   const pb=document.getElementById('r-practiceBtn');
   const sb=document.getElementById('r-stopBtn');
   const tb=document.getElementById('r-tapBtn');
+  const pad=document.getElementById('r-tapPad');
   const active=r_transportState!=='stopped';
   if(ab)ab.disabled=active;
   if(pb)pb.disabled=active;
   if(sb)sb.disabled=!active;
-  if(tb)tb.disabled=r_transportState!=='listening';
+  const tapEnabled=r_transportState==='listening';
+  if(tb)tb.disabled=!tapEnabled;
+  if(pad)pad.disabled=!tapEnabled;
 }
 
 function r_stopGuideClick(){
@@ -6891,6 +6917,7 @@ function r_registerTap(source, info){
   // MIDI taps: pitched sound was already played by r_playMidiNote in the MIDI handler.
   // Button/space taps have no pitch, so play a neutral tap blip if Browser Synth is on.
   if(r_browserSynthOn && source!=='midi') r_playUserTapSound();
+  if(source==='button') r_flashTapPad();
   const now=performance.now();
   const beatMs=r_getBeatMs();
   const elapsedBeats=(now-r_startTime)/beatMs;
