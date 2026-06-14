@@ -731,7 +731,9 @@ body {
 .rhythm-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:1.4rem;text-align:center;}
 .rhythm-mode-label{font-size:.68rem;font-weight:700;color:var(--ink3);text-transform:uppercase;letter-spacing:.1em;margin-bottom:.6rem;}
 .rhythm-meter{font-family:'DM Mono',monospace;font-size:.9rem;font-weight:800;color:var(--gold);margin-bottom:1rem;}
-.rhythm-visual{min-height:110px;border:1px solid var(--border);border-radius:12px;background:var(--bg2);padding:1rem;display:flex;align-items:center;justify-content:center;gap:.45rem;flex-wrap:wrap;margin-bottom:.9rem;}
+.rhythm-visual{min-height:90px;border:1px solid var(--border);border-radius:12px;background:var(--bg2);padding:1rem;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.55rem;flex-wrap:nowrap;margin-bottom:.9rem;}
+.rhythm-row{display:flex;align-items:center;justify-content:center;gap:.45rem;flex-wrap:nowrap;width:100%;}
+.rhythm-bar{display:flex;align-items:center;justify-content:center;gap:.45rem;flex:0 0 auto;flex-wrap:nowrap;}
 .rhythm-empty{color:var(--ink3);font-size:.85rem;}
 .rhythm-beat{width:42px;height:58px;border-radius:10px;border:1px solid var(--border);background:var(--surface);display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:.72rem;font-weight:800;color:var(--ink3);position:relative;transition:all .12s;}
 .rhythm-beat.rest{opacity:.35;border-style:dashed;}
@@ -6259,23 +6261,45 @@ function r_renderPattern(activeIndex,userIndex,missIndex){
   if(!r_currentPattern){el.innerHTML='<div class="rhythm-empty">Press Audition or Practice to begin.</div>';return;}
   el.innerHTML='';
   const totalBeats=r_currentPattern.totalBeats||r_currentPattern.bars*4;
+  const bars=r_currentPattern.bars||(totalBeats/4);
   const hitSet=new Set(r_currentPattern.beats.map(b=>Math.round(b*1000)/1000));
-  for(let i=0;i<totalBeats;i++){
-    // Insert a bar separator at the start of each bar after the first
-    if(i>0&&i%4===0&&r_currentPattern.bars>1){
-      const sep=document.createElement('div');
-      sep.className='rhythm-bar-sep';
-      el.appendChild(sep);
+
+  // Layout: 1 or 2 bars -> single row; 4 bars -> two rows of 2 bars each.
+  // A bar is never split across rows.
+  const barsPerRow=bars<=2?bars:2;
+  const numRows=Math.ceil(bars/barsPerRow);
+
+  for(let row=0;row<numRows;row++){
+    const rowEl=document.createElement('div');
+    rowEl.className='rhythm-row';
+    const firstBar=row*barsPerRow;
+    const lastBar=Math.min(firstBar+barsPerRow-1,bars-1);
+
+    for(let bar=firstBar;bar<=lastBar;bar++){
+      // Bar separator between bars within the same row (not before the first bar)
+      if(bar>firstBar){
+        const sep=document.createElement('div');
+        sep.className='rhythm-bar-sep';
+        rowEl.appendChild(sep);
+      }
+      // Bar wrapper: exactly 4 beat cells, never wraps
+      const barEl=document.createElement('div');
+      barEl.className='rhythm-bar';
+      for(let beat=0;beat<4;beat++){
+        const i=bar*4+beat;
+        const cell=document.createElement('div');
+        cell.className='rhythm-beat';
+        const hasBeat=hitSet.has(i);
+        if(!hasBeat)cell.classList.add('rest');
+        if(i===activeIndex)cell.classList.add('hit');
+        if(i===userIndex)cell.classList.add('user-hit');
+        if(i===missIndex)cell.classList.add('miss');
+        cell.textContent=hasBeat?(beat+1):'-';
+        barEl.appendChild(cell);
+      }
+      rowEl.appendChild(barEl);
     }
-    const cell=document.createElement('div');
-    cell.className='rhythm-beat';
-    const hasBeat=hitSet.has(i);
-    if(!hasBeat)cell.classList.add('rest');
-    if(i===activeIndex)cell.classList.add('hit');
-    if(i===userIndex)cell.classList.add('user-hit');
-    if(i===missIndex)cell.classList.add('miss');
-    cell.textContent=hasBeat?(i%4+1):'-';
-    el.appendChild(cell);
+    el.appendChild(rowEl);
   }
 }
 
