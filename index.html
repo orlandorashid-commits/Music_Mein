@@ -1902,13 +1902,6 @@ body {
             </select>
           </div>
           <div class="p-control-group">
-            <label>Browser Synth</label>
-            <select id="r-browserSynthSelect" onchange="r_onSettingsChange()">
-              <option value="on" selected>On</option>
-              <option value="off">Off</option>
-            </select>
-          </div>
-          <div class="p-control-group">
             <label>Rhythm Focus</label>
             <select id="r-focusSelect" onchange="r_onSettingsChange()">
               <option value="random" selected>Random</option>
@@ -1956,6 +1949,14 @@ body {
 
             <div class="rhythm-help" id="r-helpText">
               Choose <strong>Audition</strong> to listen or <strong>Practice</strong> to test your timing.
+            </div>
+
+            <div class="p-midi-bar" style="margin-top:.75rem;flex-wrap:wrap;gap:.5rem;">
+              <span style="font-family:'DM Mono',monospace;font-size:.7rem;color:var(--ink3);" id="r-midiInfo">MIDI: ready</span>
+              <label style="display:flex;align-items:center;gap:.35rem;margin-left:auto;font-size:.72rem;font-weight:600;color:var(--ink3);cursor:pointer;">
+                <input type="checkbox" id="r-synthToggle" checked onchange="r_toggleBrowserSynth(this.checked)" style="accent-color:var(--gold);width:13px;height:13px;">
+                Browser Synth
+              </label>
             </div>
           </div>
 
@@ -6074,6 +6075,8 @@ function p_handleMIDI(event){
 
     // Rhythm page: any note-on is a tap. Return immediately -- no piano sound.
     if (currentPage === 'rhythm') {
+      const rmi=document.getElementById('r-midiInfo');
+      if(rmi) rmi.textContent='Last MIDI: '+noteStr;
       r_registerTap('midi');
       return;
     }
@@ -6222,7 +6225,6 @@ function r_onSettingsChange(){
   const ci=document.getElementById('r-countInBarsSelect');
   const mt=document.getElementById('r-metronomeSelect');
   const rg=document.getElementById('r-rhythmGuideSelect');
-  const bs=document.getElementById('r-browserSynthSelect');
   const fc=document.getElementById('r-focusSelect');
   r_diff=d?d.value:'easy';
   r_bpm=b?parseInt(b.value,10):84;
@@ -6230,7 +6232,6 @@ function r_onSettingsChange(){
   r_countInBars=ci?parseInt(ci.value,10):2;
   r_guideClick=mt?mt.value==='on':true;
   r_rhythmGuide=rg?rg.value==='on':true;
-  r_browserSynth=bs?bs.value==='on':true;
   r_focus=fc?fc.value:'random';
   r_pickPattern();
 }
@@ -6359,8 +6360,8 @@ function r_playRhythmHit(accent){
   }catch(e){console.warn('r_playRhythmHit',e);}
 }
 
-// Short feedback blip when user taps in Practice mode.
-// Sine tone at mid frequency -- distinct from guide click (square) and rhythm hit (triangle+noise).
+// Short feedback blip when user taps in Rhythm Training (Browser Synth on).
+// Sine tone at mid frequency -- distinct from metronome click (square) and rhythm hit (triangle+noise).
 function r_playUserTapSound(){
   try{
     const ctx=p_getCtx();
@@ -6369,11 +6370,16 @@ function r_playUserTapSound(){
     osc.type='sine';
     osc.frequency.value=520;
     gain.gain.setValueAtTime(0.0001,ctx.currentTime);
-    gain.gain.exponentialRampToValueAtTime(0.07,ctx.currentTime+0.003);
-    gain.gain.exponentialRampToValueAtTime(0.0001,ctx.currentTime+0.045);
+    gain.gain.exponentialRampToValueAtTime(0.15,ctx.currentTime+0.004);
+    gain.gain.exponentialRampToValueAtTime(0.0001,ctx.currentTime+0.075);
     const dest=typeof p_metroGain!=='undefined'?p_metroGain:(typeof p_masterGain!=='undefined'?p_masterGain:ctx.destination);
-    gain.connect(dest);osc.connect(gain);osc.start();osc.stop(ctx.currentTime+0.05);
+    gain.connect(dest);osc.connect(gain);osc.start();osc.stop(ctx.currentTime+0.08);
   }catch(e){console.warn('r_playUserTapSound',e);}
+}
+
+// Toggle Rhythm Browser Synth on/off. Called from the r-synthToggle checkbox.
+function r_toggleBrowserSynth(enabled){
+  r_browserSynth=!!enabled;
 }
 
 // Flash the pulse dot. downbeat=true for beat 1 (stronger), false for beats 2-4.
