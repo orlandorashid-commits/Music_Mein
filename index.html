@@ -6144,7 +6144,7 @@ let r_playTimers=[], r_listenTimer=null, r_startTime=0, r_userTaps=[];
 let r_total=0, r_correct=0, r_streak=0, r_history=[];
 let r_countIn=true, r_guideClick=true;
 let r_rhythmGuide=true;  // controls rhythm pattern hit audio
-let r_browserSynth=true; // controls user tap feedback sound
+let r_browserSynthOn=true; // controls user tap feedback sound
 let r_countInBars=2;
 let r_focus='random';
 let r_guideTimers=[], r_visualTimer=null, r_countDisplayTimer=null;
@@ -6360,26 +6360,38 @@ function r_playRhythmHit(accent){
   }catch(e){console.warn('r_playRhythmHit',e);}
 }
 
-// Short feedback blip when user taps in Rhythm Training (Browser Synth on).
-// Sine tone at mid frequency -- distinct from metronome click (square) and rhythm hit (triangle+noise).
+// Short feedback tap sound for Rhythm Training -- square wave click around 750 Hz.
+// Completely separate from the Practice piano synth; does not call p_noteOn or
+// p_playPreviewNote; not gated by p_browserSynthEnabled or p_isActiveAudioTab.
 function r_playUserTapSound(){
+  console.log('[Rhythm tap sound fired]');
   try{
     const ctx=p_getCtx();
+    // Explicitly resume if suspended -- resume() is async, so start on a tiny
+    // future offset so audio is guaranteed to play even if the context needed
+    // to wake up from a suspended state.
+    if(ctx.state==='suspended') ctx.resume();
+    const t0=ctx.currentTime+0.01; // 10ms offset: enough for resume, not perceptible
     const osc=ctx.createOscillator();
     const gain=ctx.createGain();
-    osc.type='sine';
-    osc.frequency.value=520;
-    gain.gain.setValueAtTime(0.0001,ctx.currentTime);
-    gain.gain.exponentialRampToValueAtTime(0.15,ctx.currentTime+0.004);
-    gain.gain.exponentialRampToValueAtTime(0.0001,ctx.currentTime+0.075);
-    const dest=typeof p_metroGain!=='undefined'?p_metroGain:(typeof p_masterGain!=='undefined'?p_masterGain:ctx.destination);
-    gain.connect(dest);osc.connect(gain);osc.start();osc.stop(ctx.currentTime+0.08);
-  }catch(e){console.warn('r_playUserTapSound',e);}
+    osc.type='square';
+    osc.frequency.value=750; // punchy woodblock range, clearly audible
+    gain.gain.setValueAtTime(0.0001,t0);
+    gain.gain.exponentialRampToValueAtTime(0.22,t0+0.005); // fast attack
+    gain.gain.exponentialRampToValueAtTime(0.0001,t0+0.07); // fast release
+    // Route through p_masterGain (safest direct path that bypasses any
+    // practice-synth ownership checks). Fall back to ctx.destination.
+    const dest=(typeof p_masterGain!=='undefined'&&p_masterGain)?p_masterGain:ctx.destination;
+    osc.connect(gain);
+    gain.connect(dest);
+    osc.start(t0);
+    osc.stop(t0+0.08);
+  }catch(e){console.warn('[r_playUserTapSound error]',e);}
 }
 
 // Toggle Rhythm Browser Synth on/off. Called from the r-synthToggle checkbox.
 function r_toggleBrowserSynth(enabled){
-  r_browserSynth=!!enabled;
+  r_browserSynthOn=!!enabled;
 }
 
 // Flash the pulse dot. downbeat=true for beat 1 (stronger), false for beats 2-4.
@@ -6609,7 +6621,8 @@ function r_registerTap(source){
       r_setFeedback('Press Practice first, then tap after the count-in.','neutral');
     return;
   }
-  if(r_browserSynth) r_playUserTapSound();
+  console.log('[Rhythm tap accepted]',{source,browserSynth:r_browserSynthOn,audioState:p_audioCtx?p_audioCtx.state:'no ctx'});
+  if(r_browserSynthOn) r_playUserTapSound();
   const now=performance.now();
   const beatMs=r_getBeatMs();
   const elapsedBeats=(now-r_startTime)/beatMs;
