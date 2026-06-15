@@ -1596,10 +1596,11 @@ body {
 
             <!-- Controls -->
             <div class="p-btn-row">
+              <button class="p-btn p-btn-sec" id="p-hearBtn" onclick="p_toggleDemo()">&#9834; Audition</button>
               <button class="p-btn p-btn-primary" id="p-startBtn" onclick="p_startExercise()">&#9654; Start</button>
-              <button class="p-btn p-btn-sec" id="p-prevBtn" onclick="p_prevExercise()">&#8592; Prev</button>
+              <button class="p-btn p-btn-sec" id="p-prevBtn" onclick="p_prevExercise()">&#8592; Previous</button>
               <button class="p-btn p-btn-sec" id="p-nextBtn" onclick="p_nextExercise()">Next &#8594;</button>
-              <button class="p-btn p-btn-sec" id="p-hearBtn" onclick="p_toggleDemo()">&#128266; Hear It</button>
+              <button class="p-btn p-btn-sec" id="p-redoBtn" onclick="p_resetExercise()">&#8635; Redo</button>
               <button class="p-btn p-btn-danger" onclick="p_resetExercise()">&#10005; Reset</button>
             </div>
 
@@ -4526,7 +4527,7 @@ function p_stopDemo() {
   p_demoActiveNotes = [];
   p_demoPlaying = false;
   const btn = document.getElementById('p-hearBtn');
-  if (btn) { btn.textContent = '🔊 Hear It'; btn.classList.remove('playing'); }
+  if (btn) { btn.textContent = '♫ Audition'; btn.classList.remove('playing'); }
   // Clear demo highlights, then restore exercise highlight only if active
   document.querySelectorAll('.p-wk,.p-bk').forEach(k => k.classList.remove('hl'));
   document.getElementById('p-lastNote').textContent = '—';
