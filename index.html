@@ -720,6 +720,14 @@ body {
 .e-interval-controls { display:grid; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); gap:.75rem; background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:.9rem 1rem; margin-bottom:.9rem; }
 .e-interval-controls select { width:100%; padding:.45rem .7rem; background:var(--bg2); border:1px solid var(--border); border-radius:8px; color:var(--ink); font-family:'DM Sans',sans-serif; font-size:.84rem; font-weight:500; }
 .e-answer-progress { margin-top:.45rem; font-family:'DM Mono',monospace; color:var(--gold); font-size:.82rem; font-weight:700; min-height:1.2em; }
+
+#page-ear #e-volRow{width:100%;max-width:100%;}
+@media(max-width:700px){
+  #page-ear #e-volRow{display:flex;flex-direction:column;gap:.5rem;padding:.6rem;}
+  #page-ear #e-volRow .p-vol-group{width:100%;max-width:100%;min-width:0;display:grid;grid-template-columns:58px minmax(0,1fr) 34px;align-items:center;gap:.45rem;}
+  #page-ear #e-volRow .p-bpm-slider{width:100%;min-width:0;}
+}
+
 .rhythm-wrap{max-width:1040px;margin:0 auto;padding:1.5rem;}
 .rhythm-header{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:1.25rem;margin-bottom:.9rem;}
 .rhythm-header h2{font-family:'Playfair Display',serif;font-size:1.5rem;color:var(--ink);margin-bottom:.2rem;}
@@ -1837,6 +1845,24 @@ body {
                 <div class="e-mini-keyboard" id="e-answerKeyboard"></div>
               </div>
               <div class="e-keyboard-help" id="e-answerKeyboardHelp">Tap a key or use MIDI.</div>
+            </div>
+
+            <div class="p-vol-row" id="e-volRow" style="margin-top:.7rem;margin-bottom:.7rem;">
+              <div class="p-vol-group">
+                <span class="p-bpm-label">MASTER</span>
+                <input type="range" class="p-bpm-slider" id="e-masterSlider" min="0" max="100" value="80" oninput="e_updateMasterVol(this.value)">
+                <span class="p-bpm-val p-vol-val" id="e-masterVal">80</span>
+              </div>
+              <div class="p-vol-group">
+                <span class="p-bpm-label">GUIDE</span>
+                <input type="range" class="p-bpm-slider" id="e-guideSlider" min="0" max="100" value="75" oninput="e_updateGuideVol(this.value)">
+                <span class="p-bpm-val p-vol-val" id="e-guideVal">75</span>
+              </div>
+              <div class="p-vol-group">
+                <span class="p-bpm-label">LIVE KB</span>
+                <input type="range" class="p-bpm-slider" id="e-liveSlider" min="0" max="100" value="75" oninput="e_updateLiveVol(this.value)">
+                <span class="p-bpm-val p-vol-val" id="e-liveVal">75</span>
+              </div>
             </div>
 
             <div class="p-midi-bar" style="margin-top:.9rem;flex-wrap:wrap;gap:.45rem;">
@@ -5861,6 +5887,41 @@ function e_stopPlayback(){
     e_setFeedback(e_waitingForAnswer?'Stopped. Continue your attempt.':(e_mode==='note'?'Stopped. Choose Start.':'Stopped. Choose Audition or Start.'),'neutral');
   }
 }
+
+function e_setSliderValue(id,val){
+  const el=document.getElementById(id);
+  if(el)el.value=String(val);
+}
+function e_setTextValue(id,val){
+  const el=document.getElementById(id);
+  if(el)el.textContent=String(val);
+}
+function e_syncVolumeControls(){
+  const master=Math.round((p_masterVol/P_MASTER_MAX_GAIN)*100);
+  const guide=Math.round((p_demoVol/P_DEMO_MAX_GAIN)*100);
+  const live=Math.round((p_liveVol/P_LIVE_MAX_GAIN)*100);
+  e_setSliderValue('e-masterSlider',master);e_setTextValue('e-masterVal',master);
+  e_setSliderValue('e-guideSlider',guide);e_setTextValue('e-guideVal',guide);
+  e_setSliderValue('e-liveSlider',live);e_setTextValue('e-liveVal',live);
+}
+function e_updateMasterVol(val){
+  const v=parseInt(val,10);
+  e_setTextValue('e-masterVal',v);
+  e_setSliderValue('p-masterSlider',v);
+  p_updateMasterVol(v);
+}
+function e_updateGuideVol(val){
+  const v=parseInt(val,10);
+  e_setTextValue('e-guideVal',v);
+  e_setSliderValue('p-demoSlider',v);
+  p_updateDemoVol(v);
+}
+function e_updateLiveVol(val){
+  const v=parseInt(val,10);
+  e_setTextValue('e-liveVal',v);
+  e_setSliderValue('p-liveSlider',v);
+  p_updateLiveVol(v);
+}
 function e_toggleBrowserSynth(v){
   e_browserSynthOn=!!v;
   if(typeof p_toggleBrowserSynth==='function')p_toggleBrowserSynth(!!v);
@@ -6300,6 +6361,7 @@ function e_resetEarTraining() {
 
 // ── Init ───────────────────────────────────────────────────────
 function e_init() {
+  e_syncVolumeControls();
   e_lengthTarget = e_getLengthTarget();
   e_sessionComplete = false;
   e_pickPrompt();
