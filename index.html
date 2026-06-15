@@ -1250,6 +1250,28 @@ body {
 .p-chord-builder-chip{padding:.28rem .55rem;border-radius:999px;border:1px solid var(--border);background:var(--surface);color:var(--ink3);font-family:'DM Mono',monospace;font-size:.74rem;font-weight:700;}
 .p-chord-builder-chip.done{background:rgba(58,158,111,.18);border-color:rgba(58,158,111,.45);color:#3A9E6F;}
 .p-chord-builder-chip.wrong{background:rgba(192,97,74,.18);border-color:rgba(192,97,74,.45);color:#C0614A;}
+
+/* ── Mobile Navigation ───────────────────────────────── */
+.mobile-menu-btn{display:none;}
+.mobile-page-title{display:none;}
+.mobile-menu-overlay,.mobile-menu-drawer{display:none;}
+@media(max-width:700px){
+  .top-nav{height:54px;padding:0 .85rem;justify-content:space-between;}
+  .nav-tabs{display:none;}
+  .nav-right{display:none;}
+  .nav-brand{margin-right:0;}
+  .mobile-page-title{display:block;font-size:.78rem;font-weight:800;color:var(--ink2);text-transform:uppercase;letter-spacing:.08em;margin-left:.5rem;margin-right:auto;}
+  .mobile-menu-btn{display:flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:10px;border:1px solid var(--border);background:var(--bg2);color:var(--ink);font-size:1.25rem;cursor:pointer;}
+  .mobile-menu-overlay{display:block;position:fixed;inset:0;background:rgba(0,0,0,.55);opacity:0;pointer-events:none;transition:opacity .18s;z-index:900;}
+  .mobile-menu-overlay.open{opacity:1;pointer-events:auto;}
+  .mobile-menu-drawer{display:flex;flex-direction:column;position:fixed;top:0;right:0;width:min(84vw,340px);height:100vh;background:var(--surface);border-left:1px solid var(--border);box-shadow:-18px 0 48px rgba(0,0,0,.42);transform:translateX(100%);transition:transform .22s ease;z-index:901;padding:1rem;overflow-y:auto;}
+  .mobile-menu-drawer.open{transform:translateX(0);}
+  .mobile-menu-header{display:flex;align-items:center;justify-content:space-between;gap:.75rem;padding-bottom:.85rem;margin-bottom:.75rem;border-bottom:1px solid var(--border);}
+  .mobile-menu-title{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:800;color:var(--ink);}
+  .mobile-menu-close{width:34px;height:34px;border-radius:9px;border:1px solid var(--border);background:var(--bg2);color:var(--ink);font-size:1.35rem;cursor:pointer;line-height:1;display:flex;align-items:center;justify-content:center;}
+  .mobile-menu-item{width:100%;text-align:left;padding:.85rem .9rem;border-radius:12px;border:1px solid transparent;background:transparent;color:var(--ink2);font-family:'DM Sans',sans-serif;font-size:.95rem;font-weight:800;cursor:pointer;margin-bottom:.25rem;}
+  .mobile-menu-item:hover,.mobile-menu-item.active{background:var(--bg2);border-color:var(--border);color:var(--gold);}
+}
 </style>
 </head>
 <body>
@@ -1373,6 +1395,8 @@ body {
       <span class="nav-logo-word">Music<span>Mein</span></span>
     </button>
 
+    <span class="mobile-page-title" id="mobilePageTitle">Practice</span>
+
     <div class="nav-tabs" id="navTabs">
       <button class="nav-tab active" data-page="practice" onclick="switchPage('practice')">
         <span class="tab-dot" style="background:var(--accent-practice)"></span>
@@ -1424,6 +1448,7 @@ body {
         <span class="nav-profile-name" id="navProfileName"></span>
       </div>
     </div>
+    <button class="mobile-menu-btn" id="mobileMenuBtn" onclick="toggleMobileMenu()" aria-label="Open menu">&#9776;</button>
   </nav>
 
   <!-- PAGES -->
@@ -2521,7 +2546,38 @@ function switchPage(page) {
   if (pageEl) pageEl.classList.add('active');
   const tabEl = document.querySelector('.nav-tab[data-page="' + page + '"]');
   if (tabEl) tabEl.classList.add('active');
+  // Sync mobile drawer active item and page title
+  document.querySelectorAll('.mobile-menu-item').forEach(btn=>{
+    btn.classList.toggle('active',btn.dataset.page===page);
+  });
+  updateMobilePageTitle(page);
 }
+
+/* ── Mobile navigation ───────────────────────────────── */
+function toggleMobileMenu(){
+  const ov=document.getElementById('mobileMenuOverlay');
+  const dr=document.getElementById('mobileMenuDrawer');
+  if(!ov||!dr)return;
+  if(dr.classList.contains('open'))closeMobileMenu();
+  else{ov.classList.add('open');dr.classList.add('open');}
+}
+function closeMobileMenu(){
+  const ov=document.getElementById('mobileMenuOverlay');
+  const dr=document.getElementById('mobileMenuDrawer');
+  if(ov)ov.classList.remove('open');
+  if(dr)dr.classList.remove('open');
+}
+function mobileSwitchPage(page){
+  switchPage(page);
+  closeMobileMenu();
+}
+function updateMobilePageTitle(page){
+  const el=document.getElementById('mobilePageTitle');
+  if(!el)return;
+  const names={practice:'Practice',ear:'Ear Training',rhythm:'Rhythm',sight:'Sight Reading',intervals:'Intervals',improv:'Improv',theory:'Theory',progress:'Progress'};
+  el.textContent=names[page]||'MusicMein';
+}
+document.addEventListener('keydown',function(ev){if(ev.key==='Escape')closeMobileMenu();});
 
 /* ============================================================
    DECORATIVE LOGO KEYS
@@ -6224,6 +6280,10 @@ const R_BAR_VOCAB={
   half:        [[0,2],[0],[2]],
   quarter:     [[0,1,2,3],[0,2,3],[0,1,3],[0,1,2]],
   quarter_rest:[[0,2],[0,1,3],[1,2,3],[0,3],[0,2,3]],
+  // accent_varied: integer-only asymmetric patterns for Hard/Expert depth without subdivision
+  accent_varied:[[1,3],[0,1],[2,3],[1,2],[0,1,2],[1,2,3]],
+  // Fractional vocabularies below: retained for explicit Focus selections;
+  // r_enforceVisibleBeatGrid strips any fractional beats before playback.
   eighth:      [[0,0.5,1,1.5,2,2.5,3,3.5],[0,1,1.5,2,3],[0,0.5,2,2.5,3],[0,1,2,2.5,3.5]],
   offbeat:     [[0.5,1.5,2.5,3.5],[0,1.5,2.5],[0.5,2,3.5],[0,0.5,2,3.5]],
   dotted:      [[0,1.5,2,3],[0,1.5,3],[0,2,3.5],[0,0.75,2,3]],
@@ -6245,12 +6305,13 @@ const R_FOCUS_UNITS={
   mixed:        ['quarter','eighth','offbeat','syncopation'],
 };
 
-// Unit types available when focus=random, gated by difficulty
+// Fractional units (eighth/offbeat/dotted/triplet/syncopation) excluded from Random
+// until a subdivision visual is added. accent_varied gives Hard/Expert variety with integers.
 const R_RANDOM_UNITS={
   easy:   ['whole','half','quarter','quarter_rest'],
-  medium: ['half','quarter','quarter_rest','eighth','offbeat'],
-  hard:   ['quarter','eighth','offbeat','syncopation','dotted'],
-  expert: ['eighth','offbeat','dotted','triplet','syncopation'],
+  medium: ['half','quarter','quarter_rest'],
+  hard:   ['quarter','quarter_rest','accent_varied'],
+  expert: ['quarter_rest','accent_varied','quarter'],
 };
 
 function r_getBeatMs(){return 60000/r_bpm;}
@@ -6261,6 +6322,28 @@ function r_pickBarPattern(units){
   units.forEach(u=>{if(R_BAR_VOCAB[u])R_BAR_VOCAB[u].forEach(b=>pool.push({beats:b,unit:u}));});
   if(!pool.length)return{beats:[0,1,2,3],unit:'quarter'};
   return pool[Math.floor(Math.random()*pool.length)];
+}
+
+// Strip any fractional beat positions from pattern.beats so only visible
+// integer grid slots (0,1,2,3 per bar) remain. Called after every phrase build.
+function r_enforceVisibleBeatGrid(pattern){
+  if(!pattern||!Array.isArray(pattern.beats))return pattern;
+  const seen=new Set();
+  const clean=pattern.beats.filter(beat=>{
+    if(Math.abs(beat-Math.round(beat))>0.001)return false; // fractional: skip
+    const r=Math.round(beat);
+    if(r<0||r>=pattern.totalBeats)return false; // out of range
+    if(seen.has(r))return false; // duplicate
+    seen.add(r);return true;
+  }).map(b=>Math.round(b)).sort((a,b)=>a-b);
+  pattern.beats=clean;
+  return pattern;
+}
+
+// Returns true if every beat position is an exact integer (matches a visible box).
+function r_validatePatternMatchesVisual(pattern){
+  if(!pattern||!Array.isArray(pattern.beats))return false;
+  return pattern.beats.every(beat=>Math.abs(beat-Math.round(beat))<0.001);
 }
 
 // Serialize a bar pattern to a compact string for comparison
@@ -6441,6 +6524,7 @@ function r_ensurePageForBeat(absoluteBeat){
 
 function r_pickPattern(){
   r_currentPattern=r_buildPhrase();
+  r_enforceVisibleBeatGrid(r_currentPattern); // ensure only visible integer beats
   r_userTaps=[];
   r_computePages();
   r_renderPattern();
@@ -6844,6 +6928,7 @@ function r_playPatternOnce(done){
 function r_startAudition(){
   if(r_transportState!=='stopped')return;
   if(!r_currentPattern)r_pickPattern();
+  r_enforceVisibleBeatGrid(r_currentPattern); // playback guard: strip fractional beats
   r_isPlaying=true;r_isListening=false;r_isAuditioning=true;
   r_transportState='auditioning';
   r_updateTransportButtons();
@@ -6895,6 +6980,7 @@ function r_startAudition(){
 function r_startPractice(){
   if(r_transportState!=='stopped')return;
   if(!r_currentPattern)r_pickPattern();
+  r_enforceVisibleBeatGrid(r_currentPattern); // playback guard: strip fractional beats
   r_userTaps=[];r_isPlaying=false;r_isListening=false;r_isAuditioning=false;
   r_transportState='counting';
   r_updateTransportButtons();
@@ -7494,5 +7580,21 @@ function p_init(){
 
 init();
 </script>
+<!-- Mobile Menu -->
+<div class="mobile-menu-overlay" id="mobileMenuOverlay" onclick="closeMobileMenu()"></div>
+<div class="mobile-menu-drawer" id="mobileMenuDrawer">
+  <div class="mobile-menu-header">
+    <div class="mobile-menu-title">MusicMein</div>
+    <button class="mobile-menu-close" onclick="closeMobileMenu()" aria-label="Close menu">&times;</button>
+  </div>
+  <button class="mobile-menu-item active" data-page="practice" onclick="mobileSwitchPage('practice')">Practice</button>
+  <button class="mobile-menu-item" data-page="ear" onclick="mobileSwitchPage('ear')">Ear Training</button>
+  <button class="mobile-menu-item" data-page="rhythm" onclick="mobileSwitchPage('rhythm')">Rhythm</button>
+  <button class="mobile-menu-item" data-page="sight" onclick="mobileSwitchPage('sight')">Sight Reading</button>
+  <button class="mobile-menu-item" data-page="intervals" onclick="mobileSwitchPage('intervals')">Intervals</button>
+  <button class="mobile-menu-item" data-page="improv" onclick="mobileSwitchPage('improv')">Improv</button>
+  <button class="mobile-menu-item" data-page="theory" onclick="mobileSwitchPage('theory')">Theory</button>
+  <button class="mobile-menu-item" data-page="progress" onclick="mobileSwitchPage('progress')">Progress</button>
+</div>
 </body>
 </html>
