@@ -1876,6 +1876,7 @@ body {
               <option value="2" selected>2 Bars</option>
               <option value="4">4 Bars</option>
               <option value="8">8 Bars</option>
+              <option value="16">16 Bars</option>
             </select>
           </div>
           <div class="p-control-group">
@@ -6314,10 +6315,11 @@ function r_buildPhrase(){
   const dominantUnit=Object.entries(unitCounts).sort((a,b)=>b[1]-a[1])[0][0];
   const focusLabel=focus==='random'?dominantUnit.replace(/_/g,' '):focus.replace(/_/g,' ');
   const diffLabel=diff.charAt(0).toUpperCase()+diff.slice(1);
+  const barLabel=bars>=8?(bars+'-Bar '):'';
   const formLabel=diff==='easy'?'Pattern':diff==='medium'?'A/B Phrase':diff==='hard'?'Varied Phrase':'Complex Phrase';
 
   return{
-    name:diffLabel+' '+formLabel,
+    name:diffLabel+' '+barLabel+formLabel,
     meter:r_meter,
     bars,
     beatsPerBar:r_beatsPerBar,
