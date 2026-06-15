@@ -1052,6 +1052,7 @@ body {
 
 /* Staff controls */
 .p-sheet-controls { display:flex; align-items:center; gap:.75rem; margin-bottom:.45rem; }
+.p-staff-control-hidden { display:none!important; }
 .p-pill-toggle { display:flex; border:1px solid var(--border); border-radius:50px; overflow:hidden; background:var(--bg2); }
 .p-pill-toggle button { padding:.25rem .7rem; border:none; background:transparent; font-family:'DM Sans',sans-serif; font-size:.72rem; font-weight:600; color:var(--ink3); cursor:pointer; transition:all .15s; }
 .p-pill-toggle button.active { background:var(--gold); color:white; }
@@ -1711,6 +1712,22 @@ html,body{overflow-x:hidden;}
           </div>
         </div>
 
+        <!-- STAFF VIEW CONTROLS -->
+        <div class="p-hint-strip" id="p-staffControlStrip">
+          <div class="p-hint-header">
+            <div style="display:flex;align-items:center;gap:.6rem;flex-wrap:wrap;">
+              <span class="p-hint-title">Staff View</span>
+              <div class="p-pill-toggle" id="p-staffControlBody">
+                <button onclick="p_setStaff('treble')" id="p-staffTreble" class="active">Treble</button>
+                <button onclick="p_setStaff('grand')" id="p-staffGrand">Grand</button>
+              </div>
+            </div>
+            <div style="display:flex;align-items:center;gap:.5rem;">
+              <button class="p-hint-toggle" id="p-staffToggleBtn" onclick="p_toggleStaffControls()">Hide</button>
+            </div>
+          </div>
+        </div>
+
         <!-- MAIN LAYOUT -->
         <div class="p-main-layout">
 
@@ -1742,7 +1759,32 @@ html,body{overflow-x:hidden;}
             <div class="p-notes-row" id="p-notesRow"></div>
             <div class="p-chord-builder-progress" id="p-chordBuilderProgress" style="display:none"></div>
 
-
+            <!-- BPM + Metronome row -->
+            <div class="p-bpm-row">
+              <span class="p-metro-dot" id="p-metroDot"></span>
+              <span class="p-bpm-label">BPM</span>
+              <input type="range" class="p-bpm-slider" id="p-bpmSlider" min="40" max="200" value="80" oninput="p_updateBPM(this.value)">
+              <span class="p-bpm-val" id="p-bpmVal">80</span>
+              <button class="p-metro-btn" id="p-metroBtn" onclick="p_toggleMetronome()">♩ Metro</button>
+            </div>
+            <!-- Volume controls: MASTER / DEMO / LIVE (0–100) -->
+            <div class="p-vol-row">
+              <div class="p-vol-group">
+                <span class="p-bpm-label">MASTER</span>
+                <input type="range" class="p-bpm-slider" id="p-masterSlider" min="0" max="100" value="80" oninput="p_updateMasterVol(this.value)">
+                <span class="p-bpm-val p-vol-val" id="p-masterVal">80</span>
+              </div>
+              <div class="p-vol-group">
+                <span class="p-bpm-label">GUIDE</span>
+                <input type="range" class="p-bpm-slider" id="p-demoSlider" min="0" max="100" value="75" oninput="p_updateDemoVol(this.value)">
+                <span class="p-bpm-val p-vol-val" id="p-demoVal">75</span>
+              </div>
+              <div class="p-vol-group">
+                <span class="p-bpm-label">LIVE KB</span>
+                <input type="range" class="p-bpm-slider" id="p-liveSlider" min="0" max="100" value="75" oninput="p_updateLiveVol(this.value)">
+                <span class="p-bpm-val p-vol-val" id="p-liveVal">75</span>
+              </div>
+            </div>
 
             <!-- Timing bar -->
             <div class="p-timing-wrap">
@@ -1751,13 +1793,6 @@ html,body{overflow-x:hidden;}
             </div>
 
             <!-- Grand staff / Sheet music -->
-            <div class="p-sheet-controls">
-              <span class="p-meta-label">Staff View</span>
-              <div class="p-pill-toggle">
-                <button onclick="p_setStaff('treble')" id="p-staffTreble" class="active">Treble</button>
-                <button onclick="p_setStaff('grand')" id="p-staffGrand">Grand</button>
-              </div>
-            </div>
             <div class="p-sheet-area">
               <svg id="p-sheetSVG" width="100%" viewBox="0 0 700 130"></svg>
             </div>
@@ -1799,33 +1834,6 @@ html,body{overflow-x:hidden;}
               <button class="p-btn p-btn-sec" id="p-nextBtn" onclick="p_nextExercise()">Next &#8594;</button>
               <button class="p-btn p-btn-sec" id="p-hearBtn" onclick="p_toggleDemo()">&#128266; Hear It</button>
               <button class="p-btn p-btn-danger" onclick="p_resetExercise()">&#10005; Reset</button>
-            </div>
-
-            <!-- BPM + Metronome row -->
-            <div class="p-bpm-row">
-              <span class="p-metro-dot" id="p-metroDot"></span>
-              <span class="p-bpm-label">BPM</span>
-              <input type="range" class="p-bpm-slider" id="p-bpmSlider" min="40" max="200" value="80" oninput="p_updateBPM(this.value)">
-              <span class="p-bpm-val" id="p-bpmVal">80</span>
-              <button class="p-metro-btn" id="p-metroBtn" onclick="p_toggleMetronome()">♩ Metro</button>
-            </div>
-            <!-- Volume controls: MASTER / DEMO / LIVE (0–100) -->
-            <div class="p-vol-row">
-              <div class="p-vol-group">
-                <span class="p-bpm-label">MASTER</span>
-                <input type="range" class="p-bpm-slider" id="p-masterSlider" min="0" max="100" value="80" oninput="p_updateMasterVol(this.value)">
-                <span class="p-bpm-val p-vol-val" id="p-masterVal">80</span>
-              </div>
-              <div class="p-vol-group">
-                <span class="p-bpm-label">GUIDE</span>
-                <input type="range" class="p-bpm-slider" id="p-demoSlider" min="0" max="100" value="75" oninput="p_updateDemoVol(this.value)">
-                <span class="p-bpm-val p-vol-val" id="p-demoVal">75</span>
-              </div>
-              <div class="p-vol-group">
-                <span class="p-bpm-label">LIVE KB</span>
-                <input type="range" class="p-bpm-slider" id="p-liveSlider" min="0" max="100" value="75" oninput="p_updateLiveVol(this.value)">
-                <span class="p-bpm-val p-vol-val" id="p-liveVal">75</span>
-              </div>
             </div>
 
             <!-- Progression: Hear As toggle (shown only for progressions) -->
@@ -5108,6 +5116,13 @@ function p_updateProgress(){
 }
 
 /* --- SHEET MUSIC (grand staff + treble) --- */
+function p_toggleStaffControls(){
+  const body=document.getElementById('p-staffControlBody');
+  const btn=document.getElementById('p-staffToggleBtn');
+  if(!body||!btn)return;
+  const hidden=body.classList.toggle('p-staff-control-hidden');
+  btn.textContent=hidden?'Show':'Hide';
+}
 function p_setStaff(mode){
   p_staffMode=mode;
   document.getElementById('p-staffTreble').classList.toggle('active',mode==='treble');
