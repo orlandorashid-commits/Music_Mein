@@ -5819,7 +5819,7 @@ function e_onLengthChange(){
   e_clearEarTimers();
   e_scoreCorrect=0; e_scoreTotal=0; e_streak=0; e_lastNotes=[];
   e_pickPrompt();
-  e_setFeedback('Length changed. Choose Audition or Start.', 'neutral');
+  e_setFeedback(e_mode==='note'?'Length changed. Choose Start.':'Length changed. Choose Audition or Start.', 'neutral');
   e_updateUI();
 }
 function e_clearAutoAdvanceTimers(){
@@ -5858,7 +5858,7 @@ function e_stopPlayback(){
     const pct=e_scoreTotal?Math.round(e_scoreCorrect/e_scoreTotal*100):0;
     e_setFeedback('Complete. Score: '+e_scoreCorrect+' / '+e_scoreTotal+' · '+pct+'%. Choose Start for a new set, Reset, or change Length.','correct');
   }else{
-    e_setFeedback(e_waitingForAnswer?'Stopped. Continue your attempt.':'Stopped. Choose Audition or Start.','neutral');
+    e_setFeedback(e_waitingForAnswer?'Stopped. Continue your attempt.':(e_mode==='note'?'Stopped. Choose Start.':'Stopped. Choose Audition or Start.'),'neutral');
   }
 }
 function e_toggleBrowserSynth(v){
@@ -5866,6 +5866,7 @@ function e_toggleBrowserSynth(v){
   if(typeof p_toggleBrowserSynth==='function')p_toggleBrowserSynth(!!v);
 }
 function e_auditionPrompt(){
+  if(e_mode==='note'){e_setFeedback('Single Note Replay starts with Start.','neutral');return;}
   if(e_mode==='interval'||e_mode==='interval_name'){if(!e_currentInterval)e_pickInterval();const notes=e_currentInterval&&e_currentInterval.notes?e_currentInterval.notes:[];notes.forEach((n,i)=>setTimeout(()=>p_playPreviewNote(n,105,0.5,'demo'),i*650));e_setFeedback('Audition only. Press Start when ready.','neutral');return;}
   if(e_mode==='chord_quality'||e_mode==='chord_replay'){if(!e_currentChord)e_pickChordQuality();const notes=e_currentChord&&e_currentChord.notes?e_currentChord.notes:[];notes.forEach(n=>p_playPreviewNote(n,95,0.8,'demo'));e_setFeedback('Audition only. Press Start when ready.','neutral');return;}
   if(!e_currentNote)e_pickNote();p_playPreviewNote(e_currentNote,105,0.9,'demo');e_setFeedback('Audition only. Press Start when ready.','neutral');
@@ -6093,8 +6094,19 @@ function e_setFeedback(message, type) {
   el.className = 'e-feedback ' + type;
 }
 
+// ── Ear Training button visibility ─────────────────────────────
+function e_shouldShowAudition(){
+  return e_mode !== 'note';
+}
+function e_updateEarAuditionVisibility(){
+  const b=document.getElementById('e-auditionBtn');
+  if(!b)return;
+  b.style.display=e_shouldShowAudition()?'':'none';
+}
+
 // ── UI sync ────────────────────────────────────────────────────
 function e_updateEarButtons() {
+  e_updateEarAuditionVisibility();
   const lock=((e_mode==='interval'||e_mode==='interval_number'||e_mode==='interval_name'||e_mode==='interval_quality')&&e_intervalPlaybackLocked)||((e_mode==='chord_quality'||e_mode==='chord_replay')&&e_chordPlaybackLocked);
   ['e-auditionBtn','e-playBtn','e-repeatBtn','e-nextBtn'].forEach(id => {
     const b=document.getElementById(id); if(b) b.disabled=lock;
@@ -6195,7 +6207,7 @@ function e_updateModeUI() {
   const label=document.querySelector('.ear-mode-label');
   if(label) label.textContent={note:'Single Note Replay',interval:'Interval Replay',interval_name:'Name the Interval',chord_quality:'Name the Chord',chord_replay:'Chord Replay'}[e_mode]||e_mode;
   const statusEl=document.getElementById('e-status');
-  if(statusEl) statusEl.textContent=e_mode==='interval_number'?'Listen to the interval, then choose the number.':e_mode==='chord_quality'?'Choose Start to hear a chord.':isIntervalMode?'Choose Start to hear an interval.':'Choose Start to begin.';
+  if(statusEl) statusEl.textContent=e_mode==='interval_number'?'Choose Audition to preview, or Start to hear the interval.':e_mode==='chord_quality'?'Choose Audition to preview, or Start to hear a chord.':e_mode==='chord_replay'?'Choose Audition to preview, or Start to hear the chord.':isIntervalMode?'Choose Audition to preview, or Start to hear an interval.':'Choose Start to begin.';
   const manualWrap=document.getElementById('e-manualWrap');
   if(manualWrap) manualWrap.style.display=(e_mode==='interval_name'||e_mode==='chord_quality')?'none':'';
   const _crpEl=document.getElementById('e-chordReplayProgress');if(_crpEl)_crpEl.style.display=e_mode==='chord_replay'?'flex':'none';
@@ -6204,7 +6216,7 @@ function e_updateModeUI() {
   e_renderIntervalNameButtons();
   if(e_mode!=='interval_name'){e_renderIntervalNumberButtons();e_renderIntervalQualityButtons();}
   e_renderChordQualityButtons();
-  e_updateIntervalAidUI(); e_updateEarButtons();
+  e_updateEarAuditionVisibility(); e_updateIntervalAidUI(); e_updateEarButtons();
 }
 
 // ── Control handlers ───────────────────────────────────────────
@@ -6219,7 +6231,7 @@ function e_onRangeChange() {
   e_clearEarTimers();
   e_range = document.getElementById('e-rangeSelect').value;
   e_pickPrompt();
-  e_setFeedback('Range changed. Choose Audition or Start.', 'neutral');
+  e_setFeedback(e_mode==='note'?'Range changed. Choose Start.':'Range changed. Choose Audition or Start.', 'neutral');
 }
 
 function e_onDiffChange() {
@@ -6238,7 +6250,7 @@ function e_onDiffChange() {
     }
   }
   e_pickPrompt();
-  e_setFeedback('Difficulty changed. Choose Audition or Start.', 'neutral');
+  e_setFeedback(e_mode==='note'?'Difficulty changed. Choose Start.':'Difficulty changed. Choose Audition or Start.', 'neutral');
   e_updateUI();
 }
 
@@ -6248,7 +6260,7 @@ function e_onIntervalSettingsChange() {
   e_intervalSet       = document.getElementById('e-intervalSet').value;
   e_pickInterval();
   if(e_mode==='interval_name') e_resetIntervalNameAnswerState();
-  e_setFeedback('Settings changed. Choose Audition or Start.', 'neutral');
+  e_setFeedback(e_mode==='note'?'Settings changed. Choose Start.':'Settings changed. Choose Audition or Start.', 'neutral');
 }
 
 function e_nextNote() {
@@ -6257,6 +6269,10 @@ function e_nextNote() {
   if(e_mode==='interval'||e_mode==='interval_name') e_playCurrentInterval();
   else if(e_mode==='chord_quality'||e_mode==='chord_replay') e_playCurrentChord();
   else e_playCurrentNote();
+}
+
+function e_readyMessage(){
+  return e_mode==='note' ? 'Reset. Choose Start when ready.' : 'Reset. Choose Audition to listen, then Start when ready.';
 }
 
 function e_resetEarTraining() {
@@ -6278,7 +6294,7 @@ function e_resetEarTraining() {
   e_lastNotes = [];
   e_pickPrompt();
   e_updateModeUI();
-  e_setFeedback('Reset. Choose Audition to listen, then Start when ready.', 'neutral');
+  e_setFeedback(e_readyMessage(), 'neutral');
   e_updateUI();
 }
 
@@ -6288,7 +6304,7 @@ function e_init() {
   e_sessionComplete = false;
   e_pickPrompt();
   e_updateModeUI();
-  e_setFeedback('Choose Audition to listen, then Start when ready.', 'neutral');
+  e_setFeedback(e_mode==='note'?'Choose Start when ready.':'Choose Audition to listen, then Start when ready.', 'neutral');
   e_updateUI();
 }
 
