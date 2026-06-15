@@ -760,6 +760,22 @@ body {
 .r-countoff-number.active{opacity:1;}
 .rhythm-bar-sep{width:2px;min-height:58px;background:var(--border);border-radius:2px;margin:0 6px;flex-shrink:0;align-self:stretch;}
 .rhythm-page-indicator{font-family:'DM Mono',monospace;font-size:.72rem;font-weight:600;color:var(--ink3);text-align:center;margin-bottom:.4rem;letter-spacing:.04em;}
+/* Density modes: normal (1-4 bars), compact (8 bars), chart (16 bars) */
+.rhythm-visual.rhythm-density-compact{padding:.75rem;gap:.38rem;}
+.rhythm-visual.rhythm-density-compact .rhythm-row{gap:.35rem;}
+.rhythm-visual.rhythm-density-compact .rhythm-bar{gap:.32rem;}
+.rhythm-visual.rhythm-density-compact .rhythm-beat{width:34px;height:42px;font-size:.62rem;border-radius:8px;}
+.rhythm-visual.rhythm-density-compact .rhythm-bar-sep{min-height:42px;margin:0 4px;}
+.rhythm-visual.rhythm-density-chart{padding:.55rem;gap:.24rem;}
+.rhythm-visual.rhythm-density-chart .rhythm-row{gap:.24rem;}
+.rhythm-visual.rhythm-density-chart .rhythm-bar{gap:.22rem;}
+.rhythm-visual.rhythm-density-chart .rhythm-beat{width:28px;height:28px;font-size:.52rem;border-radius:6px;}
+.rhythm-visual.rhythm-density-chart .rhythm-bar-sep{min-height:28px;margin:0 3px;}
+@media(max-width:520px){
+  .rhythm-visual.rhythm-density-compact .rhythm-beat{width:30px;height:36px;font-size:.58rem;}
+  .rhythm-visual.rhythm-density-chart .rhythm-beat{width:24px;height:24px;font-size:.48rem;}
+  .rhythm-visual.rhythm-density-chart{padding:.45rem;gap:.2rem;}
+}
 .r-tap-pad-wrap{display:flex;justify-content:center;margin:1rem 0 .85rem;}
 .r-tap-pad{width:148px;height:148px;border-radius:50%;border:2px solid rgba(201,168,76,.55);background:radial-gradient(circle at 35% 28%,rgba(232,213,160,.25),transparent 34%),linear-gradient(135deg,rgba(201,168,76,.24),rgba(123,94,167,.18));color:var(--ink);box-shadow:0 14px 34px rgba(0,0,0,.28),inset 0 0 0 1px rgba(255,255,255,.05);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.15rem;cursor:pointer;transition:transform .08s,border-color .12s,box-shadow .12s,opacity .12s;touch-action:manipulation;user-select:none;-webkit-user-select:none;font-family:'DM Sans',sans-serif;}
 .r-tap-pad:hover{border-color:var(--gold);box-shadow:0 18px 40px rgba(0,0,0,.34),0 0 18px rgba(201,168,76,.18);}
@@ -6246,6 +6262,64 @@ function r_pickBarPattern(units){
   return pool[Math.floor(Math.random()*pool.length)];
 }
 
+// Serialize a bar pattern to a compact string for comparison
+function r_serializeBar(bp){
+  return bp.beats.map(b=>Math.round(b*1000)/1000).join(',');
+}
+
+// Serialize a two-bar row for row-level duplicate detection
+function r_serializeRow(bpA,bpB){
+  return r_serializeBar(bpA)+'|'+r_serializeBar(bpB);
+}
+
+// Pick a different bar pattern from the vocabulary; falls back to original if no alternatives exist
+function r_mutateBarWithinFocus(bp,units){
+  const pool=[];
+  const origKey=JSON.stringify(bp.beats);
+  units.forEach(u=>{
+    if(R_BAR_VOCAB[u])R_BAR_VOCAB[u].forEach(b=>{
+      if(JSON.stringify(b)!==origKey)pool.push({beats:b,unit:u});
+    });
+  });
+  if(!pool.length)return bp;
+  return pool[Math.floor(Math.random()*pool.length)];
+}
+
+// Post-process barSeq to reduce obvious repetition.
+// Hard: max 3 copies of any bar + no identical two-bar rows.
+// Expert: max 2 copies of any bar.
+// Easy and Medium are left untouched.
+function r_reducePhraseRepetition(barSeq,diff,units){
+  if(diff==='easy'||diff==='medium')return barSeq;
+  const result=barSeq.slice();
+  const maxCopies=diff==='expert'?2:3;
+  // Pass 1: bar-level repetition limit
+  const barCount={};
+  for(let i=0;i<result.length;i++){
+    const key=r_serializeBar(result[i]);
+    barCount[key]=(barCount[key]||0)+1;
+    if(barCount[key]>maxCopies){
+      const m=r_mutateBarWithinFocus(result[i],units);
+      const mk=r_serializeBar(m);
+      if(mk!==key){barCount[key]--;barCount[mk]=(barCount[mk]||0)+1;result[i]=m;}
+    }
+  }
+  // Pass 2 (Hard only): no two identical two-bar rows
+  if(diff==='hard'){
+    const rowCount={};
+    for(let i=0;i+1<result.length;i+=2){
+      const rk=r_serializeRow(result[i],result[i+1]);
+      rowCount[rk]=(rowCount[rk]||0)+1;
+      if(rowCount[rk]>1){
+        const m=r_mutateBarWithinFocus(result[i+1],units);
+        const nrk=r_serializeRow(result[i],m);
+        if(nrk!==rk){rowCount[rk]--;rowCount[nrk]=(rowCount[nrk]||0)+1;result[i+1]=m;}
+      }
+    }
+  }
+  return result;
+}
+
 // Build a multi-bar phrase using difficulty (variation) and focus (vocabulary).
 function r_buildPhrase(){
   const bars=r_lengthBars;
@@ -6301,17 +6375,20 @@ function r_buildPhrase(){
     }
   }
 
+  // Reduce obvious repetition in Hard and Expert phrases
+  const finalBarSeq=(diff==='hard'||diff==='expert')?r_reducePhraseRepetition(barSeq,diff,units):barSeq;
+
   // Build flat beats array and structured barPatterns
   const beats=[];
   const barPatterns=[];
-  barSeq.forEach((bp,barIdx)=>{
+  finalBarSeq.forEach((bp,barIdx)=>{
     barPatterns.push({bar:barIdx+1,unit:bp.unit,localBeats:bp.beats.slice()});
     bp.beats.forEach(lb=>beats.push(Math.round((lb+barIdx*4)*1000)/1000));
   });
 
   // Dominant unit for naming/display
   const unitCounts={};
-  barSeq.forEach(bp=>{unitCounts[bp.unit]=(unitCounts[bp.unit]||0)+1;});
+  finalBarSeq.forEach(bp=>{unitCounts[bp.unit]=(unitCounts[bp.unit]||0)+1;});
   const dominantUnit=Object.entries(unitCounts).sort((a,b)=>b[1]-a[1])[0][0];
   const focusLabel=focus==='random'?dominantUnit.replace(/_/g,' '):focus.replace(/_/g,' ');
   const diffLabel=diff.charAt(0).toUpperCase()+diff.slice(1);
@@ -6418,6 +6495,10 @@ function r_renderPattern(activeIndex,userIndex,missIndex){
   const totalBeats=r_currentPattern.totalBeats||r_currentPattern.bars*4;
   const bars=r_currentPattern.bars||(totalBeats/4);
   const hitSet=new Set(r_currentPattern.beats.map(b=>Math.round(b*1000)/1000));
+
+  // Apply visual density class based on phrase length
+  el.classList.remove('rhythm-density-normal','rhythm-density-compact','rhythm-density-chart');
+  el.classList.add(bars<=4?'rhythm-density-normal':bars<=8?'rhythm-density-compact':'rhythm-density-chart');
 
   // Show all bars: 1 bar alone on its row, 2 bars per row otherwise; never split a bar
   const barsPerRow=bars<=1?1:2;
