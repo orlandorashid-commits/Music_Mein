@@ -1255,6 +1255,12 @@ body {
 .sight-score{font-family:'DM Mono',monospace;font-size:1.35rem;font-weight:700;color:var(--ink);margin:.15rem 0;}
 @media(max-width:700px){.sight-wrap{padding:.75rem .65rem;}.sight-main-grid{grid-template-columns:1fr;}.sight-card,.sight-side,.sight-side .p-card{width:100%;max-width:100%;overflow-x:hidden;}.sight-staff-wrap{padding:.4rem .1rem;}.sight-note-row{gap:.22rem;}.e-answer-keyboard,.sight-keyboard-wrap{padding:.55rem .35rem;}.e-mini-keyboard-wrap{max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;}}
 
+
+/* Sight and Ear consistency controls */
+.s-inline-control{display:flex;align-items:center;gap:.35rem;padding:.18rem .45rem;border:1px solid var(--border);border-radius:10px;background:var(--surface);color:var(--ink2);}
+.s-inline-control label{font-size:.62rem;font-weight:800;text-transform:uppercase;letter-spacing:.07em;color:var(--ink3);white-space:nowrap;}
+.s-inline-control select{padding:.34rem .55rem;background:var(--bg2);border:1px solid var(--border);border-radius:8px;color:var(--ink);font-family:'DM Sans',sans-serif;font-size:.76rem;font-weight:700;}
+@media(max-width:700px){.s-inline-control{width:100%;justify-content:space-between}.s-inline-control select{flex:1;min-width:0}}
 </style>
 </head>
 <body>
@@ -1799,6 +1805,7 @@ body {
               <button class="p-btn p-btn-sec" id="e-auditionBtn" onclick="e_auditionPrompt()">&#9834; Audition</button>
               <button class="p-btn p-btn-primary" id="e-playBtn" onclick="e_playCurrentNote()">&#9654; Start</button>
               <button class="p-btn p-btn-sec" id="e-repeatBtn" onclick="e_playCurrentNote()">&#8635; Repeat</button>
+              <button class="p-btn p-btn-sec" id="e-stopBtn" onclick="e_stopPlayback()">&#9632; Stop</button>
               <button class="p-btn p-btn-sec" id="e-nextBtn" onclick="e_nextNote()">Next &#8594;</button>
               <button class="p-btn p-btn-danger" onclick="e_resetEarTraining()">&#8634; Reset</button>
             </div>
@@ -1814,10 +1821,14 @@ body {
               <div class="e-keyboard-help" id="e-answerKeyboardHelp">Tap a key or use MIDI.</div>
             </div>
 
-            <div class="p-midi-bar" style="margin-top:.9rem;">
+            <div class="p-midi-bar" style="margin-top:.9rem;flex-wrap:wrap;gap:.45rem;">
               <div class="p-midi-dot" id="e-midiDot"></div>
               <span class="p-midi-text">Play your answer on MIDI keyboard.</span>
               <span class="p-midi-last" id="e-lastMidi">—</span>
+              <label style="display:flex;align-items:center;gap:.35rem;font-size:.72rem;font-weight:600;color:var(--ink3);cursor:pointer;">
+                <input type="checkbox" id="e-synthToggle" checked onchange="e_toggleBrowserSynth(this.checked)" style="accent-color:var(--gold);width:13px;height:13px;">
+                Browser Synth
+              </label>
             </div>
 
             <!-- Name the Interval: combined number + quality answer -->
@@ -2050,6 +2061,8 @@ body {
               <button class="p-btn p-btn-sec" id="s-auditionBtn" onclick="s_audition()">&#9834; Audition</button>
               <button class="p-btn p-btn-primary" id="s-startBtn" onclick="s_start()">&#9654; Start</button>
               <button class="p-btn p-btn-sec" id="s-repeatBtn" onclick="s_repeat()">&#8635; Repeat</button>
+              <div class="s-inline-control"><label for="s-barsSelect">Bars</label><select id="s-barsSelect" onchange="s_onBarsChange()"><option value="1" selected>1 Bar</option><option value="2">2 Bars</option><option value="4">4 Bars</option><option value="8">8 Bars</option><option value="16">16 Bars</option></select></div>
+              <button class="p-btn p-btn-sec" id="s-stopBtn" onclick="s_stopPlayback()">&#9632; Stop</button>
               <button class="p-btn p-btn-sec" id="s-nextBtn" onclick="s_nextExercise()">Next &#8594;</button>
               <button class="p-btn p-btn-sec" onclick="s_reset()">&#8634; Reset</button>
             </div>
@@ -5054,6 +5067,8 @@ let e_wrongReplayDelayMs=1800;
 let e_currentChord=null, e_chordPlayTimers=[], e_chordPlaybackLocked=false, e_chordUnlockTimer=null;
 let e_showChordRoot=false, e_showChordTones=false, e_showChordName=false;
 let e_visualRevealOpen=false;
+let e_auditionTimers=[];
+let e_browserSynthOn=true;
 let e_wrongReplayTimer   = null;
 let e_showSingleNoteAnswer  = false;
 let e_showIntervalStartNote = false;
@@ -5287,9 +5302,10 @@ function e_handleMidiNoteOff(noteStr) {
 
 // ── Ear Training live note helper ─────────────────────────────
 function e_playEarLiveNote(noteStr, velocity) {
-  if (!p_isActiveAudioTab()) return;
+  if (!p_isActiveAudioTab() || !e_browserSynthOn) return;
   p_noteOn(noteStr, velocity || 90, 'live');
-  setTimeout(() => p_noteOff(noteStr), 600);
+  const t=setTimeout(() => p_noteOff(noteStr), 600);
+  if(e_auditionTimers) e_auditionTimers.push(t);
 }
 
 // ── MIDI dispatch ──────────────────────────────────────────────
@@ -5737,7 +5753,7 @@ function e_buildInteractiveMiniKeyboard(containerId,startNote,endNote,onTap){
 function e_flashAnswerKey(note,cls){const kb=document.getElementById('e-answerKeyboard');if(!kb)return;const el=kb.querySelector('[data-note="'+note+'"]');if(!el)return;el.classList.add(cls||'active');setTimeout(()=>el.classList.remove(cls||'active'),300);}
 function e_handleKeyboardAnswer(note){
   const last=document.getElementById('e-lastMidi');if(last)last.textContent='Last Tap: '+note;
-  e_flashAnswerKey(note,'active');p_playPreviewNote(note,90,0.45,'live');
+  e_flashAnswerKey(note,'active');if(e_browserSynthOn)p_playPreviewNote(note,90,0.45,'live');
   if(e_mode==='chord_replay'){e_handleChordReplayAnswer(note,90);if(e_chordReplayAdvancePending&&(!e_heldMidiNotes||e_heldMidiNotes.size===0)) e_scheduleChordReplayNextAfterRelease();return;}
   if(e_mode==='interval')e_handleIntervalAnswer(note);else if(e_mode==='note')e_handleNoteAnswer(note);else if(e_mode==='interval_name')e_setFeedback('Choose number or quality using the buttons.','neutral');else if(e_mode==='chord_quality')e_setFeedback('Choose the chord name using the buttons.','neutral');
 }
@@ -5746,6 +5762,22 @@ function e_renderAnswerKeyboard(){
   const notes=e_getManualAnswerNotes();if(!notes.length){wrap.style.display='none';return;}wrap.style.display='';
   const midis=notes.map(e_noteToMidi);const start=e_midiToNote(e_prevWhiteMidi(Math.min(...midis)));const end=e_midiToNote(e_nextWhiteMidi(Math.max(...midis)));
   e_buildInteractiveMiniKeyboard('e-answerKeyboard',start,end,e_handleKeyboardAnswer);
+}
+function e_stopPlayback(){
+  if(e_auditionTimers){e_auditionTimers.forEach(t=>clearTimeout(t));e_auditionTimers=[];}
+  if(e_chordPlayTimers){e_chordPlayTimers.forEach(t=>clearTimeout(t));e_chordPlayTimers=[];}
+  if(e_chordUnlockTimer){clearTimeout(e_chordUnlockTimer);e_chordUnlockTimer=null;}
+  if(e_wrongReplayTimer){clearTimeout(e_wrongReplayTimer);e_wrongReplayTimer=null;}
+  if(e_heldMidiNotes){e_heldMidiNotes.forEach(n=>p_noteOff(n));e_heldMidiNotes.clear();}
+  if(e_currentNote)p_noteOff(e_currentNote);
+  if(e_currentInterval&&e_currentInterval.notes)e_currentInterval.notes.forEach(n=>p_noteOff(n));
+  if(e_currentChord&&e_currentChord.notes)e_currentChord.notes.forEach(n=>p_noteOff(n));
+  e_chordPlaybackLocked=false;
+  e_setFeedback(e_waitingForAnswer?'Stopped. Continue your attempt.':'Stopped. Choose Audition or Start.','neutral');
+}
+function e_toggleBrowserSynth(v){
+  e_browserSynthOn=!!v;
+  if(typeof p_toggleBrowserSynth==='function')p_toggleBrowserSynth(!!v);
 }
 function e_auditionPrompt(){
   if(e_mode==='interval'||e_mode==='interval_name'){if(!e_currentInterval)e_pickInterval();const notes=e_currentInterval&&e_currentInterval.notes?e_currentInterval.notes:[];notes.forEach((n,i)=>setTimeout(()=>p_playPreviewNote(n,105,0.5,'demo'),i*650));e_setFeedback('Audition only. Press Start when ready.','neutral');return;}
@@ -6172,10 +6204,11 @@ function e_init() {
 
 /* Sight Reading basic trainer with keyboard */
 const S_KEY_POOLS={C:['C4','D4','E4','F4','G4','A4','B4','C5'],G:['G4','A4','B4','C5','D5','E5','F#5','G5'],F:['F4','G4','A4','A#4','C5','D5','E5','F5']};
-let s_sequence=[],s_index=0,s_active=false,s_scoreCorrect=0,s_scoreTotal=0,s_wrongAttempts=0,s_history=[],s_diff='medium',s_length=4,s_key='C',s_showNoteNames=true,s_octaveMatch='exact',s_bpm=84,s_hearItTimers=[],s_hearItIndex=-1,s_browserSynthOn=true;
+let s_sequence=[],s_index=0,s_active=false,s_scoreCorrect=0,s_scoreTotal=0,s_wrongAttempts=0,s_history=[],s_diff='medium',s_length=4,s_bars=1,s_key='C',s_showNoteNames=true,s_octaveMatch='exact',s_bpm=84,s_hearItTimers=[],s_hearItIndex=-1,s_browserSynthOn=true;
 function s_init(){s_readControls();s_generateExercise(false);s_renderStaff();s_renderNoteRow();s_renderKeyboard();s_renderScore();s_renderHistory();s_setFeedback('Choose Audition to preview, then Start when ready.','neutral');}
-function s_readControls(){const d=document.getElementById('s-diffSelect'),l=document.getElementById('s-lengthSelect'),k=document.getElementById('s-keySelect'),om=document.getElementById('s-octaveSelect'),nn=document.getElementById('s-noteNamesSelect');if(d)s_diff=d.value;if(l)s_length=parseInt(l.value,10)||4;if(k)s_key=k.value;if(om)s_octaveMatch=om.value;if(nn)s_showNoteNames=nn.value==='on';}
+function s_readControls(){const d=document.getElementById('s-diffSelect'),l=document.getElementById('s-lengthSelect'),b=document.getElementById('s-barsSelect'),k=document.getElementById('s-keySelect'),om=document.getElementById('s-octaveSelect'),nn=document.getElementById('s-noteNamesSelect');if(d)s_diff=d.value;if(b){s_bars=parseInt(b.value,10)||1;s_length=s_bars*4;if(l)l.value=String(Math.min(16,Math.max(4,s_length)));}else if(l)s_length=parseInt(l.value,10)||4;if(k)s_key=k.value;if(om)s_octaveMatch=om.value;if(nn)s_showNoteNames=nn.value==='on';}
 function s_onSettingsChange(){s_readControls();s_generateExercise(false);s_renderStaff();s_renderNoteRow();s_renderKeyboard();s_renderScore();s_setFeedback('Settings updated. Choose Audition or Start.','neutral');}
+function s_onBarsChange(){s_onSettingsChange();}
 function s_onNoteNamesChange(){s_readControls();s_renderNoteRow();}
 function s_onOctaveMatchChange(){s_readControls();}
 function s_generateExercise(active){s_clearHearIt();s_index=0;s_active=!!active;s_scoreCorrect=0;s_wrongAttempts=0;s_sequence=s_generateSequence();s_scoreTotal=s_sequence.length;}
@@ -6185,9 +6218,10 @@ function s_notePitch(note){return s_octaveMatch==='any'?String(note).replace(/\d
 function s_start(){s_readControls();s_generateExercise(true);s_renderStaff();s_renderNoteRow();s_renderKeyboard();s_renderScore();const cur=s_showNoteNames?s_sequence[0]:'the first note';s_setFeedback('Play '+cur+'.','neutral');const b=document.getElementById('s-startBtn');if(b)b.textContent='Restart';}
 function s_nextExercise(){s_readControls();s_generateExercise(false);s_renderStaff();s_renderNoteRow();s_renderKeyboard();s_renderScore();s_setFeedback('New exercise ready. Choose Audition or Start.','neutral');}
 function s_reset(){s_generateExercise(false);s_renderStaff();s_renderNoteRow();s_renderKeyboard();s_renderScore();s_setFeedback('Reset. Choose Audition or Start.','neutral');const b=document.getElementById('s-startBtn');if(b)b.textContent='Start';}
+function s_stopPlayback(){s_clearHearIt();s_renderStaff();s_renderNoteRow();s_setFeedback(s_active?'Stopped. Continue your attempt.':'Stopped. Choose Audition or Start.','neutral');}
 function s_audition(){if(!s_sequence.length)s_generateExercise(false);s_playSequence();s_setFeedback('Audition only. Press Start when ready.','neutral');}
 function s_repeat(){if(!s_sequence.length){s_setFeedback('Press Start first.','neutral');return;}s_playSequence();}
-function s_clearHearIt(){s_hearItTimers.forEach(t=>clearTimeout(t));s_hearItTimers=[];s_hearItIndex=-1;}
+function s_clearHearIt(){s_hearItTimers.forEach(t=>clearTimeout(t));s_hearItTimers=[];s_hearItIndex=-1;if(s_sequence&&s_sequence.length)s_sequence.forEach(n=>p_noteOff(n));}
 function s_playSequence(){s_clearHearIt();const beatMs=Math.round(60000/s_bpm);s_sequence.forEach((note,i)=>{const t=setTimeout(()=>{s_hearItIndex=i;s_renderStaff();s_renderNoteRow();p_playPreviewNote(note,100,0.55,'demo');},i*beatMs);s_hearItTimers.push(t);});const done=setTimeout(()=>{s_hearItIndex=-1;s_renderStaff();s_renderNoteRow();s_setFeedback(s_active?'Continue your attempt.':'Audition complete. Press Start when ready.','neutral');},s_sequence.length*beatMs+250);s_hearItTimers.push(done);}
 function s_handleKeyboardNote(note){const last=document.getElementById('s-lastMidi');if(last)last.textContent='Last Tap: '+note;s_flashKey(note,'active');if(s_browserSynthOn)p_playPreviewNote(note,90,0.45,'live');s_handleNoteInput(note);}
 function s_handleMidiNote(noteName,velocity){const last=document.getElementById('s-lastMidi');if(last)last.textContent='Last MIDI: '+noteName+' vel '+velocity;const dot=document.getElementById('s-midiDot');if(dot){dot.classList.add('connected');setTimeout(()=>dot.classList.remove('connected'),350);}if(s_browserSynthOn)p_noteOn(noteName,velocity||90,'live');s_handleNoteInput(noteName);}
@@ -6198,7 +6232,7 @@ function s_renderNoteRow(){const el=document.getElementById('s-noteRow');if(!el)
 function s_renderKeyboard(){const all=S_KEY_POOLS[s_key]||S_KEY_POOLS.C,midis=all.map(e_noteToMidi);e_buildInteractiveMiniKeyboard('s-keyboard',e_midiToNote(e_prevWhiteMidi(Math.min(...midis))),e_midiToNote(e_nextWhiteMidi(Math.max(...midis))),s_handleKeyboardNote);const expected=s_sequence[s_index];if(expected)s_flashKey(expected,'expected',false);}
 function s_flashKey(note,cls,remove=true){const kb=document.getElementById('s-keyboard');if(!kb)return;const el=kb.querySelector('[data-note="'+note+'"]');if(!el)return;el.classList.add(cls||'active');if(remove)setTimeout(()=>el.classList.remove(cls||'active'),320);}
 function s_renderScore(){const el=document.getElementById('s-score');if(el){const pct=s_scoreTotal?Math.round(s_scoreCorrect/s_scoreTotal*100):0;el.textContent=s_scoreCorrect+' / '+s_scoreTotal+' · '+pct+'%';}const w=document.getElementById('s-wrongCount');if(w)w.textContent='Wrong attempts: '+s_wrongAttempts;}
-function s_renderHistory(){const el=document.getElementById('s-history');if(!el)return;if(!s_history.length){el.innerHTML='<div class="p-history-empty">No attempts yet</div>';return;}el.innerHTML='';s_history.slice(0,8).forEach(h=>{const d=document.createElement('div');d.className='p-history-item';d.innerHTML='<span class="p-history-name">'+h.key+' '+h.diff+' '+h.length+'</span><span class="p-history-score g-'+(h.pct>=80?'a':'c')+'">'+h.pct+'%</span>';el.appendChild(d);});}
+function s_renderHistory(){const el=document.getElementById('s-history');if(!el)return;if(!s_history.length){el.innerHTML='<div class="p-history-empty">No attempts yet</div>';return;}el.innerHTML='';s_history.slice(0,8).forEach(h=>{const d=document.createElement('div');d.className='p-history-item';d.innerHTML='<span class="p-history-name">'+h.key+' '+h.diff+' '+(h.length/4)+' bar'+'</span><span class="p-history-score g-'+(h.pct>=80?'a':'c')+'">'+h.pct+'%</span>';el.appendChild(d);});}
 function s_updateBPM(v){s_bpm=parseInt(v,10)||84;const el=document.getElementById('s-bpmVal');if(el)el.textContent=s_bpm;}
 function s_updateGuideVol(v){const el=document.getElementById('s-guideVal');if(el)el.textContent=v;if(typeof p_updateDemoVol==='function')p_updateDemoVol(v);}
 function s_updateLiveVol(v){const el=document.getElementById('s-liveVal');if(el)el.textContent=v;if(typeof p_updateLiveVol==='function')p_updateLiveVol(v);}
