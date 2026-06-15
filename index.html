@@ -1395,6 +1395,34 @@ html,body{overflow-x:hidden;}
   #page-rhythm .rhythm-row{gap:.18rem;}
   #page-rhythm .rhythm-bar-sep{min-height:32px;margin:0 1px;}
 }
+
+/* ── Sight Reading ─────────────────────────────────────── */
+.sight-wrap{max-width:1040px;margin:0 auto;padding:1.5rem 1rem;}
+.sight-header{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:1.1rem 1.4rem;margin-bottom:1rem;}
+.sight-header h2{font-size:1.35rem;font-weight:800;color:var(--ink);margin:0 0 .2rem;}
+.sight-header p{font-size:.82rem;color:var(--ink2);margin:0;}
+.sight-main-grid{display:grid;grid-template-columns:1fr 280px;gap:1rem;align-items:start;}
+.sight-card{padding:1.15rem;}
+.sight-side{display:flex;flex-direction:column;gap:.9rem;}
+.sight-staff-wrap{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:.55rem .25rem;margin-bottom:.7rem;overflow:hidden;}
+.sight-staff{width:100%;}
+.sight-staff svg{width:100%;display:block;}
+.sight-note-row{display:flex;flex-wrap:wrap;gap:.3rem;margin-bottom:.55rem;min-height:28px;align-items:center;justify-content:center;padding:0 .25rem;}
+.sight-chip{padding:.22rem .5rem;border-radius:7px;border:1px solid var(--border);background:var(--surface);color:var(--ink2);font-family:'DM Mono',monospace;font-size:.75rem;font-weight:600;transition:background .12s,color .12s;}
+.sight-chip.current{background:var(--gold);border-color:var(--gold);color:#000;font-weight:800;}
+.sight-chip.done{background:rgba(58,158,111,.75);border-color:rgba(58,158,111,.75);color:#fff;}
+.sight-feedback{padding:.55rem .75rem;border-radius:10px;font-weight:600;font-size:.86rem;text-align:center;margin-top:.4rem;}
+.sight-feedback.neutral{background:var(--bg2);color:var(--ink2);}
+.sight-feedback.correct{background:rgba(58,158,111,.12);color:var(--accent-practice);}
+.sight-feedback.wrong{background:rgba(192,97,74,.12);color:var(--accent-ear);}
+.sight-score{font-family:'DM Mono',monospace;font-size:1.35rem;font-weight:700;color:var(--ink);margin:.15rem 0;}
+@media(max-width:700px){
+  .sight-wrap{padding:.75rem .65rem;}
+  .sight-main-grid{grid-template-columns:1fr;}
+  .sight-card,.sight-side,.sight-side .p-card{width:100%;max-width:100%;overflow-x:hidden;}
+  .sight-staff-wrap{padding:.4rem .1rem;}
+  .sight-note-row{gap:.22rem;}
+}
 </style>
 </head>
 <body>
@@ -2195,11 +2223,73 @@ html,body{overflow-x:hidden;}
 
     <!-- SIGHT READING -->
     <div class="page" id="page-sight">
-      <div class="coming-soon">
-        <div class="coming-soon-icon">👁️</div>
-        <div class="accent-bar" style="background:var(--accent-sight)"></div>
-        <h2 data-i18n="sight_title">Sight Reading</h2>
-        <p data-i18n="sight_desc">Random note sequences across all 12 keys, graded in real time. Coming in Phase 6.</p>
+      <div class="sight-wrap">
+        <div class="sight-header">
+          <h2>Sight Reading</h2>
+          <p>Read the notes, then play them on your MIDI keyboard.</p>
+        </div>
+
+        <div class="sight-controls p-controls-bar" style="margin-bottom:.9rem;">
+          <div class="p-control-group">
+            <label>Difficulty</label>
+            <select id="s-diffSelect" onchange="s_onSettingsChange()">
+              <option value="easy">Easy</option>
+              <option value="medium" selected>Medium</option>
+              <option value="hard">Hard</option>
+            </select>
+          </div>
+          <div class="p-control-group">
+            <label>Length</label>
+            <select id="s-lengthSelect" onchange="s_onSettingsChange()">
+              <option value="4" selected>4 Notes</option>
+              <option value="8">8 Notes</option>
+              <option value="12">12 Notes</option>
+              <option value="16">16 Notes</option>
+            </select>
+          </div>
+          <div class="p-control-group">
+            <label>Clef</label>
+            <select disabled><option>Treble</option></select>
+          </div>
+          <div class="p-control-group">
+            <label>Key</label>
+            <select disabled><option>C Major</option></select>
+          </div>
+          <div class="p-control-group">
+            <label>Note Names</label>
+            <select id="s-noteNamesSelect" onchange="s_onNoteNamesChange()">
+              <option value="on" selected>On</option>
+              <option value="off">Off</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="sight-main-grid">
+          <div class="sight-card p-card">
+            <div class="sight-staff-wrap">
+              <div class="sight-staff" id="s-staff"></div>
+            </div>
+            <div class="sight-note-row" id="s-noteRow"></div>
+            <div class="sight-feedback neutral" id="s-feedback">Press Start to begin.</div>
+            <div class="p-btn-row" style="justify-content:center;margin-top:.85rem;flex-wrap:wrap;gap:.5rem;">
+              <button class="p-btn p-btn-primary" id="s-startBtn" onclick="s_start()">&#9654; Start</button>
+              <button class="p-btn p-btn-sec" onclick="s_hearIt()">&#9834; Hear It</button>
+              <button class="p-btn p-btn-sec" onclick="s_nextExercise()">Next &#8594;</button>
+              <button class="p-btn p-btn-sec" onclick="s_reset()">&#8634; Reset</button>
+            </div>
+          </div>
+          <div class="sight-side">
+            <div class="p-card">
+              <div class="p-card-title">Score</div>
+              <div class="sight-score" id="s-score">0 / 0</div>
+              <div class="p-score-label">Notes correct this exercise</div>
+            </div>
+            <div class="p-card">
+              <div class="p-card-title">Recent Exercises</div>
+              <div id="s-history"><div class="p-history-empty">No attempts yet</div></div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -2655,6 +2745,7 @@ function enterApp() {
   p_init();
   e_init();
   r_init();
+  s_init();
   pg_init();
 }
 
@@ -6324,6 +6415,13 @@ function p_handleMIDI(event){
       return;
     }
 
+    // Route to Sight Reading when on that page
+    if (currentPage === 'sight') {
+      r_playMidiNote(noteStr, velocity);
+      s_handleMidiNote(noteStr);
+      return;
+    }
+
     // Route to Ear Training when on that page
     if (currentPage === 'ear') {
       e_handleMidiAnswer(noteStr, velocity);
@@ -6348,6 +6446,11 @@ function p_handleMIDI(event){
     }
     // Rhythm: note-off releases the pitched sound but does NOT count as a tap
     if (currentPage === 'rhythm') {
+      p_noteOff(noteStr);
+      return;
+    }
+    // Sight Reading: release note
+    if (currentPage === 'sight') {
       p_noteOff(noteStr);
       return;
     }
@@ -7384,6 +7487,237 @@ document.addEventListener('keydown',ev=>{
   const note=P_KEY_MAP[ev.key.toLowerCase()];
   if(note) p_onKey(note,false);
 });
+
+/* ============================================================
+   SIGHT READING — Phase 1
+   Treble clef, C Major, natural notes only, MIDI grading
+   ============================================================ */
+
+// Natural notes in the training range (C4 to C5, treble clef)
+const S_NOTES=['C4','D4','E4','F4','G4','A4','B4','C5'];
+
+// SVG y-coordinate for each note's notehead center
+// Staff lines at y=28(F5),40(D5),52(B4),64(G4),76(E4); line spacing=12; half-step=6
+const S_NOTE_Y={C4:88,D4:82,E4:76,F4:70,G4:64,A4:58,B4:52,C5:46};
+
+// State
+let s_sequence=[];
+let s_index=0;
+let s_active=false;
+let s_scoreCorrect=0;
+let s_scoreTotal=0;
+let s_wrongAttempts=0;
+let s_totalWrong=0;
+let s_history=[];
+let s_showNoteNames=true;
+let s_diff='medium';
+let s_length=4;
+
+function s_init(){
+  s_renderStaff();
+  s_renderNoteRow();
+  s_renderScore();
+  s_renderHistory();
+}
+
+function s_onSettingsChange(){
+  const d=document.getElementById('s-diffSelect');
+  const l=document.getElementById('s-lengthSelect');
+  if(d)s_diff=d.value;
+  if(l)s_length=parseInt(l.value,10);
+}
+
+function s_onNoteNamesChange(){
+  const sel=document.getElementById('s-noteNamesSelect');
+  if(sel)s_showNoteNames=sel.value==='on';
+  s_renderNoteRow();
+}
+
+function s_generateSequence(){
+  s_onSettingsChange();
+  const pool=s_diff==='easy'?['C4','D4','E4','F4','G4']:S_NOTES.slice();
+  const seq=[];let prev=null;
+  for(let i=0;i<s_length;i++){
+    let note,tries=0;
+    do{
+      const pi=prev?pool.indexOf(prev):-1;
+      if(s_diff==='easy'&&pi>=0){
+        const c=[];
+        if(pi>0)c.push(pool[pi-1]);
+        if(pi<pool.length-1)c.push(pool[pi+1]);
+        note=c.length?c[Math.floor(Math.random()*c.length)]:pool[Math.floor(Math.random()*pool.length)];
+      } else if(s_diff==='medium'&&pi>=0){
+        const lo=Math.max(0,pi-2),hi=Math.min(pool.length-1,pi+2);
+        const c=pool.slice(lo,hi+1);
+        note=c[Math.floor(Math.random()*c.length)];
+      } else {
+        note=pool[Math.floor(Math.random()*pool.length)];
+      }
+      tries++;
+    }while(tries<12&&note===prev&&pool.length>1);
+    seq.push(note);prev=note;
+  }
+  return seq;
+}
+
+function s_start(){
+  s_onSettingsChange();
+  // Apply difficulty-based note-names default
+  const ns=document.getElementById('s-noteNamesSelect');
+  if(ns){ns.value=s_diff==='hard'?'off':'on';s_showNoteNames=s_diff!=='hard';}
+  s_sequence=s_generateSequence();
+  s_index=0;s_active=true;
+  s_scoreCorrect=0;s_scoreTotal=s_sequence.length;
+  s_wrongAttempts=0;s_totalWrong=0;
+  s_renderStaff();s_renderNoteRow();s_renderScore();
+  const cur=s_showNoteNames&&s_sequence.length?s_sequence[0]:'the first note';
+  s_setFeedback('Play '+cur+' on your MIDI keyboard.','neutral');
+  const btn=document.getElementById('s-startBtn');
+  if(btn)btn.textContent='\u25B6 Restart';
+}
+
+// Called by p_handleMIDI when on the Sight Reading page.
+// Audio is already played by the MIDI handler; this function only grades.
+function s_handleMidiNote(noteName){
+  if(!s_active||s_index>=s_sequence.length)return;
+  const expected=s_sequence[s_index];
+  if(noteName===expected){
+    s_scoreCorrect++;
+    s_totalWrong+=s_wrongAttempts;
+    s_wrongAttempts=0;
+    s_index++;
+    if(s_index>=s_sequence.length){
+      s_active=false;
+      const pct=Math.round((s_scoreCorrect/s_scoreTotal)*100);
+      s_history.unshift({diff:s_diff,length:s_length,correct:s_scoreCorrect,total:s_scoreTotal,pct});
+      s_history=s_history.slice(0,6);
+      s_setFeedback('Exercise complete. Score: '+pct+'%',pct>=80?'correct':'wrong');
+      s_renderHistory();
+    } else {
+      const next=s_showNoteNames?s_sequence[s_index]:'the next note';
+      s_setFeedback('Correct. Play '+next+'.','correct');
+    }
+    s_renderStaff();s_renderNoteRow();s_renderScore();
+  } else {
+    s_wrongAttempts++;
+    const label=s_showNoteNames?expected:'that note';
+    s_setFeedback('Try again: '+label+'.','wrong');
+    s_renderStaff(true);
+    setTimeout(()=>s_renderStaff(false),400);
+  }
+}
+
+function s_hearIt(){
+  if(!s_sequence.length){s_setFeedback('Press Start first.','neutral');return;}
+  s_setFeedback('Playing sequence...','neutral');
+  s_sequence.forEach((note,i)=>{
+    setTimeout(()=>{
+      if(typeof r_playMidiNote==='function'){
+        r_playMidiNote(note,65);
+        setTimeout(()=>{if(typeof p_noteOff==='function')p_noteOff(note);},320);
+      }
+    },i*560);
+  });
+}
+
+function s_nextExercise(){s_start();}
+
+function s_reset(){
+  if(!s_sequence.length)return;
+  s_index=0;s_active=true;s_scoreCorrect=0;s_wrongAttempts=0;s_totalWrong=0;
+  s_renderStaff();s_renderNoteRow();s_renderScore();
+  const cur=s_showNoteNames&&s_sequence.length?s_sequence[0]:'the first note';
+  s_setFeedback('Restarted. Play '+cur+'.','neutral');
+}
+
+function s_setFeedback(msg,type){
+  const el=document.getElementById('s-feedback');if(!el)return;
+  el.textContent=msg;
+  el.className='sight-feedback '+(type||'neutral');
+}
+
+function s_renderScore(){
+  const el=document.getElementById('s-score');if(!el)return;
+  if(!s_scoreTotal){el.textContent='0 / 0';return;}
+  const pct=Math.round((s_scoreCorrect/s_scoreTotal)*100);
+  el.textContent=s_scoreCorrect+' / '+s_scoreTotal+' \u00b7 '+pct+'%';
+}
+
+function s_renderHistory(){
+  const el=document.getElementById('s-history');if(!el)return;
+  if(!s_history.length){el.innerHTML='<div class="p-history-empty">No attempts yet</div>';return;}
+  el.innerHTML=s_history.map(h=>
+    '<div class="p-history-item">'+
+    '<span>'+h.diff+' \u00b7 '+h.length+' notes</span>'+
+    '<span class="p-history-grade" style="color:'+(h.pct>=80?'var(--accent-practice)':'var(--accent-ear)')+'">'+h.pct+'%</span>'+
+    '</div>'
+  ).join('');
+}
+
+function s_renderNoteRow(){
+  const el=document.getElementById('s-noteRow');if(!el)return;
+  if(!s_sequence.length){el.innerHTML='';return;}
+  el.innerHTML=s_sequence.map((note,i)=>{
+    let cls='sight-chip';
+    if(i<s_index)cls+=' done';
+    else if(i===s_index)cls+=' current';
+    const txt=s_showNoteNames?note:'\u25CF';
+    return '<span class="'+cls+'">'+txt+'</span>';
+  }).join('');
+}
+
+function s_renderStaff(flashWrong){
+  const el=document.getElementById('s-staff');if(!el)return;
+  const W=540,H=108;
+  // Staff line y-positions top-to-bottom: F5(28), D5(40), B4(52), G4(64), E4(76)
+  const lY=[28,40,52,64,76];
+  const noteY=S_NOTE_Y;
+  const n=s_sequence.length;
+  const clefW=60,padR=14;
+  const spacing=n>0?Math.min(76,(W-clefW-padR)/n):76;
+  const startX=clefW+spacing*0.45;
+  const rx=5.8,ry=4.2;
+
+  let svg='<svg viewBox="0 0 '+W+' '+H+'" xmlns="http://www.w3.org/2000/svg">';
+
+  // Five staff lines
+  lY.forEach(y=>{
+    svg+='<line x1="12" y1="'+y+'" x2="'+(W-6)+'" y2="'+y+'" stroke="var(--ink2)" stroke-width="1.2" opacity=".5"/>';
+  });
+
+  // Treble clef symbol (U+1D11E, relies on system serif fonts)
+  svg+='<text x="10" y="92" font-family="serif" font-size="82" fill="var(--ink2)" opacity=".8">'+
+       String.fromCodePoint(0x1D11E)+'</text>';
+
+  if(n>0){
+    s_sequence.forEach((note,i)=>{
+      const x=startX+i*spacing;
+      const y=noteY[note];if(!y)return;
+      // C4 ledger line
+      if(note==='C4'){
+        svg+='<line x1="'+(x-rx-4)+'" y1="88" x2="'+(x+rx+4)+'" y2="88" stroke="var(--ink2)" stroke-width="1.2" opacity=".5"/>';
+      }
+      // Note color
+      let fill;
+      if(i<s_index) fill='var(--accent-practice)';
+      else if(i===s_index) fill=flashWrong?'var(--accent-ear)':'var(--gold)';
+      else fill='var(--ink2)';
+      // Notehead (slightly rotated oval for natural look)
+      svg+='<ellipse cx="'+x+'" cy="'+y+'" rx="'+rx+'" ry="'+ry+'" fill="'+fill+'" transform="rotate(-12 '+x+' '+y+')"/>';
+      // Stem: up when note is at/below middle line (B4=y52), down when above
+      if(y>=52){
+        svg+='<line x1="'+(x+rx-0.5)+'" y1="'+y+'" x2="'+(x+rx-0.5)+'" y2="'+(y-30)+'" stroke="'+fill+'" stroke-width="1.5"/>';
+      } else {
+        svg+='<line x1="'+(x-rx+0.5)+'" y1="'+y+'" x2="'+(x-rx+0.5)+'" y2="'+(y+30)+'" stroke="'+fill+'" stroke-width="1.5"/>';
+      }
+    });
+  } else {
+    svg+='<text x="'+(W/2)+'" y="60" text-anchor="middle" font-size="13" fill="var(--ink3)" font-family="DM Sans,sans-serif">Press Start to generate a sequence</text>';
+  }
+
+  svg+='</svg>';
+  el.innerHTML=svg;
+}
 
 /* ============================================================
    PROGRESS PAGE & BADGE SYSTEM
