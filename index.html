@@ -2044,7 +2044,7 @@ body {
 
         <div class="sight-controls p-controls-bar" style="margin-bottom:.9rem;">
           <div class="p-control-group"><label>Difficulty</label><select id="s-diffSelect" onchange="s_onSettingsChange()"><option value="easy">Easy</option><option value="medium" selected>Medium</option><option value="hard">Hard</option></select></div>
-          <div class="p-control-group"><label>Length</label><select id="s-lengthSelect" onchange="s_onSettingsChange()"><option value="4" selected>4 Notes</option><option value="8">8 Notes</option><option value="12">12 Notes</option><option value="16">16 Notes</option></select></div>
+          <div class="p-control-group"><label>Length</label><select id="s-barsSelect" onchange="s_onBarsChange()"><option value="1" selected>1 Bar</option><option value="2">2 Bars</option><option value="4">4 Bars</option><option value="8">8 Bars</option><option value="16">16 Bars</option></select></div>
           <div class="p-control-group"><label>Clef</label><select id="s-clefSelect" onchange="s_onSettingsChange()"><option value="treble" selected>Treble</option></select></div>
           <div class="p-control-group"><label>Key</label><select id="s-keySelect" onchange="s_onSettingsChange()"><option value="C" selected>C Major</option><option value="G">G Major</option><option value="F">F Major</option></select></div>
           <div class="p-control-group"><label>Note Names</label><select id="s-noteNamesSelect" onchange="s_onNoteNamesChange()"><option value="on" selected>On</option><option value="off">Off</option></select></div>
@@ -2061,7 +2061,6 @@ body {
               <button class="p-btn p-btn-sec" id="s-auditionBtn" onclick="s_audition()">&#9834; Audition</button>
               <button class="p-btn p-btn-primary" id="s-startBtn" onclick="s_start()">&#9654; Start</button>
               <button class="p-btn p-btn-sec" id="s-repeatBtn" onclick="s_repeat()">&#8635; Repeat</button>
-              <div class="s-inline-control"><label for="s-barsSelect">Bars</label><select id="s-barsSelect" onchange="s_onBarsChange()"><option value="1" selected>1 Bar</option><option value="2">2 Bars</option><option value="4">4 Bars</option><option value="8">8 Bars</option><option value="16">16 Bars</option></select></div>
               <button class="p-btn p-btn-sec" id="s-stopBtn" onclick="s_stopPlayback()">&#9632; Stop</button>
               <button class="p-btn p-btn-sec" id="s-nextBtn" onclick="s_nextExercise()">Next &#8594;</button>
               <button class="p-btn p-btn-sec" onclick="s_reset()">&#8634; Reset</button>
@@ -6206,7 +6205,7 @@ function e_init() {
 const S_KEY_POOLS={C:['C4','D4','E4','F4','G4','A4','B4','C5'],G:['G4','A4','B4','C5','D5','E5','F#5','G5'],F:['F4','G4','A4','A#4','C5','D5','E5','F5']};
 let s_sequence=[],s_index=0,s_active=false,s_scoreCorrect=0,s_scoreTotal=0,s_wrongAttempts=0,s_history=[],s_diff='medium',s_length=4,s_bars=1,s_key='C',s_showNoteNames=true,s_octaveMatch='exact',s_bpm=84,s_hearItTimers=[],s_hearItIndex=-1,s_browserSynthOn=true;
 function s_init(){s_readControls();s_generateExercise(false);s_renderStaff();s_renderNoteRow();s_renderKeyboard();s_renderScore();s_renderHistory();s_setFeedback('Choose Audition to preview, then Start when ready.','neutral');}
-function s_readControls(){const d=document.getElementById('s-diffSelect'),l=document.getElementById('s-lengthSelect'),b=document.getElementById('s-barsSelect'),k=document.getElementById('s-keySelect'),om=document.getElementById('s-octaveSelect'),nn=document.getElementById('s-noteNamesSelect');if(d)s_diff=d.value;if(b){s_bars=parseInt(b.value,10)||1;s_length=s_bars*4;if(l)l.value=String(Math.min(16,Math.max(4,s_length)));}else if(l)s_length=parseInt(l.value,10)||4;if(k)s_key=k.value;if(om)s_octaveMatch=om.value;if(nn)s_showNoteNames=nn.value==='on';}
+function s_readControls(){const d=document.getElementById('s-diffSelect'),b=document.getElementById('s-barsSelect'),k=document.getElementById('s-keySelect'),om=document.getElementById('s-octaveSelect'),nn=document.getElementById('s-noteNamesSelect');if(d)s_diff=d.value;if(b){s_bars=parseInt(b.value,10)||1;s_length=s_bars*4;}else{s_bars=Math.max(1,Math.round((s_length||4)/4));s_length=s_bars*4;}if(k)s_key=k.value;if(om)s_octaveMatch=om.value;if(nn)s_showNoteNames=nn.value==='on';}
 function s_onSettingsChange(){s_readControls();s_generateExercise(false);s_renderStaff();s_renderNoteRow();s_renderKeyboard();s_renderScore();s_setFeedback('Settings updated. Choose Audition or Start.','neutral');}
 function s_onBarsChange(){s_onSettingsChange();}
 function s_onNoteNamesChange(){s_readControls();s_renderNoteRow();}
