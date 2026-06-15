@@ -731,7 +731,9 @@ body {
 .rhythm-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:1.4rem;text-align:center;}
 .rhythm-mode-label{font-size:.68rem;font-weight:700;color:var(--ink3);text-transform:uppercase;letter-spacing:.1em;margin-bottom:.6rem;}
 .rhythm-meter{font-family:'DM Mono',monospace;font-size:.9rem;font-weight:800;color:var(--gold);margin-bottom:1rem;}
-.rhythm-visual{min-height:110px;border:1px solid var(--border);border-radius:12px;background:var(--bg2);padding:1rem;display:flex;align-items:center;justify-content:center;gap:.45rem;flex-wrap:wrap;margin-bottom:.9rem;}
+.rhythm-visual{min-height:90px;border:1px solid var(--border);border-radius:12px;background:var(--bg2);padding:1rem;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.55rem;flex-wrap:nowrap;margin-bottom:.9rem;}
+.rhythm-row{display:flex;align-items:center;justify-content:center;gap:.45rem;flex-wrap:nowrap;width:100%;}
+.rhythm-bar{display:flex;align-items:center;justify-content:center;gap:.45rem;flex:0 0 auto;flex-wrap:nowrap;}
 .rhythm-empty{color:var(--ink3);font-size:.85rem;}
 .rhythm-beat{width:42px;height:58px;border-radius:10px;border:1px solid var(--border);background:var(--surface);display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:.72rem;font-weight:800;color:var(--ink3);position:relative;transition:all .12s;}
 .rhythm-beat.rest{opacity:.35;border-style:dashed;}
@@ -757,9 +759,9 @@ body {
 .r-countoff-number{display:inline-block;min-width:1.1em;text-align:center;font-family:'DM Mono',monospace;font-size:.82rem;font-weight:800;color:var(--gold);margin-left:.45rem;opacity:0;transition:opacity .05s;}
 .r-countoff-number.active{opacity:1;}
 .rhythm-bar-sep{width:2px;min-height:58px;background:var(--border);border-radius:2px;margin:0 6px;flex-shrink:0;align-self:stretch;}
-
+.rhythm-page-indicator{font-family:'DM Mono',monospace;font-size:.72rem;font-weight:600;color:var(--ink3);text-align:center;margin-bottom:.4rem;letter-spacing:.04em;}
 .r-tap-pad-wrap{display:flex;justify-content:center;margin:1rem 0 .85rem;}
-.r-tap-pad{width:148px;height:148px;border-radius:50%;border:2px solid rgba(201,168,76,.55);background:radial-gradient(circle at 35% 28%,rgba(232,213,160,.25),transparent 34%),linear-gradient(135deg,rgba(201,168,76,.24),rgba(123,94,167,.18));color:var(--ink);box-shadow:0 14px 34px rgba(0,0,0,.28),inset 0 0 0 1px rgba(255,255,255,.05);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.15rem;cursor:pointer;transition:transform .08s,border-color .12s,box-shadow .12s,opacity .12s;touch-action:manipulation;user-select:none;-webkit-user-select:none;}
+.r-tap-pad{width:148px;height:148px;border-radius:50%;border:2px solid rgba(201,168,76,.55);background:radial-gradient(circle at 35% 28%,rgba(232,213,160,.25),transparent 34%),linear-gradient(135deg,rgba(201,168,76,.24),rgba(123,94,167,.18));color:var(--ink);box-shadow:0 14px 34px rgba(0,0,0,.28),inset 0 0 0 1px rgba(255,255,255,.05);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.15rem;cursor:pointer;transition:transform .08s,border-color .12s,box-shadow .12s,opacity .12s;touch-action:manipulation;user-select:none;-webkit-user-select:none;font-family:'DM Sans',sans-serif;}
 .r-tap-pad:hover{border-color:var(--gold);box-shadow:0 18px 40px rgba(0,0,0,.34),0 0 18px rgba(201,168,76,.18);}
 .r-tap-pad:active,.r-tap-pad.tapped{transform:scale(.96);border-color:var(--gold);box-shadow:0 8px 22px rgba(0,0,0,.30),0 0 28px rgba(201,168,76,.32);}
 .r-tap-pad:disabled{opacity:.38;cursor:not-allowed;transform:none;box-shadow:none;}
@@ -1853,9 +1855,9 @@ body {
 
         <div class="rhythm-controls">
           <div class="p-control-group">
-            <label>Mode</label>
-            <select id="r-modeSelect" onchange="r_onSettingsChange()">
-              <option value="replay">Rhythm Replay</option>
+            <label>Meter</label>
+            <select id="r-meterSelect" onchange="r_onSettingsChange()">
+              <option value="4/4" selected>4/4</option>
             </select>
           </div>
           <div class="p-control-group">
@@ -1873,17 +1875,7 @@ body {
               <option value="1">1 Bar</option>
               <option value="2" selected>2 Bars</option>
               <option value="4">4 Bars</option>
-            </select>
-          </div>
-          <div class="p-control-group">
-            <label>BPM</label>
-            <select id="r-bpmSelect" onchange="r_onSettingsChange()">
-              <option value="60">60</option>
-              <option value="72">72</option>
-              <option value="84" selected>84</option>
-              <option value="96">96</option>
-              <option value="110">110</option>
-              <option value="120">120</option>
+              <option value="8">8 Bars</option>
             </select>
           </div>
           <div class="p-control-group">
@@ -1911,13 +1903,6 @@ body {
             </select>
           </div>
           <div class="p-control-group">
-            <label>Browser Synth</label>
-            <select id="r-browserSynthSelect" onchange="r_onSettingsChange()">
-              <option value="on" selected>On</option>
-              <option value="off">Off</option>
-            </select>
-          </div>
-          <div class="p-control-group">
             <label>Rhythm Focus</label>
             <select id="r-focusSelect" onchange="r_onSettingsChange()">
               <option value="random" selected>Random</option>
@@ -1936,11 +1921,41 @@ body {
           <!-- Play Flow removed: use Audition / Practice buttons instead -->
         </div>
 
+        <div class="p-bpm-row">
+          <span class="p-bpm-label">BPM</span>
+          <input type="range" class="p-bpm-slider" id="r-bpmSlider" min="40" max="200" value="84" oninput="r_updateBPM(this.value)">
+          <span class="p-bpm-val" id="r-bpmVal">84</span>
+        </div>
+
+        <div class="p-vol-row">
+          <div class="p-vol-group">
+            <span class="p-bpm-label">MASTER</span>
+            <input type="range" class="p-bpm-slider" id="r-masterSlider" min="0" max="100" value="80" oninput="r_updateMasterVol(this.value)">
+            <span class="p-bpm-val p-vol-val" id="r-masterVal">80</span>
+          </div>
+          <div class="p-vol-group">
+            <span class="p-bpm-label">METRO</span>
+            <input type="range" class="p-bpm-slider" id="r-metroSlider" min="0" max="100" value="65" oninput="r_updateMetroVol(this.value)">
+            <span class="p-bpm-val p-vol-val" id="r-metroVal">65</span>
+          </div>
+          <div class="p-vol-group">
+            <span class="p-bpm-label">GUIDE</span>
+            <input type="range" class="p-bpm-slider" id="r-guideSlider" min="0" max="100" value="75" oninput="r_updateGuideVol(this.value)">
+            <span class="p-bpm-val p-vol-val" id="r-guideVal">75</span>
+          </div>
+          <div class="p-vol-group">
+            <span class="p-bpm-label">LIVE KB</span>
+            <input type="range" class="p-bpm-slider" id="r-liveSlider" min="0" max="100" value="75" oninput="r_updateLiveVol(this.value)">
+            <span class="p-bpm-val p-vol-val" id="r-liveVal">75</span>
+          </div>
+        </div>
+
         <div class="rhythm-main-grid">
           <div class="rhythm-card">
             <div class="rhythm-mode-label" id="r-modeLabel" style="display:flex;align-items:center;justify-content:center;">Rhythm Replay<span class="r-pulse-dot" id="r-pulseDot"></span><span class="r-countoff-number" id="r-countoffNum"></span></div>
             <div class="rhythm-meter" id="r-meterLabel">4 / 4</div>
 
+            <div class="rhythm-page-indicator" id="r-pageIndicator" style="display:none"></div>
             <div class="rhythm-visual" id="r-visual">
               <div class="rhythm-empty">Press Play Rhythm to begin.</div>
             </div>
@@ -1972,6 +1987,14 @@ body {
 
             <div class="rhythm-help" id="r-helpText">
               Choose <strong>Audition</strong> to listen or <strong>Practice</strong> to test your timing.
+            </div>
+
+            <div class="p-midi-bar" style="margin-top:.75rem;flex-wrap:wrap;gap:.5rem;">
+              <span style="font-family:'DM Mono',monospace;font-size:.7rem;color:var(--ink3);" id="r-midiInfo">MIDI: ready</span>
+              <label style="display:flex;align-items:center;gap:.35rem;margin-left:auto;font-size:.72rem;font-weight:600;color:var(--ink3);cursor:pointer;">
+                <input type="checkbox" id="r-synthToggle" checked onchange="r_toggleBrowserSynth(this.checked)" style="accent-color:var(--gold);width:13px;height:13px;">
+                Browser Synth
+              </label>
             </div>
           </div>
 
@@ -6088,12 +6111,12 @@ function p_handleMIDI(event){
     const dbg=document.getElementById('p-midiDebug');
     if(dbg) dbg.textContent='Last MIDI: '+noteStr+' vel '+velocity;
 
-    // Rhythm page: any note-on is a tap. If Browser Synth is on, play the actual MIDI pitch.
+    // Rhythm page: note-on counts as a tap; plays pitched sound if Browser Synth is on.
+    // Pitched sound is handled here so r_registerTap does NOT need to play a generic blip.
     if (currentPage === 'rhythm') {
       const rmi=document.getElementById('r-midiInfo');
-      if(rmi) rmi.textContent='Last MIDI: '+noteStr+' vel '+velocity;
-      if(typeof p_claimAudioOwnership==='function') p_claimAudioOwnership();
-      if(r_isBrowserSynthOn()) p_noteOn(noteStr, velocity, 'live');
+      if(rmi) rmi.textContent='Last MIDI: '+noteStr;
+      if(r_browserSynthOn) r_playMidiNote(noteStr, velocity);
       r_registerTap('midi');
       return;
     }
@@ -6120,8 +6143,11 @@ function p_handleMIDI(event){
       else p_noteOff(noteStr);
       return;
     }
-    // Rhythm: note-off releases the pitched sound but does not count as a tap.
-    if (currentPage === 'rhythm') { p_noteOff(noteStr); return; }
+    // Rhythm: note-off releases the pitched sound but does NOT count as a tap
+    if (currentPage === 'rhythm') {
+      p_noteOff(noteStr);
+      return;
+    }
     // Practice: safe to call regardless -- inactive tabs have no active voices
     p_noteOff(noteStr);
     const el=p_getKey(noteStr);
@@ -6161,7 +6187,9 @@ let r_playTimers=[], r_listenTimer=null, r_startTime=0, r_userTaps=[];
 let r_total=0, r_correct=0, r_streak=0, r_history=[];
 let r_countIn=true, r_guideClick=true;
 let r_rhythmGuide=true;  // controls rhythm pattern hit audio
-let r_browserSynth=true; // controls user tap feedback sound
+let r_browserSynthOn=true; // controls user tap feedback sound
+let r_meter='4/4'; // current time signature
+let r_beatsPerBar=4; // derived from r_meter
 let r_countInBars=2;
 let r_focus='random';
 let r_guideTimers=[], r_visualTimer=null, r_countDisplayTimer=null;
@@ -6171,117 +6199,203 @@ let r_auditionLoop=null;
 let r_lastMidiTapTime=0; // debounce for MIDI taps
 let r_pulseDotTimer=null; // for flashing the visual pulse dot
 
-const R_PATTERNS={
-  easy:[
-    {name:'Quarter Notes',beats:[0,1,2,3],unit:'quarter'},
-    {name:'Half Notes',beats:[0,2],unit:'half'},
-    {name:'Quarter Rest Feel',beats:[0,2,3],unit:'quarter/rest'}
-  ],
-  medium:[
-    {name:'Eighth Notes',beats:[0,0.5,1,1.5,2,2.5,3,3.5],unit:'eighth'},
-    {name:'Simple Syncopation',beats:[0,1,1.5,2.5,3],unit:'syncopation'},
-    {name:'Offbeat Eighths',beats:[0.5,1.5,2.5,3.5],unit:'offbeats'}
-  ],
-  hard:[
-    {name:'Dotted Feel',beats:[0,0.75,1.5,2.5,3],unit:'dotted'},
-    {name:'Mixed Eighths',beats:[0,0.5,1.5,2,3,3.5],unit:'mixed'},
-    {name:'Syncopated Push',beats:[0,1.5,2,2.5,3.5],unit:'syncopation'}
-  ],
-  expert:[
-    {name:'Triplet Feel',beats:[0,0.333,0.666,1,1.666,2.333,3,3.666],unit:'triplet'},
-    {name:'Advanced Syncopation',beats:[0,0.75,1.5,2.25,3.5],unit:'advanced'},
-    {name:'Sparse Pushes',beats:[0.5,1.25,2,3.25],unit:'advanced'}
-  ]
+// One-bar rhythm vocabulary organized by unit type.
+// Each entry is an array of localBeats (0-indexed within a 4/4 bar, range [0,4)).
+const R_BAR_VOCAB={
+  whole:       [[0]],
+  half:        [[0,2],[0],[2]],
+  quarter:     [[0,1,2,3],[0,2,3],[0,1,3],[0,1,2]],
+  quarter_rest:[[0,2],[0,1,3],[1,2,3],[0,3],[0,2,3]],
+  eighth:      [[0,0.5,1,1.5,2,2.5,3,3.5],[0,1,1.5,2,3],[0,0.5,2,2.5,3],[0,1,2,2.5,3.5]],
+  offbeat:     [[0.5,1.5,2.5,3.5],[0,1.5,2.5],[0.5,2,3.5],[0,0.5,2,3.5]],
+  dotted:      [[0,1.5,2,3],[0,1.5,3],[0,2,3.5],[0,0.75,2,3]],
+  triplet:     [[0,0.333,0.667,2,2.333,2.667],[0,1,1.333,1.667,3],[0,0.333,0.667,2],[0,2,2.333,2.667,3]],
+  syncopation: [[0,1.5,2.5],[0.5,1.5,2,3.5],[0,0.5,1.5,2.5,3],[0,1,1.5,3],[0.5,2,2.5,3.5]],
+};
+
+// Unit types available per explicit Rhythm Focus selection
+const R_FOCUS_UNITS={
+  whole:        ['whole'],
+  half:         ['half'],
+  quarter:      ['quarter'],
+  quarter_rest: ['quarter_rest'],
+  eighth:       ['eighth'],
+  offbeat:      ['offbeat'],
+  dotted:       ['dotted'],
+  triplet:      ['triplet'],
+  syncopation:  ['syncopation'],
+  mixed:        ['quarter','eighth','offbeat','syncopation'],
+};
+
+// Unit types available when focus=random, gated by difficulty
+const R_RANDOM_UNITS={
+  easy:   ['whole','half','quarter','quarter_rest'],
+  medium: ['half','quarter','quarter_rest','eighth','offbeat'],
+  hard:   ['quarter','eighth','offbeat','syncopation','dotted'],
+  expert: ['eighth','offbeat','dotted','triplet','syncopation'],
 };
 
 function r_getBeatMs(){return 60000/r_bpm;}
 
-function r_updateBPM(val){
-  r_bpm=parseInt(val,10)||84;
-  const v=document.getElementById('r-bpmVal');
-  if(v)v.textContent=r_bpm;
-  if(r_transportState==='stopped') r_pickPattern();
-}
-function r_updateMasterVol(val){
-  const v=document.getElementById('r-masterVal');
-  if(v)v.textContent=val;
-  if(typeof p_updateMasterVol==='function') p_updateMasterVol(val);
-}
-function r_updateMetroVol(val){
-  const v=document.getElementById('r-metroVal');
-  if(v)v.textContent=val;
-  if(typeof p_updateMetroVol==='function') p_updateMetroVol(val);
-}
-function r_updateGuideVol(val){
-  const v=document.getElementById('r-guideVal');
-  if(v)v.textContent=val;
-  if(typeof p_updateDemoVol==='function') p_updateDemoVol(val);
-}
-function r_updateLiveVol(val){
-  const v=document.getElementById('r-liveVal');
-  if(v)v.textContent=val;
-  if(typeof p_updateLiveVol==='function') p_updateLiveVol(val);
+// Pick a random one-bar pattern from the given unit types
+function r_pickBarPattern(units){
+  const pool=[];
+  units.forEach(u=>{if(R_BAR_VOCAB[u])R_BAR_VOCAB[u].forEach(b=>pool.push({beats:b,unit:u}));});
+  if(!pool.length)return{beats:[0,1,2,3],unit:'quarter'};
+  return pool[Math.floor(Math.random()*pool.length)];
 }
 
+// Build a multi-bar phrase using difficulty (variation) and focus (vocabulary).
+function r_buildPhrase(){
+  const bars=r_lengthBars;
+  const diff=r_diff;
+  const focus=r_focus;
 
-function r_expandPattern(base,bars){
+  // Determine available unit types: explicit focus overrides difficulty
+  const units=(focus!=='random'&&R_FOCUS_UNITS[focus])
+    ?R_FOCUS_UNITS[focus]
+    :(R_RANDOM_UNITS[diff]||R_RANDOM_UNITS.easy);
+
+  // Number of distinct bar patterns, controlled by difficulty
+  let numDistinct;
+  if(diff==='easy') numDistinct=1;
+  else if(diff==='medium') numDistinct=2;
+  else if(diff==='hard') numDistinct=Math.min(bars,4);
+  else numDistinct=Math.min(bars,Math.max(3,bars));
+
+  // Select distinct patterns (try to avoid duplicates)
+  const distinct=[];
+  for(let i=0;i<numDistinct;i++){
+    let bp,tries=0;
+    do{
+      bp=r_pickBarPattern(units);
+      tries++;
+    }while(tries<12&&distinct.some(d=>JSON.stringify(d.beats)===JSON.stringify(bp.beats)));
+    distinct.push(bp);
+  }
+
+  // Build bar sequence based on difficulty
+  const barSeq=[];
+  if(diff==='easy'){
+    // Single repeated pattern: A A A A
+    for(let b=0;b<bars;b++)barSeq.push(distinct[0]);
+  } else if(diff==='medium'){
+    // Two patterns in musical forms: A B A B, A A B A, or A B B A
+    const A=distinct[0],B=distinct[1]||distinct[0];
+    const form=['ABAB','AABA','ABBA'][Math.floor(Math.random()*3)];
+    for(let b=0;b<bars;b++){
+      const pos=b%4;
+      const useA=form==='ABAB'?(pos%2===0):form==='AABA'?(pos!==2):(pos===0||pos===3);
+      barSeq.push(useA?A:B);
+    }
+  } else if(diff==='hard'){
+    // Cycle through A B C D
+    for(let b=0;b<bars;b++)barSeq.push(distinct[b%distinct.length]);
+  } else {
+    // Expert: non-trivial cycling then shuffle
+    for(let b=0;b<bars;b++)barSeq.push(distinct[(b*2+1)%distinct.length]);
+    for(let b=bars-1;b>0;b--){
+      const j=Math.floor(Math.random()*(b+1));
+      [barSeq[b],barSeq[j]]=[barSeq[j],barSeq[b]];
+    }
+  }
+
+  // Build flat beats array and structured barPatterns
   const beats=[];
-  for(let b=0;b<bars;b++) base.beats.forEach(x=>beats.push(x+b*4));
-  const totalBeats=bars*4;
-  return{name:base.name,unit:base.unit,beats,bars,totalBeats};
+  const barPatterns=[];
+  barSeq.forEach((bp,barIdx)=>{
+    barPatterns.push({bar:barIdx+1,unit:bp.unit,localBeats:bp.beats.slice()});
+    bp.beats.forEach(lb=>beats.push(Math.round((lb+barIdx*4)*1000)/1000));
+  });
+
+  // Dominant unit for naming/display
+  const unitCounts={};
+  barSeq.forEach(bp=>{unitCounts[bp.unit]=(unitCounts[bp.unit]||0)+1;});
+  const dominantUnit=Object.entries(unitCounts).sort((a,b)=>b[1]-a[1])[0][0];
+  const focusLabel=focus==='random'?dominantUnit.replace(/_/g,' '):focus.replace(/_/g,' ');
+  const diffLabel=diff.charAt(0).toUpperCase()+diff.slice(1);
+  const formLabel=diff==='easy'?'Pattern':diff==='medium'?'A/B Phrase':diff==='hard'?'Varied Phrase':'Complex Phrase';
+
+  return{
+    name:diffLabel+' '+formLabel,
+    meter:r_meter,
+    bars,
+    beatsPerBar:r_beatsPerBar,
+    barPatterns,
+    beats,
+    totalBeats:bars*r_beatsPerBar,
+    unit:dominantUnit,
+    focusLabel,
+  };
+}
+
+// Paging state: 8-bar phrases shown 4 bars at a time on two pages
+let r_currentPage=0,r_totalPages=1,r_barsPerPage=4;
+
+function r_computePages(){
+  if(!r_currentPattern){r_totalPages=1;r_barsPerPage=4;r_currentPage=0;r_updatePageIndicator();return;}
+  const bars=r_currentPattern.bars;
+  if(bars<=4){r_barsPerPage=bars;r_totalPages=1;}
+  else{r_barsPerPage=4;r_totalPages=Math.ceil(bars/4);}
+  r_currentPage=0;
+  r_updatePageIndicator();
+}
+
+function r_updatePageIndicator(){
+  const el=document.getElementById('r-pageIndicator');if(!el)return;
+  if(r_totalPages<=1||!r_currentPattern){el.style.display='none';return;}
+  el.style.display='';
+  const firstBar=r_currentPage*r_barsPerPage+1;
+  const lastBar=Math.min((r_currentPage+1)*r_barsPerPage,r_currentPattern.bars);
+  el.textContent='Page '+(r_currentPage+1)+' of '+r_totalPages+' \u00b7 Bars '+firstBar+' to '+lastBar;
+  console.log('[Rhythm page]',{page:r_currentPage+1,totalPages:r_totalPages,visibleBars:lastBar-firstBar+1});
+}
+
+function r_getPageForBeat(absoluteBeat){
+  if(r_totalPages<=1)return 0;
+  const barIndex=Math.floor(absoluteBeat/Math.max(1,r_beatsPerBar));
+  return Math.min(Math.floor(barIndex/r_barsPerPage),r_totalPages-1);
+}
+
+function r_ensurePageForBeat(absoluteBeat){
+  if(r_totalPages<=1)return;
+  const targetPage=r_getPageForBeat(absoluteBeat);
+  if(targetPage!==r_currentPage){r_currentPage=targetPage;r_updatePageIndicator();}
 }
 
 function r_pickPattern(){
-  const allDiffs=['easy','medium','hard','expert'];
-  const allPatterns=allDiffs.flatMap(d=>(R_PATTERNS[d]||[]).map(p=>({...p,_diff:d})));
-  const diffPatterns=R_PATTERNS[r_diff]||R_PATTERNS.easy;
-
-  const focusUnitMap={
-    whole:['whole'],half:['half'],quarter:['quarter'],
-    quarter_rest:['quarter/rest'],eighth:['eighth'],offbeat:['offbeats'],
-    dotted:['dotted'],triplet:['triplet'],syncopation:['syncopation'],mixed:['mixed']
-  };
-
-  let candidates;
-  if(r_focus==='random'){
-    candidates=diffPatterns;
-  } else {
-    const units=focusUnitMap[r_focus]||[];
-    candidates=diffPatterns.filter(p=>units.includes(p.unit));
-    if(!candidates.length) candidates=allPatterns.filter(p=>units.includes(p.unit));
-    if(!candidates.length) candidates=diffPatterns;
-  }
-
-  const base=candidates[Math.floor(Math.random()*candidates.length)];
-  r_currentPattern=r_expandPattern(base,r_lengthBars);
+  r_currentPattern=r_buildPhrase();
   r_userTaps=[];
+  r_computePages();
   r_renderPattern();
   r_updatePatternInfo();
   r_setStatus('Choose Audition to listen or Practice to test your timing.');
   r_setFeedback('No attempt yet.','neutral');
-  console.log('[Rhythm pattern]',{name:r_currentPattern.name,bars:r_currentPattern.bars,totalBeats:r_currentPattern.totalBeats,beats:r_currentPattern.beats});
+  console.log('[Rhythm phrase]',{
+    difficulty:r_diff,focus:r_focus,
+    bars:r_currentPattern.bars,beatsPerBar:r_currentPattern.beatsPerBar,
+    barPatterns:r_currentPattern.barPatterns,
+    beats:r_currentPattern.beats,totalBeats:r_currentPattern.totalBeats
+  });
 }
 
 function r_onSettingsChange(){
   if(r_transportState!=='stopped') r_stopPlayback();
   const d=document.getElementById('r-diffSelect');
-  const b=document.getElementById('r-bpmSlider')||document.getElementById('r-bpmSelect');
   const l=document.getElementById('r-lengthSelect');
   const ci=document.getElementById('r-countInBarsSelect');
   const mt=document.getElementById('r-metronomeSelect');
   const rg=document.getElementById('r-rhythmGuideSelect');
-  const bs=document.getElementById('r-synthToggle')||document.getElementById('r-browserSynthSelect');
   const fc=document.getElementById('r-focusSelect');
+  const me=document.getElementById('r-meterSelect');
   r_diff=d?d.value:'easy';
-  r_bpm=b?parseInt(b.value,10):84;
-  const bv=document.getElementById('r-bpmVal');
-  if(bv)bv.textContent=r_bpm;
   r_lengthBars=l?parseInt(l.value,10):2;
   r_countInBars=ci?parseInt(ci.value,10):2;
   r_guideClick=mt?mt.value==='on':true;
   r_rhythmGuide=rg?rg.value==='on':true;
-  r_browserSynth=bs?(bs.type==='checkbox'?bs.checked:bs.value==='on'):true;
   r_focus=fc?fc.value:'random';
+  r_meter=me?me.value:'4/4';
+  r_beatsPerBar=r_meter==='3/4'?3:r_meter==='6/8'?6:4;
   r_pickPattern();
 }
 
@@ -6301,25 +6415,55 @@ function r_reset(){
 function r_renderPattern(activeIndex,userIndex,missIndex){
   const el=document.getElementById('r-visual');if(!el)return;
   if(!r_currentPattern){el.innerHTML='<div class="rhythm-empty">Press Audition or Practice to begin.</div>';return;}
+
+  // Auto-switch page when the active beat is on a different page
+  if(activeIndex!==undefined&&activeIndex!==null){
+    r_ensurePageForBeat(activeIndex);
+  }
+
   el.innerHTML='';
   const totalBeats=r_currentPattern.totalBeats||r_currentPattern.bars*4;
+  const bars=r_currentPattern.bars||(totalBeats/4);
   const hitSet=new Set(r_currentPattern.beats.map(b=>Math.round(b*1000)/1000));
-  for(let i=0;i<totalBeats;i++){
-    // Insert a bar separator at the start of each bar after the first
-    if(i>0&&i%4===0&&r_currentPattern.bars>1){
-      const sep=document.createElement('div');
-      sep.className='rhythm-bar-sep';
-      el.appendChild(sep);
+
+  // Paging: show only the bars belonging to the current page
+  const firstBarOnPage=r_currentPage*r_barsPerPage;
+  const lastBarOnPage=Math.min(firstBarOnPage+r_barsPerPage-1,bars-1);
+  const barsOnPage=lastBarOnPage-firstBarOnPage+1;
+
+  // Never split a bar across rows
+  const barsPerRow=barsOnPage<=2?barsOnPage:2;
+  const numRows=Math.ceil(barsOnPage/barsPerRow);
+
+  for(let row=0;row<numRows;row++){
+    const rowEl=document.createElement('div');
+    rowEl.className='rhythm-row';
+    const firstBarInRow=firstBarOnPage+row*barsPerRow;
+    const lastBarInRow=Math.min(firstBarInRow+barsPerRow-1,lastBarOnPage);
+
+    for(let bar=firstBarInRow;bar<=lastBarInRow;bar++){
+      if(bar>firstBarInRow){
+        const sep=document.createElement('div');
+        sep.className='rhythm-bar-sep';
+        rowEl.appendChild(sep);
+      }
+      const barEl=document.createElement('div');
+      barEl.className='rhythm-bar';
+      for(let beat=0;beat<4;beat++){
+        const i=bar*4+beat;
+        const cell=document.createElement('div');
+        cell.className='rhythm-beat';
+        const hasBeat=hitSet.has(i);
+        if(!hasBeat)cell.classList.add('rest');
+        if(i===activeIndex)cell.classList.add('hit');
+        if(i===userIndex)cell.classList.add('user-hit');
+        if(i===missIndex)cell.classList.add('miss');
+        cell.textContent=hasBeat?(beat+1):'-';
+        barEl.appendChild(cell);
+      }
+      rowEl.appendChild(barEl);
     }
-    const cell=document.createElement('div');
-    cell.className='rhythm-beat';
-    const hasBeat=hitSet.has(i);
-    if(!hasBeat)cell.classList.add('rest');
-    if(i===activeIndex)cell.classList.add('hit');
-    if(i===userIndex)cell.classList.add('user-hit');
-    if(i===missIndex)cell.classList.add('miss');
-    cell.textContent=hasBeat?(i%4+1):'-';
-    el.appendChild(cell);
+    el.appendChild(rowEl);
   }
 }
 
@@ -6340,8 +6484,15 @@ function r_renderCountIn(beatIndex){
 function r_updatePatternInfo(){
   const el=document.getElementById('r-patternInfo');
   if(!el||!r_currentPattern)return;
-  const tb=r_currentPattern.totalBeats||r_currentPattern.bars*4;
-  el.innerHTML='<strong>'+r_currentPattern.name+'</strong><br>Difficulty: '+r_diff+'<br>Length: '+r_currentPattern.bars+' bar(s)<br>Total beats: '+tb+'<br>BPM: '+r_bpm+'<br>Taps: '+r_currentPattern.beats.length;
+  const focusDisplay=r_focus==='random'
+    ?(r_currentPattern.focusLabel||r_currentPattern.unit||'random')
+    :r_focus.replace(/_/g,' ');
+  el.innerHTML=
+    '<strong>'+r_currentPattern.name+'</strong>'+
+    '<br>Focus: '+focusDisplay+
+    '<br>Meter: '+(r_currentPattern.meter||r_meter)+
+    '<br>Length: '+r_currentPattern.bars+' bar(s)'+
+    '<br>Targets: '+r_currentPattern.beats.length+' taps';
 }
 
 function r_setStatus(msg){
@@ -6403,42 +6554,47 @@ function r_playRhythmHit(accent){
     const noiseGain=ctx.createGain();
     noiseGain.gain.setValueAtTime(accent?0.12:0.08,ctx.currentTime);
     noiseGain.gain.exponentialRampToValueAtTime(0.0001,ctx.currentTime+0.018);
-    const dest=typeof p_metroGain!=='undefined'?p_metroGain:(typeof p_masterGain!=='undefined'?p_masterGain:ctx.destination);
+    const dest=typeof p_demoGain!=='undefined'&&p_demoGain?p_demoGain:(typeof p_masterGain!=='undefined'&&p_masterGain?p_masterGain:ctx.destination);
     gain.connect(dest);osc.connect(gain);osc.start();osc.stop(ctx.currentTime+0.095);
     noiseGain.connect(dest);noise.connect(noiseGain);noise.start();noise.stop(ctx.currentTime+0.02);
   }catch(e){console.warn('r_playRhythmHit',e);}
 }
 
-// Short feedback blip when user taps in Practice mode.
-// Sine tone at mid frequency -- distinct from guide click (square) and rhythm hit (triangle+noise).
+// Short feedback tap sound for Rhythm Training -- square wave click around 750 Hz.
+// Completely separate from the Practice piano synth; does not call p_noteOn or
+// p_playPreviewNote; not gated by p_browserSynthEnabled or p_isActiveAudioTab.
 function r_playUserTapSound(){
+  console.log('[Rhythm tap sound fired]');
   try{
     const ctx=p_getCtx();
+    // Explicitly resume if suspended -- resume() is async, so start on a tiny
+    // future offset so audio is guaranteed to play even if the context needed
+    // to wake up from a suspended state.
+    if(ctx.state==='suspended') ctx.resume();
+    const t0=ctx.currentTime+0.01; // 10ms offset: enough for resume, not perceptible
     const osc=ctx.createOscillator();
     const gain=ctx.createGain();
-    osc.type='sine';
-    osc.frequency.value=520;
-    gain.gain.setValueAtTime(0.0001,ctx.currentTime);
-    gain.gain.exponentialRampToValueAtTime(0.07,ctx.currentTime+0.003);
-    gain.gain.exponentialRampToValueAtTime(0.0001,ctx.currentTime+0.045);
-    const dest=typeof p_metroGain!=='undefined'?p_metroGain:(typeof p_masterGain!=='undefined'?p_masterGain:ctx.destination);
-    gain.connect(dest);osc.connect(gain);osc.start();osc.stop(ctx.currentTime+0.05);
-  }catch(e){console.warn('r_playUserTapSound',e);}
+    osc.type='square';
+    osc.frequency.value=750; // punchy woodblock range, clearly audible
+    gain.gain.setValueAtTime(0.0001,t0);
+    gain.gain.exponentialRampToValueAtTime(0.22,t0+0.005); // fast attack
+    gain.gain.exponentialRampToValueAtTime(0.0001,t0+0.07); // fast release
+    // Route through p_masterGain (safest direct path that bypasses any
+    // practice-synth ownership checks). Fall back to ctx.destination.
+    const dest=(typeof p_masterGain!=='undefined'&&p_masterGain)?p_masterGain:ctx.destination;
+    osc.connect(gain);
+    gain.connect(dest);
+    osc.start(t0);
+    osc.stop(t0+0.08);
+  }catch(e){console.warn('[r_playUserTapSound error]',e);}
 }
 
-// Flash the pulse dot. downbeat=true for beat 1 (stronger), false for beats 2-4.
-// Visual only -- fires regardless of Guide Click setting.
-
-function r_isBrowserSynthOn(){
-  if(typeof r_browserSynthOn!=='undefined') return !!r_browserSynthOn;
-  return !!r_browserSynth;
-}
-
+// Toggle Rhythm Browser Synth on/off. Called from the r-synthToggle checkbox.
 function r_toggleBrowserSynth(enabled){
-  r_browserSynth=!!enabled;
-  if(typeof r_browserSynthOn!=='undefined') r_browserSynthOn=!!enabled;
+  r_browserSynthOn=!!enabled;
 }
 
+// Flash the large Tap Pad on accepted button taps.
 function r_flashTapPad(){
   const pad=document.getElementById('r-tapPad');
   if(!pad)return;
@@ -6446,39 +6602,98 @@ function r_flashTapPad(){
   setTimeout(()=>pad.classList.remove('tapped'),90);
 }
 
+// Play a short C4 pitch through LIVE KB volume (p_liveGain).
+// Reuses r_playMidiNote to bypass Practice tab-ownership guards.
 function r_playTapPadPitch(){
-  if(!r_isBrowserSynthOn()) return;
   try{
-    if(typeof p_claimAudioOwnership==='function') p_claimAudioOwnership();
+    r_playMidiNote('C4',70);
+    setTimeout(()=>p_noteOff('C4'),140);
+  }catch(e){console.warn('[r_playTapPadPitch]',e);}
+}
+
+// Central handler for the Tap Pad and small Tap button.
+// Always flashes and plays C4 (if Browser Synth On).
+// Only registers a graded tap when Practice is actively listening.
+function r_handleTapPadPress(){
+  r_flashTapPad();
+  if(r_browserSynthOn) r_playTapPadPitch();
+  if(r_isListening&&r_currentPattern) r_registerTap('pad');
+}
+
+// BPM slider -- updates r_bpm and display; does not restart playback mid-session.
+function r_updateBPM(value){
+  r_bpm=parseInt(value,10);
+  const el=document.getElementById('r-bpmVal');
+  if(el) el.textContent=r_bpm;
+}
+
+// Volume wrappers -- delegate to the shared Practice gain functions so both pages
+// control the same underlying audio nodes.
+function r_updateMasterVol(val){
+  if(typeof p_updateMasterVol==='function') p_updateMasterVol(val);
+  const el=document.getElementById('r-masterVal');
+  if(el) el.textContent=val;
+}
+function r_updateMetroVol(val){
+  if(typeof p_updateMetroVol==='function') p_updateMetroVol(val);
+  const el=document.getElementById('r-metroVal');
+  if(el) el.textContent=val;
+}
+function r_updateGuideVol(val){
+  // Rhythm Guide pattern sound routes through p_demoGain (Practice GUIDE node)
+  if(typeof p_updateDemoVol==='function') p_updateDemoVol(val);
+  const el=document.getElementById('r-guideVal');
+  if(el) el.textContent=val;
+}
+function r_updateLiveVol(val){
+  // Live MIDI pitch routes through p_liveGain (Practice LIVE KB node)
+  if(typeof p_updateLiveVol==='function') p_updateLiveVol(val);
+  const el=document.getElementById('r-liveVal');
+  if(el) el.textContent=val;
+}
+
+// Play a pitched MIDI note in Rhythm Training.
+// Mirrors p_noteOn('live') exactly but bypasses the Practice tab-ownership
+// and p_browserSynthEnabled checks. Stores the voice in p_activeVoices so
+// p_noteOff() can release it cleanly on MIDI note-off.
+function r_playMidiNote(noteStr, velocity){
+  try{
     const ctx=p_getCtx();
     if(ctx.state==='suspended') ctx.resume();
+    const f=p_freq(noteStr);
+    if(!f){console.warn('[r_playMidiNote] no freq for',noteStr);return;}
+    // Release any hanging voice for this note first
+    if(p_activeVoices.has(noteStr)) p_noteOff(noteStr);
     const now=ctx.currentTime;
-    const osc=ctx.createOscillator();
-    const gain=ctx.createGain();
-    osc.type='sine';
-    osc.frequency.value=(typeof p_freq==='function')?p_freq('C4'):261.63;
-    gain.gain.setValueAtTime(0.0001,now);
-    gain.gain.linearRampToValueAtTime(0.085,now+0.008);
-    gain.gain.exponentialRampToValueAtTime(0.0001,now+0.15);
-    const dest=(typeof p_liveGain!=='undefined'&&p_liveGain)?p_liveGain:(typeof p_masterGain!=='undefined'&&p_masterGain?p_masterGain:ctx.destination);
-    osc.connect(gain);
-    gain.connect(dest);
-    osc.start(now);
-    osc.stop(now+0.16);
-  }catch(e){console.warn('r_playTapPadPitch',e);}
+    const velNorm=Math.max(0.03,Math.min(1,velocity/127));
+    const peakGain=0.020+velNorm*0.140; // same range as p_noteOn 'live'
+    // Envelope
+    const env=ctx.createGain();
+    env.gain.setValueAtTime(0,now);
+    env.gain.linearRampToValueAtTime(peakGain,now+0.008);
+    env.gain.setTargetAtTime(peakGain*0.30,now+0.008,0.06);
+    // Route through p_liveGain so master/live volume is respected
+    const destGain=(typeof p_liveGain!=='undefined'&&p_liveGain)?p_liveGain:
+                   (typeof p_masterGain!=='undefined'&&p_masterGain)?p_masterGain:ctx.destination;
+    env.connect(destGain);
+    // Osc 1: fundamental sine
+    const o1=ctx.createOscillator();
+    o1.type='sine';o1.frequency.value=f;
+    o1.connect(env);o1.start(now);
+    // Osc 2: quiet 2nd harmonic, fades fast (same as p_noteOn)
+    const o2=ctx.createOscillator(),g2=ctx.createGain();
+    o2.type='triangle';o2.frequency.value=f*2;
+    g2.gain.setValueAtTime(0.15,now);
+    g2.gain.setTargetAtTime(0.0,now+0.05,0.04);
+    o2.connect(g2);g2.connect(env);o2.start(now);
+    // Register voice so p_noteOff(noteStr) can release it
+    p_activeVoices.set(noteStr,{o1,o2,g2,env,ctx});
+    console.log('[r_playMidiNote]',noteStr,'vel',velocity,'peak',peakGain.toFixed(4));
+  }catch(e){console.warn('[r_playMidiNote error]',e);}
 }
 
-function r_isPracticeActive(){
-  return currentPage==='rhythm'&&r_isListening&&!!r_currentPattern;
-}
-
-function r_handleTapPadPress(){
-  if(currentPage!=='rhythm') return;
-  r_flashTapPad();
-  r_playTapPadPitch();
-  if(r_isPracticeActive()) r_registerTap('button');
-}
-
+// Flash the pulse dot. downbeat=true for beat 1 (stronger), false for beats 2-4.
+// Visual only -- fires regardless of Guide Click setting.
 function r_pulseDot(downbeat){
   const dot=document.getElementById('r-pulseDot');
   if(!dot)return;
@@ -6497,14 +6712,11 @@ function r_updateTransportButtons(){
   const ab=document.getElementById('r-auditionBtn');
   const pb=document.getElementById('r-practiceBtn');
   const sb=document.getElementById('r-stopBtn');
-  const tb=document.getElementById('r-tapBtn');
   const active=r_transportState!=='stopped';
-  const pad=document.getElementById('r-tapPad');
   if(ab)ab.disabled=active;
   if(pb)pb.disabled=active;
   if(sb)sb.disabled=!active;
-  if(tb)tb.disabled=false;
-  if(pad)pad.disabled=false;
+  // tapBtn and tapPad are always enabled; r_handleTapPadPress gates grading via r_isListening
 }
 
 function r_stopGuideClick(){
@@ -6527,6 +6739,7 @@ function r_stopPlayback(){
   r_transportState='stopped';
   r_setStatus('Stopped.');
   r_setFeedback('Press Audition or Practice.','neutral');
+  r_currentPage=0;r_updatePageIndicator();
   r_renderPattern();
   r_updateTransportButtons();
 }
@@ -6590,10 +6803,17 @@ function r_startAudition(){
     for(let q=0;q<totalBeats;q++){
       const delay=Math.max(0,loopStartMs+q*beatMs-now);
       const isDown=q%4===0;
+      const _q=q;
       const t=setTimeout(()=>{
         if(r_transportState!=='auditioning')return;
         if(r_guideClick) r_playClick(isDown);
         r_pulseDot(isDown);
+        // At bar downbeats check for page advance; re-render if page changed
+        if(isDown){
+          const prevPage=r_currentPage;
+          r_ensurePageForBeat(_q);
+          if(r_currentPage!==prevPage)r_renderPattern();
+        }
       },delay);
       r_playTimers.push(t);
     }
@@ -6693,7 +6913,8 @@ function r_beginUserTapAttempt(){
 
 // r_registerTap: called from Tap button, Spacebar, and MIDI.
 // source: 'button' | 'key' | 'midi'
-function r_registerTap(source){
+// info (optional): { noteNumber, noteName, velocity } -- provided for MIDI taps
+function r_registerTap(source, info){
   if(currentPage!=='rhythm')return;
   // MIDI debounce: ignore taps closer than 40ms together
   if(source==='midi'){
@@ -6706,7 +6927,12 @@ function r_registerTap(source){
       r_setFeedback('Press Practice first, then tap after the count-in.','neutral');
     return;
   }
-  if(r_isBrowserSynthOn()&&source==='key') r_playTapPadPitch();
+  console.log('[Rhythm tap accepted]',{source,browserSynth:r_browserSynthOn,audioState:p_audioCtx?p_audioCtx.state:'no ctx'});
+  // MIDI taps: pitched sound already played by r_playMidiNote in the MIDI handler.
+  // Pad taps: pitched sound already played by r_handleTapPadPress. Skip here.
+  // Button/key taps: play neutral tap blip if Browser Synth is on.
+  if(r_browserSynthOn && source!=='midi' && source!=='pad') r_playUserTapSound();
+  if(source==='button') r_flashTapPad();
   const now=performance.now();
   const beatMs=r_getBeatMs();
   const elapsedBeats=(now-r_startTime)/beatMs;
@@ -6739,6 +6965,7 @@ function r_gradeAttempt(){
   r_history.unshift({name:r_currentPattern.name,score:raw,taps:taps.length,target:target.length,diff:r_diff});
   r_history=r_history.slice(0,8);
   r_updateScore();r_renderHistory();
+  r_currentPage=0;r_updatePageIndicator();
   r_setStatus('Attempt complete. Audition or Practice again.');
   if(raw>=90)r_setFeedback('Excellent timing! Score: '+raw+'%','correct');
   else if(raw>=75)r_setFeedback('Good rhythm. Score: '+raw+'%','correct');
@@ -6778,6 +7005,8 @@ function r_init(){
   r_onSettingsChange();
   r_updateScore();
   r_renderHistory();
+  // Apply METRO slider default (metronome starts quieter than Practice default)
+  r_updateMetroVol(65);
 }
 
 ;
@@ -6786,7 +7015,7 @@ function r_init(){
 
 document.addEventListener('keydown',ev=>{
   if(ev.repeat||ev.target.tagName==='SELECT'||ev.target.tagName==='INPUT') return;
-  if(currentPage==='rhythm'&&ev.code==='Space'){ev.preventDefault();r_handleTapPadPress();return;}
+  if(currentPage==='rhythm'&&ev.code==='Space'){ev.preventDefault();r_registerTap('key');return;}
   if(currentPage!=='practice') return;
   const note=P_KEY_MAP[ev.key.toLowerCase()];
   if(note) p_onKey(note,false);
