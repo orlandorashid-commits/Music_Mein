@@ -1273,66 +1273,129 @@ body {
   .e-keyboard-help::after{content:' Swipe sideways for larger ranges.';}
 }
 
-/* ── Mobile Rhythm Layout ─────────────────────────────── */
-.r-mobile-settings-toggle{display:none;}
-.r-mobile-settings-panel{display:block;}
-@media(max-width:700px){
-  .rhythm-wrap{padding:.75rem .65rem 7.5rem;}
-  .rhythm-header{padding:.85rem;margin-bottom:.6rem;}
-  .rhythm-header h2{font-size:1.15rem;}
-  .rhythm-header p{font-size:.76rem;}
-  .rhythm-card{padding:.85rem;}
-  .r-mobile-settings-toggle{display:flex;align-items:center;gap:.65rem;margin-bottom:.6rem;flex-wrap:wrap;}
-  .r-mobile-settings-btn{padding:.45rem .8rem;border-radius:10px;border:1px solid var(--border);background:var(--bg2);color:var(--ink2);font-size:.78rem;font-weight:700;cursor:pointer;white-space:nowrap;}
-  .r-mobile-settings-summary{font-size:.72rem;color:var(--ink3);font-family:'DM Mono',monospace;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
-  .r-mobile-settings-panel{max-height:0;overflow:hidden;opacity:0;pointer-events:none;transition:max-height .28s ease,opacity .2s;}
-  .r-mobile-settings-panel.open{max-height:1000px;opacity:1;pointer-events:auto;}
-  .rhythm-visual{margin-bottom:.55rem;}
-  .rhythm-visual.rhythm-density-chart .rhythm-beat{width:22px;height:22px;font-size:.44rem;}
-  .rhythm-visual.rhythm-density-chart .rhythm-row{gap:.18rem;}
-  .rhythm-visual.rhythm-density-chart .rhythm-bar{gap:.18rem;}
-  .rhythm-visual.rhythm-density-chart .rhythm-bar-sep{min-height:22px;margin:0 2px;}
-  #page-rhythm .r-tap-pad-wrap{position:sticky;bottom:.6rem;z-index:80;margin:.65rem 0 .35rem;padding:.45rem 0;background:linear-gradient(to top,var(--bg),rgba(0,0,0,0));border-radius:18px;}
-  #page-rhythm .r-tap-pad{width:132px;height:132px;}
-  #page-rhythm .r-tap-pad-main{font-size:1.45rem;}
-  #page-rhythm .r-tap-pad-sub{font-size:.6rem;}
-  #page-rhythm .p-btn-row{gap:.4rem;}
-  #page-rhythm .p-btn{flex:1 1 calc(50% - .4rem);min-height:44px;padding:.55rem .65rem;font-size:.8rem;}
-  #r-auditionBtn,#r-practiceBtn{flex-basis:calc(50% - .4rem);}
+
+
+/* ===== MERGED RHYTHM + SIGHT OVERRIDES FROM index (25).html ===== */
+.rhythm-wrap{max-width:1040px;margin:0 auto;padding:1.5rem;}
+.rhythm-header{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:1.25rem;margin-bottom:.9rem;}
+.rhythm-header h2{font-family:'Playfair Display',serif;font-size:1.5rem;color:var(--ink);margin-bottom:.2rem;}
+.rhythm-header p{color:var(--ink3);font-size:.86rem;}
+.rhythm-controls{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:.75rem;background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:.9rem 1rem;margin-bottom:.9rem;}
+.rhythm-controls select{width:100%;padding:.45rem .7rem;background:var(--bg2);border:1px solid var(--border);border-radius:8px;color:var(--ink);font-family:'DM Sans',sans-serif;font-size:.84rem;font-weight:500;}
+.rhythm-main-grid{display:grid;grid-template-columns:1fr 280px;gap:1rem;align-items:start;}
+@media(max-width:780px){.rhythm-main-grid{grid-template-columns:1fr;}}
+.rhythm-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:1.4rem;text-align:center;}
+.rhythm-mode-label{font-size:.68rem;font-weight:700;color:var(--ink3);text-transform:uppercase;letter-spacing:.1em;margin-bottom:.6rem;}
+.rhythm-meter{font-family:'DM Mono',monospace;font-size:.9rem;font-weight:800;color:var(--gold);margin-bottom:1rem;}
+.rhythm-visual{min-height:90px;border:1px solid var(--border);border-radius:12px;background:var(--bg2);padding:1rem;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:.55rem;flex-wrap:nowrap;margin-bottom:.9rem;}
+.rhythm-row{display:flex;align-items:center;justify-content:center;gap:.45rem;flex-wrap:nowrap;width:100%;}
+.rhythm-bar{display:flex;align-items:center;justify-content:center;gap:.45rem;flex:0 0 auto;flex-wrap:nowrap;}
+.rhythm-empty{color:var(--ink3);font-size:.85rem;}
+.rhythm-beat{width:42px;height:58px;border-radius:10px;border:1px solid var(--border);background:var(--surface);display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:.72rem;font-weight:800;color:var(--ink3);position:relative;transition:all .12s;}
+.rhythm-beat.rest{opacity:.35;border-style:dashed;}
+.rhythm-beat.hit{background:var(--gold);border-color:var(--gold-dark);color:white;transform:translateY(-3px);}
+.rhythm-beat.user-hit{box-shadow:0 0 0 3px rgba(58,158,111,.25);}
+.rhythm-beat.miss{box-shadow:0 0 0 3px rgba(192,97,74,.25);}
+.rhythm-status{color:var(--ink2);font-size:.88rem;height:1.5em;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;}
+.rhythm-feedback{margin-top:.6rem;padding:.7rem;border-radius:10px;font-weight:600;font-size:.88rem;height:3.8rem;overflow:hidden;display:flex;align-items:center;justify-content:center;}
+.rhythm-feedback.neutral{background:var(--bg2);color:var(--ink3);border:1px solid var(--border);}
+.rhythm-feedback.correct{background:rgba(58,158,111,.14);color:#3A9E6F;border:1px solid rgba(58,158,111,.35);}
+.rhythm-feedback.wrong{background:rgba(192,97,74,.14);color:#C0614A;border:1px solid rgba(192,97,74,.35);}
+.rhythm-feedback.rhythm-count{font-family:'DM Mono',monospace;font-size:2rem;color:var(--gold);}
+.rhythm-help{margin-top:.75rem;font-size:.78rem;color:var(--ink3);}
+.rhythm-side{display:flex;flex-direction:column;gap:.9rem;}
+.r-score{font-family:'DM Mono',monospace;font-size:1.3rem;color:var(--ink);text-align:center;margin-bottom:.35rem;}
+.rhythm-info{font-size:.82rem;color:var(--ink2);line-height:1.5;}
+.r-history-item{padding:.42rem .6rem;border-radius:8px;border:1px solid var(--border);background:var(--bg2);font-size:.77rem;margin-bottom:.3rem;font-family:'DM Mono',monospace;}
+.r-history-item.good{color:#3A9E6F;border-color:rgba(58,158,111,.3);}
+.r-history-item.bad{color:#C0614A;border-color:rgba(192,97,74,.3);}
+.r-pulse-dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--border);margin-left:.55rem;vertical-align:middle;flex-shrink:0;transition:background .05s,transform .05s,box-shadow .05s;}
+.r-pulse-dot.beat{background:var(--gold);transform:scale(1.35);box-shadow:0 0 4px rgba(201,168,76,.45);}
+.r-pulse-dot.downbeat{background:var(--gold);transform:scale(1.7);box-shadow:0 0 7px rgba(201,168,76,.65);}
+.r-countoff-number{display:inline-block;min-width:1.1em;text-align:center;font-family:'DM Mono',monospace;font-size:.82rem;font-weight:800;color:var(--gold);margin-left:.45rem;opacity:0;transition:opacity .05s;}
+.r-countoff-number.active{opacity:1;}
+.rhythm-bar-sep{width:2px;min-height:58px;background:var(--border);border-radius:2px;margin:0 6px;flex-shrink:0;align-self:stretch;}
+.rhythm-page-indicator{font-family:'DM Mono',monospace;font-size:.72rem;font-weight:600;color:var(--ink3);text-align:center;margin-bottom:.4rem;letter-spacing:.04em;}
+/* Density modes: normal (1-4 bars), compact (8 bars), chart (16 bars) */
+.rhythm-visual.rhythm-density-compact{padding:.75rem;gap:.38rem;}
+.rhythm-visual.rhythm-density-compact .rhythm-row{gap:.35rem;}
+.rhythm-visual.rhythm-density-compact .rhythm-bar{gap:.32rem;}
+.rhythm-visual.rhythm-density-compact .rhythm-beat{width:34px;height:42px;font-size:.62rem;border-radius:8px;}
+.rhythm-visual.rhythm-density-compact .rhythm-bar-sep{min-height:42px;margin:0 4px;}
+.rhythm-visual.rhythm-density-chart{padding:.55rem;gap:.24rem;}
+.rhythm-visual.rhythm-density-chart .rhythm-row{gap:.24rem;}
+.rhythm-visual.rhythm-density-chart .rhythm-bar{gap:.22rem;}
+.rhythm-visual.rhythm-density-chart .rhythm-beat{width:28px;height:28px;font-size:.52rem;border-radius:6px;}
+.rhythm-visual.rhythm-density-chart .rhythm-bar-sep{min-height:28px;margin:0 3px;}
+@media(max-width:520px){
+  .rhythm-visual.rhythm-density-compact .rhythm-beat{width:30px;height:36px;font-size:.58rem;}
+  .rhythm-visual.rhythm-density-chart .rhythm-beat{width:24px;height:24px;font-size:.48rem;}
+  .rhythm-visual.rhythm-density-chart{padding:.45rem;gap:.2rem;}
 }
+.r-tap-pad-wrap{display:flex;justify-content:center;margin:1rem 0 .85rem;}
+.r-tap-pad{width:148px;height:148px;border-radius:50%;border:2px solid rgba(201,168,76,.55);background:radial-gradient(circle at 35% 28%,rgba(232,213,160,.25),transparent 34%),linear-gradient(135deg,rgba(201,168,76,.24),rgba(123,94,167,.18));color:var(--ink);box-shadow:0 14px 34px rgba(0,0,0,.28),inset 0 0 0 1px rgba(255,255,255,.05);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.15rem;cursor:pointer;transition:transform .08s,border-color .12s,box-shadow .12s,opacity .12s;touch-action:manipulation;user-select:none;-webkit-user-select:none;font-family:'DM Sans',sans-serif;}
+.r-tap-pad:hover{border-color:var(--gold);box-shadow:0 18px 40px rgba(0,0,0,.34),0 0 18px rgba(201,168,76,.18);}
+.r-tap-pad:active,.r-tap-pad.tapped{transform:scale(.96);border-color:var(--gold);box-shadow:0 8px 22px rgba(0,0,0,.30),0 0 28px rgba(201,168,76,.32);}
+.r-tap-pad:disabled{opacity:.38;cursor:not-allowed;transform:none;box-shadow:none;}
+.r-tap-pad-main{font-family:'DM Mono',monospace;font-size:1.65rem;font-weight:900;letter-spacing:.12em;color:var(--gold);}
+.r-tap-pad-sub{font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--ink3);}
+@media(max-width:780px){.r-tap-pad{width:172px;height:172px;}.r-tap-pad-main{font-size:1.9rem;}}
 
+/* ── Global mobile overflow lock ──────────────────────── */
+html,body{overflow-x:hidden;}
 
-/* ── Rhythm card mobile overflow fix ─────────────────── */
 @media(max-width:700px){
-  /* Lock the Rhythm page, grid, card, and side cards */
-  #page-rhythm,
-  #page-rhythm .rhythm-wrap,
-  #page-rhythm .rhythm-main-grid,
-  #page-rhythm .rhythm-card,
-  #page-rhythm .rhythm-side,
-  #page-rhythm .p-card{width:100%;max-width:100%;min-width:0;overflow-x:hidden;box-sizing:border-box;}
-  #page-rhythm .rhythm-main-grid{grid-template-columns:minmax(0,1fr);}
+  /* Viewport width containment for all page wrappers */
+  #mainApp,.page,.practice-wrap,.rhythm-wrap,.ear-wrap,.progress-wrap{width:100%;max-width:100%;overflow-x:hidden;}
 
-  /* Visual container */
-  #page-rhythm .rhythm-visual{width:100%;max-width:100%;min-width:0;overflow-x:hidden;padding:.6rem .45rem;gap:.28rem;}
+  /* Practice page */
+  #page-practice{padding:.65rem;max-width:100%;width:100%;overflow-x:hidden;}
+  .practice-wrap{padding:0;max-width:100%;width:100%;overflow-x:hidden;}
+  .p-main-layout{grid-template-columns:1fr;width:100%;max-width:100%;overflow-x:hidden;}
+  .p-piano-panel,.p-card{width:100%;max-width:100%;overflow-x:hidden;}
 
-  /* Rows */
-  #page-rhythm .rhythm-row{width:100%;max-width:100%;min-width:0;gap:.22rem;justify-content:center;}
+  /* Control grids: single column on mobile */
+  .p-controls-bar,.rhythm-controls,.ear-controls,.e-interval-controls{grid-template-columns:1fr;width:100%;max-width:100%;padding:.75rem;gap:.65rem;overflow-x:hidden;}
+  .p-control-group,.p-control-group select,.p-controls-bar select,.rhythm-controls select,.ear-controls select{width:100%;max-width:100%;min-width:0;}
 
-  /* Bars */
-  #page-rhythm .rhythm-bar{gap:.2rem;min-width:0;flex-shrink:1;}
+  /* Key chips: wrap instead of overflow */
+  .p-key-chips{width:100%;max-width:100%;overflow-x:hidden;flex-wrap:wrap;padding:.65rem;gap:.35rem;}
+  #p-keyChips{display:flex;flex-wrap:wrap;gap:.35rem;max-width:100%;min-width:0;}
+  .p-chip{flex:0 0 auto;}
+  .p-random-key-btn{margin-left:0;width:100%;justify-content:center;}
 
-  /* Beat cells: shrink from desktop 42x58px to mobile-safe 30x36px */
-  #page-rhythm .rhythm-beat{width:30px;height:36px;font-size:.56rem;border-radius:8px;flex:0 0 auto;}
+  /* BPM slider row */
+  .p-bpm-row{width:100%;max-width:100%;gap:.45rem;padding:.5rem .6rem;overflow-x:hidden;}
+  .p-bpm-slider{min-width:0;width:100%;flex:1 1 auto;}
+  .p-bpm-val{min-width:32px;font-size:.9rem;}
 
-  /* Bar separators */
-  #page-rhythm .rhythm-bar-sep{min-height:36px;margin:0 2px;}
+  /* Volume sliders: stack vertically, label | slider | value */
+  .p-vol-row{width:100%;max-width:100%;display:flex;flex-direction:column;gap:.5rem;padding:.6rem;overflow-x:hidden;}
+  .p-vol-group{width:100%;max-width:100%;min-width:0;display:grid;grid-template-columns:58px minmax(0,1fr) 34px;align-items:center;gap:.45rem;}
+  .p-vol-group .p-bpm-label{font-size:.58rem;text-align:left;line-height:1.1;}
+  .p-vol-group .p-bpm-slider{width:100%;min-width:0;}
+  .p-vol-val{min-width:0;text-align:right;font-size:.82rem;}
 
-  /* Helper text and status: wrap instead of clip */
-  #page-rhythm .rhythm-help,
-  #page-rhythm .rhythm-status{white-space:normal;overflow:visible;text-overflow:clip;line-height:1.35;padding:0 .25rem;}
+  /* Rhythm Settings panel width containment */
+  .r-mobile-settings-toggle,.r-mobile-settings-panel{width:100%;max-width:100%;overflow-x:hidden;}
+  .r-mobile-settings-summary{min-width:0;flex:1 1 auto;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+
+  /* Rhythm visual and text containment */
+  .rhythm-visual{width:100%;max-width:100%;overflow-x:hidden;}
+  .rhythm-row{max-width:100%;}
+  .rhythm-status{white-space:normal;height:auto;min-height:1.4em;line-height:1.35;}
+  .rhythm-help{white-space:normal;line-height:1.35;padding:0 .25rem;}
+  .rhythm-feedback{width:100%;max-width:100%;height:auto;min-height:3.2rem;line-height:1.35;}
+
+  /* Piano scroll area: only the piano scrolls, not the page */
+  .p-sheet-area{width:100%;max-width:100%;overflow:hidden;}
+  .p-piano-outer{width:100%;max-width:100%;overflow:hidden;}
+  .p-piano-scroll{width:100%;max-width:100%;overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;}
+
+  /* Generic button row containment */
+  .p-btn-row{width:100%;max-width:100%;overflow-x:hidden;}
+  .p-btn{min-width:0;max-width:100%;}
 }
-
 
 /* ── Very narrow phone fallback (≤420px) ─────────────── */
 @media(max-width:420px){
@@ -1343,6 +1406,36 @@ body {
 }
 
 
+/* ── Sight Reading ─────────────────────────────────────── */
+.sight-wrap{max-width:1040px;margin:0 auto;padding:1.5rem 1rem;}
+.sight-header{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:1.1rem 1.4rem;margin-bottom:1rem;}
+.sight-header h2{font-size:1.35rem;font-weight:800;color:var(--ink);margin:0 0 .2rem;}
+.sight-header p{font-size:.82rem;color:var(--ink2);margin:0;}
+.sight-main-grid{display:grid;grid-template-columns:1fr 280px;gap:1rem;align-items:start;}
+.sight-card{padding:1.15rem;}
+.sight-side{display:flex;flex-direction:column;gap:.9rem;}
+.sight-staff-wrap{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:.55rem .25rem;margin-bottom:.7rem;overflow:hidden;}
+.sight-staff{width:100%;}
+.sight-staff svg{width:100%;display:block;}
+.sight-note-row{display:flex;flex-wrap:wrap;gap:.3rem;margin-bottom:.55rem;min-height:28px;align-items:center;justify-content:center;padding:0 .25rem;}
+.sight-chip{padding:.22rem .5rem;border-radius:7px;border:1px solid var(--border);background:var(--surface);color:var(--ink2);font-family:'DM Mono',monospace;font-size:.75rem;font-weight:600;transition:background .12s,color .12s;}
+.sight-chip.current{background:var(--gold);border-color:var(--gold);color:#000;font-weight:800;}
+.sight-chip.done{background:rgba(58,158,111,.75);border-color:rgba(58,158,111,.75);color:#fff;}
+.sight-chip.hearing{background:rgba(123,94,167,.82);border-color:rgba(123,94,167,.82);color:#fff;}
+.sight-feedback{padding:.55rem .75rem;border-radius:10px;font-weight:600;font-size:.86rem;text-align:center;margin-top:.4rem;}
+.sight-feedback.neutral{background:var(--bg2);color:var(--ink2);}
+.sight-feedback.correct{background:rgba(58,158,111,.12);color:var(--accent-practice);}
+.sight-feedback.wrong{background:rgba(192,97,74,.12);color:var(--accent-ear);}
+.sight-score{font-family:'DM Mono',monospace;font-size:1.35rem;font-weight:700;color:var(--ink);margin:.15rem 0;}
+@media(max-width:700px){
+  .sight-wrap{padding:.75rem .65rem;}
+  .sight-main-grid{grid-template-columns:1fr;}
+  .sight-card,.sight-side,.sight-side .p-card{width:100%;max-width:100%;overflow-x:hidden;}
+  .sight-staff-wrap{padding:.4rem .1rem;}
+  .sight-note-row{gap:.22rem;}
+}
+
+/* ===== END MERGED RHYTHM + SIGHT OVERRIDES ===== */
 </style>
 </head>
 <body>
@@ -2087,36 +2180,7 @@ body {
           </div>
           <!-- Play Flow removed: use Audition / Practice buttons instead -->
         </div>
-
-        <div class="p-bpm-row">
-          <span class="p-bpm-label">BPM</span>
-          <input type="range" class="p-bpm-slider" id="r-bpmSlider" min="40" max="200" value="84" oninput="r_updateBPM(this.value)">
-          <span class="p-bpm-val" id="r-bpmVal">84</span>
-        </div>
-
-        <div class="p-vol-row">
-          <div class="p-vol-group">
-            <span class="p-bpm-label">MASTER</span>
-            <input type="range" class="p-bpm-slider" id="r-masterSlider" min="0" max="100" value="80" oninput="r_updateMasterVol(this.value)">
-            <span class="p-bpm-val p-vol-val" id="r-masterVal">80</span>
-          </div>
-          <div class="p-vol-group">
-            <span class="p-bpm-label">METRO</span>
-            <input type="range" class="p-bpm-slider" id="r-metroSlider" min="0" max="100" value="65" oninput="r_updateMetroVol(this.value)">
-            <span class="p-bpm-val p-vol-val" id="r-metroVal">65</span>
-          </div>
-          <div class="p-vol-group">
-            <span class="p-bpm-label">GUIDE</span>
-            <input type="range" class="p-bpm-slider" id="r-guideSlider" min="0" max="100" value="75" oninput="r_updateGuideVol(this.value)">
-            <span class="p-bpm-val p-vol-val" id="r-guideVal">75</span>
-          </div>
-          <div class="p-vol-group">
-            <span class="p-bpm-label">LIVE KB</span>
-            <input type="range" class="p-bpm-slider" id="r-liveSlider" min="0" max="100" value="75" oninput="r_updateLiveVol(this.value)">
-            <span class="p-bpm-val p-vol-val" id="r-liveVal">75</span>
-          </div>
-        </div>
-        </div><!-- /r-mobileSettingsPanel -->
+</div><!-- /r-mobileSettingsPanel -->
 
         <div class="rhythm-main-grid">
           <div class="rhythm-card">
@@ -2157,6 +2221,41 @@ body {
               Listen first, then practice your timing.
             </div>
 
+
+
+            <!-- Rhythm BPM and volume controls moved down between transport buttons and MIDI / Browser Synth -->
+                    <div class="p-bpm-row">
+                      <span class="p-bpm-label">BPM</span>
+                      <input type="range" class="p-bpm-slider" id="r-bpmSlider" min="40" max="200" value="84" oninput="r_updateBPM(this.value)">
+                      <span class="p-bpm-val" id="r-bpmVal">84</span>
+                    </div>
+            
+                    
+
+            <div class="p-vol-row">
+                      <div class="p-vol-group">
+                        <span class="p-bpm-label">MASTER</span>
+                        <input type="range" class="p-bpm-slider" id="r-masterSlider" min="0" max="100" value="80" oninput="r_updateMasterVol(this.value)">
+                        <span class="p-bpm-val p-vol-val" id="r-masterVal">80</span>
+                      </div>
+                      <div class="p-vol-group">
+                        <span class="p-bpm-label">METRO</span>
+                        <input type="range" class="p-bpm-slider" id="r-metroSlider" min="0" max="100" value="65" oninput="r_updateMetroVol(this.value)">
+                        <span class="p-bpm-val p-vol-val" id="r-metroVal">65</span>
+                      </div>
+                      <div class="p-vol-group">
+                        <span class="p-bpm-label">GUIDE</span>
+                        <input type="range" class="p-bpm-slider" id="r-guideSlider" min="0" max="100" value="75" oninput="r_updateGuideVol(this.value)">
+                        <span class="p-bpm-val p-vol-val" id="r-guideVal">75</span>
+                      </div>
+                      <div class="p-vol-group">
+                        <span class="p-bpm-label">LIVE KB</span>
+                        <input type="range" class="p-bpm-slider" id="r-liveSlider" min="0" max="100" value="75" oninput="r_updateLiveVol(this.value)">
+                        <span class="p-bpm-val p-vol-val" id="r-liveVal">75</span>
+                      </div>
+                    </div>
+                    
+
             <div class="p-midi-bar" style="margin-top:.75rem;flex-wrap:wrap;gap:.5rem;">
               <span style="font-family:'DM Mono',monospace;font-size:.7rem;color:var(--ink3);" id="r-midiInfo">MIDI: ready</span>
               <label style="display:flex;align-items:center;gap:.35rem;margin-left:auto;font-size:.72rem;font-weight:600;color:var(--ink3);cursor:pointer;">
@@ -2191,11 +2290,127 @@ body {
 
     <!-- SIGHT READING -->
     <div class="page" id="page-sight">
-      <div class="coming-soon">
-        <div class="coming-soon-icon">👁️</div>
-        <div class="accent-bar" style="background:var(--accent-sight)"></div>
-        <h2 data-i18n="sight_title">Sight Reading</h2>
-        <p data-i18n="sight_desc">Random note sequences across all 12 keys, graded in real time. Coming in Phase 6.</p>
+      <div class="sight-wrap">
+        <div class="sight-header">
+          <h2>Sight Reading</h2>
+          <p>Read the notes, then play them on your MIDI keyboard.</p>
+        </div>
+
+        <div class="sight-controls p-controls-bar" style="margin-bottom:.9rem;">
+          <div class="p-control-group">
+            <label>Difficulty</label>
+            <select id="s-diffSelect" onchange="s_onSettingsChange()">
+              <option value="easy">Easy</option>
+              <option value="medium" selected>Medium</option>
+              <option value="hard">Hard</option>
+            </select>
+          </div>
+          <div class="p-control-group">
+            <label>Length</label>
+            <select id="s-lengthSelect" onchange="s_onSettingsChange()">
+              <option value="4" selected>4 Notes</option>
+              <option value="8">8 Notes</option>
+              <option value="12">12 Notes</option>
+              <option value="16">16 Notes</option>
+            </select>
+          </div>
+          <div class="p-control-group">
+            <label>Clef</label>
+            <select id="s-clefSelect" onchange="s_onSettingsChange()">
+              <option value="treble" selected>Treble</option>
+            </select>
+          </div>
+          <div class="p-control-group">
+            <label>Key</label>
+            <select id="s-keySelect" onchange="s_onSettingsChange()">
+              <option value="C" selected>C Major</option>
+              <option value="G">G Major</option>
+              <option value="F">F Major</option>
+            </select>
+          </div>
+          <div class="p-control-group">
+            <label>Note Names</label>
+            <select id="s-noteNamesSelect" onchange="s_onNoteNamesChange()">
+              <option value="on" selected>On</option>
+              <option value="off">Off</option>
+            </select>
+          </div>
+          <div class="p-control-group">
+            <label>Octave Match</label>
+            <select id="s-octaveSelect" onchange="s_onOctaveMatchChange()">
+              <option value="exact" selected>Exact Octave</option>
+              <option value="any">Any Octave</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="sight-main-grid">
+          <div class="sight-card p-card">
+            <div class="sight-staff-wrap">
+              <div class="sight-staff" id="s-staff"></div>
+            </div>
+            <div class="sight-note-row" id="s-noteRow"></div>
+            <div class="sight-feedback neutral" id="s-feedback">Press Start to begin.</div>
+            <div class="p-btn-row" style="justify-content:center;margin-top:.85rem;flex-wrap:wrap;gap:.5rem;">
+              <button class="p-btn p-btn-primary" id="s-startBtn" onclick="s_start()">&#9654; Start</button>
+              <button class="p-btn p-btn-sec" onclick="s_hearIt()">&#9834; Hear It</button>
+              <button class="p-btn p-btn-sec" onclick="s_nextExercise()">Next &#8594;</button>
+              <button class="p-btn p-btn-sec" onclick="s_reset()">&#8634; Reset</button>
+            </div>
+          </div>
+          <div class="sight-side">
+            <div class="p-card">
+              <div class="p-card-title">Score</div>
+              <div class="sight-score" id="s-score">0 / 0</div>
+              <div class="p-score-label">Notes correct this exercise</div>
+              <div id="s-wrongCount" style="font-size:.72rem;color:var(--ink3);margin-top:.18rem;"></div>
+            </div>
+            <div class="p-card">
+              <div class="p-card-title">Recent Exercises</div>
+              <div id="s-history"><div class="p-history-empty">No attempts yet</div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="p-bpm-row" style="margin-top:.75rem;">
+          <span class="p-bpm-label">BPM</span>
+          <input type="range" class="p-bpm-slider" id="s-bpmSlider" min="40" max="200" value="84" oninput="s_updateBPM(this.value)">
+          <span class="p-bpm-val" id="s-bpmVal">84</span>
+          <button id="s-metroBtn" onclick="s_toggleMetronome()" style="padding:.3rem .8rem;border-radius:8px;border:1px solid var(--border);background:var(--surface);font-size:.72rem;font-weight:700;cursor:pointer;color:var(--ink2);white-space:nowrap;flex-shrink:0;">Metro Off</button>
+        </div>
+
+        <div class="p-vol-row" style="margin-top:.5rem;">
+          <div class="p-vol-group">
+            <span class="p-bpm-label">MASTER</span>
+            <input type="range" class="p-bpm-slider" id="s-masterSlider" min="0" max="100" value="80" oninput="s_updateMasterVol(this.value)">
+            <span class="p-bpm-val p-vol-val" id="s-masterVal">80</span>
+          </div>
+          <div class="p-vol-group">
+            <span class="p-bpm-label">METRO</span>
+            <input type="range" class="p-bpm-slider" id="s-metroSlider" min="0" max="100" value="65" oninput="s_updateMetroVol(this.value)">
+            <span class="p-bpm-val p-vol-val" id="s-metroVal">65</span>
+          </div>
+          <div class="p-vol-group">
+            <span class="p-bpm-label">GUIDE</span>
+            <input type="range" class="p-bpm-slider" id="s-guideSlider" min="0" max="100" value="75" oninput="s_updateGuideVol(this.value)">
+            <span class="p-bpm-val p-vol-val" id="s-guideVal">75</span>
+          </div>
+          <div class="p-vol-group">
+            <span class="p-bpm-label">LIVE KB</span>
+            <input type="range" class="p-bpm-slider" id="s-liveSlider" min="0" max="100" value="75" oninput="s_updateLiveVol(this.value)">
+            <span class="p-bpm-val p-vol-val" id="s-liveVal">75</span>
+          </div>
+        </div>
+
+        <div class="p-midi-bar" style="margin-top:.55rem;flex-wrap:wrap;gap:.45rem;">
+          <span class="p-midi-dot" id="s-midiDot"></span>
+          <span class="p-midi-text" id="s-midiText">MIDI: ready</span>
+          <span id="s-lastMidi" style="margin-left:auto;font-size:.72rem;font-family:'DM Mono',monospace;color:var(--ink3);"></span>
+          <label style="display:flex;align-items:center;gap:.35rem;font-size:.72rem;font-weight:600;color:var(--ink3);cursor:pointer;">
+            <input type="checkbox" id="s-synthToggle" checked onchange="s_toggleBrowserSynth(this.checked)" style="accent-color:var(--gold);width:13px;height:13px;">
+            Browser Synth
+          </label>
+        </div>
       </div>
     </div>
 
@@ -6451,126 +6666,386 @@ function e_init() {
 
 
 
-/* Sight Reading basic trainer with keyboard */
-const S_KEY_POOLS={C:['C4','D4','E4','F4','G4','A4','B4','C5'],G:['G4','A4','B4','C5','D5','E5','F#5','G5'],F:['F4','G4','A4','A#4','C5','D5','E5','F5']};
-let s_sequence=[],s_index=0,s_active=false,s_scoreCorrect=0,s_scoreTotal=0,s_wrongAttempts=0,s_history=[],s_diff='medium',s_length=4,s_bars=1,s_key='C',s_showNoteNames=true,s_octaveMatch='exact',s_bpm=84,s_hearItTimers=[],s_hearItIndex=-1,s_browserSynthOn=true;
-function s_init(){s_readControls();s_generateExercise(false);s_renderStaff();s_renderNoteRow();s_renderKeyboard();s_renderScore();s_renderHistory();s_setFeedback('Choose Audition to preview, then Start when ready.','neutral');}
-function s_readControls(){const d=document.getElementById('s-diffSelect'),b=document.getElementById('s-barsSelect'),k=document.getElementById('s-keySelect'),om=document.getElementById('s-octaveSelect'),nn=document.getElementById('s-noteNamesSelect');if(d)s_diff=d.value;if(b){s_bars=parseInt(b.value,10)||1;s_length=s_bars*4;}else{s_bars=Math.max(1,Math.round((s_length||4)/4));s_length=s_bars*4;}if(k)s_key=k.value;if(om)s_octaveMatch=om.value;if(nn)s_showNoteNames=nn.value==='on';}
-function s_onSettingsChange(){s_readControls();s_generateExercise(false);s_renderStaff();s_renderNoteRow();s_renderKeyboard();s_renderScore();s_setFeedback('Settings updated. Choose Audition or Start.','neutral');}
-function s_onBarsChange(){s_onSettingsChange();}
-function s_onNoteNamesChange(){s_readControls();s_renderNoteRow();}
-function s_onOctaveMatchChange(){s_readControls();}
-function s_generateExercise(active){s_clearHearIt();s_index=0;s_active=!!active;s_scoreCorrect=0;s_wrongAttempts=0;s_sequence=s_generateSequence();s_scoreTotal=s_sequence.length;}
-function s_generateSequence(){const all=S_KEY_POOLS[s_key]||S_KEY_POOLS.C,pool=s_diff==='easy'?all.slice(0,5):all,seq=[];let prev=null;for(let i=0;i<s_length;i++){let note,tries=0;do{const pi=prev?pool.indexOf(prev):-1;if(s_diff==='easy'&&pi>=0){const c=[];if(pi>0)c.push(pool[pi-1]);if(pi<pool.length-1)c.push(pool[pi+1]);note=c.length?c[Math.floor(Math.random()*c.length)]:pool[Math.floor(Math.random()*pool.length)];}else if(s_diff==='medium'&&pi>=0){const lo=Math.max(0,pi-2),hi=Math.min(pool.length-1,pi+2);note=pool.slice(lo,hi+1)[Math.floor(Math.random()*(hi-lo+1))];}else note=pool[Math.floor(Math.random()*pool.length)];tries++;}while(tries<12&&note===prev&&pool.length>1);seq.push(note);prev=note;}return seq;}
-function s_setFeedback(msg,type){const el=document.getElementById('s-feedback');if(!el)return;el.textContent=msg;el.className='sight-feedback '+(type||'neutral');}
-function s_notePitch(note){return s_octaveMatch==='any'?String(note).replace(/\d+$/,''):String(note);}
-function s_start(){s_readControls();s_generateExercise(true);s_renderStaff();s_renderNoteRow();s_renderKeyboard();s_renderScore();const cur=s_showNoteNames?s_sequence[0]:'the first note';s_setFeedback('Play '+cur+'.','neutral');const b=document.getElementById('s-startBtn');if(b)b.textContent='Restart';}
-function s_nextExercise(){s_readControls();s_generateExercise(false);s_renderStaff();s_renderNoteRow();s_renderKeyboard();s_renderScore();s_setFeedback('New exercise ready. Choose Audition or Start.','neutral');}
-function s_reset(){s_generateExercise(false);s_renderStaff();s_renderNoteRow();s_renderKeyboard();s_renderScore();s_setFeedback('Reset. Choose Audition or Start.','neutral');const b=document.getElementById('s-startBtn');if(b)b.textContent='Start';}
-function s_stopPlayback(){s_clearHearIt();s_renderStaff();s_renderNoteRow();s_setFeedback(s_active?'Stopped. Continue your attempt.':'Stopped. Choose Audition or Start.','neutral');}
-function s_audition(){if(!s_sequence.length)s_generateExercise(false);s_playSequence();s_setFeedback('Audition only. Press Start when ready.','neutral');}
-function s_repeat(){if(!s_sequence.length){s_setFeedback('Press Start first.','neutral');return;}s_playSequence();}
-function s_clearHearIt(){s_hearItTimers.forEach(t=>clearTimeout(t));s_hearItTimers=[];s_hearItIndex=-1;if(s_sequence&&s_sequence.length)s_sequence.forEach(n=>p_noteOff(n));}
-function s_playSequence(){s_clearHearIt();const beatMs=Math.round(60000/s_bpm);s_sequence.forEach((note,i)=>{const t=setTimeout(()=>{s_hearItIndex=i;s_renderStaff();s_renderNoteRow();p_playPreviewNote(note,100,0.55,'demo');},i*beatMs);s_hearItTimers.push(t);});const done=setTimeout(()=>{s_hearItIndex=-1;s_renderStaff();s_renderNoteRow();s_setFeedback(s_active?'Continue your attempt.':'Audition complete. Press Start when ready.','neutral');},s_sequence.length*beatMs+250);s_hearItTimers.push(done);}
-function s_handleKeyboardNote(note){const last=document.getElementById('s-lastMidi');if(last)last.textContent='Last Tap: '+note;s_flashKey(note,'active');if(s_browserSynthOn)p_playPreviewNote(note,90,0.45,'live');s_handleNoteInput(note);}
-function s_handleMidiNote(noteName,velocity){const last=document.getElementById('s-lastMidi');if(last)last.textContent='Last MIDI: '+noteName+' vel '+velocity;const dot=document.getElementById('s-midiDot');if(dot){dot.classList.add('connected');setTimeout(()=>dot.classList.remove('connected'),350);}if(s_browserSynthOn)p_noteOn(noteName,velocity||90,'live');s_handleNoteInput(noteName);}
-function s_handleMidiNoteOff(noteName){p_noteOff(noteName);}
-function s_handleNoteInput(noteName){if(!s_active){s_setFeedback('Press Start first.','neutral');return;}if(s_index>=s_sequence.length)return;const expected=s_sequence[s_index];if(s_notePitch(noteName)===s_notePitch(expected)){s_scoreCorrect++;s_index++;if(s_index>=s_sequence.length){s_active=false;const pct=s_scoreTotal?Math.round(s_scoreCorrect/s_scoreTotal*100):0;s_history.unshift({diff:s_diff,key:s_key,length:s_length,correct:s_scoreCorrect,total:s_scoreTotal,pct});s_history=s_history.slice(0,8);s_setFeedback('Complete. Score: '+pct+'%',pct>=80?'correct':'wrong');s_renderHistory();const b=document.getElementById('s-startBtn');if(b)b.textContent='Start';}else s_setFeedback('Correct. Next note.','correct');s_renderStaff();s_renderNoteRow();s_renderKeyboard();s_renderScore();}else{s_wrongAttempts++;let msg='Try again.';if(s_showNoteNames)msg='Expected '+expected+', played '+noteName+'.';s_setFeedback(msg,'wrong');s_flashKey(expected,'expected');s_renderStaff(true);setTimeout(()=>s_renderStaff(false),350);s_renderScore();}}
-function s_renderStaff(flashWrong){const el=document.getElementById('s-staff');if(!el)return;const W=700,H=150,lineTop=48,lineGap=10,noteY={C5:28,B4:33,A4:38,G4:43,F4:48,E4:53,D4:58,C4:63,'F#5':18,G5:13,F5:23,D5:28,'A#4':38};let svg='<svg viewBox="0 0 '+W+' '+H+'" aria-label="Sight reading staff">';for(let i=0;i<5;i++)svg+='<line x1="58" y1="'+(lineTop+i*lineGap)+'" x2="660" y2="'+(lineTop+i*lineGap)+'" stroke="currentColor" opacity=".55"/>';svg+='<text x="18" y="78" font-size="44" fill="currentColor">𝄞</text>';const n=s_sequence.length||1,step=600/Math.max(n,1);s_sequence.forEach((note,i)=>{const x=78+i*step+step*.35,y=noteY[note]??48;let fill=i<s_index?'#3A9E6F':i===s_index?'#C9A84C':'currentColor';if(i===s_hearItIndex)fill='#7B5EA7';if(flashWrong&&i===s_index)fill='#C0614A';svg+='<ellipse cx="'+x+'" cy="'+y+'" rx="9" ry="7" fill="'+fill+'" transform="rotate(-18 '+x+' '+y+')"/>';svg+='<line x1="'+(x+8)+'" y1="'+(y-2)+'" x2="'+(x+8)+'" y2="'+(y-42)+'" stroke="'+fill+'" stroke-width="2"/>';if(s_showNoteNames)svg+='<text x="'+(x-12)+'" y="125" font-size="12" fill="currentColor" opacity=".75">'+note+'</text>';});svg+='</svg>';el.innerHTML=svg;}
-function s_renderNoteRow(){const el=document.getElementById('s-noteRow');if(!el)return;el.innerHTML='';s_sequence.forEach((note,i)=>{const d=document.createElement('span');d.className='sight-chip'+(i<s_index?' done':'')+(i===s_index?' current':'')+(i===s_hearItIndex?' hearing':'');d.textContent=s_showNoteNames?note:String(i+1);el.appendChild(d);});}
-function s_renderKeyboard(){const all=S_KEY_POOLS[s_key]||S_KEY_POOLS.C,midis=all.map(e_noteToMidi);e_buildInteractiveMiniKeyboard('s-keyboard',e_midiToNote(e_prevWhiteMidi(Math.min(...midis))),e_midiToNote(e_nextWhiteMidi(Math.max(...midis))),s_handleKeyboardNote);const expected=s_sequence[s_index];if(expected)s_flashKey(expected,'expected',false);}
-function s_flashKey(note,cls,remove=true){const kb=document.getElementById('s-keyboard');if(!kb)return;const el=kb.querySelector('[data-note="'+note+'"]');if(!el)return;el.classList.add(cls||'active');if(remove)setTimeout(()=>el.classList.remove(cls||'active'),320);}
-function s_renderScore(){const el=document.getElementById('s-score');if(el){const pct=s_scoreTotal?Math.round(s_scoreCorrect/s_scoreTotal*100):0;el.textContent=s_scoreCorrect+' / '+s_scoreTotal+' · '+pct+'%';}const w=document.getElementById('s-wrongCount');if(w)w.textContent='Wrong attempts: '+s_wrongAttempts;}
-function s_renderHistory(){const el=document.getElementById('s-history');if(!el)return;if(!s_history.length){el.innerHTML='<div class="p-history-empty">No attempts yet</div>';return;}el.innerHTML='';s_history.slice(0,8).forEach(h=>{const d=document.createElement('div');d.className='p-history-item';d.innerHTML='<span class="p-history-name">'+h.key+' '+h.diff+' '+(h.length/4)+' bar'+'</span><span class="p-history-score g-'+(h.pct>=80?'a':'c')+'">'+h.pct+'%</span>';el.appendChild(d);});}
-function s_updateBPM(v){s_bpm=parseInt(v,10)||84;const el=document.getElementById('s-bpmVal');if(el)el.textContent=s_bpm;}
-function s_updateGuideVol(v){const el=document.getElementById('s-guideVal');if(el)el.textContent=v;if(typeof p_updateDemoVol==='function')p_updateDemoVol(v);}
-function s_updateLiveVol(v){const el=document.getElementById('s-liveVal');if(el)el.textContent=v;if(typeof p_updateLiveVol==='function')p_updateLiveVol(v);}
-function s_toggleBrowserSynth(v){s_browserSynthOn=!!v;if(typeof p_toggleBrowserSynth==='function')p_toggleBrowserSynth(!!v);}
+/* ============================================================
+   SIGHT READING — Phase 2
+   Treble clef, C/G/F Major, accidentals, MIDI grading,
+   octave match, metronome, volume controls, Hear It highlight
+   ============================================================ */
 
-function p_handleMIDI(event){
-  const[status,note,velocity]=event.data;
-  const cmd=status&0xf0;
-  const name=['C','C#','D','D#','E','F','F#','G','G#','A','A#','B'][note%12];
-  const oct=Math.floor(note/12)-1;
-  const noteStr=name+oct;
-  if(p_audioCtx && p_audioCtx.state==='suspended') p_audioCtx.resume();
+// SVG y-coordinates for noteheads (viewBox 0 0 540 108)
+// Staff lines: F5=28,D5=40,B4=52,G4=64,E4=76 (12px spacing)
+// Sharps/flats occupy same staff position as their natural counterpart
+const S_NOTE_Y={
+  C4:88,D4:82,E4:76,'F#4':70,F4:70,G4:64,A4:58,'Bb4':52,B4:52,C5:46
+};
 
-  if(cmd===0x90 && velocity>0){
-    // Always update Practice MIDI debug display
-    const dbg=document.getElementById('p-midiDebug');
-    if(dbg) dbg.textContent='Last MIDI: '+noteStr+' vel '+velocity;
+// Note pools by key (C4-C5 range, treble clef)
+const S_KEY_POOLS={
+  C:['C4','D4','E4','F4','G4','A4','B4','C5'],
+  G:['C4','D4','E4','F#4','G4','A4','B4','C5'],
+  F:['C4','D4','E4','F4','G4','A4','Bb4','C5'],
+};
 
-    // Rhythm page: any note-on is a tap. Return immediately -- no piano sound.
-    if (currentPage === 'rhythm') {
-      r_registerTap('midi');
-      return;
-    }
+// State
+let s_sequence=[];
+let s_index=0;
+let s_active=false;
+let s_scoreCorrect=0;
+let s_scoreTotal=0;
+let s_wrongAttempts=0;
+let s_totalWrong=0;
+let s_history=[];
+let s_showNoteNames=true;
+let s_diff='medium';
+let s_length=4;
+let s_key='C';
+let s_octaveMatch='exact';
+let s_hearItIndex=-1;
+let s_hearItTimers=[];
+let s_browserSynthOn=true;
+let s_bpm=84;
+let s_metronomeOn=false;
+let s_metroTimer=null;
+let s_metroBeat=0;
 
-    // Route to Ear Training when on that page
-    if (currentPage === 'ear') {
-      e_handleMidiAnswer(noteStr, velocity);
-      return;
-    }
+function s_init(){
+  s_readControls();
+  s_generateExercise(false);
+  s_renderStaff();
+  s_renderNoteRow();
+  s_renderScore();
+  s_renderHistory();
+  s_setFeedback('Press Start to begin.','neutral');
+  s_updateMetroVol(65);
+}
 
-    // Route to Sight Reading when on that page
-    if (currentPage === 'sight') {
-      if (typeof s_handleMidiNote === 'function') s_handleMidiNote(noteStr, velocity);
-      return;
-    }
+function s_readControls(){
+  const d=document.getElementById('s-diffSelect');
+  const l=document.getElementById('s-lengthSelect');
+  const k=document.getElementById('s-keySelect');
+  const om=document.getElementById('s-octaveSelect');
+  if(d)s_diff=d.value;
+  if(l)s_length=parseInt(l.value,10);
+  if(k)s_key=k.value;
+  if(om)s_octaveMatch=om.value;
+}
 
-    const isOwner = p_isActiveAudioTab();
-    if(isOwner){
-      // Only active tab plays sound and grades
-      p_noteOn(noteStr, velocity, 'live');
-      p_registerKeyAttempt(noteStr);
-      const el=p_getKey(noteStr);
-      if(el) el.classList.add('midi-held');
-    } else {
-      console.log('[MIDI] Ignored in inactive tab:', noteStr, velocity);
-    }
-  } else if(cmd===0x80||(cmd===0x90&&velocity===0)){
-    if (currentPage === 'ear') {
-      if (typeof e_handleMidiNoteOff === 'function') e_handleMidiNoteOff(noteStr);
-      else p_noteOff(noteStr);
-      return;
-    }
-    if (currentPage === 'sight') {
-      if (typeof s_handleMidiNoteOff === 'function') s_handleMidiNoteOff(noteStr);
-      else p_noteOff(noteStr);
-      return;
-    }
-    // Rhythm: note-off does nothing
-    if (currentPage === 'rhythm') return;
-    // Practice: safe to call regardless -- inactive tabs have no active voices
-    p_noteOff(noteStr);
-    const el=p_getKey(noteStr);
-    if(el) el.classList.remove('midi-held','pressed');
+function s_onSettingsChange(){
+  const wasActive=s_active;
+  s_readControls();
+  s_generateExercise(wasActive);
+  s_renderStaff();
+  s_renderNoteRow();
+  s_renderScore();
+  if(wasActive&&s_sequence.length){
+    const cur=s_showNoteNames?s_sequence[0]:'the first note';
+    s_setFeedback('Settings updated. Play '+cur+'.','neutral');
+  } else {
+    s_setFeedback('Settings updated. Press Start to begin.','neutral');
   }
 }
 
-/* --- HISTORY --- */
-function p_saveHistory(){ try{localStorage.setItem('km_phistory',JSON.stringify(p_history.slice(0,60)));}catch(e){} }
-function p_loadHistory(){ try{const d=localStorage.getItem('km_phistory');if(d)p_history=JSON.parse(d);}catch(e){} }
-function p_renderHistory(){
-  const el=document.getElementById('p-history');
-  if(!p_history.length){el.innerHTML='<div class="p-history-empty">Complete exercises to see history</div>';return;}
-  el.innerHTML='';
-  p_history.slice(0,14).forEach(item=>{
-    const div=document.createElement('div'); div.className='p-history-item';
-    div.innerHTML=`<span class="p-history-name">${item.name}</span><span class="p-history-score g-${item.grade.toLowerCase()}">${item.score}% (${item.grade})</span>`;
-    el.appendChild(div);
+function s_onNoteNamesChange(){
+  const sel=document.getElementById('s-noteNamesSelect');
+  if(sel)s_showNoteNames=sel.value==='on';
+  s_renderNoteRow();
+}
+
+function s_onOctaveMatchChange(){
+  const sel=document.getElementById('s-octaveSelect');
+  if(sel)s_octaveMatch=sel.value;
+}
+
+function s_generateExercise(active){
+  s_hearItTimers.forEach(t=>clearTimeout(t));s_hearItTimers=[];
+  s_hearItIndex=-1;
+  s_index=0;s_active=!!active;
+  s_scoreCorrect=0;s_wrongAttempts=0;s_totalWrong=0;
+  s_sequence=s_generateSequence();
+  s_scoreTotal=s_sequence.length;
+}
+
+function s_generateSequence(){
+  const allNotes=S_KEY_POOLS[s_key]||S_KEY_POOLS.C;
+  const pool=s_diff==='easy'?allNotes.slice(0,5):allNotes;
+  const seq=[];let prev=null;
+  for(let i=0;i<s_length;i++){
+    let note,tries=0;
+    do{
+      const pi=prev?pool.indexOf(prev):-1;
+      if(s_diff==='easy'&&pi>=0){
+        const cands=[];
+        if(pi>0)cands.push(pool[pi-1]);
+        if(pi<pool.length-1)cands.push(pool[pi+1]);
+        note=cands.length?cands[Math.floor(Math.random()*cands.length)]:pool[Math.floor(Math.random()*pool.length)];
+      } else if(s_diff==='medium'&&pi>=0){
+        const lo=Math.max(0,pi-2),hi=Math.min(pool.length-1,pi+2);
+        note=pool.slice(lo,hi+1)[Math.floor(Math.random()*(hi-lo+1))];
+      } else {
+        note=pool[Math.floor(Math.random()*pool.length)];
+      }
+      tries++;
+    }while(tries<12&&note===prev&&pool.length>1);
+    seq.push(note);prev=note;
+  }
+  return seq;
+}
+
+function s_start(){
+  s_readControls();
+  const ns=document.getElementById('s-noteNamesSelect');
+  if(ns){ns.value=s_diff==='hard'?'off':'on';s_showNoteNames=s_diff!=='hard';}
+  s_generateExercise(true);
+  s_renderStaff();s_renderNoteRow();s_renderScore();
+  const cur=s_showNoteNames&&s_sequence.length?s_sequence[0]:'the first note';
+  s_setFeedback('Play '+cur+' on your MIDI keyboard.','neutral');
+  const btn=document.getElementById('s-startBtn');
+  if(btn)btn.textContent='\u25B6 Restart';
+}
+
+// Called by p_handleMIDI. Sound is handled in the MIDI route; this grades only.
+function s_handleMidiNote(noteName,velocity){
+  if(!s_active){s_setFeedback('Press Start first.','neutral');return;}
+  if(s_index>=s_sequence.length)return;
+  const expected=s_sequence[s_index];
+  const notePitch=s_octaveMatch==='any'?noteName.replace(/\d+$/,''):noteName;
+  const expectedPitch=s_octaveMatch==='any'?expected.replace(/\d+$/,''):expected;
+  if(notePitch===expectedPitch){
+    s_scoreCorrect++;
+    s_totalWrong+=s_wrongAttempts;
+    s_wrongAttempts=0;
+    s_index++;
+    if(s_index>=s_sequence.length){
+      s_active=false;
+      const pct=Math.round((s_scoreCorrect/s_scoreTotal)*100);
+      s_history.unshift({diff:s_diff,key:s_key,length:s_length,correct:s_scoreCorrect,total:s_scoreTotal,pct});
+      s_history=s_history.slice(0,6);
+      s_setFeedback('Exercise complete. Score: '+pct+'%',pct>=80?'correct':'wrong');
+      s_renderHistory();
+    } else {
+      const next=s_showNoteNames?s_sequence[s_index]:'the next note';
+      s_setFeedback('Correct. Play '+next+'.','correct');
+    }
+    s_renderStaff();s_renderNoteRow();s_renderScore();
+  } else {
+    s_wrongAttempts++;
+    let msg='Try again.';
+    if(s_showNoteNames){
+      if(noteName.replace(/\d+$/,'')===expected.replace(/\d+$/,'')&&s_octaveMatch==='exact'){
+        msg='Correct pitch, wrong octave. Expected '+expected+'.';
+      } else {
+        msg='Expected '+expected+', played '+noteName+'.';
+      }
+    }
+    s_setFeedback(msg,'wrong');
+    s_renderStaff(true);
+    setTimeout(()=>s_renderStaff(false),380);
+  }
+}
+
+// Play full sequence with staff highlighting (routed through GUIDE volume)
+function s_hearIt(){
+  if(!s_sequence.length){s_setFeedback('Press Start first.','neutral');return;}
+  s_hearItTimers.forEach(t=>clearTimeout(t));s_hearItTimers=[];
+  s_setFeedback('Playing sequence\u2026','neutral');
+  const beatMs=Math.round(60000/s_bpm);
+  const noteDur=Math.round(beatMs*0.72);
+  s_sequence.forEach((note,i)=>{
+    const t1=setTimeout(()=>{
+      s_hearItIndex=i;s_renderStaff();s_renderNoteRow();
+      s_playGuideNote(note);
+    },i*beatMs);
+    const t2=setTimeout(()=>p_noteOff(note),i*beatMs+noteDur);
+    s_hearItTimers.push(t1,t2);
   });
+  const doneT=setTimeout(()=>{
+    s_hearItIndex=-1;s_renderStaff();s_renderNoteRow();
+    s_setFeedback('Now you try.','neutral');
+  },s_sequence.length*beatMs+280);
+  s_hearItTimers.push(doneT);
 }
 
-/* --- FLASH --- */
-function p_showFlash(msg,type){
-  const el=document.getElementById('p-flash');
-  el.textContent=msg; el.className='p-flash '+type+' show';
-  setTimeout(()=>el.classList.remove('show'),2000);
+// Pitched note through p_demoGain (GUIDE volume slider)
+function s_playGuideNote(noteStr){
+  try{
+    const ctx=p_getCtx();
+    if(ctx.state==='suspended')ctx.resume();
+    const f=p_freq(noteStr);if(!f)return;
+    if(p_activeVoices.has(noteStr))p_noteOff(noteStr);
+    const now=ctx.currentTime,peak=0.075;
+    const env=ctx.createGain();
+    env.gain.setValueAtTime(0,now);
+    env.gain.linearRampToValueAtTime(peak,now+0.008);
+    env.gain.setTargetAtTime(peak*0.28,now+0.008,0.065);
+    const dest=(typeof p_demoGain!=='undefined'&&p_demoGain)?p_demoGain:
+               (typeof p_masterGain!=='undefined'&&p_masterGain)?p_masterGain:ctx.destination;
+    env.connect(dest);
+    const o1=ctx.createOscillator();o1.type='sine';o1.frequency.value=f;
+    o1.connect(env);o1.start(now);
+    const o2=ctx.createOscillator(),g2=ctx.createGain();
+    o2.type='triangle';o2.frequency.value=f*2;
+    g2.gain.setValueAtTime(0.15,now);g2.gain.setTargetAtTime(0,now+0.05,0.04);
+    o2.connect(g2);g2.connect(env);o2.start(now);
+    p_activeVoices.set(noteStr,{o1,o2,g2,env,ctx});
+  }catch(e){console.warn('[s_playGuideNote]',e);}
 }
 
-/* --- COMPUTER KEYBOARD INPUT --- */
-const P_KEY_MAP={a:'C4',w:'C#4',s:'D4',e:'D#4',d:'E4',f:'F4',t:'F#4',g:'G4',y:'G#4',h:'A4',u:'A#4',j:'B4',k:'C5',o:'C#5',l:'D5',p:'D#5'};
+function s_nextExercise(){s_start();}
+
+function s_reset(){
+  if(!s_sequence.length)return;
+  s_hearItTimers.forEach(t=>clearTimeout(t));s_hearItTimers=[];
+  s_hearItIndex=-1;
+  s_index=0;s_active=true;s_scoreCorrect=0;s_wrongAttempts=0;s_totalWrong=0;
+  s_renderStaff();s_renderNoteRow();s_renderScore();
+  const cur=s_showNoteNames&&s_sequence.length?s_sequence[0]:'the first note';
+  s_setFeedback('Restarted. Play '+cur+'.','neutral');
+}
+
+function s_toggleBrowserSynth(checked){s_browserSynthOn=!!checked;}
+
+function s_updateBPM(value){
+  s_bpm=parseInt(value,10);
+  const el=document.getElementById('s-bpmVal');if(el)el.textContent=s_bpm;
+}
+
+function s_updateMasterVol(val){
+  if(typeof p_updateMasterVol==='function')p_updateMasterVol(val);
+  const el=document.getElementById('s-masterVal');if(el)el.textContent=val;
+}
+function s_updateMetroVol(val){
+  if(typeof p_updateMetroVol==='function')p_updateMetroVol(val);
+  const el=document.getElementById('s-metroVal');if(el)el.textContent=val;
+  const sl=document.getElementById('s-metroSlider');if(sl&&sl.value!=val)sl.value=val;
+}
+function s_updateGuideVol(val){
+  if(typeof p_updateDemoVol==='function')p_updateDemoVol(val);
+  const el=document.getElementById('s-guideVal');if(el)el.textContent=val;
+}
+function s_updateLiveVol(val){
+  if(typeof p_updateLiveVol==='function')p_updateLiveVol(val);
+  const el=document.getElementById('s-liveVal');if(el)el.textContent=val;
+}
+
+function s_toggleMetronome(){
+  s_metronomeOn=!s_metronomeOn;
+  const btn=document.getElementById('s-metroBtn');
+  if(s_metronomeOn){
+    if(btn){btn.textContent='Metro On';btn.style.background='var(--gold)';btn.style.color='#000';}
+    s_metroBeat=0;s_runMetronome();
+  } else {
+    s_stopMetronome();
+  }
+}
+
+function s_stopMetronome(){
+  s_metronomeOn=false;
+  if(s_metroTimer){clearTimeout(s_metroTimer);s_metroTimer=null;}
+  const btn=document.getElementById('s-metroBtn');
+  if(btn){btn.textContent='Metro Off';btn.style.background='';btn.style.color='';}
+}
+
+function s_runMetronome(){
+  if(!s_metronomeOn)return;
+  const beatMs=Math.round(60000/s_bpm);
+  if(typeof r_playClick==='function')r_playClick(s_metroBeat%4===0);
+  s_metroBeat++;
+  s_metroTimer=setTimeout(s_runMetronome,beatMs);
+}
+
+function s_setFeedback(msg,type){
+  const el=document.getElementById('s-feedback');if(!el)return;
+  el.textContent=msg;
+  el.className='sight-feedback '+(type||'neutral');
+}
+
+function s_renderScore(){
+  const el=document.getElementById('s-score');if(!el)return;
+  if(!s_scoreTotal){el.textContent='0 / 0';return;}
+  const pct=Math.round((s_scoreCorrect/s_scoreTotal)*100);
+  el.textContent=s_scoreCorrect+' / '+s_scoreTotal+' \u00b7 '+pct+'%';
+  const wc=document.getElementById('s-wrongCount');
+  const tw=s_totalWrong+s_wrongAttempts;
+  if(wc)wc.textContent=tw>0?'Wrong attempts: '+tw:'';
+}
+
+function s_renderHistory(){
+  const el=document.getElementById('s-history');if(!el)return;
+  if(!s_history.length){el.innerHTML='<div class="p-history-empty">No attempts yet</div>';return;}
+  el.innerHTML=s_history.map(h=>
+    '<div class="p-history-item">'+
+    '<span>'+(h.diff||'?')+' \u00b7 '+(h.key||'C')+' \u00b7 '+h.length+'n</span>'+
+    '<span class="p-history-grade" style="color:'+(h.pct>=80?'var(--accent-practice)':'var(--accent-ear)')+'">'+h.pct+'%</span>'+
+    '</div>'
+  ).join('');
+}
+
+function s_renderNoteRow(){
+  const el=document.getElementById('s-noteRow');if(!el)return;
+  if(!s_sequence.length){el.innerHTML='';return;}
+  el.innerHTML=s_sequence.map((note,i)=>{
+    let cls='sight-chip';
+    if(i<s_index)cls+=' done';
+    else if(i===s_hearItIndex)cls+=' hearing';
+    else if(i===s_index&&s_active)cls+=' current';
+    const txt=s_showNoteNames?note:'\u25CF';
+    return '<span class="'+cls+'">'+txt+'</span>';
+  }).join('');
+}
+
+function s_renderStaff(flashWrong){
+  const el=document.getElementById('s-staff');if(!el)return;
+  const W=540,H=108;
+  const lY=[28,40,52,64,76];
+  const n=s_sequence.length;
+  const clefW=62,padR=12;
+  const spacing=n>0?Math.min(76,(W-clefW-padR)/n):76;
+  const startX=clefW+spacing*0.4;
+  const rx=5.8,ry=4.2;
+  let svg='<svg viewBox="0 0 '+W+' '+H+'" xmlns="http://www.w3.org/2000/svg">';
+  lY.forEach(y=>{
+    svg+='<line x1="12" y1="'+y+'" x2="'+(W-6)+'" y2="'+y+'" stroke="var(--ink2)" stroke-width="1.2" opacity=".5"/>';
+  });
+  svg+='<text x="10" y="92" font-family="serif" font-size="82" fill="var(--ink2)" opacity=".8">'+
+       String.fromCodePoint(0x1D11E)+'</text>';
+  if(n>0){
+    s_sequence.forEach((note,i)=>{
+      const y=S_NOTE_Y[note];if(!y)return;
+      const x=startX+i*spacing;
+      if(note==='C4'){
+        svg+='<line x1="'+(x-rx-4)+'" y1="88" x2="'+(x+rx+4)+'" y2="88" stroke="var(--ink2)" stroke-width="1.2" opacity=".5"/>';
+      }
+      let fill;
+      if(i<s_index) fill='var(--accent-practice)';
+      else if(i===s_hearItIndex) fill='#7b5ea7';
+      else if(i===s_index&&s_active) fill=flashWrong?'var(--accent-ear)':'var(--gold)';
+      else fill='var(--ink2)';
+      const isSharp=note.includes('#');
+      const isFlat=note.length>=3&&note[1]==='b';
+      if(isSharp){
+        svg+='<text x="'+(x-rx-3)+'" y="'+(y+ry)+'" font-size="11" font-weight="700" fill="'+fill+'" text-anchor="end" font-family="serif">\u266F</text>';
+      } else if(isFlat){
+        svg+='<text x="'+(x-rx-3)+'" y="'+(y+5)+'" font-size="13" font-weight="700" fill="'+fill+'" text-anchor="end" font-family="serif">\u266D</text>';
+      }
+      svg+='<ellipse cx="'+x+'" cy="'+y+'" rx="'+rx+'" ry="'+ry+'" fill="'+fill+'" transform="rotate(-12 '+x+' '+y+')"/>';
+      if(y>=52){
+        svg+='<line x1="'+(x+rx-0.5)+'" y1="'+y+'" x2="'+(x+rx-0.5)+'" y2="'+(y-30)+'" stroke="'+fill+'" stroke-width="1.5"/>';
+      } else {
+        svg+='<line x1="'+(x-rx+0.5)+'" y1="'+y+'" x2="'+(x-rx+0.5)+'" y2="'+(y+30)+'" stroke="'+fill+'" stroke-width="1.5"/>';
+      }
+    });
+  } else {
+    svg+='<text x="'+(W/2)+'" y="60" text-anchor="middle" font-size="13" fill="var(--ink3)" font-family="DM Sans,sans-serif">Press Start to generate a sequence</text>';
+  }
+  svg+='</svg>';
+  el.innerHTML=svg;
+}
+/* ============================================================
+   PROGRESS PAGE & BADGE SYSTEM
+   ============================================================ */
+
+/* ── Badge definitions ──────────────────────────────────────────── */
+
 /* ============================================================
    RHYTHM TRAINING v1
    ============================================================ */
