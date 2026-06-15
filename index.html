@@ -1261,6 +1261,14 @@ body {
 .s-inline-control label{font-size:.62rem;font-weight:800;text-transform:uppercase;letter-spacing:.07em;color:var(--ink3);white-space:nowrap;}
 .s-inline-control select{padding:.34rem .55rem;background:var(--bg2);border:1px solid var(--border);border-radius:8px;color:var(--ink);font-family:'DM Sans',sans-serif;font-size:.76rem;font-weight:700;}
 @media(max-width:700px){.s-inline-control{width:100%;justify-content:space-between}.s-inline-control select{flex:1;min-width:0}}
+
+/* Ear answer keyboard mobile containment */
+.e-answer-keyboard-wrap,.e-mini-keyboard-wrap{max-width:100%;overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;}
+@media(max-width:700px){
+  #e-answerKeyboard{margin-left:0;margin-right:0;}
+  .e-answer-keyboard-wrap .e-mini-keyboard-wrap{justify-content:flex-start;}
+  .e-keyboard-help::after{content:' Swipe sideways for larger ranges.';}
+}
 </style>
 </head>
 <body>
@@ -5193,9 +5201,31 @@ function e_pickNote() {
   e_updateUI();
 }
 
+function e_startNewLengthSet(){
+  e_clearEarTimers();
+  e_lastIntervalKey=null; e_lastChordKey=null;
+  e_intervalNameAnswered=false; e_intervalNameAnswerType=null; e_intervalNamePointsEarned=0;
+  e_chordReplayRequired=[]; e_chordReplayPlayed=[]; e_chordReplayWrong=[];
+  e_showChordRoot=false; e_showChordTones=false; e_showChordName=false;
+  e_currentNote=null; e_currentInterval=null; e_currentChord=null;
+  e_targetSeq=[]; e_answerSeq=[];
+  e_waitingForAnswer=false;
+  e_scoreCorrect=0;
+  e_scoreTotal=0;
+  e_streak=0;
+  e_lastNotes=[];
+  e_lengthTarget=e_getLengthTarget();
+  e_sessionComplete=false;
+  e_pickPrompt();
+  e_updateModeUI();
+}
+
 // ── Single Note: play ──────────────────────────────────────────
 function e_playCurrentNote() {
-  if(e_sessionComplete){ e_setFeedback('Complete. Choose Reset or change Length to continue.','neutral'); return; }
+  if(e_sessionComplete){
+    e_startNewLengthSet();
+    e_setFeedback('New set started. Listen carefully, then answer.','neutral');
+  }
   if(e_mode==='interval'||e_mode==='interval_name'){e_playCurrentInterval();return;}
   if (e_mode==='chord_quality'||e_mode==='chord_replay') { e_playCurrentChord(); return; }
   if (!e_currentNote) e_pickNote();
@@ -5241,7 +5271,7 @@ function e_pickInterval() {
 
 // ── Interval: play ─────────────────────────────────────────────
 function e_playCurrentInterval() {
-  if(e_sessionComplete){ e_setFeedback('Complete. Choose Reset or change Length to continue.','neutral'); return; }
+  if(e_sessionComplete){ e_setFeedback('Complete. Choose Start for a new set, Reset, or change Length.','neutral'); return; }
   if(!(e_mode==='interval'||e_mode==='interval_name')) return;
   if (!e_currentInterval) e_pickInterval();
   if (e_intervalPlaybackLocked) return;
@@ -5804,7 +5834,7 @@ function e_finishLengthIfNeeded(){
   e_waitingForAnswer=false;
   e_clearEarTimers();
   const pct=e_scoreTotal?Math.round(e_scoreCorrect/e_scoreTotal*100):0;
-  e_setFeedback('Complete. Score: '+e_scoreCorrect+' / '+e_scoreTotal+' · '+pct+'%. Choose Reset or change Length to continue.', 'correct');
+  e_setFeedback('Complete. Score: '+e_scoreCorrect+' / '+e_scoreTotal+' · '+pct+'%. Choose Start for a new set, Reset, or change Length.', 'correct');
   e_updateUI();
   return true;
 }
@@ -5824,7 +5854,12 @@ function e_stopPlayback(){
   if(e_currentInterval&&e_currentInterval.notes)e_currentInterval.notes.forEach(n=>p_noteOff(n));
   if(e_currentChord&&e_currentChord.notes)e_currentChord.notes.forEach(n=>p_noteOff(n));
   e_chordPlaybackLocked=false;
-  e_setFeedback(e_waitingForAnswer?'Stopped. Continue your attempt.':'Stopped. Choose Audition or Start.','neutral');
+  if(e_sessionComplete){
+    const pct=e_scoreTotal?Math.round(e_scoreCorrect/e_scoreTotal*100):0;
+    e_setFeedback('Complete. Score: '+e_scoreCorrect+' / '+e_scoreTotal+' · '+pct+'%. Choose Start for a new set, Reset, or change Length.','correct');
+  }else{
+    e_setFeedback(e_waitingForAnswer?'Stopped. Continue your attempt.':'Stopped. Choose Audition or Start.','neutral');
+  }
 }
 function e_toggleBrowserSynth(v){
   e_browserSynthOn=!!v;
