@@ -1600,25 +1600,6 @@ body {
               <span class="p-bpm-val" id="p-bpmVal">80</span>
               <button class="p-metro-btn" id="p-metroBtn" onclick="p_toggleMetronome()">♩ Metro</button>
             </div>
-            <!-- Volume controls: MASTER / DEMO / LIVE (0–100) -->
-            <div class="p-vol-row">
-              <div class="p-vol-group">
-                <span class="p-bpm-label">MASTER</span>
-                <input type="range" class="p-bpm-slider" id="p-masterSlider" min="0" max="100" value="80" oninput="p_updateMasterVol(this.value)">
-                <span class="p-bpm-val p-vol-val" id="p-masterVal">80</span>
-              </div>
-              <div class="p-vol-group">
-                <span class="p-bpm-label">GUIDE</span>
-                <input type="range" class="p-bpm-slider" id="p-demoSlider" min="0" max="100" value="75" oninput="p_updateDemoVol(this.value)">
-                <span class="p-bpm-val p-vol-val" id="p-demoVal">75</span>
-              </div>
-              <div class="p-vol-group">
-                <span class="p-bpm-label">LIVE KB</span>
-                <input type="range" class="p-bpm-slider" id="p-liveSlider" min="0" max="100" value="75" oninput="p_updateLiveVol(this.value)">
-                <span class="p-bpm-val p-vol-val" id="p-liveVal">75</span>
-              </div>
-            </div>
-
             <!-- Timing bar -->
             <div class="p-timing-wrap">
               <div class="p-meta-label" style="margin-bottom:.3rem">Timing Accuracy</div>
@@ -1681,6 +1662,25 @@ body {
               <span>Hear As:</span>
               <button id="p-hearNotesBtn" class="active" onclick="p_setProgressionHearMode('notes')">Notes</button>
               <button id="p-hearChordsBtn" onclick="p_setProgressionHearMode('chords')">Chords</button>
+            </div>
+
+            <!-- Volume controls: MASTER / GUIDE / LIVE KB -->
+            <div class="p-vol-row" style="margin-top:.55rem;margin-bottom:.55rem;">
+              <div class="p-vol-group">
+                <span class="p-bpm-label">MASTER</span>
+                <input type="range" class="p-bpm-slider" id="p-masterSlider" min="0" max="100" value="80" oninput="p_updateMasterVol(this.value)">
+                <span class="p-bpm-val p-vol-val" id="p-masterVal">80</span>
+              </div>
+              <div class="p-vol-group">
+                <span class="p-bpm-label">GUIDE</span>
+                <input type="range" class="p-bpm-slider" id="p-demoSlider" min="0" max="100" value="75" oninput="p_updateDemoVol(this.value)">
+                <span class="p-bpm-val p-vol-val" id="p-demoVal">75</span>
+              </div>
+              <div class="p-vol-group">
+                <span class="p-bpm-label">LIVE KB</span>
+                <input type="range" class="p-bpm-slider" id="p-liveSlider" min="0" max="100" value="75" oninput="p_updateLiveVol(this.value)">
+                <span class="p-bpm-val p-vol-val" id="p-liveVal">75</span>
+              </div>
             </div>
 
             <!-- MIDI status -->
