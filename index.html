@@ -1820,11 +1820,34 @@ body {
               <div class="e-keyboard-help" id="e-answerKeyboardHelp">Tap a key or use MIDI.</div>
             </div>
 
-            <div class="p-midi-bar" style="margin-top:.9rem;flex-wrap:wrap;gap:.45rem;">
+            <div class="p-vol-row" id="e-volumeRow" style="margin-top:.55rem;">
+              <div class="p-vol-group">
+                <span class="p-bpm-label">MASTER</span>
+                <input type="range" class="p-bpm-slider" id="e-masterSlider" min="0" max="100" value="80" oninput="e_updateMasterVol(this.value)">
+                <span class="p-bpm-val p-vol-val" id="e-masterVal">80</span>
+              </div>
+              <div class="p-vol-group">
+                <span class="p-bpm-label">GUIDE</span>
+                <input type="range" class="p-bpm-slider" id="e-guideSlider" min="0" max="100" value="75" oninput="e_updateGuideVol(this.value)">
+                <span class="p-bpm-val p-vol-val" id="e-guideVal">75</span>
+              </div>
+              <div class="p-vol-group">
+                <span class="p-bpm-label">LIVE KB</span>
+                <input type="range" class="p-bpm-slider" id="e-liveSlider" min="0" max="100" value="75" oninput="e_updateLiveVol(this.value)">
+                <span class="p-bpm-val p-vol-val" id="e-liveVal">75</span>
+              </div>
+            </div>
+
+            <div class="p-midi-bar" style="margin-top:.55rem;flex-wrap:wrap;gap:.45rem;">
+              <div class="p-midi-dot" id="e-midiDeviceDot"></div>
+              <span class="p-midi-text" id="e-midiText">Searching for MIDI…</span>
+              <span class="p-midi-last" id="e-midiDeviceLast">—</span>
+            </div>
+            <div class="p-midi-bar" style="margin-top:.35rem;flex-wrap:wrap;gap:.45rem;">
               <div class="p-midi-dot" id="e-midiDot"></div>
               <span class="p-midi-text">Play your answer on MIDI keyboard.</span>
               <span class="p-midi-last" id="e-lastMidi">—</span>
-              <label style="display:flex;align-items:center;gap:.35rem;font-size:.72rem;font-weight:600;color:var(--ink3);cursor:pointer;">
+              <label style="display:flex;align-items:center;gap:.35rem;font-size:.72rem;font-weight:600;color:var(--ink3);cursor:pointer;margin-left:auto;">
                 <input type="checkbox" id="e-synthToggle" checked onchange="e_toggleBrowserSynth(this.checked)" style="accent-color:var(--gold);width:13px;height:13px;">
                 Browser Synth
               </label>
@@ -4994,18 +5017,28 @@ function p_toggleBrowserSynth(enabled) {
 /* --- MIDI --- */
 async function p_initMIDI(){
   const dot=document.getElementById('p-midiDot'), txt=document.getElementById('p-midiText');
-  if(!navigator.requestMIDIAccess){dot.classList.add('error');txt.textContent='MIDI not supported — use Chrome';return;}
+  const eDot=document.getElementById('e-midiDeviceDot'), eTxt=document.getElementById('e-midiText');
+  const setDeviceStatus=(message,state)=>{
+    if(txt) txt.textContent=message;
+    if(eTxt) eTxt.textContent=message;
+    [dot,eDot].forEach(d=>{
+      if(!d)return;
+      d.classList.remove('connected','error');
+      if(state)d.classList.add(state);
+    });
+  };
+  if(!navigator.requestMIDIAccess){setDeviceStatus('MIDI not supported — use Chrome','error');return;}
   try{
     p_midiAccess=await navigator.requestMIDIAccess();
     const attach=()=>{
       const inputs=Array.from(p_midiAccess.inputs.values());
       if(inputs.length>0){
-        dot.classList.add('connected');txt.textContent='MIDI: '+inputs[0].name;
+        setDeviceStatus('MIDI: '+inputs[0].name,'connected');
         inputs.forEach(inp=>{inp.onmidimessage=p_handleMIDI;});
-      } else {dot.classList.remove('connected');txt.textContent='No MIDI device found';}
+      } else {setDeviceStatus('No MIDI device found','');}
     };
     attach(); p_midiAccess.onstatechange=attach;
-  }catch(e){dot.classList.add('error');txt.textContent='MIDI access denied';}
+  }catch(e){setDeviceStatus('MIDI access denied','error');}
 }
 /* ═══════════════════════════════════════════════════════════════
    EAR TRAINING — Phase 1: Single Note Replay
@@ -5308,6 +5341,23 @@ function e_playEarLiveNote(noteStr, velocity) {
   p_noteOn(noteStr, velocity || 90, 'live');
   const t=setTimeout(() => p_noteOff(noteStr), 600);
   if(e_auditionTimers) e_auditionTimers.push(t);
+}
+
+// ── Ear Training volume controls ─────────────────────────────
+function e_updateMasterVol(v){
+  const el=document.getElementById('e-masterVal');
+  if(el) el.textContent=v;
+  if(typeof p_updateMasterVol==='function') p_updateMasterVol(v);
+}
+function e_updateGuideVol(v){
+  const el=document.getElementById('e-guideVal');
+  if(el) el.textContent=v;
+  if(typeof p_updateDemoVol==='function') p_updateDemoVol(v);
+}
+function e_updateLiveVol(v){
+  const el=document.getElementById('e-liveVal');
+  if(el) el.textContent=v;
+  if(typeof p_updateLiveVol==='function') p_updateLiveVol(v);
 }
 
 // ── MIDI dispatch ──────────────────────────────────────────────
