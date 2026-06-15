@@ -1272,6 +1272,34 @@ body {
   .mobile-menu-item{width:100%;text-align:left;padding:.85rem .9rem;border-radius:12px;border:1px solid transparent;background:transparent;color:var(--ink2);font-family:'DM Sans',sans-serif;font-size:.95rem;font-weight:800;cursor:pointer;margin-bottom:.25rem;}
   .mobile-menu-item:hover,.mobile-menu-item.active{background:var(--bg2);border-color:var(--border);color:var(--gold);}
 }
+
+/* ── Mobile Rhythm Layout ─────────────────────────────── */
+.r-mobile-settings-toggle{display:none;}
+.r-mobile-settings-panel{display:block;}
+@media(max-width:700px){
+  .rhythm-wrap{padding:.75rem .65rem 7.5rem;}
+  .rhythm-header{padding:.85rem;margin-bottom:.6rem;}
+  .rhythm-header h2{font-size:1.15rem;}
+  .rhythm-header p{font-size:.76rem;}
+  .rhythm-card{padding:.85rem;}
+  .r-mobile-settings-toggle{display:flex;align-items:center;gap:.65rem;margin-bottom:.6rem;flex-wrap:wrap;}
+  .r-mobile-settings-btn{padding:.45rem .8rem;border-radius:10px;border:1px solid var(--border);background:var(--bg2);color:var(--ink2);font-size:.78rem;font-weight:700;cursor:pointer;white-space:nowrap;}
+  .r-mobile-settings-summary{font-size:.72rem;color:var(--ink3);font-family:'DM Mono',monospace;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  .r-mobile-settings-panel{max-height:0;overflow:hidden;opacity:0;pointer-events:none;transition:max-height .28s ease,opacity .2s;}
+  .r-mobile-settings-panel.open{max-height:1000px;opacity:1;pointer-events:auto;}
+  .rhythm-visual{margin-bottom:.55rem;}
+  .rhythm-visual.rhythm-density-chart .rhythm-beat{width:22px;height:22px;font-size:.44rem;}
+  .rhythm-visual.rhythm-density-chart .rhythm-row{gap:.18rem;}
+  .rhythm-visual.rhythm-density-chart .rhythm-bar{gap:.18rem;}
+  .rhythm-visual.rhythm-density-chart .rhythm-bar-sep{min-height:22px;margin:0 2px;}
+  #page-rhythm .r-tap-pad-wrap{position:sticky;bottom:.6rem;z-index:80;margin:.65rem 0 .35rem;padding:.45rem 0;background:linear-gradient(to top,var(--bg),rgba(0,0,0,0));border-radius:18px;}
+  #page-rhythm .r-tap-pad{width:132px;height:132px;}
+  #page-rhythm .r-tap-pad-main{font-size:1.45rem;}
+  #page-rhythm .r-tap-pad-sub{font-size:.6rem;}
+  #page-rhythm .p-btn-row{gap:.4rem;}
+  #page-rhythm .p-btn{flex:1 1 calc(50% - .4rem);min-height:44px;padding:.55rem .65rem;font-size:.8rem;}
+  #r-auditionBtn,#r-practiceBtn{flex-basis:calc(50% - .4rem);}
+}
 </style>
 </head>
 <body>
@@ -1894,6 +1922,12 @@ body {
           <p>Listen to a rhythm, then tap it back in time.</p>
         </div>
 
+        <!-- Mobile settings toggle (hidden on desktop) -->
+        <div class="r-mobile-settings-toggle" id="r-mobileSettingsToggle">
+          <button class="r-mobile-settings-btn" id="r-mobileSettingsBtn" onclick="r_toggleMobileSettings()">Rhythm Settings</button>
+          <span class="r-mobile-settings-summary" id="r-mobileSettingsSummary">4/4 &middot; Medium &middot; 2 Bars &middot; 84 BPM</span>
+        </div>
+        <div id="r-mobileSettingsPanel" class="r-mobile-settings-panel">
         <div class="rhythm-controls">
           <div class="p-control-group">
             <label>Meter</label>
@@ -1991,6 +2025,7 @@ body {
             <span class="p-bpm-val p-vol-val" id="r-liveVal">75</span>
           </div>
         </div>
+        </div><!-- /r-mobileSettingsPanel -->
 
         <div class="rhythm-main-grid">
           <div class="rhythm-card">
@@ -6264,6 +6299,7 @@ let r_browserSynthOn=true; // controls user tap feedback sound
 let r_meter='4/4'; // current time signature
 let r_beatsPerBar=4; // derived from r_meter
 let r_timingOffsetMs=0; // future latency calibration offset; 0 = disabled
+let r_mobileSettingsOpen=false; // mobile settings panel open/closed state
 let r_countInBars=2;
 let r_focus='random';
 let r_guideTimers=[], r_visualTimer=null, r_countDisplayTimer=null;
@@ -6557,6 +6593,7 @@ function r_onSettingsChange(){
   r_meter=me?me.value:'4/4';
   r_beatsPerBar=r_meter==='3/4'?3:r_meter==='6/8'?6:4;
   r_pickPattern();
+  r_updateMobileSettingsSummary();
 }
 
 function r_nextPattern(){
@@ -6779,6 +6816,7 @@ function r_updateBPM(value){
   r_bpm=parseInt(value,10);
   const el=document.getElementById('r-bpmVal');
   if(el) el.textContent=r_bpm;
+  r_updateMobileSettingsSummary();
 }
 
 // Volume wrappers -- delegate to the shared Practice gain functions so both pages
@@ -6804,6 +6842,27 @@ function r_updateLiveVol(val){
   if(typeof p_updateLiveVol==='function') p_updateLiveVol(val);
   const el=document.getElementById('r-liveVal');
   if(el) el.textContent=val;
+}
+
+// Toggle mobile settings panel open/closed.
+// On desktop the panel is always visible; this function only matters on mobile.
+function r_toggleMobileSettings(){
+  r_mobileSettingsOpen=!r_mobileSettingsOpen;
+  const panel=document.getElementById('r-mobileSettingsPanel');
+  const btn=document.getElementById('r-mobileSettingsBtn');
+  if(panel)panel.classList.toggle('open',r_mobileSettingsOpen);
+  if(btn)btn.textContent=r_mobileSettingsOpen?'Hide Settings':'Rhythm Settings';
+}
+
+// Update the compact summary line shown when mobile settings are collapsed.
+function r_updateMobileSettingsSummary(){
+  const el=document.getElementById('r-mobileSettingsSummary');
+  if(!el)return;
+  const diff=r_diff||'medium';
+  const diffLabel=diff.charAt(0).toUpperCase()+diff.slice(1);
+  const bars=r_lengthBars||2;
+  const barsLabel=bars+(bars===1?' Bar':' Bars');
+  el.textContent=(r_meter||'4/4')+' \u00b7 '+diffLabel+' \u00b7 '+barsLabel+' \u00b7 '+(r_bpm||84)+' BPM';
 }
 
 // Play a pitched MIDI note in Rhythm Training.
@@ -7216,6 +7275,7 @@ function r_init(){
   r_renderHistory();
   // Apply METRO slider default (metronome starts quieter than Practice default)
   r_updateMetroVol(65);
+  r_updateMobileSettingsSummary();
 }
 
 ;
