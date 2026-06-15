@@ -1532,8 +1532,8 @@ body {
           <!-- LEFT: PIANO PANEL -->
           <div class="p-piano-panel">
 
-            <!-- Exercise header -->
-            <div class="p-ex-header">
+            <!-- Exercise header hidden to reduce duplicated practice clutter -->
+            <div class="p-ex-header" style="display:none;">
               <div>
                 <div class="p-ex-title" id="p-exTitle">C Major Scale</div>
                 <div class="p-ex-meta">
@@ -1547,19 +1547,19 @@ body {
               </div>
             </div>
 
-            <!-- Instruction -->
-            <div class="p-instruction" id="p-instruction">
+            <!-- Instruction hidden to reduce duplicated practice clutter -->
+            <div class="p-instruction" id="p-instruction" style="display:none;">
               Select an exercise and press <strong>Start</strong>. Connect your USB MIDI keyboard for graded practice.
             </div>
 
-            <!-- Notes sequence -->
-            <div class="p-meta-label" style="margin-bottom:.35rem">Sequence</div>
-            <div class="p-notes-row" id="p-notesRow"></div>
+            <!-- Notes sequence hidden to reduce duplicated practice clutter -->
+            <div class="p-meta-label" style="margin-bottom:.35rem;display:none;">Sequence</div>
+            <div class="p-notes-row" id="p-notesRow" style="display:none;"></div>
             <div class="p-chord-builder-progress" id="p-chordBuilderProgress" style="display:none"></div>
 
 
-            <!-- Timing bar -->
-            <div class="p-timing-wrap">
+            <!-- Timing bar hidden to reduce duplicated practice clutter -->
+            <div class="p-timing-wrap" style="display:none;">
               <div class="p-meta-label" style="margin-bottom:.3rem">Timing Accuracy</div>
               <div class="p-timing-bar"><div class="p-timing-fill" id="p-timingFill"></div></div>
             </div>
