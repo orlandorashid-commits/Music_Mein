@@ -1356,6 +1356,45 @@ html,body{overflow-x:hidden;}
   .p-btn-row{width:100%;max-width:100%;overflow-x:hidden;}
   .p-btn{min-width:0;max-width:100%;}
 }
+
+/* ── Rhythm card mobile overflow fix ─────────────────── */
+@media(max-width:700px){
+  /* Lock the Rhythm page, grid, card, and side cards */
+  #page-rhythm,
+  #page-rhythm .rhythm-wrap,
+  #page-rhythm .rhythm-main-grid,
+  #page-rhythm .rhythm-card,
+  #page-rhythm .rhythm-side,
+  #page-rhythm .p-card{width:100%;max-width:100%;min-width:0;overflow-x:hidden;box-sizing:border-box;}
+  #page-rhythm .rhythm-main-grid{grid-template-columns:minmax(0,1fr);}
+
+  /* Visual container */
+  #page-rhythm .rhythm-visual{width:100%;max-width:100%;min-width:0;overflow-x:hidden;padding:.6rem .45rem;gap:.28rem;}
+
+  /* Rows */
+  #page-rhythm .rhythm-row{width:100%;max-width:100%;min-width:0;gap:.22rem;justify-content:center;}
+
+  /* Bars */
+  #page-rhythm .rhythm-bar{gap:.2rem;min-width:0;flex-shrink:1;}
+
+  /* Beat cells: shrink from desktop 42x58px to mobile-safe 30x36px */
+  #page-rhythm .rhythm-beat{width:30px;height:36px;font-size:.56rem;border-radius:8px;flex:0 0 auto;}
+
+  /* Bar separators */
+  #page-rhythm .rhythm-bar-sep{min-height:36px;margin:0 2px;}
+
+  /* Helper text and status: wrap instead of clip */
+  #page-rhythm .rhythm-help,
+  #page-rhythm .rhythm-status{white-space:normal;overflow:visible;text-overflow:clip;line-height:1.35;padding:0 .25rem;}
+}
+
+/* ── Very narrow phone fallback (≤420px) ─────────────── */
+@media(max-width:420px){
+  #page-rhythm .rhythm-beat{width:26px;height:32px;font-size:.5rem;}
+  #page-rhythm .rhythm-bar{gap:.16rem;}
+  #page-rhythm .rhythm-row{gap:.18rem;}
+  #page-rhythm .rhythm-bar-sep{min-height:32px;margin:0 1px;}
+}
 </style>
 </head>
 <body>
@@ -2119,7 +2158,7 @@ html,body{overflow-x:hidden;}
             </div>
 
             <div class="rhythm-help" id="r-helpText">
-              Choose <strong>Audition</strong> to listen or <strong>Practice</strong> to test your timing.
+              Listen first, then practice your timing.
             </div>
 
             <div class="p-midi-bar" style="margin-top:.75rem;flex-wrap:wrap;gap:.5rem;">
