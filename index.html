@@ -731,7 +731,7 @@ body {
 .rhythm-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:1.4rem;text-align:center;}
 .rhythm-mode-label{font-size:.68rem;font-weight:700;color:var(--ink3);text-transform:uppercase;letter-spacing:.1em;margin-bottom:.6rem;}
 .rhythm-meter{font-family:'DM Mono',monospace;font-size:.9rem;font-weight:800;color:var(--gold);margin-bottom:1rem;}
-.rhythm-visual{min-height:90px;border:1px solid var(--border);border-radius:12px;background:var(--bg2);padding:1rem;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.55rem;flex-wrap:nowrap;margin-bottom:.9rem;}
+.rhythm-visual{min-height:90px;border:1px solid var(--border);border-radius:12px;background:var(--bg2);padding:1rem;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:.55rem;flex-wrap:nowrap;margin-bottom:.9rem;}
 .rhythm-row{display:flex;align-items:center;justify-content:center;gap:.45rem;flex-wrap:nowrap;width:100%;}
 .rhythm-bar{display:flex;align-items:center;justify-content:center;gap:.45rem;flex:0 0 auto;flex-wrap:nowrap;}
 .rhythm-empty{color:var(--ink3);font-size:.85rem;}
@@ -6344,13 +6344,9 @@ function r_computePages(){
 }
 
 function r_updatePageIndicator(){
-  const el=document.getElementById('r-pageIndicator');if(!el)return;
-  if(r_totalPages<=1||!r_currentPattern){el.style.display='none';return;}
-  el.style.display='';
-  const firstBar=r_currentPage*r_barsPerPage+1;
-  const lastBar=Math.min((r_currentPage+1)*r_barsPerPage,r_currentPattern.bars);
-  el.textContent='Page '+(r_currentPage+1)+' of '+r_totalPages+' \u00b7 Bars '+firstBar+' to '+lastBar;
-  console.log('[Rhythm page]',{page:r_currentPage+1,totalPages:r_totalPages,visibleBars:lastBar-firstBar+1});
+  // Paging removed: all bars are visible at once, no indicator needed.
+  const el=document.getElementById('r-pageIndicator');
+  if(el) el.style.display='none';
 }
 
 function r_getPageForBeat(absoluteBeat){
@@ -6418,30 +6414,20 @@ function r_renderPattern(activeIndex,userIndex,missIndex){
   const el=document.getElementById('r-visual');if(!el)return;
   if(!r_currentPattern){el.innerHTML='<div class="rhythm-empty">Press Audition or Practice to begin.</div>';return;}
 
-  // Auto-switch page when the active beat is on a different page
-  if(activeIndex!==undefined&&activeIndex!==null){
-    r_ensurePageForBeat(activeIndex);
-  }
-
   el.innerHTML='';
   const totalBeats=r_currentPattern.totalBeats||r_currentPattern.bars*4;
   const bars=r_currentPattern.bars||(totalBeats/4);
   const hitSet=new Set(r_currentPattern.beats.map(b=>Math.round(b*1000)/1000));
 
-  // Paging: show only the bars belonging to the current page
-  const firstBarOnPage=r_currentPage*r_barsPerPage;
-  const lastBarOnPage=Math.min(firstBarOnPage+r_barsPerPage-1,bars-1);
-  const barsOnPage=lastBarOnPage-firstBarOnPage+1;
-
-  // Never split a bar across rows
-  const barsPerRow=barsOnPage<=2?barsOnPage:2;
-  const numRows=Math.ceil(barsOnPage/barsPerRow);
+  // Show all bars: 1 bar alone on its row, 2 bars per row otherwise; never split a bar
+  const barsPerRow=bars<=1?1:2;
+  const numRows=Math.ceil(bars/barsPerRow);
 
   for(let row=0;row<numRows;row++){
     const rowEl=document.createElement('div');
     rowEl.className='rhythm-row';
-    const firstBarInRow=firstBarOnPage+row*barsPerRow;
-    const lastBarInRow=Math.min(firstBarInRow+barsPerRow-1,lastBarOnPage);
+    const firstBarInRow=row*barsPerRow;
+    const lastBarInRow=Math.min(firstBarInRow+barsPerRow-1,bars-1);
 
     for(let bar=firstBarInRow;bar<=lastBarInRow;bar++){
       if(bar>firstBarInRow){
@@ -6805,17 +6791,10 @@ function r_startAudition(){
     for(let q=0;q<totalBeats;q++){
       const delay=Math.max(0,loopStartMs+q*beatMs-now);
       const isDown=q%4===0;
-      const _q=q;
       const t=setTimeout(()=>{
         if(r_transportState!=='auditioning')return;
         if(r_guideClick) r_playClick(isDown);
         r_pulseDot(isDown);
-        // At bar downbeats check for page advance; re-render if page changed
-        if(isDown){
-          const prevPage=r_currentPage;
-          r_ensurePageForBeat(_q);
-          if(r_currentPage!==prevPage)r_renderPattern();
-        }
       },delay);
       r_playTimers.push(t);
     }
