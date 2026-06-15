@@ -1300,6 +1300,62 @@ body {
   #page-rhythm .p-btn{flex:1 1 calc(50% - .4rem);min-height:44px;padding:.55rem .65rem;font-size:.8rem;}
   #r-auditionBtn,#r-practiceBtn{flex-basis:calc(50% - .4rem);}
 }
+
+/* ── Global mobile overflow lock ──────────────────────── */
+html,body{overflow-x:hidden;}
+
+@media(max-width:700px){
+  /* Viewport width containment for all page wrappers */
+  #mainApp,.page,.practice-wrap,.rhythm-wrap,.ear-wrap,.progress-wrap{width:100%;max-width:100%;overflow-x:hidden;}
+
+  /* Practice page */
+  #page-practice{padding:.65rem;max-width:100%;width:100%;overflow-x:hidden;}
+  .practice-wrap{padding:0;max-width:100%;width:100%;overflow-x:hidden;}
+  .p-main-layout{grid-template-columns:1fr;width:100%;max-width:100%;overflow-x:hidden;}
+  .p-piano-panel,.p-card{width:100%;max-width:100%;overflow-x:hidden;}
+
+  /* Control grids: single column on mobile */
+  .p-controls-bar,.rhythm-controls,.ear-controls,.e-interval-controls{grid-template-columns:1fr;width:100%;max-width:100%;padding:.75rem;gap:.65rem;overflow-x:hidden;}
+  .p-control-group,.p-control-group select,.p-controls-bar select,.rhythm-controls select,.ear-controls select{width:100%;max-width:100%;min-width:0;}
+
+  /* Key chips: wrap instead of overflow */
+  .p-key-chips{width:100%;max-width:100%;overflow-x:hidden;flex-wrap:wrap;padding:.65rem;gap:.35rem;}
+  #p-keyChips{display:flex;flex-wrap:wrap;gap:.35rem;max-width:100%;min-width:0;}
+  .p-chip{flex:0 0 auto;}
+  .p-random-key-btn{margin-left:0;width:100%;justify-content:center;}
+
+  /* BPM slider row */
+  .p-bpm-row{width:100%;max-width:100%;gap:.45rem;padding:.5rem .6rem;overflow-x:hidden;}
+  .p-bpm-slider{min-width:0;width:100%;flex:1 1 auto;}
+  .p-bpm-val{min-width:32px;font-size:.9rem;}
+
+  /* Volume sliders: stack vertically, label | slider | value */
+  .p-vol-row{width:100%;max-width:100%;display:flex;flex-direction:column;gap:.5rem;padding:.6rem;overflow-x:hidden;}
+  .p-vol-group{width:100%;max-width:100%;min-width:0;display:grid;grid-template-columns:58px minmax(0,1fr) 34px;align-items:center;gap:.45rem;}
+  .p-vol-group .p-bpm-label{font-size:.58rem;text-align:left;line-height:1.1;}
+  .p-vol-group .p-bpm-slider{width:100%;min-width:0;}
+  .p-vol-val{min-width:0;text-align:right;font-size:.82rem;}
+
+  /* Rhythm Settings panel width containment */
+  .r-mobile-settings-toggle,.r-mobile-settings-panel{width:100%;max-width:100%;overflow-x:hidden;}
+  .r-mobile-settings-summary{min-width:0;flex:1 1 auto;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+
+  /* Rhythm visual and text containment */
+  .rhythm-visual{width:100%;max-width:100%;overflow-x:hidden;}
+  .rhythm-row{max-width:100%;}
+  .rhythm-status{white-space:normal;height:auto;min-height:1.4em;line-height:1.35;}
+  .rhythm-help{white-space:normal;line-height:1.35;padding:0 .25rem;}
+  .rhythm-feedback{width:100%;max-width:100%;height:auto;min-height:3.2rem;line-height:1.35;}
+
+  /* Piano scroll area: only the piano scrolls, not the page */
+  .p-sheet-area{width:100%;max-width:100%;overflow:hidden;}
+  .p-piano-outer{width:100%;max-width:100%;overflow:hidden;}
+  .p-piano-scroll{width:100%;max-width:100%;overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;}
+
+  /* Generic button row containment */
+  .p-btn-row{width:100%;max-width:100%;overflow-x:hidden;}
+  .p-btn{min-width:0;max-width:100%;}
+}
 </style>
 </head>
 <body>
