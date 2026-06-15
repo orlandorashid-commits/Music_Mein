@@ -1750,12 +1750,12 @@ body {
             </select>
           </div>
           <div class="p-control-group">
-            <label>Length</label>
+            <label>Exercise Length</label>
             <select id="e-lengthSelect" onchange="e_onLengthChange()">
-              <option value="5">5 Questions</option>
-              <option value="10" selected>10 Questions</option>
-              <option value="20">20 Questions</option>
-              <option value="30">30 Questions</option>
+              <option value="5">5</option>
+              <option value="10" selected>10</option>
+              <option value="20">20</option>
+              <option value="30">30</option>
               <option value="free">Free Run</option>
             </select>
           </div>
@@ -6268,6 +6268,42 @@ function e_init() {
 
 
 
+/* Sight Reading basic trainer with keyboard */
+const S_KEY_POOLS={C:['C4','D4','E4','F4','G4','A4','B4','C5'],G:['G4','A4','B4','C5','D5','E5','F#5','G5'],F:['F4','G4','A4','A#4','C5','D5','E5','F5']};
+let s_sequence=[],s_index=0,s_active=false,s_scoreCorrect=0,s_scoreTotal=0,s_wrongAttempts=0,s_history=[],s_diff='medium',s_length=4,s_bars=1,s_key='C',s_showNoteNames=true,s_octaveMatch='exact',s_bpm=84,s_hearItTimers=[],s_hearItIndex=-1,s_browserSynthOn=true;
+function s_init(){s_readControls();s_generateExercise(false);s_renderStaff();s_renderNoteRow();s_renderKeyboard();s_renderScore();s_renderHistory();s_setFeedback('Choose Audition to preview, then Start when ready.','neutral');}
+function s_readControls(){const d=document.getElementById('s-diffSelect'),b=document.getElementById('s-barsSelect'),k=document.getElementById('s-keySelect'),om=document.getElementById('s-octaveSelect'),nn=document.getElementById('s-noteNamesSelect');if(d)s_diff=d.value;if(b){s_bars=parseInt(b.value,10)||1;s_length=s_bars*4;}else{s_bars=Math.max(1,Math.round((s_length||4)/4));s_length=s_bars*4;}if(k)s_key=k.value;if(om)s_octaveMatch=om.value;if(nn)s_showNoteNames=nn.value==='on';}
+function s_onSettingsChange(){s_readControls();s_generateExercise(false);s_renderStaff();s_renderNoteRow();s_renderKeyboard();s_renderScore();s_setFeedback('Settings updated. Choose Audition or Start.','neutral');}
+function s_onBarsChange(){s_onSettingsChange();}
+function s_onNoteNamesChange(){s_readControls();s_renderNoteRow();}
+function s_onOctaveMatchChange(){s_readControls();}
+function s_generateExercise(active){s_clearHearIt();s_index=0;s_active=!!active;s_scoreCorrect=0;s_wrongAttempts=0;s_sequence=s_generateSequence();s_scoreTotal=s_sequence.length;}
+function s_generateSequence(){const all=S_KEY_POOLS[s_key]||S_KEY_POOLS.C,pool=s_diff==='easy'?all.slice(0,5):all,seq=[];let prev=null;for(let i=0;i<s_length;i++){let note,tries=0;do{const pi=prev?pool.indexOf(prev):-1;if(s_diff==='easy'&&pi>=0){const c=[];if(pi>0)c.push(pool[pi-1]);if(pi<pool.length-1)c.push(pool[pi+1]);note=c.length?c[Math.floor(Math.random()*c.length)]:pool[Math.floor(Math.random()*pool.length)];}else if(s_diff==='medium'&&pi>=0){const lo=Math.max(0,pi-2),hi=Math.min(pool.length-1,pi+2);note=pool.slice(lo,hi+1)[Math.floor(Math.random()*(hi-lo+1))];}else note=pool[Math.floor(Math.random()*pool.length)];tries++;}while(tries<12&&note===prev&&pool.length>1);seq.push(note);prev=note;}return seq;}
+function s_setFeedback(msg,type){const el=document.getElementById('s-feedback');if(!el)return;el.textContent=msg;el.className='sight-feedback '+(type||'neutral');}
+function s_notePitch(note){return s_octaveMatch==='any'?String(note).replace(/\d+$/,''):String(note);}
+function s_start(){s_readControls();s_generateExercise(true);s_renderStaff();s_renderNoteRow();s_renderKeyboard();s_renderScore();const cur=s_showNoteNames?s_sequence[0]:'the first note';s_setFeedback('Play '+cur+'.','neutral');const b=document.getElementById('s-startBtn');if(b)b.textContent='Restart';}
+function s_nextExercise(){s_readControls();s_generateExercise(false);s_renderStaff();s_renderNoteRow();s_renderKeyboard();s_renderScore();s_setFeedback('New exercise ready. Choose Audition or Start.','neutral');}
+function s_reset(){s_generateExercise(false);s_renderStaff();s_renderNoteRow();s_renderKeyboard();s_renderScore();s_setFeedback('Reset. Choose Audition or Start.','neutral');const b=document.getElementById('s-startBtn');if(b)b.textContent='Start';}
+function s_stopPlayback(){s_clearHearIt();s_renderStaff();s_renderNoteRow();s_setFeedback(s_active?'Stopped. Continue your attempt.':'Stopped. Choose Audition or Start.','neutral');}
+function s_audition(){if(!s_sequence.length)s_generateExercise(false);s_playSequence();s_setFeedback('Audition only. Press Start when ready.','neutral');}
+function s_repeat(){if(!s_sequence.length){s_setFeedback('Press Start first.','neutral');return;}s_playSequence();}
+function s_clearHearIt(){s_hearItTimers.forEach(t=>clearTimeout(t));s_hearItTimers=[];s_hearItIndex=-1;if(s_sequence&&s_sequence.length)s_sequence.forEach(n=>p_noteOff(n));}
+function s_playSequence(){s_clearHearIt();const beatMs=Math.round(60000/s_bpm);s_sequence.forEach((note,i)=>{const t=setTimeout(()=>{s_hearItIndex=i;s_renderStaff();s_renderNoteRow();p_playPreviewNote(note,100,0.55,'demo');},i*beatMs);s_hearItTimers.push(t);});const done=setTimeout(()=>{s_hearItIndex=-1;s_renderStaff();s_renderNoteRow();s_setFeedback(s_active?'Continue your attempt.':'Audition complete. Press Start when ready.','neutral');},s_sequence.length*beatMs+250);s_hearItTimers.push(done);}
+function s_handleKeyboardNote(note){const last=document.getElementById('s-lastMidi');if(last)last.textContent='Last Tap: '+note;s_flashKey(note,'active');if(s_browserSynthOn)p_playPreviewNote(note,90,0.45,'live');s_handleNoteInput(note);}
+function s_handleMidiNote(noteName,velocity){const last=document.getElementById('s-lastMidi');if(last)last.textContent='Last MIDI: '+noteName+' vel '+velocity;const dot=document.getElementById('s-midiDot');if(dot){dot.classList.add('connected');setTimeout(()=>dot.classList.remove('connected'),350);}if(s_browserSynthOn)p_noteOn(noteName,velocity||90,'live');s_handleNoteInput(noteName);}
+function s_handleMidiNoteOff(noteName){p_noteOff(noteName);}
+function s_handleNoteInput(noteName){if(!s_active){s_setFeedback('Press Start first.','neutral');return;}if(s_index>=s_sequence.length)return;const expected=s_sequence[s_index];if(s_notePitch(noteName)===s_notePitch(expected)){s_scoreCorrect++;s_index++;if(s_index>=s_sequence.length){s_active=false;const pct=s_scoreTotal?Math.round(s_scoreCorrect/s_scoreTotal*100):0;s_history.unshift({diff:s_diff,key:s_key,length:s_length,correct:s_scoreCorrect,total:s_scoreTotal,pct});s_history=s_history.slice(0,8);s_setFeedback('Complete. Score: '+pct+'%',pct>=80?'correct':'wrong');s_renderHistory();const b=document.getElementById('s-startBtn');if(b)b.textContent='Start';}else s_setFeedback('Correct. Next note.','correct');s_renderStaff();s_renderNoteRow();s_renderKeyboard();s_renderScore();}else{s_wrongAttempts++;let msg='Try again.';if(s_showNoteNames)msg='Expected '+expected+', played '+noteName+'.';s_setFeedback(msg,'wrong');s_flashKey(expected,'expected');s_renderStaff(true);setTimeout(()=>s_renderStaff(false),350);s_renderScore();}}
+function s_renderStaff(flashWrong){const el=document.getElementById('s-staff');if(!el)return;const W=700,H=150,lineTop=48,lineGap=10,noteY={C5:28,B4:33,A4:38,G4:43,F4:48,E4:53,D4:58,C4:63,'F#5':18,G5:13,F5:23,D5:28,'A#4':38};let svg='<svg viewBox="0 0 '+W+' '+H+'" aria-label="Sight reading staff">';for(let i=0;i<5;i++)svg+='<line x1="58" y1="'+(lineTop+i*lineGap)+'" x2="660" y2="'+(lineTop+i*lineGap)+'" stroke="currentColor" opacity=".55"/>';svg+='<text x="18" y="78" font-size="44" fill="currentColor">𝄞</text>';const n=s_sequence.length||1,step=600/Math.max(n,1);s_sequence.forEach((note,i)=>{const x=78+i*step+step*.35,y=noteY[note]??48;let fill=i<s_index?'#3A9E6F':i===s_index?'#C9A84C':'currentColor';if(i===s_hearItIndex)fill='#7B5EA7';if(flashWrong&&i===s_index)fill='#C0614A';svg+='<ellipse cx="'+x+'" cy="'+y+'" rx="9" ry="7" fill="'+fill+'" transform="rotate(-18 '+x+' '+y+')"/>';svg+='<line x1="'+(x+8)+'" y1="'+(y-2)+'" x2="'+(x+8)+'" y2="'+(y-42)+'" stroke="'+fill+'" stroke-width="2"/>';if(s_showNoteNames)svg+='<text x="'+(x-12)+'" y="125" font-size="12" fill="currentColor" opacity=".75">'+note+'</text>';});svg+='</svg>';el.innerHTML=svg;}
+function s_renderNoteRow(){const el=document.getElementById('s-noteRow');if(!el)return;el.innerHTML='';s_sequence.forEach((note,i)=>{const d=document.createElement('span');d.className='sight-chip'+(i<s_index?' done':'')+(i===s_index?' current':'')+(i===s_hearItIndex?' hearing':'');d.textContent=s_showNoteNames?note:String(i+1);el.appendChild(d);});}
+function s_renderKeyboard(){const all=S_KEY_POOLS[s_key]||S_KEY_POOLS.C,midis=all.map(e_noteToMidi);e_buildInteractiveMiniKeyboard('s-keyboard',e_midiToNote(e_prevWhiteMidi(Math.min(...midis))),e_midiToNote(e_nextWhiteMidi(Math.max(...midis))),s_handleKeyboardNote);const expected=s_sequence[s_index];if(expected)s_flashKey(expected,'expected',false);}
+function s_flashKey(note,cls,remove=true){const kb=document.getElementById('s-keyboard');if(!kb)return;const el=kb.querySelector('[data-note="'+note+'"]');if(!el)return;el.classList.add(cls||'active');if(remove)setTimeout(()=>el.classList.remove(cls||'active'),320);}
+function s_renderScore(){const el=document.getElementById('s-score');if(el){const pct=s_scoreTotal?Math.round(s_scoreCorrect/s_scoreTotal*100):0;el.textContent=s_scoreCorrect+' / '+s_scoreTotal+' · '+pct+'%';}const w=document.getElementById('s-wrongCount');if(w)w.textContent='Wrong attempts: '+s_wrongAttempts;}
+function s_renderHistory(){const el=document.getElementById('s-history');if(!el)return;if(!s_history.length){el.innerHTML='<div class="p-history-empty">No attempts yet</div>';return;}el.innerHTML='';s_history.slice(0,8).forEach(h=>{const d=document.createElement('div');d.className='p-history-item';d.innerHTML='<span class="p-history-name">'+h.key+' '+h.diff+' '+(h.length/4)+' bar'+'</span><span class="p-history-score g-'+(h.pct>=80?'a':'c')+'">'+h.pct+'%</span>';el.appendChild(d);});}
+function s_updateBPM(v){s_bpm=parseInt(v,10)||84;const el=document.getElementById('s-bpmVal');if(el)el.textContent=s_bpm;}
+function s_updateGuideVol(v){const el=document.getElementById('s-guideVal');if(el)el.textContent=v;if(typeof p_updateDemoVol==='function')p_updateDemoVol(v);}
+function s_updateLiveVol(v){const el=document.getElementById('s-liveVal');if(el)el.textContent=v;if(typeof p_updateLiveVol==='function')p_updateLiveVol(v);}
+function s_toggleBrowserSynth(v){s_browserSynthOn=!!v;if(typeof p_toggleBrowserSynth==='function')p_toggleBrowserSynth(!!v);}
+
 function p_handleMIDI(event){
   const[status,note,velocity]=event.data;
   const cmd=status&0xf0;
@@ -6293,6 +6329,12 @@ function p_handleMIDI(event){
       return;
     }
 
+    // Route to Sight Reading when on that page
+    if (currentPage === 'sight') {
+      if (typeof s_handleMidiNote === 'function') s_handleMidiNote(noteStr, velocity);
+      return;
+    }
+
     const isOwner = p_isActiveAudioTab();
     if(isOwner){
       // Only active tab plays sound and grades
@@ -6306,6 +6348,11 @@ function p_handleMIDI(event){
   } else if(cmd===0x80||(cmd===0x90&&velocity===0)){
     if (currentPage === 'ear') {
       if (typeof e_handleMidiNoteOff === 'function') e_handleMidiNoteOff(noteStr);
+      else p_noteOff(noteStr);
+      return;
+    }
+    if (currentPage === 'sight') {
+      if (typeof s_handleMidiNoteOff === 'function') s_handleMidiNoteOff(noteStr);
       else p_noteOff(noteStr);
       return;
     }
