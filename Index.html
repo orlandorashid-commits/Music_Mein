@@ -1232,6 +1232,14 @@ body {
 }
 
 /* ── Current Task Card ──────────────────────────────────────────────── */
+
+/* Practice current task compact controls */
+.p-current-task-tools{display:flex;align-items:flex-start;gap:.55rem;flex-wrap:wrap;justify-content:flex-end;margin-left:auto;}
+.p-rounds-inline{min-width:132px;padding:.35rem .45rem;border:1px solid rgba(201,168,76,.35);border-radius:10px;background:rgba(201,168,76,.06);}
+.p-rounds-inline label{display:block;font-size:.58rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--gold);margin-bottom:.2rem;}
+.p-rounds-inline select{width:100%;padding:.35rem .55rem;background:var(--bg2);border:1px solid var(--border);border-radius:8px;color:var(--ink);font-family:'DM Sans',sans-serif;font-size:.76rem;font-weight:700;}
+.p-current-task-tools .p-current-task-round{align-self:center;}
+@media(max-width:700px){.p-current-task-top{flex-direction:column;}.p-current-task-tools{width:100%;justify-content:space-between;margin-left:0;}.p-rounds-inline{flex:1;min-width:150px;}}
 .p-current-task-card{margin-bottom:.85rem;padding:.85rem 1rem;border:1px solid var(--border);border-radius:12px;background:linear-gradient(135deg,rgba(201,168,76,.10),rgba(74,158,191,.06));}
 .p-current-task-top{display:flex;justify-content:space-between;align-items:flex-start;gap:.75rem;margin-bottom:.35rem;}
 .p-current-task-label{font-size:.62rem;font-weight:800;text-transform:uppercase;letter-spacing:.11em;color:var(--ink3);}
@@ -1561,17 +1569,6 @@ body {
               <option value="builder">Chord Builder</option>
             </select>
           </div>
-          <div class="p-control-group" id="p-sessionRoundsGroup">
-            <label>Rounds</label>
-            <select id="p-sessionRoundsSelect" onchange="p_onSessionRoundsChange()">
-              <option value="1">1 Round</option>
-              <option value="3">3 Rounds</option>
-              <option value="5" selected>5 Rounds</option>
-              <option value="10">10 Rounds</option>
-              <option value="20">20 Rounds</option>
-              <option value="infinite">∞ Free Run</option>
-            </select>
-          </div>
           <div class="p-control-group" id="p-keyModeGroup">
             <label>Key Mode</label>
             <select id="p-keyModeSelect" onchange="p_onKeyModeChange()">
@@ -1687,13 +1684,26 @@ body {
                   <div class="p-current-task-label" id="p-currentTaskLabel">Current Task</div>
                   <div class="p-current-task-title" id="p-currentTaskTitle">Select an exercise</div>
                 </div>
-                <div class="p-current-task-round" id="p-currentTaskRound">Round —</div>
+                <div class="p-current-task-tools">
+                  <div class="p-rounds-inline" id="p-sessionRoundsGroup">
+                    <label>Rounds</label>
+                    <select id="p-sessionRoundsSelect" onchange="p_onSessionRoundsChange()">
+                      <option value="1">1 Round</option>
+                      <option value="3">3 Rounds</option>
+                      <option value="5" selected>5 Rounds</option>
+                      <option value="10">10 Rounds</option>
+                      <option value="20">20 Rounds</option>
+                      <option value="infinite">Free Run</option>
+                    </select>
+                  </div>
+                  <div class="p-current-task-round" id="p-currentTaskRound">Round —</div>
+                </div>
               </div>
               <div class="p-assist-mode-row" id="p-assistModeRow">
                 <span class="p-assist-mode-label">Assist</span>
-                <button class="p-assist-pill active" id="p-assistFullBtn" onclick="p_setAssistMode('full')">Show Notes + Highlight</button>
+                <button class="p-assist-pill active" id="p-assistQuizBtn" onclick="p_setAssistMode('quiz')">Quiz Mode</button>
+                <button class="p-assist-pill" id="p-assistFullBtn" onclick="p_setAssistMode('full')">Show Notes + Highlight</button>
                 <button class="p-assist-pill" id="p-assistHighlightBtn" onclick="p_setAssistMode('highlight')">Hide Notes + Highlight</button>
-                <button class="p-assist-pill" id="p-assistQuizBtn" onclick="p_setAssistMode('quiz')">Quiz Mode (No Hints)</button>
               </div>
               <div class="p-current-task-detail" id="p-currentTaskDetail">Press Start to begin.</div>
               <div class="p-current-task-feedback" id="p-currentTaskFeedback"></div>
@@ -2936,7 +2946,7 @@ let p_key='C', p_style='fundamentals', p_exType='scale', p_diff='easy';
 let p_exDifficultyFilter = 'all';
 let p_chordMode='drill', p_chordBuilderPrompt=null, p_chordBuilderRequired=[], p_chordBuilderPlayed=[], p_chordBuilderWrong=[];
 let p_keyMode='fixed';
-let p_assistMode='full';
+let p_assistMode='quiz';
 const P_CIRCLE_FIFTHS=['C','G','D','A','E','B','F#','C#','G#','D#','A#','F'];
 const P_CIRCLE_FOURTHS=['C','F','A#','D#','G#','C#','F#','B','E','A','D','G'];
 let p_octaveMatch='exact';
@@ -4297,9 +4307,9 @@ function p_advanceExerciseForNextRound(){
 function p_shouldShowTargetNotes(){return p_assistMode==='full';}
 function p_shouldPreHighlightKeyboard(){return p_assistMode==='full'||p_assistMode==='highlight';}
 function p_getAssistModeLabel(){
-  if(p_assistMode==='highlight')return 'Hide Notes + Highlight Keyboard';
-  if(p_assistMode==='quiz')return 'Quiz Mode (No Notes, No Keyboard Hint)';
-  return 'Show Notes + Highlight Keyboard';
+  if(p_assistMode==='highlight')return 'Hide Notes + Highlight';
+  if(p_assistMode==='quiz')return 'Quiz Mode';
+  return 'Show Notes + Highlight';
 }
 function p_getHiddenNotesText(){
   if(p_assistMode==='quiz')return '<span class="p-notes-hidden-msg">Notes hidden. No keyboard hint. Play from memory.</span>';
@@ -4307,7 +4317,7 @@ function p_getHiddenNotesText(){
   return '';
 }
 function p_setAssistMode(mode){
-  p_assistMode=mode||'full';
+  p_assistMode=mode||'quiz';
   const fb=document.getElementById('p-assistFullBtn'),hb=document.getElementById('p-assistHighlightBtn'),qb=document.getElementById('p-assistQuizBtn');
   if(fb)fb.classList.toggle('active',p_assistMode==='full');
   if(hb)hb.classList.toggle('active',p_assistMode==='highlight');
