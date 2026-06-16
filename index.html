@@ -1450,10 +1450,11 @@ body {
 }
 
 
-/* Practice scale direction control, safely staged under Octave Match and Rounds */
-#page-practice #p-scaleDirectionGroup{grid-column:4 / span 2;}
-@media(max-width:980px){#page-practice #p-scaleDirectionGroup{grid-column:2 / span 2;}}
-@media(max-width:700px){#page-practice #p-scaleDirectionGroup{grid-column:1 / span 2;}}
+/* Practice scale hand and direction controls, safely staged under Octave Match and Rounds */
+#page-practice #p-handModeGroup{grid-column:4;}
+#page-practice #p-scaleDirectionGroup{grid-column:5;}
+@media(max-width:980px){#page-practice #p-handModeGroup{grid-column:2;}#page-practice #p-scaleDirectionGroup{grid-column:3;}}
+@media(max-width:700px){#page-practice #p-handModeGroup{grid-column:1;}#page-practice #p-scaleDirectionGroup{grid-column:2;}}
 
 </style>
 </head>
@@ -1806,6 +1807,13 @@ body {
                     <option value="10">10 Rounds</option>
                     <option value="20">20 Rounds</option>
                     <option value="infinite">Free Run</option>
+                  </select>
+                </div>
+                <div class="p-task-select-inline p-scale-hand-inline" id="p-handModeGroup">
+                  <label>Hand Mode</label>
+                  <select id="p-handModeSelect" onchange="p_onHandModeChange()">
+                    <option value="right" selected>Right Hand</option>
+                    <option value="left">Left Hand</option>
                   </select>
                 </div>
                 <div class="p-task-select-inline p-scale-direction-inline" id="p-scaleDirectionGroup">
@@ -3069,6 +3077,7 @@ const P_STYLE_EXERCISES={
 /* --- STATE --- */
 let p_key='C', p_style='fundamentals', p_exType='scale', p_diff='easy';
 let p_scaleDirection='ascending';
+let p_handMode='right';
 let p_exDifficultyFilter = 'all';
 let p_chordMode='drill', p_chordBuilderPrompt=null, p_chordBuilderRequired=[], p_chordBuilderPlayed=[], p_chordBuilderWrong=[];
 let p_keyMode='fixed';
@@ -3256,6 +3265,16 @@ function p_getScaleDirectionLabel(){
   if(p_scaleDirection==='descending') return 'Descending';
   if(p_scaleDirection==='updown') return 'Up + Down';
   return 'Ascending';
+}
+function p_shiftNotesByOctave(seq, octaves){
+  const shift=(parseInt(octaves,10)||0)*12;
+  return (Array.isArray(seq)?seq:[]).map(n=>p_midiToNote(p_noteToMidi(n)+shift));
+}
+function p_applyScaleHandMode(seq){
+  return p_handMode==='left'?p_shiftNotesByOctave(seq,-1):seq;
+}
+function p_getHandModeLabel(){
+  return p_handMode==='left'?'Left Hand':'Right Hand';
 }
 function p_buildChord(root,name){ return (P_CHORDS[name]||P_CHORDS.major).map(s=>p_noteFromST(root,s)); }
 function p_buildProg(root,ex){
@@ -3666,9 +3685,9 @@ function p_updateHint() {
   if (hintBody) hintBody.classList.remove('scale-two-hand', 'progression-two-hand');
 
   if (isScale) {
-    if (lhSec) { lhSec.style.display = ''; lhSec.style.width = ''; }
-    if (rhSec) { rhSec.style.display = ''; rhSec.style.width = ''; }
-    if (hintBody) hintBody.classList.add('scale-two-hand');
+    const leftMode = p_handMode === 'left';
+    if (lhSec) { lhSec.style.display = leftMode ? '' : 'none'; lhSec.style.width = leftMode ? '100%' : ''; }
+    if (rhSec) { rhSec.style.display = leftMode ? 'none' : ''; rhSec.style.width = leftMode ? '' : '100%'; }
   } else {
     if (lhSec) { lhSec.style.display = 'none'; lhSec.style.width = ''; }
     if (rhSec) { rhSec.style.display = ''; rhSec.style.width = '100%'; }
@@ -3682,8 +3701,8 @@ function p_updateHint() {
   if (lhLabel) lhLabel.textContent = 'Left Hand Fingering';
 
   if (isScale) {
-    p_buildHintPianoFromSeq('p-hintPianoR');
-    p_buildHintPianoFromSeq('p-hintPianoL');
+    if (p_handMode === 'left') p_buildHintPianoFromSeq('p-hintPianoL');
+    else p_buildHintPianoFromSeq('p-hintPianoR');
   } else if (p_exType === 'song') {
     // Song/pattern: fixed two-octave keyboard, stable during animation
     p_buildHintPianoRange('p-hintPianoR', p_key + '4', p_key + '6');
@@ -3739,9 +3758,11 @@ function p_replayHint() {
   p_clearTriadInversions();
   if (p_exType === 'song') {
     p_buildHintPianoRange('p-hintPianoR', p_key + '4', p_key + '6');
+  } else if (p_exType === 'scale') {
+    if (p_handMode === 'left') p_buildHintPianoFromSeq('p-hintPianoL');
+    else p_buildHintPianoFromSeq('p-hintPianoR');
   } else {
     p_buildHintPianoFromSeq('p-hintPianoR');
-    if (p_exType === 'scale') p_buildHintPianoFromSeq('p-hintPianoL');
   }
   if (p_exType === 'scale')       p_animScaleHint();
   else if (p_exType === 'chord')  p_animChordHint();
@@ -3768,8 +3789,8 @@ function p_animScaleHint() {
     const note = p_targetSeq[p_hintAnimIdx];
     const rh   = rhF[p_hintAnimIdx] || ((p_hintAnimIdx % 5) + 1);
     const lh   = lhF[p_hintAnimIdx] || (5 - (p_hintAnimIdx % 5));
-    p_litHintKey('p-hintPianoR', note, rh);
-    p_litHintKey('p-hintPianoL', note, lh);
+    if (p_handMode === 'left') p_litHintKey('p-hintPianoL', note, lh);
+    else p_litHintKey('p-hintPianoR', note, rh);
     p_hintAnimIdx++;
   }
 
@@ -4378,7 +4399,7 @@ function p_updateCurrentTaskCard(){
     if(p_exType==='chord'){le.textContent='Chord Drill';te.textContent=p_currentEx.name+' \u2014 '+p_key;
       de.innerHTML=(p_shouldShowTargetNotes()?'<span>Play: </span><span class="p-current-task-notes">'+seq+'</span>':p_getHiddenNotesText())+meta;return;}
     if(p_exType==='scale'){le.textContent='Scale Practice';te.textContent=p_currentEx.name+' \u2014 '+p_key;
-      const scaleMeta='<br><small>Direction: '+p_getScaleDirectionLabel()+' · '+keyModeText+' · '+assistText+'</small>';
+      const scaleMeta='<br><small>Hand: '+p_getHandModeLabel()+' · Direction: '+p_getScaleDirectionLabel()+' · '+keyModeText+' · '+assistText+'</small>';
       de.innerHTML=(p_shouldShowTargetNotes()?'<span>Play: </span><span class="p-current-task-notes">'+seq+'</span>':p_getHiddenNotesText())+scaleMeta;return;}
     if(p_exType==='progression'){le.textContent='Progression Practice';te.textContent=p_currentEx.name+' \u2014 '+p_key;
       de.innerHTML=(p_shouldShowTargetNotes()?'<span>Play: </span><span class="p-current-task-notes">'+seq+'</span>':p_getHiddenNotesText())+metaNoOct;return;}
@@ -4451,7 +4472,20 @@ function p_onSessionRoundsChange(){
 }
 function p_updateScaleDirectionVisibility(){
   const grp=document.getElementById('p-scaleDirectionGroup');
-  if(grp) grp.style.display=(p_exType==='scale')?'':'none';
+  const handGrp=document.getElementById('p-handModeGroup');
+  const show=p_exType==='scale';
+  if(grp) grp.style.display=show?'':'none';
+  if(handGrp) handGrp.style.display=show?'':'none';
+}
+function p_onHandModeChange(){
+  const sel=document.getElementById('p-handModeSelect');
+  p_handMode=sel?sel.value:'right';
+  p_resetSessionState();
+  p_active=false;
+  p_currentOct=p_handMode==='left'?3:4;
+  p_buildPiano();
+  p_prepare();
+  p_updateCurrentTaskCard();
 }
 function p_onScaleDirectionChange(){
   const sel=document.getElementById('p-scaleDirectionSelect');
@@ -4791,7 +4825,7 @@ function p_prepare(){
   p_updateScaleDirectionVisibility();
   p_updateDifficultyBadge(p_currentEx.diff);
   document.getElementById('p-exTitle').textContent=p_currentEx.name+' — '+p_key;
-  if(p_exType==='scale') p_targetSeq=p_applyScaleDirection(p_buildScale(p_key,p_currentEx.scale));
+  if(p_exType==='scale') p_targetSeq=p_applyScaleHandMode(p_applyScaleDirection(p_buildScale(p_key,p_currentEx.scale)));
   else if(p_exType==='chord') p_targetSeq=p_buildChord(p_key,p_currentEx.chord);
   else if(p_exType==='progression') p_targetSeq=p_buildProg(p_key,p_currentEx);
   else p_targetSeq=p_buildSong(p_key,p_currentEx.pattern);
