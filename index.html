@@ -1103,6 +1103,8 @@ body {
 .p-btn-sec:disabled { opacity:.35; cursor:not-allowed; }
 .p-btn-sec:disabled:hover { border-color:var(--border); color:var(--ink2); }
 .p-btn-sec.playing { background:var(--gold); border-color:var(--gold-dark); color:white; }
+.p-btn-sec.latched { background:var(--gold); border-color:var(--gold-dark); color:white; }
+.p-auto-next-btn { min-width:96px; }
 .p-btn-danger { background:rgba(192,97,74,.1); border-color:rgba(192,97,74,.3); color:#C0614A; }
 .p-btn-danger:hover { background:#C0614A; color:white; }
 
@@ -1711,8 +1713,8 @@ body {
                 <div class="p-task-select-inline" id="p-octaveMatchGroup">
                   <label>Octave Match</label>
                   <select id="p-octaveMatchSelect" onchange="p_onOctaveMatchChange()">
-                    <option value="any">Any Octave</option>
-                    <option value="exact" selected>Exact Octave</option>
+                    <option value="any" selected>Any Octave</option>
+                    <option value="exact">Exact Octave</option>
                   </select>
                 </div>
                 <div class="p-rounds-inline" id="p-sessionRoundsGroup">
@@ -1756,6 +1758,7 @@ body {
               <button class="p-btn p-btn-sec" id="p-nextBtn" onclick="p_nextExercise()">Next &#8594;</button>
               <button class="p-btn p-btn-sec" id="p-redoBtn" onclick="p_resetExercise()">&#8635; Redo</button>
               <button class="p-btn p-btn-danger" onclick="p_resetExercise()">&#10005; Reset</button>
+              <button class="p-btn p-btn-sec p-auto-next-btn" id="p-autoNextBtn" onclick="p_toggleAutoNext()">Auto Next</button>
             </div>
 
             <!-- Progression: Hear As toggle (shown only for progressions) -->
@@ -2977,8 +2980,9 @@ let p_keyMode='fixed';
 let p_assistMode='quiz';
 const P_CIRCLE_FIFTHS=['C','G','D','A','E','B','F#','C#','G#','D#','A#','F'];
 const P_CIRCLE_FOURTHS=['C','F','A#','D#','G#','C#','F#','B','E','A','D','G'];
-let p_octaveMatch='exact';
+let p_octaveMatch='any';
 let p_sessionRounds=5, p_sessionCurrentRound=1, p_sessionActive=false;
+let p_autoNext=false;
 let p_sessionCompleted=0, p_sessionScores=[], p_sessionAutoTimer=null;
 let p_currentEx=null, p_targetSeq=[], p_noteIdx=0, p_active=false;
 let p_midiAccess=null, p_metroInterval=null, p_bpm=80, p_beatCount=0;
@@ -4332,6 +4336,29 @@ function p_advanceExerciseForNextRound(){
   if(p_currentEx) p_updateDifficultyBadge(p_currentEx.diff);
   p_buildExList();
 }
+function p_toggleAutoNext(){
+  p_autoNext=!p_autoNext;
+  const btn=document.getElementById('p-autoNextBtn');
+  if(btn) btn.classList.toggle('latched', p_autoNext);
+  p_setCurrentTaskFeedback(p_autoNext?'Auto Next is on.':'Auto Next is off.', p_autoNext?'good':'warn');
+}
+
+function p_autoAdvanceAfterSession(){
+  if(!p_autoNext) return false;
+  if(p_exType==='chord'&&p_chordMode==='builder') return false;
+  const exs=(P_STYLE_EXERCISES[p_style]||{})[p_exType]||[];
+  if(!exs.length) return false;
+  const idx=exs.indexOf(p_currentEx);
+  if(idx<0 || idx>=exs.length-1) return false;
+  p_currentEx=exs[idx+1];
+  if(p_currentEx) p_updateDifficultyBadge(p_currentEx.diff);
+  p_resetSessionState();
+  p_buildExList();
+  p_prepare();
+  p_setCurrentTaskFeedback('Auto Next moved to '+p_currentEx.name+'.','good');
+  return true;
+}
+
 function p_shouldShowTargetNotes(){return p_assistMode==='full';}
 function p_shouldPreHighlightKeyboard(){return p_assistMode==='full'||p_assistMode==='highlight';}
 function p_getAssistModeLabel(){
@@ -4380,7 +4407,6 @@ function p_scheduleNextPracticeRound(){
   p_updateCurrentTaskCard();
   p_sessionAutoTimer=setTimeout(()=>{
     if(!p_sessionActive)return;
-    p_advanceExerciseForNextRound();
     p_startCurrentRound();
   },900);
 }
@@ -4442,16 +4468,19 @@ function p_finishPracticeSession(){
   // Part 9: clear keyboard highlight
   p_highlightPiano();
   p_updateRandomKeyButtonState();
+  if(p_autoNext){
+    setTimeout(()=>{ p_autoAdvanceAfterSession(); },500);
+  }
 }
 function p_applyDefaultOctaveMatch() {
-  p_octaveMatch=(p_exType==='chord'&&p_chordMode==='builder')?'any':'exact';
+  p_octaveMatch='any';
   const sel=document.getElementById('p-octaveMatchSelect');
   if(sel) sel.value=p_octaveMatch;
 }
 
 function p_onOctaveMatchChange() {
   const sel=document.getElementById('p-octaveMatchSelect');
-  p_octaveMatch=sel?sel.value:'exact';
+  p_octaveMatch=sel?sel.value:'any';
   p_updateNotesRow();
   p_highlightPiano();
   if(p_exType==='chord'&&p_chordMode==='builder'&&p_chordBuilderPrompt){
@@ -7918,6 +7947,7 @@ function p_init(){
   p_loadHistory();
   p_renderHistory();
   p_onStyleChange();
+  const autoBtn=document.getElementById('p-autoNextBtn'); if(autoBtn) autoBtn.classList.toggle('latched', p_autoNext);
   p_initMIDI();
 
   // Unlock AudioContext on first user interaction (browser autoplay policy)
