@@ -1046,6 +1046,12 @@ body {
 .p-vol-row { display:flex; gap:.6rem; flex-wrap:wrap; margin-bottom:.8rem; padding:.5rem .8rem; background:var(--bg2); border-radius:10px; border:1px solid var(--border); }
 .p-vol-group { display:flex; align-items:center; gap:.4rem; flex:1; min-width:110px; }
 .p-vol-val { min-width:26px; font-size:.78rem; }
+#page-practice .p-practice-vol-row { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:.5rem .75rem; }
+#page-practice .p-practice-vol-row .p-vol-group { min-width:0; display:grid; grid-template-columns:auto minmax(90px,1fr) 32px; align-items:center; gap:.45rem; }
+#page-practice .p-practice-vol-row .p-bpm-slider { width:100%; min-width:0; }
+#page-practice .p-practice-vol-row .p-bpm-label { white-space:nowrap; }
+#page-practice .p-practice-vol-row .p-vol-val { min-width:32px; text-align:right; }
+@media(max-width:700px){#page-practice .p-practice-vol-row{grid-template-columns:1fr;}}
 .p-timing-wrap { margin-bottom:.8rem; }
 .p-timing-bar { height:4px; background:var(--border); border-radius:50px; overflow:hidden; }
 .p-timing-fill { height:100%; background:var(--gold); border-radius:50px; width:0%; transition:width .3s; }
@@ -1796,7 +1802,7 @@ body {
               <button class="p-metro-btn" id="p-metroBtn" onclick="p_toggleMetronome()">♩ Metro</button>
             </div>
             <!-- Volume controls: MASTER / METRO / GUIDE / LIVE (0–100) -->
-            <div class="p-vol-row">
+            <div class="p-vol-row p-practice-vol-row">
               <div class="p-vol-group">
                 <span class="p-bpm-label">MASTER</span>
                 <input type="range" class="p-bpm-slider" id="p-masterSlider" min="0" max="100" value="80" oninput="p_updateMasterVol(this.value)">
@@ -1852,6 +1858,7 @@ body {
               <div class="p-score-label">overall accuracy</div>
               <div class="p-score-sub">
                 <div class="p-score-item"><div class="p-score-val" id="p-accVal">—</div><div class="p-score-lbl">Accuracy</div></div>
+                <div class="p-score-item"><div class="p-score-val" id="p-timVal">—</div><div class="p-score-lbl">Timing</div></div>
                 <div class="p-score-item"><div class="p-score-val" id="p-streakVal">0</div><div class="p-score-lbl">Streak</div></div>
               </div>
               <div class="p-score-grade" id="p-scoreGrade" style="display:none"></div>
@@ -3083,8 +3090,8 @@ function p_updateLiveVol(val){
 }
 function p_updateMetroVol(val){
   p_metroVol=(parseInt(val)/100)*P_METRO_MAX_GAIN;
-  const mv=document.getElementById('p-metroVal');
-  if(mv) mv.textContent=val;
+  const el=document.getElementById('p-metroVal');
+  if(el) el.textContent=val;
   if(p_metroGain) p_metroGain.gain.setTargetAtTime(p_metroVol,p_audioCtx.currentTime,0.01);
 }
 
@@ -3182,14 +3189,21 @@ function p_buildSong(root,pat){ return pat.map(s=>p_noteFromST(root,s<0?s+12:s))
 
 /* --- PIANO BUILD --- */
 const P_PIANOMIN=1, P_PIANOMAX=6;
-function p_whiteNotes(startOct){
-  const wn=[];
-  for(let o=startOct;o<=startOct+1;o++) ['C','D','E','F','G','A','B'].forEach(n=>wn.push(n+o));
+function p_visibleWhiteCount(){
+  const piano=document.getElementById('p-piano');
+  const wrap=piano?piano.parentElement:null;
+  const WW=40;
+  const available=wrap&&wrap.clientWidth?wrap.clientWidth:0;
+  return Math.max(14, available ? Math.floor((available-4)/WW) : 14);
+}
+function p_whiteNotes(startOct,count=14){
+  const wn=[], names=['C','D','E','F','G','A','B'];
+  for(let i=0;i<count;i++) wn.push(names[i%7]+(startOct+Math.floor(i/7)));
   return wn;
 }
 function p_buildPiano(){
   const c=document.getElementById('p-piano'); c.innerHTML='';
-  const whites=p_whiteNotes(p_currentOct), WW=40;
+  const WW=40, whites=p_whiteNotes(p_currentOct,p_visibleWhiteCount());
   c.style.width=(whites.length*WW)+'px';
   whites.forEach((nf,i)=>{
     const nn=nf.slice(0,-1), oct=parseInt(nf.slice(-1));
@@ -3215,7 +3229,10 @@ function p_shiftOctave(d){
 function p_updateOctNav(){
   document.getElementById('p-octDown').disabled=p_currentOct<=P_PIANOMIN;
   document.getElementById('p-octUp').disabled=p_currentOct>=P_PIANOMAX;
-  document.getElementById('p-octLabel').textContent='Octave '+p_currentOct+'–'+(p_currentOct+1);
+  const visibleWhites=p_whiteNotes(p_currentOct,p_visibleWhiteCount());
+  const last=visibleWhites[visibleWhites.length-1]||('C'+(p_currentOct+1));
+  const endOct=parseInt(last.slice(-1),10);
+  document.getElementById('p-octLabel').textContent='Octave '+p_currentOct+'-'+endOct;
 }
 function p_getKey(note){ return document.getElementById('pk-'+note.replace('#','s')); }
 function p_highlightPiano(){
@@ -4684,7 +4701,7 @@ function p_prepare(){
   document.getElementById('p-instruction').innerHTML=`Press <strong>Start</strong> to begin. <strong>${p_targetSeq.length}</strong> notes total.`;
   document.getElementById('p-scoreBig').textContent='—';
   document.getElementById('p-accVal').textContent='—';
-  const tv=document.getElementById('p-timVal');if(tv)tv.textContent='—';
+  document.getElementById('p-timVal').textContent='—';
   document.getElementById('p-scoreGrade').style.display='none';
   document.getElementById('p-timingFill').style.width='0%';
   p_updateCurrentTaskCard();
@@ -4761,16 +4778,20 @@ function p_complete(){
   p_active=false;
   document.getElementById('p-startBtn').textContent='▶ Start';
   const total=p_targetSeq.length;
-  const attempts=total+p_noteMisses;
-  const acc=attempts?Math.round((p_noteHits/attempts)*100):100;
-  const overall=acc;
+  const acc=Math.round((p_noteHits/total)*100);
+  let tim=100;
+  if(p_hitTimes.length>0){
+    const avg=p_hitTimes.reduce((a,b)=>a+b,0)/p_hitTimes.length;
+    tim=Math.max(0,Math.round(100-(avg/(60000/p_bpm))*100));
+  }
+  const overall=Math.round(acc*0.6+tim*0.4);
   const grade=overall>=90?'A':overall>=80?'B':overall>=70?'C':overall>=60?'D':'F';
   const gc={A:'#3A9E6F',B:'#4A9EBF',C:'#E07B2A',D:'#C0614A',F:'#C0614A'}[grade];
   const gb={A:'rgba(58,158,111,.12)',B:'rgba(74,158,191,.12)',C:'rgba(224,123,42,.12)',D:'rgba(192,97,74,.12)',F:'rgba(192,97,74,.12)'}[grade];
   document.getElementById('p-scoreBig').textContent=overall+'%';
   document.getElementById('p-accVal').textContent=acc+'%';
-  const tv=document.getElementById('p-timVal');if(tv)tv.textContent='—';
-  const tf=document.getElementById('p-timingFill');if(tf)tf.style.width='0%';
+  document.getElementById('p-timVal').textContent=tim+'%';
+  document.getElementById('p-timingFill').style.width=tim+'%';
   const ge=document.getElementById('p-scoreGrade');
   ge.textContent='Grade: '+grade; ge.style.display='block';
   ge.style.background=gb; ge.style.color=gc; ge.style.border='1.5px solid '+gc;
@@ -4778,7 +4799,7 @@ function p_complete(){
   const entry={name:p_currentEx.name+' '+p_key,score:overall,grade,style:p_style};
   p_history.unshift(entry); p_saveHistory(); p_renderHistory();
   document.getElementById('p-instruction').innerHTML=
-    `✅ Done! Accuracy: <strong>${overall}%</strong> · Grade: <strong>${grade}</strong>.`;
+    `✅ Done! Score: <strong>${overall}%</strong> · Grade: <strong>${grade}</strong>.`;
   if(activeProfile){ activeProfile.xp=(activeProfile.xp||0)+Math.round(overall/10); saveProfiles(); }
   if(typeof pg_checkBadges==='function') pg_checkBadges();
   p_sessionScores.push(overall); p_sessionCompleted++;
