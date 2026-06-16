@@ -1449,6 +1449,12 @@ body {
   #page-practice .p-current-task-tools{grid-template-columns:1fr 1fr;}
 }
 
+
+/* Practice scale direction control, safely staged under Octave Match and Rounds */
+#page-practice #p-scaleDirectionGroup{grid-column:4 / span 2;}
+@media(max-width:980px){#page-practice #p-scaleDirectionGroup{grid-column:2 / span 2;}}
+@media(max-width:700px){#page-practice #p-scaleDirectionGroup{grid-column:1 / span 2;}}
+
 </style>
 </head>
 <body>
@@ -1800,6 +1806,14 @@ body {
                     <option value="10">10 Rounds</option>
                     <option value="20">20 Rounds</option>
                     <option value="infinite">Free Run</option>
+                  </select>
+                </div>
+                <div class="p-task-select-inline p-scale-direction-inline" id="p-scaleDirectionGroup">
+                  <label>Direction</label>
+                  <select id="p-scaleDirectionSelect" onchange="p_onScaleDirectionChange()">
+                    <option value="ascending" selected>Ascending</option>
+                    <option value="descending">Descending</option>
+                    <option value="updown">Up + Down</option>
                   </select>
                 </div>
               </div>
@@ -3054,6 +3068,7 @@ const P_STYLE_EXERCISES={
 
 /* --- STATE --- */
 let p_key='C', p_style='fundamentals', p_exType='scale', p_diff='easy';
+let p_scaleDirection='ascending';
 let p_exDifficultyFilter = 'all';
 let p_chordMode='drill', p_chordBuilderPrompt=null, p_chordBuilderRequired=[], p_chordBuilderPlayed=[], p_chordBuilderWrong=[];
 let p_keyMode='fixed';
@@ -3228,6 +3243,20 @@ function p_noteFromST(root,st){
   return P_ALL_KEYS[((total%12)+12)%12]+(4+Math.floor(total/12));
 }
 function p_buildScale(root,name){ return (P_SCALES[name]||P_SCALES.major).map(s=>p_noteFromST(root,s)); }
+function p_applyScaleDirection(seq){
+  const base=Array.isArray(seq)?seq.slice():[];
+  if(p_scaleDirection==='descending') return base.slice().reverse();
+  if(p_scaleDirection==='updown'){
+    const down=base.slice(0,-1).reverse();
+    return base.concat(down);
+  }
+  return base;
+}
+function p_getScaleDirectionLabel(){
+  if(p_scaleDirection==='descending') return 'Descending';
+  if(p_scaleDirection==='updown') return 'Up + Down';
+  return 'Ascending';
+}
 function p_buildChord(root,name){ return (P_CHORDS[name]||P_CHORDS.major).map(s=>p_noteFromST(root,s)); }
 function p_buildProg(root,ex){
   return ex.chords.map((cn,i)=>{
@@ -3495,10 +3524,14 @@ function p_buildHintPianoFromSeq(containerId, seqOverride) {
   const WW = 30;
   const whiteNotes = ['C','D','E','F','G','A','B'];
 
-  // Range: nearest white key before first note → next white key after last note
-  // This gives a compact but visually padded keyboard (no cut-off edges)
-  const startMidi = p_prevWhiteMidi(p_noteToMidi(seq[0]));
-  const endMidi   = p_nextWhiteMidi(p_noteToMidi(seq[seq.length - 1]));
+  // Range: nearest white key before the lowest note to next white key after the highest note.
+  // This keeps hint keyboards complete for ascending, descending, and up + down scales.
+  const seqMidis = seq.map(n => p_noteToMidi(n)).filter(n => Number.isFinite(n));
+  if (!seqMidis.length) return;
+  const minMidi = Math.min(...seqMidis);
+  const maxMidi = Math.max(...seqMidis);
+  const startMidi = p_prevWhiteMidi(minMidi);
+  const endMidi   = p_nextWhiteMidi(maxMidi);
 
   c.style.position = 'relative';
   c.style.height   = '88px';
@@ -3718,8 +3751,11 @@ function p_replayHint() {
 /* ── SCALE animation: LH + RH together, one note at a time ──────── */
 function p_animScaleHint() {
   const scaleName = p_currentEx.scale;
-  const rhF = P_SCALE_FINGERING_RH[scaleName] || p_targetSeq.map((_,i)=>(i%5)+1);
-  const lhF = P_SCALE_FINGERING_LH[scaleName] || p_targetSeq.map((_,i)=>5-(i%5));
+  const baseRhF = P_SCALE_FINGERING_RH[scaleName] || p_targetSeq.map((_,i)=>(i%5)+1);
+  const baseLhF = P_SCALE_FINGERING_LH[scaleName] || p_targetSeq.map((_,i)=>5-(i%5));
+  let rhF=baseRhF.slice(), lhF=baseLhF.slice();
+  if(p_exType==='scale'&&p_scaleDirection==='descending'){rhF=baseRhF.slice().reverse();lhF=baseLhF.slice().reverse();}
+  if(p_exType==='scale'&&p_scaleDirection==='updown'){rhF=baseRhF.concat(baseRhF.slice(0,-1).reverse());lhF=baseLhF.concat(baseLhF.slice(0,-1).reverse());}
   p_hintAnimIdx = 0;
 
   function step() {
@@ -4274,6 +4310,7 @@ function p_onStyleChange(){
 
 function p_onExerciseChange(){
   p_exType = document.getElementById('p-exerciseType').value;
+  p_updateScaleDirectionVisibility();
   p_exDifficultyFilter = 'all';
   p_resetSessionState();
   if(p_exType!=='chord') p_chordMode='drill';
@@ -4341,7 +4378,8 @@ function p_updateCurrentTaskCard(){
     if(p_exType==='chord'){le.textContent='Chord Drill';te.textContent=p_currentEx.name+' \u2014 '+p_key;
       de.innerHTML=(p_shouldShowTargetNotes()?'<span>Play: </span><span class="p-current-task-notes">'+seq+'</span>':p_getHiddenNotesText())+meta;return;}
     if(p_exType==='scale'){le.textContent='Scale Practice';te.textContent=p_currentEx.name+' \u2014 '+p_key;
-      de.innerHTML=(p_shouldShowTargetNotes()?'<span>Play: </span><span class="p-current-task-notes">'+seq+'</span>':p_getHiddenNotesText())+metaNoOct;return;}
+      const scaleMeta='<br><small>Direction: '+p_getScaleDirectionLabel()+' · '+keyModeText+' · '+assistText+'</small>';
+      de.innerHTML=(p_shouldShowTargetNotes()?'<span>Play: </span><span class="p-current-task-notes">'+seq+'</span>':p_getHiddenNotesText())+scaleMeta;return;}
     if(p_exType==='progression'){le.textContent='Progression Practice';te.textContent=p_currentEx.name+' \u2014 '+p_key;
       de.innerHTML=(p_shouldShowTargetNotes()?'<span>Play: </span><span class="p-current-task-notes">'+seq+'</span>':p_getHiddenNotesText())+metaNoOct;return;}
     if(p_exType==='song'){le.textContent='Pattern / Lick';te.textContent=p_currentEx.name+' \u2014 '+p_key;
@@ -4409,6 +4447,18 @@ function p_onSessionRoundsChange(){
   const sel=document.getElementById('p-sessionRoundsSelect');
   const val=sel?sel.value:'5';
   p_sessionRounds=val==='infinite'?'infinite':parseInt(val,10);
+  p_updateCurrentTaskCard();
+}
+function p_updateScaleDirectionVisibility(){
+  const grp=document.getElementById('p-scaleDirectionGroup');
+  if(grp) grp.style.display=(p_exType==='scale')?'':'none';
+}
+function p_onScaleDirectionChange(){
+  const sel=document.getElementById('p-scaleDirectionSelect');
+  p_scaleDirection=sel?sel.value:'ascending';
+  p_resetSessionState();
+  p_active=false;
+  p_prepare();
   p_updateCurrentTaskCard();
 }
 function p_resetSessionState(){
@@ -4738,9 +4788,10 @@ function p_prepare(){
   }
 
   // ── Normal branch ─────────────────────────────────────────────────
+  p_updateScaleDirectionVisibility();
   p_updateDifficultyBadge(p_currentEx.diff);
   document.getElementById('p-exTitle').textContent=p_currentEx.name+' — '+p_key;
-  if(p_exType==='scale') p_targetSeq=p_buildScale(p_key,p_currentEx.scale);
+  if(p_exType==='scale') p_targetSeq=p_applyScaleDirection(p_buildScale(p_key,p_currentEx.scale));
   else if(p_exType==='chord') p_targetSeq=p_buildChord(p_key,p_currentEx.chord);
   else if(p_exType==='progression') p_targetSeq=p_buildProg(p_key,p_currentEx);
   else p_targetSeq=p_buildSong(p_key,p_currentEx.pattern);
