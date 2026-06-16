@@ -1234,25 +1234,26 @@ body {
 /* ── Current Task Card ──────────────────────────────────────────────── */
 
 /* Practice current task compact controls */
-.p-current-task-tools{display:flex;align-items:flex-start;gap:.55rem;flex-wrap:wrap;justify-content:flex-end;margin-left:auto;}
-.p-rounds-inline{min-width:132px;padding:.35rem .45rem;border:1px solid rgba(201,168,76,.35);border-radius:10px;background:rgba(201,168,76,.06);}
-.p-rounds-inline label{display:block;font-size:.58rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--gold);margin-bottom:.2rem;}
+.p-current-task-tools{margin-left:auto;display:flex;flex-direction:column;align-items:flex-end;gap:.28rem;min-width:150px;flex-shrink:0;}
+.p-rounds-inline{width:150px;padding:.35rem .45rem;border:1px solid rgba(201,168,76,.35);border-radius:10px;background:rgba(201,168,76,.06);}
+.p-rounds-inline label{display:block;font-size:.58rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--gold);margin-bottom:.2rem;text-align:left;}
 .p-rounds-inline select{width:100%;padding:.35rem .55rem;background:var(--bg2);border:1px solid var(--border);border-radius:8px;color:var(--ink);font-family:'DM Sans',sans-serif;font-size:.76rem;font-weight:700;}
-.p-current-task-tools .p-current-task-round{align-self:center;}
-@media(max-width:700px){.p-current-task-top{flex-direction:column;}.p-current-task-tools{width:100%;justify-content:space-between;margin-left:0;}.p-rounds-inline{flex:1;min-width:150px;}}
-.p-current-task-card{margin-bottom:.85rem;padding:.85rem 1rem;border:1px solid var(--border);border-radius:12px;background:linear-gradient(135deg,rgba(201,168,76,.10),rgba(74,158,191,.06));}
+.p-current-task-tools .p-current-task-round{align-self:flex-end;width:150px;text-align:center;}
+@media(max-width:700px){.p-current-task-top{flex-direction:column;}.p-current-task-tools{width:100%;align-items:stretch;margin-left:0;}.p-rounds-inline,.p-current-task-tools .p-current-task-round{width:100%;}}
+.p-current-task-card{margin-bottom:.85rem;padding:.85rem 1rem;border:1px solid var(--border);border-radius:12px;background:linear-gradient(135deg,rgba(201,168,76,.10),rgba(74,158,191,.06));min-height:178px;}
 .p-current-task-top{display:flex;justify-content:space-between;align-items:flex-start;gap:.75rem;margin-bottom:.35rem;}
+.p-current-task-top>div:first-child{min-width:0;flex:1;}
 .p-current-task-label{font-size:.62rem;font-weight:800;text-transform:uppercase;letter-spacing:.11em;color:var(--ink3);}
 .p-current-task-title{font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:700;color:var(--ink);line-height:1.2;}
 .p-current-task-round{font-family:'DM Mono',monospace;font-size:.75rem;font-weight:800;color:var(--gold);padding:.22rem .5rem;border:1px solid rgba(201,168,76,.35);border-radius:999px;background:rgba(201,168,76,.09);white-space:nowrap;}
-.p-current-task-detail{font-size:.82rem;color:var(--ink2);line-height:1.45;}
+.p-current-task-detail{font-size:.82rem;color:var(--ink2);line-height:1.45;min-height:2.4em;}
 .p-assist-mode-row{display:flex;flex-wrap:wrap;align-items:center;gap:.35rem;margin:.45rem 0 .5rem;}
 .p-assist-mode-label{font-size:.62rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--ink3);margin-right:.2rem;}
 .p-assist-pill{padding:.24rem .55rem;border-radius:999px;border:1px solid var(--border);background:var(--bg2);color:var(--ink3);font-family:'DM Sans',sans-serif;font-size:.68rem;font-weight:800;cursor:pointer;transition:all .15s;}
 .p-assist-pill:hover{border-color:var(--gold);color:var(--gold);}
 .p-assist-pill.active{background:var(--gold);border-color:var(--gold-dark);color:white;}
 .p-notes-hidden-msg{font-style:italic;color:var(--ink3);}
-.p-current-task-feedback{margin-top:.45rem;padding:.45rem .6rem;border-radius:8px;border:1px solid var(--border);background:rgba(0,0,0,.08);color:var(--ink2);font-size:.78rem;font-weight:700;line-height:1.35;display:none;}
+.p-current-task-feedback{margin-top:.45rem;padding:.45rem .6rem;border-radius:8px;border:1px solid var(--border);background:rgba(0,0,0,.08);color:var(--ink2);font-size:.78rem;font-weight:700;line-height:1.35;display:block;visibility:hidden;min-height:2.15rem;}
 .p-current-task-feedback.good{display:block;background:rgba(58,158,111,.14);border-color:rgba(58,158,111,.35);color:#3A9E6F;}
 .p-current-task-feedback.warn{display:block;background:rgba(201,168,76,.14);border-color:rgba(201,168,76,.35);color:var(--gold);}
 .p-current-task-feedback.bad{display:block;background:rgba(192,97,74,.14);border-color:rgba(192,97,74,.35);color:#C0614A;}
@@ -4330,17 +4331,14 @@ function p_setAssistMode(mode){
 function p_setCurrentTaskFeedback(message,type){
   const el=document.getElementById('p-currentTaskFeedback');
   if(!el)return;
-  if(!message){el.textContent='';el.className='p-current-task-feedback';el.style.display='none';return;}
+  if(!message){el.textContent='';el.className='p-current-task-feedback';el.style.visibility='hidden';return;}
   el.textContent=message;
   el.className='p-current-task-feedback '+(type||'warn');
-  el.style.display='block';
+  el.style.visibility='visible';
 }
 
 function p_getPracticeCoachMessage(avg,grade){
-  if(avg>=95)return{title:'Finished! Excellent work.',message:'You are ready to move up to the next level.',type:'good'};
-  if(avg>=85)return{title:'Finished! Great job.',message:'Try the next level soon, or repeat once for confidence.',type:'good'};
-  if(avg>=70)return{title:'Finished! Good work.',message:'Repeat this level once more before moving up.',type:'warn'};
-  return{title:'Finished! Needs work.',message:'Slow it down, use hints, and practice this level again.',type:'bad'};
+  return{title:'Session Complete',message:'Round complete. Good job.',type:'good'};
 }
 
 function p_scheduleNextPracticeRound(){
@@ -4410,9 +4408,7 @@ function p_finishPracticeSession(){
   if(titleEl)titleEl.textContent=coach.title;
   if(roundEl)roundEl.textContent='Done';
   if(detailEl){
-    const nextKey=p_getSuggestedNextKey();
-    const nextText=p_keyMode==='fixed'?'Next suggestion: try this in '+nextKey+'.':'Next suggestion: continue with '+p_getKeyModeLabel()+'.';
-    detailEl.innerHTML='<span class="p-current-task-notes">'+count+' rounds \u00b7 Average: '+avg+'% \u00b7 Grade: '+grade+'</span><br><small>'+coach.message+'</small><br><small>'+nextText+'</small>';
+    detailEl.innerHTML='<span class="p-current-task-notes">'+count+' rounds complete · Average: '+avg+'% · Grade: '+grade+'</span><br><small>'+coach.message+'</small>';
   }
   p_setCurrentTaskFeedback(coach.message,coach.type);
   p_showFlash('Session complete!','complete');
