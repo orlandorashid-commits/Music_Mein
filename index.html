@@ -1359,6 +1359,20 @@ body {
 }
 
 
+
+
+/* Practice current task title and control alignment cleanup */
+#page-practice .p-current-task-card{min-height:178px;}
+#page-practice .p-current-task-top{display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;margin-bottom:.55rem;}
+#page-practice .p-current-task-heading{min-width:0;flex:1;padding-right:.75rem;}
+#page-practice .p-current-task-round{min-width:126px;text-align:center;align-self:flex-start;margin-left:auto;}
+#page-practice .p-current-task-tools{width:100%;display:grid;grid-template-columns:repeat(5,minmax(100px,1fr));gap:.42rem;align-items:stretch;margin:.2rem 0 .65rem 0;}
+#page-practice .p-task-select-inline,#page-practice .p-rounds-inline{width:100%;min-width:0;padding:.35rem .42rem;border:1px solid rgba(201,168,76,.35);border-radius:10px;background:rgba(201,168,76,.06);}
+#page-practice .p-task-select-inline label,#page-practice .p-rounds-inline label{display:block;font-size:.56rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--gold);margin-bottom:.2rem;text-align:left;white-space:nowrap;}
+#page-practice .p-task-select-inline select,#page-practice .p-rounds-inline select{width:100%;padding:.35rem .48rem;background:var(--bg2);border:1px solid var(--border);border-radius:8px;color:var(--ink);font-family:'DM Sans',sans-serif;font-size:.72rem;font-weight:700;}
+#page-practice .p-assist-mode-row{margin-top:.15rem;}
+@media(max-width:980px){#page-practice .p-current-task-tools{grid-template-columns:repeat(3,minmax(0,1fr));}}
+@media(max-width:700px){#page-practice .p-current-task-top{flex-direction:column;gap:.35rem;}#page-practice .p-current-task-round{margin-left:0;min-width:0;width:100%;}#page-practice .p-current-task-tools{grid-template-columns:1fr 1fr;}}
 </style>
 </head>
 <body>
@@ -1646,71 +1660,71 @@ body {
             <!-- Main keyboard -->
             <div class="p-current-task-card" id="p-currentTaskCard">
               <div class="p-current-task-top">
-                <div>
+                <div class="p-current-task-heading">
                   <div class="p-current-task-label" id="p-currentTaskLabel">Current Task</div>
                   <div class="p-current-task-title" id="p-currentTaskTitle">Select an exercise</div>
                 </div>
-                <div class="p-current-task-tools">
-                  <div class="p-task-select-inline">
-            <label>Music Style</label>
-            <select id="p-styleSelect" onchange="p_onStyleChange()">
-              <option value="fundamentals">Fundamentals</option>
-              <option value="jazz">Jazz</option>
-              <option value="classical">Classical</option>
-              <option value="pop">Pop / Rock</option>
-              <option value="blues">Blues</option>
-              <option value="gospel">Gospel</option>
-              <option value="latin">Latin</option>
-              <option value="rnb">R&amp;B / Soul</option>
-              <option value="country">Country</option>
-              <option value="folk">Folk</option>
-              <option value="bossa">Bossa Nova</option>
-            </select>
-          </div>
-                  <div class="p-task-select-inline">
-            <label>Exercise Type</label>
-            <select id="p-exerciseType" onchange="p_onExerciseChange()">
-              <option value="scale">Scales</option>
-              <option value="chord">Chords</option>
-              <option value="progression">Progressions</option>
-              <option value="song">Patterns &amp; Licks</option>
-            </select>
-          </div>
-                  <div class="p-task-select-inline" id="p-chordModeGroup" style="display:none">
-            <label>Chord Practice</label>
-            <select id="p-chordModeSelect" onchange="p_onChordModeChange()">
-              <option value="drill">Chord Drills</option>
-              <option value="builder">Chord Builder</option>
-            </select>
-          </div>
-                  <div class="p-task-select-inline" id="p-keyModeGroup">
-            <label>Key Mode</label>
-            <select id="p-keyModeSelect" onchange="p_onKeyModeChange()">
-              <option value="fixed">Fixed Key</option>
-              <option value="random">Random Key Each Round</option>
-              <option value="fifths">Circle of Fifths</option>
-              <option value="fourths">Circle of Fourths</option>
-            </select>
-          </div>
-                  <div class="p-task-select-inline" id="p-octaveMatchGroup">
-            <label>Octave Match</label>
-            <select id="p-octaveMatchSelect" onchange="p_onOctaveMatchChange()">
-              <option value="any">Any Octave</option>
-              <option value="exact" selected>Exact Octave</option>
-            </select>
-          </div>
-                  <div class="p-rounds-inline" id="p-sessionRoundsGroup">
-                    <label>Rounds</label>
-                    <select id="p-sessionRoundsSelect" onchange="p_onSessionRoundsChange()">
-                      <option value="1">1 Round</option>
-                      <option value="3">3 Rounds</option>
-                      <option value="5" selected>5 Rounds</option>
-                      <option value="10">10 Rounds</option>
-                      <option value="20">20 Rounds</option>
-                      <option value="infinite">Free Run</option>
-                    </select>
-                  </div>
-                  <div class="p-current-task-round" id="p-currentTaskRound">Round —</div>
+                <div class="p-current-task-round" id="p-currentTaskRound">Round —</div>
+              </div>
+              <div class="p-current-task-tools">
+                <div class="p-task-select-inline">
+                  <label>Music Style</label>
+                  <select id="p-styleSelect" onchange="p_onStyleChange()">
+                    <option value="fundamentals">Fundamentals</option>
+                    <option value="jazz">Jazz</option>
+                    <option value="classical">Classical</option>
+                    <option value="pop">Pop / Rock</option>
+                    <option value="blues">Blues</option>
+                    <option value="gospel">Gospel</option>
+                    <option value="latin">Latin</option>
+                    <option value="rnb">R&amp;B / Soul</option>
+                    <option value="country">Country</option>
+                    <option value="folk">Folk</option>
+                    <option value="bossa">Bossa Nova</option>
+                  </select>
+                </div>
+                <div class="p-task-select-inline">
+                  <label>Exercise Type</label>
+                  <select id="p-exerciseType" onchange="p_onExerciseChange()">
+                    <option value="scale">Scales</option>
+                    <option value="chord">Chords</option>
+                    <option value="progression">Progressions</option>
+                    <option value="song">Patterns &amp; Licks</option>
+                  </select>
+                </div>
+                <div class="p-task-select-inline" id="p-chordModeGroup" style="display:none">
+                  <label>Chord Practice</label>
+                  <select id="p-chordModeSelect" onchange="p_onChordModeChange()">
+                    <option value="drill">Chord Drills</option>
+                    <option value="builder">Chord Builder</option>
+                  </select>
+                </div>
+                <div class="p-task-select-inline" id="p-keyModeGroup">
+                  <label>Key Mode</label>
+                  <select id="p-keyModeSelect" onchange="p_onKeyModeChange()">
+                    <option value="fixed">Fixed Key</option>
+                    <option value="random">Random Key Each Round</option>
+                    <option value="fifths">Circle of Fifths</option>
+                    <option value="fourths">Circle of Fourths</option>
+                  </select>
+                </div>
+                <div class="p-task-select-inline" id="p-octaveMatchGroup">
+                  <label>Octave Match</label>
+                  <select id="p-octaveMatchSelect" onchange="p_onOctaveMatchChange()">
+                    <option value="any">Any Octave</option>
+                    <option value="exact" selected>Exact Octave</option>
+                  </select>
+                </div>
+                <div class="p-rounds-inline" id="p-sessionRoundsGroup">
+                  <label>Rounds</label>
+                  <select id="p-sessionRoundsSelect" onchange="p_onSessionRoundsChange()">
+                    <option value="1">1 Round</option>
+                    <option value="3">3 Rounds</option>
+                    <option value="5" selected>5 Rounds</option>
+                    <option value="10">10 Rounds</option>
+                    <option value="20">20 Rounds</option>
+                    <option value="infinite">Free Run</option>
+                  </select>
                 </div>
               </div>
               <div class="p-assist-mode-row" id="p-assistModeRow">
