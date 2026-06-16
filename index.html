@@ -1046,6 +1046,12 @@ body {
 .p-vol-row { display:flex; gap:.6rem; flex-wrap:wrap; margin-bottom:.8rem; padding:.5rem .8rem; background:var(--bg2); border-radius:10px; border:1px solid var(--border); }
 .p-vol-group { display:flex; align-items:center; gap:.4rem; flex:1; min-width:110px; }
 .p-vol-val { min-width:26px; font-size:.78rem; }
+#page-practice .p-practice-vol-row { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:.5rem .75rem; }
+#page-practice .p-practice-vol-row .p-vol-group { min-width:0; display:grid; grid-template-columns:auto minmax(90px,1fr) 32px; align-items:center; gap:.45rem; }
+#page-practice .p-practice-vol-row .p-bpm-slider { width:100%; min-width:0; }
+#page-practice .p-practice-vol-row .p-bpm-label { white-space:nowrap; }
+#page-practice .p-practice-vol-row .p-vol-val { min-width:32px; text-align:right; }
+@media(max-width:700px){#page-practice .p-practice-vol-row{grid-template-columns:1fr;}}
 .p-timing-wrap { margin-bottom:.8rem; }
 .p-timing-bar { height:4px; background:var(--border); border-radius:50px; overflow:hidden; }
 .p-timing-fill { height:100%; background:var(--gold); border-radius:50px; width:0%; transition:width .3s; }
@@ -1103,6 +1109,26 @@ body {
 .p-btn-sec:disabled { opacity:.35; cursor:not-allowed; }
 .p-btn-sec:disabled:hover { border-color:var(--border); color:var(--ink2); }
 .p-btn-sec.playing { background:var(--gold); border-color:var(--gold-dark); color:white; }
+.p-btn-sec.latched { background:var(--gold); border-color:var(--gold-dark); color:white; }
+.p-auto-flow-btn {
+  width:58px;
+  min-width:58px;
+  height:42px;
+  padding:.25rem .35rem;
+  line-height:1.05;
+  display:inline-flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:.05rem;
+  font-size:.62rem;
+  font-weight:800;
+  text-align:center;
+  letter-spacing:.01em;
+}
+.p-auto-flow-btn span { display:block; }
+.p-auto-flow-btn:disabled { opacity:.32; cursor:not-allowed; }
+.p-auto-flow-btn:disabled:hover { border-color:var(--border); color:var(--ink2); }
 .p-btn-danger { background:rgba(192,97,74,.1); border-color:rgba(192,97,74,.3); color:#C0614A; }
 .p-btn-danger:hover { background:#C0614A; color:white; }
 
@@ -1358,6 +1384,70 @@ body {
   #page-rhythm .rhythm-bar-sep{min-height:32px;margin:0 1px;}
 }
 
+
+
+
+/* Practice current task title and control alignment cleanup */
+#page-practice .p-current-task-card{min-height:178px;}
+#page-practice .p-current-task-top{display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;margin-bottom:.55rem;}
+#page-practice .p-current-task-heading{min-width:0;flex:1;padding-right:.75rem;}
+#page-practice .p-current-task-round{min-width:126px;text-align:center;align-self:flex-start;margin-left:auto;}
+#page-practice .p-current-task-tools{width:100%;display:grid;grid-template-columns:repeat(5,minmax(100px,1fr));gap:.42rem;align-items:stretch;margin:.2rem 0 .65rem 0;}
+#page-practice .p-task-select-inline,#page-practice .p-rounds-inline{width:100%;min-width:0;padding:.35rem .42rem;border:1px solid rgba(201,168,76,.35);border-radius:10px;background:rgba(201,168,76,.06);}
+#page-practice .p-task-select-inline label,#page-practice .p-rounds-inline label{display:block;font-size:.56rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--gold);margin-bottom:.2rem;text-align:left;white-space:nowrap;}
+#page-practice .p-task-select-inline select,#page-practice .p-rounds-inline select{width:100%;padding:.35rem .48rem;background:var(--bg2);border:1px solid var(--border);border-radius:8px;color:var(--ink);font-family:'DM Sans',sans-serif;font-size:.72rem;font-weight:700;}
+#page-practice .p-assist-mode-row{margin-top:.15rem;}
+@media(max-width:980px){#page-practice .p-current-task-tools{grid-template-columns:repeat(3,minmax(0,1fr));}}
+@media(max-width:700px){#page-practice .p-current-task-top{flex-direction:column;gap:.35rem;}#page-practice .p-current-task-round{margin-left:0;min-width:0;width:100%;}#page-practice .p-current-task-tools{grid-template-columns:1fr 1fr;}}
+
+
+/* Practice task header layout fix */
+#page-practice .p-current-task-card{
+  display:block;
+}
+#page-practice .p-current-task-top{
+  width:100%;
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:1rem;
+  margin:0 0 .55rem 0;
+  clear:both;
+}
+#page-practice .p-current-task-heading{
+  flex:1 1 auto;
+  min-width:0;
+  max-width:calc(100% - 150px);
+  padding-right:.75rem;
+}
+#page-practice .p-current-task-title{
+  white-space:normal;
+  overflow-wrap:normal;
+}
+#page-practice .p-current-task-round{
+  flex:0 0 auto;
+  min-width:126px;
+  margin-left:auto;
+  text-align:center;
+}
+#page-practice .p-current-task-tools{
+  width:100%;
+  display:grid;
+  grid-template-columns:repeat(5,minmax(100px,1fr));
+  gap:.42rem;
+  align-items:stretch;
+  margin:.2rem 0 .65rem 0;
+  clear:both;
+}
+@media(max-width:980px){
+  #page-practice .p-current-task-tools{grid-template-columns:repeat(3,minmax(0,1fr));}
+}
+@media(max-width:700px){
+  #page-practice .p-current-task-top{flex-direction:column;gap:.35rem;}
+  #page-practice .p-current-task-heading{max-width:100%;padding-right:0;}
+  #page-practice .p-current-task-round{margin-left:0;min-width:0;width:100%;}
+  #page-practice .p-current-task-tools{grid-template-columns:1fr 1fr;}
+}
 
 </style>
 </head>
@@ -1646,71 +1736,71 @@ body {
             <!-- Main keyboard -->
             <div class="p-current-task-card" id="p-currentTaskCard">
               <div class="p-current-task-top">
-                <div>
+                <div class="p-current-task-heading">
                   <div class="p-current-task-label" id="p-currentTaskLabel">Current Task</div>
                   <div class="p-current-task-title" id="p-currentTaskTitle">Select an exercise</div>
                 </div>
-                <div class="p-current-task-tools">
-                  <div class="p-task-select-inline">
-            <label>Music Style</label>
-            <select id="p-styleSelect" onchange="p_onStyleChange()">
-              <option value="fundamentals">Fundamentals</option>
-              <option value="jazz">Jazz</option>
-              <option value="classical">Classical</option>
-              <option value="pop">Pop / Rock</option>
-              <option value="blues">Blues</option>
-              <option value="gospel">Gospel</option>
-              <option value="latin">Latin</option>
-              <option value="rnb">R&amp;B / Soul</option>
-              <option value="country">Country</option>
-              <option value="folk">Folk</option>
-              <option value="bossa">Bossa Nova</option>
-            </select>
-          </div>
-                  <div class="p-task-select-inline">
-            <label>Exercise Type</label>
-            <select id="p-exerciseType" onchange="p_onExerciseChange()">
-              <option value="scale">Scales</option>
-              <option value="chord">Chords</option>
-              <option value="progression">Progressions</option>
-              <option value="song">Patterns &amp; Licks</option>
-            </select>
-          </div>
-                  <div class="p-task-select-inline" id="p-chordModeGroup" style="display:none">
-            <label>Chord Practice</label>
-            <select id="p-chordModeSelect" onchange="p_onChordModeChange()">
-              <option value="drill">Chord Drills</option>
-              <option value="builder">Chord Builder</option>
-            </select>
-          </div>
-                  <div class="p-task-select-inline" id="p-keyModeGroup">
-            <label>Key Mode</label>
-            <select id="p-keyModeSelect" onchange="p_onKeyModeChange()">
-              <option value="fixed">Fixed Key</option>
-              <option value="random">Random Key Each Round</option>
-              <option value="fifths">Circle of Fifths</option>
-              <option value="fourths">Circle of Fourths</option>
-            </select>
-          </div>
-                  <div class="p-task-select-inline" id="p-octaveMatchGroup">
-            <label>Octave Match</label>
-            <select id="p-octaveMatchSelect" onchange="p_onOctaveMatchChange()">
-              <option value="any">Any Octave</option>
-              <option value="exact" selected>Exact Octave</option>
-            </select>
-          </div>
-                  <div class="p-rounds-inline" id="p-sessionRoundsGroup">
-                    <label>Rounds</label>
-                    <select id="p-sessionRoundsSelect" onchange="p_onSessionRoundsChange()">
-                      <option value="1">1 Round</option>
-                      <option value="3">3 Rounds</option>
-                      <option value="5" selected>5 Rounds</option>
-                      <option value="10">10 Rounds</option>
-                      <option value="20">20 Rounds</option>
-                      <option value="infinite">Free Run</option>
-                    </select>
-                  </div>
-                  <div class="p-current-task-round" id="p-currentTaskRound">Round —</div>
+                <div class="p-current-task-round" id="p-currentTaskRound">Round —</div>
+              </div>
+              <div class="p-current-task-tools">
+                <div class="p-task-select-inline">
+                  <label>Music Style</label>
+                  <select id="p-styleSelect" onchange="p_onStyleChange()">
+                    <option value="fundamentals">Fundamentals</option>
+                    <option value="jazz">Jazz</option>
+                    <option value="classical">Classical</option>
+                    <option value="pop">Pop / Rock</option>
+                    <option value="blues">Blues</option>
+                    <option value="gospel">Gospel</option>
+                    <option value="latin">Latin</option>
+                    <option value="rnb">R&amp;B / Soul</option>
+                    <option value="country">Country</option>
+                    <option value="folk">Folk</option>
+                    <option value="bossa">Bossa Nova</option>
+                  </select>
+                </div>
+                <div class="p-task-select-inline">
+                  <label>Exercise Type</label>
+                  <select id="p-exerciseType" onchange="p_onExerciseChange()">
+                    <option value="scale">Scales</option>
+                    <option value="chord">Chords</option>
+                    <option value="progression">Progressions</option>
+                    <option value="song">Patterns &amp; Licks</option>
+                  </select>
+                </div>
+                <div class="p-task-select-inline" id="p-chordModeGroup" style="display:none">
+                  <label>Chord Practice</label>
+                  <select id="p-chordModeSelect" onchange="p_onChordModeChange()">
+                    <option value="drill">Chord Drills</option>
+                    <option value="builder">Chord Builder</option>
+                  </select>
+                </div>
+                <div class="p-task-select-inline" id="p-keyModeGroup">
+                  <label>Key Mode</label>
+                  <select id="p-keyModeSelect" onchange="p_onKeyModeChange()">
+                    <option value="fixed">Fixed Key</option>
+                    <option value="random">Random Key Each Round</option>
+                    <option value="fifths">Circle of Fifths</option>
+                    <option value="fourths">Circle of Fourths</option>
+                  </select>
+                </div>
+                <div class="p-task-select-inline" id="p-octaveMatchGroup">
+                  <label>Octave Match</label>
+                  <select id="p-octaveMatchSelect" onchange="p_onOctaveMatchChange()">
+                    <option value="any" selected>Any Octave</option>
+                    <option value="exact">Exact Octave</option>
+                  </select>
+                </div>
+                <div class="p-rounds-inline" id="p-sessionRoundsGroup">
+                  <label>Rounds</label>
+                  <select id="p-sessionRoundsSelect" onchange="p_onSessionRoundsChange()">
+                    <option value="1">1 Round</option>
+                    <option value="3">3 Rounds</option>
+                    <option value="5" selected>5 Rounds</option>
+                    <option value="10">10 Rounds</option>
+                    <option value="20">20 Rounds</option>
+                    <option value="infinite">Free Run</option>
+                  </select>
                 </div>
               </div>
               <div class="p-assist-mode-row" id="p-assistModeRow">
@@ -1742,6 +1832,8 @@ body {
               <button class="p-btn p-btn-sec" id="p-nextBtn" onclick="p_nextExercise()">Next &#8594;</button>
               <button class="p-btn p-btn-sec" id="p-redoBtn" onclick="p_resetExercise()">&#8635; Redo</button>
               <button class="p-btn p-btn-danger" onclick="p_resetExercise()">&#10005; Reset</button>
+              <button class="p-btn p-btn-sec p-auto-flow-btn" id="p-autoNextBtn" onclick="p_toggleAutoNext()"><span>Auto</span><span>Next</span></button>
+              <button class="p-btn p-btn-sec p-auto-flow-btn" id="p-autoStartBtn" onclick="p_toggleAutoStart()" disabled><span>Auto</span><span>Start</span></button>
             </div>
 
             <!-- Progression: Hear As toggle (shown only for progressions) -->
@@ -1759,12 +1851,17 @@ body {
               <span class="p-bpm-val" id="p-bpmVal">80</span>
               <button class="p-metro-btn" id="p-metroBtn" onclick="p_toggleMetronome()">♩ Metro</button>
             </div>
-            <!-- Volume controls: MASTER / DEMO / LIVE (0–100) -->
-            <div class="p-vol-row">
+            <!-- Volume controls: MASTER / METRO / GUIDE / LIVE (0–100) -->
+            <div class="p-vol-row p-practice-vol-row">
               <div class="p-vol-group">
                 <span class="p-bpm-label">MASTER</span>
                 <input type="range" class="p-bpm-slider" id="p-masterSlider" min="0" max="100" value="80" oninput="p_updateMasterVol(this.value)">
                 <span class="p-bpm-val p-vol-val" id="p-masterVal">80</span>
+              </div>
+              <div class="p-vol-group">
+                <span class="p-bpm-label">METRO</span>
+                <input type="range" class="p-bpm-slider" id="p-metroSlider" min="0" max="100" value="25" oninput="p_updateMetroVol(this.value)">
+                <span class="p-bpm-val p-vol-val" id="p-metroVal">25</span>
               </div>
               <div class="p-vol-group">
                 <span class="p-bpm-label">GUIDE</span>
@@ -2960,6 +3057,7 @@ let p_key='C', p_style='fundamentals', p_exType='scale', p_diff='easy';
 let p_exDifficultyFilter = 'all';
 let p_chordMode='drill', p_chordBuilderPrompt=null, p_chordBuilderRequired=[], p_chordBuilderPlayed=[], p_chordBuilderWrong=[];
 let p_keyMode='fixed';
+let p_autoNext=false, p_autoStart=false;
 let p_assistMode='quiz';
 const P_CIRCLE_FIFTHS=['C','G','D','A','E','B','F#','C#','G#','D#','A#','F'];
 const P_CIRCLE_FOURTHS=['C','F','A#','D#','G#','C#','F#','B','E','A','D','G'];
@@ -3042,6 +3140,8 @@ function p_updateLiveVol(val){
 }
 function p_updateMetroVol(val){
   p_metroVol=(parseInt(val)/100)*P_METRO_MAX_GAIN;
+  const el=document.getElementById('p-metroVal');
+  if(el) el.textContent=val;
   if(p_metroGain) p_metroGain.gain.setTargetAtTime(p_metroVol,p_audioCtx.currentTime,0.01);
 }
 
@@ -3139,14 +3239,21 @@ function p_buildSong(root,pat){ return pat.map(s=>p_noteFromST(root,s<0?s+12:s))
 
 /* --- PIANO BUILD --- */
 const P_PIANOMIN=1, P_PIANOMAX=6;
-function p_whiteNotes(startOct){
-  const wn=[];
-  for(let o=startOct;o<=startOct+1;o++) ['C','D','E','F','G','A','B'].forEach(n=>wn.push(n+o));
+function p_visibleWhiteCount(){
+  const piano=document.getElementById('p-piano');
+  const wrap=piano?piano.parentElement:null;
+  const WW=40;
+  const available=wrap&&wrap.clientWidth?wrap.clientWidth:0;
+  return Math.max(14, available ? Math.floor((available-4)/WW) : 14);
+}
+function p_whiteNotes(startOct,count=14){
+  const wn=[], names=['C','D','E','F','G','A','B'];
+  for(let i=0;i<count;i++) wn.push(names[i%7]+(startOct+Math.floor(i/7)));
   return wn;
 }
 function p_buildPiano(){
   const c=document.getElementById('p-piano'); c.innerHTML='';
-  const whites=p_whiteNotes(p_currentOct), WW=40;
+  const WW=40, whites=p_whiteNotes(p_currentOct,p_visibleWhiteCount());
   c.style.width=(whites.length*WW)+'px';
   whites.forEach((nf,i)=>{
     const nn=nf.slice(0,-1), oct=parseInt(nf.slice(-1));
@@ -3172,7 +3279,10 @@ function p_shiftOctave(d){
 function p_updateOctNav(){
   document.getElementById('p-octDown').disabled=p_currentOct<=P_PIANOMIN;
   document.getElementById('p-octUp').disabled=p_currentOct>=P_PIANOMAX;
-  document.getElementById('p-octLabel').textContent='Octave '+p_currentOct+'–'+(p_currentOct+1);
+  const visibleWhites=p_whiteNotes(p_currentOct,p_visibleWhiteCount());
+  const last=visibleWhites[visibleWhites.length-1]||('C'+(p_currentOct+1));
+  const endOct=parseInt(last.slice(-1),10);
+  document.getElementById('p-octLabel').textContent='Octave '+p_currentOct+'-'+endOct;
 }
 function p_getKey(note){ return document.getElementById('pk-'+note.replace('#','s')); }
 function p_highlightPiano(){
@@ -4318,6 +4428,53 @@ function p_advanceExerciseForNextRound(){
   if(p_currentEx) p_updateDifficultyBadge(p_currentEx.diff);
   p_buildExList();
 }
+function p_updateAutoFlowButtons(){
+  const nextBtn=document.getElementById('p-autoNextBtn');
+  const startBtn=document.getElementById('p-autoStartBtn');
+  if(nextBtn) nextBtn.classList.toggle('latched', p_autoNext);
+  if(startBtn){
+    startBtn.disabled=!p_autoNext;
+    startBtn.classList.toggle('latched', p_autoNext&&p_autoStart);
+  }
+}
+function p_toggleAutoNext(){
+  p_autoNext=!p_autoNext;
+  if(!p_autoNext) p_autoStart=false;
+  p_updateAutoFlowButtons();
+  p_setCurrentTaskFeedback(p_autoNext?'Auto Next is on.':'Auto Next is off.', p_autoNext?'good':'warn');
+}
+function p_toggleAutoStart(){
+  if(!p_autoNext){
+    p_autoStart=false;
+    p_updateAutoFlowButtons();
+    p_setCurrentTaskFeedback('Turn on Auto Next first.','warn');
+    return;
+  }
+  p_autoStart=!p_autoStart;
+  p_updateAutoFlowButtons();
+  p_setCurrentTaskFeedback(p_autoStart?'Auto Start is on.':'Auto Start is off.', p_autoStart?'good':'warn');
+}
+function p_autoAdvanceAfterSession(){
+  if(!p_autoNext) return false;
+  if(p_exType==='chord'&&p_chordMode==='builder') return false;
+  const exs=p_getVisiblePracticeExercises();
+  if(!exs.length) return false;
+  const idx=exs.indexOf(p_currentEx);
+  if(idx<0 || idx>=exs.length-1){
+    p_setCurrentTaskFeedback('Auto Next reached the last exercise.','warn');
+    return false;
+  }
+  p_currentEx=exs[idx+1];
+  if(p_currentEx) p_updateDifficultyBadge(p_currentEx.diff);
+  p_resetSessionState();
+  p_buildExList();
+  p_prepare();
+  p_setCurrentTaskFeedback('Auto Next moved to '+p_currentEx.name+'.','good');
+  if(p_autoStart){
+    setTimeout(()=>{ p_startExercise(); },350);
+  }
+  return true;
+}
 function p_shouldShowTargetNotes(){return p_assistMode==='full';}
 function p_shouldPreHighlightKeyboard(){return p_assistMode==='full'||p_assistMode==='highlight';}
 function p_getAssistModeLabel(){
@@ -4428,16 +4585,20 @@ function p_finishPracticeSession(){
   // Part 9: clear keyboard highlight
   p_highlightPiano();
   p_updateRandomKeyButtonState();
+  p_updateAutoFlowButtons();
+  if(p_autoNext){
+    setTimeout(()=>{ p_autoAdvanceAfterSession(); },500);
+  }
 }
 function p_applyDefaultOctaveMatch() {
-  p_octaveMatch=(p_exType==='chord'&&p_chordMode==='builder')?'any':'exact';
+  p_octaveMatch='any';
   const sel=document.getElementById('p-octaveMatchSelect');
   if(sel) sel.value=p_octaveMatch;
 }
 
 function p_onOctaveMatchChange() {
   const sel=document.getElementById('p-octaveMatchSelect');
-  p_octaveMatch=sel?sel.value:'exact';
+  p_octaveMatch=sel?sel.value:'any';
   p_updateNotesRow();
   p_highlightPiano();
   if(p_exType==='chord'&&p_chordMode==='builder'&&p_chordBuilderPrompt){
@@ -4625,11 +4786,9 @@ function p_registerKeyAttempt(note){
   }
 
   const expected=p_targetSeq[p_noteIdx];
-  const timingDiff=Math.abs(Date.now()-(p_expectedTimes[p_noteIdx]||Date.now()));
 
   if(p_notesMatchPractice(note,expected)){
     p_noteHits++; p_streak++;
-    p_hitTimes.push(timingDiff);
     p_flashKey(note,'correct');
     p_chipDone(p_noteIdx,true);
     document.getElementById('p-streakVal').textContent=p_streak;
@@ -4666,16 +4825,17 @@ function p_chipDone(idx,ok){
 function p_complete(){
   p_active=false;
   document.getElementById('p-startBtn').textContent='▶ Start';
-  const total=p_targetSeq.length;
-  const acc=Math.round((p_noteHits/total)*100);
+  const required=p_targetSeq.length;
+  const attempts=required+p_noteMisses;
+  const acc=attempts?Math.round((required/attempts)*100):100;
   const overall=acc;
   const grade=overall>=90?'A':overall>=80?'B':overall>=70?'C':overall>=60?'D':'F';
   const gc={A:'#3A9E6F',B:'#4A9EBF',C:'#E07B2A',D:'#C0614A',F:'#C0614A'}[grade];
   const gb={A:'rgba(58,158,111,.12)',B:'rgba(74,158,191,.12)',C:'rgba(224,123,42,.12)',D:'rgba(192,97,74,.12)',F:'rgba(192,97,74,.12)'}[grade];
   document.getElementById('p-scoreBig').textContent=overall+'%';
   document.getElementById('p-accVal').textContent=acc+'%';
-  const pTimValEl=document.getElementById('p-timVal'); if(pTimValEl) pTimValEl.textContent='—';
-  document.getElementById('p-timingFill').style.width='0%';
+  const tv=document.getElementById('p-timVal');if(tv)tv.textContent='—';
+  const tf=document.getElementById('p-timingFill');if(tf)tf.style.width='0%';
   const ge=document.getElementById('p-scoreGrade');
   ge.textContent='Grade: '+grade; ge.style.display='block';
   ge.style.background=gb; ge.style.color=gc; ge.style.border='1.5px solid '+gc;
@@ -4683,7 +4843,7 @@ function p_complete(){
   const entry={name:p_currentEx.name+' '+p_key,score:overall,grade,style:p_style};
   p_history.unshift(entry); p_saveHistory(); p_renderHistory();
   document.getElementById('p-instruction').innerHTML=
-    `✅ Done! Score: <strong>${overall}%</strong> · Grade: <strong>${grade}</strong>.`;
+    `✅ Done! Accuracy: <strong>${overall}%</strong> · Grade: <strong>${grade}</strong>.`;
   if(activeProfile){ activeProfile.xp=(activeProfile.xp||0)+Math.round(overall/10); saveProfiles(); }
   if(typeof pg_checkBadges==='function') pg_checkBadges();
   p_sessionScores.push(overall); p_sessionCompleted++;
@@ -7899,6 +8059,7 @@ function p_init(){
   p_loadHistory();
   p_renderHistory();
   p_onStyleChange();
+  p_updateAutoFlowButtons();
   p_initMIDI();
 
   // Unlock AudioContext on first user interaction (browser autoplay policy)
