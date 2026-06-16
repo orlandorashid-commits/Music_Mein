@@ -1104,7 +1104,25 @@ body {
 .p-btn-sec:disabled:hover { border-color:var(--border); color:var(--ink2); }
 .p-btn-sec.playing { background:var(--gold); border-color:var(--gold-dark); color:white; }
 .p-btn-sec.latched { background:var(--gold); border-color:var(--gold-dark); color:white; }
-.p-auto-next-btn { min-width:96px; }
+.p-auto-flow-btn {
+  width:58px;
+  min-width:58px;
+  height:42px;
+  padding:.25rem .35rem;
+  line-height:1.05;
+  display:inline-flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:.05rem;
+  font-size:.62rem;
+  font-weight:800;
+  text-align:center;
+  letter-spacing:.01em;
+}
+.p-auto-flow-btn span { display:block; }
+.p-auto-flow-btn:disabled { opacity:.32; cursor:not-allowed; }
+.p-auto-flow-btn:disabled:hover { border-color:var(--border); color:var(--ink2); }
 .p-btn-danger { background:rgba(192,97,74,.1); border-color:rgba(192,97,74,.3); color:#C0614A; }
 .p-btn-danger:hover { background:#C0614A; color:white; }
 
@@ -1758,7 +1776,8 @@ body {
               <button class="p-btn p-btn-sec" id="p-nextBtn" onclick="p_nextExercise()">Next &#8594;</button>
               <button class="p-btn p-btn-sec" id="p-redoBtn" onclick="p_resetExercise()">&#8635; Redo</button>
               <button class="p-btn p-btn-danger" onclick="p_resetExercise()">&#10005; Reset</button>
-              <button class="p-btn p-btn-sec p-auto-next-btn" id="p-autoNextBtn" onclick="p_toggleAutoNext()">Auto Next</button>
+              <button class="p-btn p-btn-sec p-auto-flow-btn" id="p-autoNextBtn" onclick="p_toggleAutoNext()"><span>Auto</span><span>Next</span></button>
+              <button class="p-btn p-btn-sec p-auto-flow-btn" id="p-autoStartBtn" onclick="p_toggleAutoStart()" disabled><span>Auto</span><span>Start</span></button>
             </div>
 
             <!-- Progression: Hear As toggle (shown only for progressions) -->
@@ -2977,12 +2996,12 @@ let p_key='C', p_style='fundamentals', p_exType='scale', p_diff='easy';
 let p_exDifficultyFilter = 'all';
 let p_chordMode='drill', p_chordBuilderPrompt=null, p_chordBuilderRequired=[], p_chordBuilderPlayed=[], p_chordBuilderWrong=[];
 let p_keyMode='fixed';
+let p_autoNext=false, p_autoStart=false;
 let p_assistMode='quiz';
 const P_CIRCLE_FIFTHS=['C','G','D','A','E','B','F#','C#','G#','D#','A#','F'];
 const P_CIRCLE_FOURTHS=['C','F','A#','D#','G#','C#','F#','B','E','A','D','G'];
-let p_octaveMatch='any';
+let p_octaveMatch='exact';
 let p_sessionRounds=5, p_sessionCurrentRound=1, p_sessionActive=false;
-let p_autoNext=false;
 let p_sessionCompleted=0, p_sessionScores=[], p_sessionAutoTimer=null;
 let p_currentEx=null, p_targetSeq=[], p_noteIdx=0, p_active=false;
 let p_midiAccess=null, p_metroInterval=null, p_bpm=80, p_beatCount=0;
@@ -4336,29 +4355,53 @@ function p_advanceExerciseForNextRound(){
   if(p_currentEx) p_updateDifficultyBadge(p_currentEx.diff);
   p_buildExList();
 }
+function p_updateAutoFlowButtons(){
+  const nextBtn=document.getElementById('p-autoNextBtn');
+  const startBtn=document.getElementById('p-autoStartBtn');
+  if(nextBtn) nextBtn.classList.toggle('latched', p_autoNext);
+  if(startBtn){
+    startBtn.disabled=!p_autoNext;
+    startBtn.classList.toggle('latched', p_autoNext&&p_autoStart);
+  }
+}
 function p_toggleAutoNext(){
   p_autoNext=!p_autoNext;
-  const btn=document.getElementById('p-autoNextBtn');
-  if(btn) btn.classList.toggle('latched', p_autoNext);
+  if(!p_autoNext) p_autoStart=false;
+  p_updateAutoFlowButtons();
   p_setCurrentTaskFeedback(p_autoNext?'Auto Next is on.':'Auto Next is off.', p_autoNext?'good':'warn');
 }
-
+function p_toggleAutoStart(){
+  if(!p_autoNext){
+    p_autoStart=false;
+    p_updateAutoFlowButtons();
+    p_setCurrentTaskFeedback('Turn on Auto Next first.','warn');
+    return;
+  }
+  p_autoStart=!p_autoStart;
+  p_updateAutoFlowButtons();
+  p_setCurrentTaskFeedback(p_autoStart?'Auto Start is on.':'Auto Start is off.', p_autoStart?'good':'warn');
+}
 function p_autoAdvanceAfterSession(){
   if(!p_autoNext) return false;
   if(p_exType==='chord'&&p_chordMode==='builder') return false;
-  const exs=(P_STYLE_EXERCISES[p_style]||{})[p_exType]||[];
+  const exs=p_getVisiblePracticeExercises();
   if(!exs.length) return false;
   const idx=exs.indexOf(p_currentEx);
-  if(idx<0 || idx>=exs.length-1) return false;
+  if(idx<0 || idx>=exs.length-1){
+    p_setCurrentTaskFeedback('Auto Next reached the last exercise.','warn');
+    return false;
+  }
   p_currentEx=exs[idx+1];
   if(p_currentEx) p_updateDifficultyBadge(p_currentEx.diff);
   p_resetSessionState();
   p_buildExList();
   p_prepare();
   p_setCurrentTaskFeedback('Auto Next moved to '+p_currentEx.name+'.','good');
+  if(p_autoStart){
+    setTimeout(()=>{ p_startExercise(); },350);
+  }
   return true;
 }
-
 function p_shouldShowTargetNotes(){return p_assistMode==='full';}
 function p_shouldPreHighlightKeyboard(){return p_assistMode==='full'||p_assistMode==='highlight';}
 function p_getAssistModeLabel(){
@@ -4407,6 +4450,7 @@ function p_scheduleNextPracticeRound(){
   p_updateCurrentTaskCard();
   p_sessionAutoTimer=setTimeout(()=>{
     if(!p_sessionActive)return;
+    p_advanceExerciseForNextRound();
     p_startCurrentRound();
   },900);
 }
@@ -4468,6 +4512,7 @@ function p_finishPracticeSession(){
   // Part 9: clear keyboard highlight
   p_highlightPiano();
   p_updateRandomKeyButtonState();
+  p_updateAutoFlowButtons();
   if(p_autoNext){
     setTimeout(()=>{ p_autoAdvanceAfterSession(); },500);
   }
@@ -7947,7 +7992,7 @@ function p_init(){
   p_loadHistory();
   p_renderHistory();
   p_onStyleChange();
-  const autoBtn=document.getElementById('p-autoNextBtn'); if(autoBtn) autoBtn.classList.toggle('latched', p_autoNext);
+  p_updateAutoFlowButtons();
   p_initMIDI();
 
   // Unlock AudioContext on first user interaction (browser autoplay policy)
