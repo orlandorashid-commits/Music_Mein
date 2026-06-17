@@ -2115,8 +2115,8 @@ body {
 
             <div class="e-answer-method-row" id="e-answerMethodRow">
               <span class="e-answer-method-label">Answer Method</span>
-              <button class="e-answer-method-pill" id="e-answerModeNotes" onclick="e_setAnswerMode('notes')">Note Buttons</button>
-              <button class="e-answer-method-pill active" id="e-answerModeKeyboard" onclick="e_setAnswerMode('keyboard')">Piano Keyboard</button>
+              <button class="e-answer-method-pill active" id="e-answerModeNotes" onclick="e_setAnswerMode('notes')">Note Buttons</button>
+              <button class="e-answer-method-pill" id="e-answerModeKeyboard" onclick="e_setAnswerMode('keyboard')">Piano Keyboard</button>
             </div>
 
             <div class="p-btn-row" style="justify-content:center;margin-top:1rem;flex-wrap:wrap;gap:.5rem;">
@@ -5683,7 +5683,7 @@ let e_showChordRoot=false, e_showChordTones=false, e_showChordName=false;
 let e_visualRevealOpen=false;
 let e_auditionTimers=[];
 let e_browserSynthOn=true;
-let e_answerMode = localStorage.getItem('mm_ear_answer_mode') || 'keyboard';
+let e_answerMode = 'notes';
 let e_wrongReplayTimer   = null;
 let e_showSingleNoteAnswer  = false;
 let e_showIntervalStartNote = false;
