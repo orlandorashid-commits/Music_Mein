@@ -1663,7 +1663,35 @@ body {
           
           <!-- Practice Mode removed; replaced by Assist Mode in Current Task card -->
           <select id="p-practiceMode" style="display:none"><option value="guided" selected>Guided</option></select>
-        </div><!-- HINT KEYBOARD STRIP (hidden by default) -->
+        </div><!-- STAFF VIEW -->
+        <div class="p-staff-block" id="p-staffBlock">
+          <div class="p-sheet-controls">
+            <span class="p-meta-label">Staff View</span>
+            <div class="p-pill-toggle">
+              <button onclick="p_setStaff('treble')" id="p-staffTreble">Treble</button>
+              <button onclick="p_setStaff('bass')" id="p-staffBass">Bass</button>
+              <button onclick="p_setStaff('grand')" id="p-staffGrand" class="active">Grand</button>
+            </div>
+            <button class="p-hint-toggle p-staff-visibility-toggle" id="p-staffVisibilityBtn" onclick="p_toggleStaffViewDisplay()">Show</button>
+          </div>
+          <div class="p-sheet-area staff-hidden" id="p-sheetArea">
+            <svg id="p-sheetSVG" width="100%" viewBox="0 0 700 200"></svg>
+          </div>
+        </div>
+
+                <!-- KEY CHIPS -->
+                <div class="p-key-chips">
+                  <span class="p-chips-label">Key:</span>
+                  <span id="p-keyChips"></span>
+                  <button class="p-random-key-btn" id="p-randomKeyBtn" onclick="p_randomizeKeyOnce()">&#127922; Random Key</button>
+                </div>
+        
+                
+
+
+        
+
+<!-- HINT KEYBOARD STRIP (hidden by default) -->
         <div class="p-hint-strip" id="p-hintStrip">
           <div class="p-hint-header">
             <div style="display:flex;align-items:center;gap:.6rem;flex-wrap:wrap;">
@@ -1691,33 +1719,7 @@ body {
           </div>
         </div>
 
-        <!-- STAFF VIEW -->
-        <div class="p-staff-block" id="p-staffBlock">
-          <div class="p-sheet-controls">
-            <span class="p-meta-label">Staff View</span>
-            <div class="p-pill-toggle">
-              <button onclick="p_setStaff('treble')" id="p-staffTreble">Treble</button>
-              <button onclick="p_setStaff('bass')" id="p-staffBass">Bass</button>
-              <button onclick="p_setStaff('grand')" id="p-staffGrand" class="active">Grand</button>
-            </div>
-            <button class="p-hint-toggle p-staff-visibility-toggle" id="p-staffVisibilityBtn" onclick="p_toggleStaffViewDisplay()">Show</button>
-          </div>
-          <div class="p-sheet-area staff-hidden" id="p-sheetArea">
-            <svg id="p-sheetSVG" width="100%" viewBox="0 0 700 130"></svg>
-          </div>
-        </div>
-
-                <!-- KEY CHIPS -->
-                <div class="p-key-chips">
-                  <span class="p-chips-label">Key:</span>
-                  <span id="p-keyChips"></span>
-                  <button class="p-random-key-btn" id="p-randomKeyBtn" onclick="p_randomizeKeyOnce()">&#127922; Random Key</button>
-                </div>
-        
-                
-
-
-        <!-- MAIN LAYOUT -->
+<!-- MAIN LAYOUT -->
         <div class="p-main-layout">
 
           <!-- LEFT: PIANO PANEL -->
@@ -5340,8 +5342,9 @@ function p_renderSheet(){
   const W=700, M=42, LG=11;
   const isGrand=p_staffMode==='grand';
   const isBass=p_staffMode==='bass';
-  const trebleTop=isGrand?18:20;
-  const bassTop=isGrand?110:20;
+  svg.setAttribute('viewBox',isGrand?'0 0 700 200':'0 0 700 130');
+  const trebleTop=isGrand?50:50;
+  const bassTop=isGrand?134:62;
 
   function drawStaff(top,clefChar,clefY,clefSize){
     for(let l=0;l<5;l++){
