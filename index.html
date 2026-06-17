@@ -1315,6 +1315,58 @@ body {
   .e-keyboard-help::after{content:' Swipe sideways for larger ranges.';}
 }
 
+/* Ear Training compact prompt and answer-method cleanup */
+#page-ear .ear-big-note{display:none!important;}
+#page-ear .e-mode-summary{
+  max-width:560px;
+  margin:0 auto .65rem;
+  padding:.85rem 1rem;
+  border:1px solid var(--border);
+  border-radius:14px;
+  background:linear-gradient(135deg,rgba(74,158,191,.08),rgba(201,168,76,.05));
+  text-align:center;
+}
+#page-ear .e-mode-summary .ear-mode-label{margin-bottom:.25rem;}
+#page-ear .e-mode-help{font-size:.82rem;color:var(--ink2);line-height:1.45;}
+#page-ear .e-answer-method-row{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  align-items:center;
+  gap:.4rem;
+  margin:.85rem auto .15rem;
+}
+#page-ear .e-answer-method-label{
+  font-size:.68rem;
+  font-weight:800;
+  text-transform:uppercase;
+  letter-spacing:.1em;
+  color:var(--ink3);
+  margin-right:.15rem;
+}
+#page-ear .e-answer-method-pill{
+  padding:.32rem .8rem;
+  border-radius:999px;
+  border:1px solid var(--border);
+  background:var(--bg2);
+  color:var(--ink3);
+  font-family:'DM Sans',sans-serif;
+  font-size:.72rem;
+  font-weight:800;
+  cursor:pointer;
+  transition:all .15s;
+}
+#page-ear .e-answer-method-pill:hover{border-color:var(--gold);color:var(--gold);}
+#page-ear .e-answer-method-pill.active{background:var(--gold);border-color:var(--gold-dark);color:white;}
+#page-ear .e-manual-wrap{margin-top:.8rem;margin-bottom:.65rem;}
+#page-ear .e-manual-title{text-align:left;}
+#page-ear .e-answer-keyboard{margin-top:.8rem;}
+@media(max-width:700px){
+  #page-ear .e-answer-method-row{justify-content:flex-start;}
+  #page-ear .e-answer-method-label{flex-basis:100%;}
+}
+
+
 /* ── Mobile Rhythm Layout ─────────────────────────────── */
 .r-mobile-settings-toggle{display:none;}
 .r-mobile-settings-panel{display:block;}
@@ -1974,7 +2026,7 @@ body {
         <div class="ear-header">
           <div>
             <h2>Ear Training</h2>
-            <p>Listen to the note, then play it back on your MIDI keyboard.</p>
+            <p>Listen to the prompt, then answer by note buttons, piano keyboard, or MIDI.</p>
           </div>
         </div>
 
@@ -2044,8 +2096,11 @@ body {
         <div class="ear-main-grid">
           <!-- Left: prompt card -->
           <div class="ear-card">
-            <div class="ear-mode-label">Single Note Replay</div>
-            <div class="ear-big-note" id="e-currentNote">Ready</div>
+            <div class="e-mode-summary">
+              <div class="ear-mode-label">Single Note Replay</div>
+              <div class="e-mode-help" id="e-modeHelp">Listen, then answer by note buttons, piano keyboard, or MIDI.</div>
+            </div>
+            <div class="ear-big-note" id="e-currentNote" aria-hidden="true">Ready</div>
             <div class="ear-status" id="e-status">Choose Audition to listen, then Start when ready.</div>
 
             <!-- Reveal row -->
@@ -2056,6 +2111,12 @@ body {
               <div class="e-mini-keyboard-wrap">
                 <div class="e-mini-keyboard" id="e-miniKeyboard"></div>
               </div>
+            </div>
+
+            <div class="e-answer-method-row" id="e-answerMethodRow">
+              <span class="e-answer-method-label">Answer Method</span>
+              <button class="e-answer-method-pill" id="e-answerModeNotes" onclick="e_setAnswerMode('notes')">Note Buttons</button>
+              <button class="e-answer-method-pill active" id="e-answerModeKeyboard" onclick="e_setAnswerMode('keyboard')">Piano Keyboard</button>
             </div>
 
             <div class="p-btn-row" style="justify-content:center;margin-top:1rem;flex-wrap:wrap;gap:.5rem;">
@@ -2071,11 +2132,16 @@ body {
             <div class="e-feedback neutral" id="e-feedback">No answer yet.</div>
 
             <div class="e-answer-keyboard" id="e-answerKeyboardWrap">
-              <div class="e-visual-reveal-title">Answer Keyboard</div>
+              <div class="e-visual-reveal-title">Piano Keyboard</div>
               <div class="e-mini-keyboard-wrap">
                 <div class="e-mini-keyboard" id="e-answerKeyboard"></div>
               </div>
               <div class="e-keyboard-help" id="e-answerKeyboardHelp">Tap a key or use MIDI.</div>
+            </div>
+
+            <div class="e-manual-wrap" id="e-manualWrap">
+              <div class="e-manual-title">Note Buttons</div>
+              <div class="e-manual-notes" id="e-manualNotes"></div>
             </div>
 
             <div class="p-vol-row" id="e-volumeRow" style="margin-top:.55rem;">
@@ -2137,11 +2203,6 @@ body {
             <!-- Chord Replay: progress chips -->
             <div class="e-chord-replay-progress" id="e-chordReplayProgress" style="display:none"></div>
 
-            <!-- Manual answer buttons (hidden in interval_name/chord_quality mode) -->
-            <div class="e-manual-wrap" id="e-manualWrap">
-              <div class="e-manual-title">Manual Answer</div>
-              <div class="e-manual-notes" id="e-manualNotes"></div>
-            </div>
           </div>
 
           <!-- Right: score + history -->
@@ -5622,6 +5683,7 @@ let e_showChordRoot=false, e_showChordTones=false, e_showChordName=false;
 let e_visualRevealOpen=false;
 let e_auditionTimers=[];
 let e_browserSynthOn=true;
+let e_answerMode = localStorage.getItem('mm_ear_answer_mode') || 'keyboard';
 let e_wrongReplayTimer   = null;
 let e_showSingleNoteAnswer  = false;
 let e_showIntervalStartNote = false;
@@ -6353,9 +6415,44 @@ function e_handleKeyboardAnswer(note){
 }
 function e_renderAnswerKeyboard(){
   const wrap=document.getElementById('e-answerKeyboardWrap'),kb=document.getElementById('e-answerKeyboard');if(!wrap||!kb)return;
-  const notes=e_getManualAnswerNotes();if(!notes.length){wrap.style.display='none';return;}wrap.style.display='';
+  if(typeof e_modeUsesAnswerMethod==='function' && (!e_modeUsesAnswerMethod() || e_answerMode!=='keyboard')){wrap.style.display='none';return;}
+  const notes=e_getManualAnswerNotes();if(!notes.length){wrap.style.display='none';return;}wrap.style.display='block';
   const midis=notes.map(e_noteToMidi);const start=e_midiToNote(e_prevWhiteMidi(Math.min(...midis)));const end=e_midiToNote(e_nextWhiteMidi(Math.max(...midis)));
   e_buildInteractiveMiniKeyboard('e-answerKeyboard',start,end,e_handleKeyboardAnswer);
+}
+
+function e_modeUsesAnswerMethod(){
+  return e_mode==='note'||e_mode==='interval'||e_mode==='chord_replay';
+}
+function e_getModeHelpText(){
+  const map={
+    note:'Listen, then answer by note buttons, piano keyboard, or MIDI.',
+    interval:'Listen to the two notes, then play them back in order.',
+    interval_name:'Listen to the interval, then choose the number or quality.',
+    chord_quality:'Listen to the chord, then choose the chord name.',
+    chord_replay:'Listen to the chord, then play all chord tones.'
+  };
+  return map[e_mode]||'Listen, then answer.';
+}
+function e_setAnswerMode(mode){
+  e_answerMode = mode==='notes' ? 'notes' : 'keyboard';
+  try{localStorage.setItem('mm_ear_answer_mode',e_answerMode);}catch(e){}
+  if(e_answerMode==='keyboard') e_renderAnswerKeyboard();
+  else e_renderManualNotes();
+  e_updateAnswerMethodUI();
+}
+function e_updateAnswerMethodUI(){
+  const uses=e_modeUsesAnswerMethod();
+  const row=document.getElementById('e-answerMethodRow');
+  const notesBtn=document.getElementById('e-answerModeNotes');
+  const keyBtn=document.getElementById('e-answerModeKeyboard');
+  const manualWrap=document.getElementById('e-manualWrap');
+  const keyboardWrap=document.getElementById('e-answerKeyboardWrap');
+  if(row) row.style.display=uses?'flex':'none';
+  if(notesBtn) notesBtn.classList.toggle('active',e_answerMode==='notes');
+  if(keyBtn) keyBtn.classList.toggle('active',e_answerMode==='keyboard');
+  if(manualWrap) manualWrap.style.display=(uses&&e_answerMode==='notes')?'block':'none';
+  if(keyboardWrap) keyboardWrap.style.display=(uses&&e_answerMode==='keyboard')?'block':'none';
 }
 
 function e_getLengthTarget(){
@@ -6737,6 +6834,7 @@ function e_updateUI() {
   e_renderRevealControls();
   e_updateRevealDisplay();
   e_renderManualNotes();
+  if(typeof e_updateAnswerMethodUI==='function') e_updateAnswerMethodUI();
   e_renderChordReplayProgress();
   e_renderIntervalNameButtons();
   if(e_mode!=='interval_name'){
@@ -6756,8 +6854,10 @@ function e_updateModeUI() {
   if(intCtrl) intCtrl.style.display=isIntervalMode?'grid':'none';
   const label=document.querySelector('.ear-mode-label');
   if(label) label.textContent={note:'Single Note Replay',interval:'Interval Replay',interval_name:'Name the Interval',chord_quality:'Name the Chord',chord_replay:'Chord Replay'}[e_mode]||e_mode;
+  const helpEl=document.getElementById('e-modeHelp');
+  if(helpEl) helpEl.textContent=e_getModeHelpText();
   const statusEl=document.getElementById('e-status');
-  if(statusEl) statusEl.textContent=e_mode==='interval_number'?'Choose Audition to preview, or Start to hear the interval.':e_mode==='chord_quality'?'Choose Audition to preview, or Start to hear a chord.':e_mode==='chord_replay'?'Choose Audition to preview, or Start to hear the chord.':isIntervalMode?'Choose Audition to preview, or Start to hear an interval.':'Choose Start to begin.';
+  if(statusEl) statusEl.textContent=e_mode==='interval_number'?'Choose Audition to preview, or Start to hear the interval.':e_mode==='chord_quality'?'Choose Audition to preview, or Start to hear a chord.':e_mode==='chord_replay'?'Choose Audition to preview, or Start to hear the chord.':isIntervalMode?'Choose Audition to preview, or Start to hear an interval.':'Choose Start to hear the note.';
   const manualWrap=document.getElementById('e-manualWrap');
   if(manualWrap) manualWrap.style.display=(e_mode==='interval_name'||e_mode==='chord_quality')?'none':'';
   const _crpEl=document.getElementById('e-chordReplayProgress');if(_crpEl)_crpEl.style.display=e_mode==='chord_replay'?'flex':'none';
@@ -6766,6 +6866,7 @@ function e_updateModeUI() {
   e_renderIntervalNameButtons();
   if(e_mode!=='interval_name'){e_renderIntervalNumberButtons();e_renderIntervalQualityButtons();}
   e_renderChordQualityButtons();
+  if(typeof e_updateAnswerMethodUI==='function') e_updateAnswerMethodUI();
   e_updateEarAuditionVisibility(); e_updateIntervalAidUI(); e_updateEarButtons();
 }
 
