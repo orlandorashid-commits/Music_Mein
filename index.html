@@ -1682,6 +1682,27 @@ body {
 }
 
 
+/* Rhythm odd-meter grouping: subtle separators show the selected feel inside each bar. */
+#page-rhythm .rhythm-group-sep{
+  width:2px;
+  min-height:42px;
+  background:rgba(201,168,76,.38);
+  border-radius:2px;
+  margin:0 2px;
+  flex-shrink:0;
+  align-self:stretch;
+}
+#page-rhythm .rhythm-visual.rhythm-density-chart .rhythm-group-sep,
+#page-rhythm .rhythm-preview .rhythm-group-sep{min-height:28px;margin:0 1px;}
+#page-rhythm .rhythm-visual.rhythm-wide-meter .rhythm-group-sep{min-height:30px;margin:0 1px;background:rgba(201,168,76,.45);}
+@media(max-width:700px){
+  #page-rhythm .rhythm-group-sep{min-height:32px;margin:0 1px;}
+  #page-rhythm .rhythm-visual.rhythm-wide-meter .rhythm-group-sep{min-height:24px;margin:0 1px;}
+}
+@media(max-width:420px){
+  #page-rhythm .rhythm-group-sep{min-height:28px;margin:0 1px;}
+}
+
 /* Rhythm wide-meter visual sizing: keep 9/8 and 12/8 bars readable without changing other tabs. */
 #page-rhythm .rhythm-visual.rhythm-wide-meter .rhythm-row{gap:.2rem;}
 #page-rhythm .rhythm-visual.rhythm-wide-meter .rhythm-bar{gap:.14rem;}
@@ -1703,6 +1724,43 @@ body {
   #page-rhythm .rhythm-visual.rhythm-wide-meter .rhythm-beat.rhythm-subbeat.subdiv-4{width:31px;}
   #page-rhythm .rhythm-visual.rhythm-wide-meter .rhythm-subcell{font-size:.28rem;}
   #page-rhythm .rhythm-visual.rhythm-wide-meter .rhythm-bar-sep{min-height:24px;margin:0 1px;}
+}
+
+
+
+/* Rhythm staff display foundation: optional traditional notation layer, scoped only to Rhythm. */
+#page-rhythm .rhythm-visual.rhythm-display-staff-only,
+#page-rhythm .rhythm-visual.rhythm-display-both{align-items:stretch;}
+#page-rhythm .rhythm-block-display{width:100%;display:flex;flex-direction:column;align-items:center;gap:.55rem;}
+#page-rhythm .rhythm-staff-display{width:100%;border:1px solid var(--border);border-radius:12px;background:linear-gradient(135deg,rgba(123,94,167,.10),rgba(201,168,76,.05));padding:.75rem .85rem;margin:.15rem auto .25rem;overflow:hidden;}
+#page-rhythm .rhythm-staff-display.is-placeholder{opacity:.98;}
+#page-rhythm .rhythm-staff-top{display:flex;align-items:center;justify-content:space-between;gap:.75rem;margin-bottom:.55rem;flex-wrap:wrap;}
+#page-rhythm .rhythm-staff-title{font-family:'DM Mono',monospace;font-size:.68rem;font-weight:900;text-transform:uppercase;letter-spacing:.08em;color:var(--gold);}
+#page-rhythm .rhythm-staff-meta{font-family:'DM Mono',monospace;font-size:.62rem;font-weight:800;color:var(--ink3);}
+#page-rhythm .rhythm-staff-paper{position:relative;min-height:96px;border-radius:10px;background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.045);overflow:hidden;}
+#page-rhythm .rhythm-staff-lines{position:absolute;left:92px;right:16px;top:22px;height:48px;}
+#page-rhythm .rhythm-staff-line{position:absolute;left:0;right:0;height:1.5px;background:var(--ink3);opacity:.55;}
+#page-rhythm .rhythm-staff-line:nth-child(1){top:0;}
+#page-rhythm .rhythm-staff-line:nth-child(2){top:12px;}
+#page-rhythm .rhythm-staff-line:nth-child(3){top:24px;}
+#page-rhythm .rhythm-staff-line:nth-child(4){top:36px;}
+#page-rhythm .rhythm-staff-line:nth-child(5){top:48px;}
+#page-rhythm .rhythm-staff-clef{position:absolute;left:18px;top:18px;width:42px;text-align:center;font-family:'Playfair Display',serif;font-size:2.05rem;line-height:1;color:var(--gold);}
+#page-rhythm .rhythm-staff-clef.percussion{font-family:'DM Mono',monospace;font-size:1.4rem;top:30px;}
+#page-rhythm .rhythm-staff-time{position:absolute;left:62px;top:20px;width:24px;font-family:'DM Mono',monospace;font-size:1.05rem;font-weight:900;line-height:1.1;color:var(--ink);text-align:center;}
+#page-rhythm .rhythm-staff-fixed-note{position:absolute;left:142px;top:41px;width:15px;height:11px;border-radius:50%;background:var(--gold);transform:rotate(-18deg);box-shadow:38px 0 0 rgba(201,168,76,.38),76px 0 0 rgba(201,168,76,.22);}
+#page-rhythm .rhythm-staff-fixed-note::after{content:'';position:absolute;right:-2px;bottom:5px;width:2px;height:34px;background:var(--gold);border-radius:2px;}
+#page-rhythm .rhythm-staff-note-label{position:absolute;left:178px;right:16px;bottom:12px;font-size:.68rem;font-weight:700;color:var(--ink3);text-align:center;}
+#page-rhythm .rhythm-staff-mode-note{margin-top:.48rem;font-size:.72rem;line-height:1.45;color:var(--ink3);text-align:center;}
+#page-rhythm #r-staffClefGroup.staff-disabled{opacity:.42;}
+@media(max-width:700px){
+  #page-rhythm .rhythm-staff-display{padding:.65rem .6rem;}
+  #page-rhythm .rhythm-staff-paper{min-height:88px;}
+  #page-rhythm .rhythm-staff-lines{left:82px;right:10px;top:20px;}
+  #page-rhythm .rhythm-staff-clef{left:12px;}
+  #page-rhythm .rhythm-staff-time{left:54px;}
+  #page-rhythm .rhythm-staff-fixed-note{left:116px;}
+  #page-rhythm .rhythm-staff-note-label{font-size:.62rem;left:140px;}
 }
 
 </style>
@@ -2439,16 +2497,24 @@ body {
               </optgroup>
               <optgroup label="Odd Meters">
                 <option value="5/4">5/4</option>
+                <option value="7/4">7/4</option>
                 <option value="5/8">5/8</option>
                 <option value="7/8">7/8</option>
+                <option value="11/8">11/8</option>
               </optgroup>
+            </select>
+          </div>
+          <div class="p-control-group" id="r-oddFeelGroup">
+            <label>Odd Meter Feel</label>
+            <select id="r-oddFeelSelect" onchange="r_onSettingsChange()">
+              <option value="auto">Auto</option>
             </select>
           </div>
           <div class="p-control-group">
             <label>Difficulty</label>
             <select id="r-diffSelect" onchange="r_onSettingsChange()">
               <option value="easy">Easy</option>
-              <option value="medium">Medium</option>
+              <option value="medium" selected>Medium</option>
               <option value="hard">Hard</option>
               <option value="expert">Expert</option>
             </select>
@@ -2487,6 +2553,22 @@ body {
             <select id="r-rhythmGuideSelect" onchange="r_onSettingsChange()">
               <option value="on" selected>On</option>
               <option value="off">Off</option>
+            </select>
+          </div>
+          <div class="p-control-group">
+            <label>Display</label>
+            <select id="r-displaySelect" onchange="r_onSettingsChange()">
+              <option value="blocks" selected>Blocks</option>
+              <option value="staff">Staff</option>
+              <option value="both">Blocks + Staff</option>
+            </select>
+          </div>
+          <div class="p-control-group" id="r-staffClefGroup">
+            <label>Staff Clef</label>
+            <select id="r-staffClefSelect" onchange="r_onSettingsChange()">
+              <option value="percussion" selected>Percussion</option>
+              <option value="treble">Treble</option>
+              <option value="bass">Bass</option>
             </select>
           </div>
           <div class="p-control-group">
@@ -7290,7 +7372,7 @@ const P_KEY_MAP={a:'C4',w:'C#4',s:'D4',e:'D#4',d:'E4',f:'F4',t:'F#4',g:'G4',y:'G
 /* ============================================================
    RHYTHM TRAINING v1
    ============================================================ */
-let r_mode='replay', r_diff='easy', r_bpm=84, r_lengthBars=2;
+let r_mode='replay', r_diff='medium', r_bpm=84, r_lengthBars=2;
 let r_currentPattern=null, r_isPlaying=false, r_isListening=false;
 let r_playTimers=[], r_listenTimer=null, r_startTime=0, r_userTaps=[];
 let r_total=0, r_correct=0, r_streak=0, r_history=[];
@@ -7303,6 +7385,9 @@ let r_timingOffsetMs=0; // future latency calibration offset; 0 = disabled
 let r_mobileSettingsOpen=false; // mobile settings panel open/closed state
 let r_countInBars=2;
 let r_focus='random';
+let r_displayMode='blocks'; // blocks | staff | both
+let r_staffClef='percussion'; // percussion | treble | bass, fixed rhythm-note lane only
+let r_oddFeel='auto'; // selected odd-meter grouping feel, such as 2+3 or 3+2+2
 let r_guideTimers=[], r_visualTimer=null, r_countDisplayTimer=null;
 let r_transportState='stopped'; // stopped | auditioning | counting | listening
 let r_isAuditioning=false;
@@ -7387,6 +7472,21 @@ const R_BAR_VOCAB_54={
   syncopation: [[0,1.5,2.5,4],[0.5,1.5,2,3.5,4.5],[0,0.5,1.5,2.5,4],[0,1,1.5,3,4.5],[0.5,2,2.5,3.5]],
 };
 
+// 7/4 uses seven quarter-note beats per bar.
+// This extends the odd-meter family beyond 5/4 while keeping the beat-1-only accent rule.
+const R_BAR_VOCAB_74={
+  whole:       [[0]],
+  half:        [[0,2,4,6],[0,3,5],[0,4],[2,5]],
+  quarter:     [[0,1,2,3,4,5,6],[0,2,3,4,6],[0,1,3,5,6],[0,2,4,6],[0,1,2,4,6]],
+  quarter_rest:[[0,2,4,6],[0,1,3,5,6],[1,2,4,6],[0,3,5],[0,2,3,6],[1,3,4,6]],
+  accent_varied:[[0,2,4,6],[1,3,5],[0,1,3,5],[0,2,3,6],[1,2,4,6],[0,1,2,4,6]],
+  eighth:      [[0,0.5,1,1.5,2,2.5,3,3.5,4,4.5,5,5.5,6,6.5],[0,1,1.5,2,3,4.5,5,6],[0,0.5,2,2.5,3,4,5.5,6.5],[0,1,2,2.5,3.5,4.5,5,6.5]],
+  offbeat:     [[0.5,1.5,2.5,3.5,4.5,5.5,6.5],[0,1.5,2.5,3.5,5.5],[0.5,2,3.5,4,5.5,6],[0,0.5,2,3.5,4.5,6.5]],
+  dotted:      [[0,1.5,2,3.5,4,5.5,6],[0,1.5,3,4.5,6],[0,0.75,2,3,4.5,6],[0,2,3.5,4.5,6.5]],
+  triplet:     [[0,0.333,0.667,2,2.333,2.667,4,4.333,4.667,6,6.333,6.667],[0,1,1.333,1.667,3,4,5.333,5.667],[0,0.333,0.667,2,4,6],[0,2,2.333,2.667,4,6]],
+  syncopation: [[0,1.5,2.5,4,5.5],[0.5,1.5,2,3.5,4.5,6.5],[0,0.5,1.5,2.5,4,6],[0,1,1.5,3,4.5,6],[0.5,2,2.5,3.5,5.5]],
+};
+
 // 5/8 uses five eighth-note pulses per bar.
 // This keeps the next odd-meter option separate from 5/4 while preserving the beat-1-only accent rule.
 const R_BAR_VOCAB_58={
@@ -7447,6 +7547,21 @@ const R_BAR_VOCAB_98={
   syncopation: [[0,2,3.5,5,6,8],[1,2,3,5,7,8],[0,1.5,3,4.5,6,7.5],[1,3,4,6,7,8]],
 };
 
+// 11/8 uses eleven eighth-note pulses per bar.
+// This extends the odd-meter family with a wider pulse layout while keeping the beat-1-only accent rule.
+const R_BAR_VOCAB_118={
+  whole:       [[0]],
+  half:        [[0,6],[0],[5],[8]],
+  quarter:     [[0,3,6,9],[0,2,5,8],[0,3,6],[2,5,8],[0,4,7,9]],
+  quarter_rest:[[0,3,6,9],[0,6],[3,8],[0,3,9],[2,5,8]],
+  accent_varied:[[0,3,6,9],[0,4,7],[1,3,6,9],[0,2,5,8],[1,4,7,10],[0,3,5,8]],
+  eighth:      [[0,1,2,3,4,5,6,7,8,9,10],[0,2,3,5,6,8,9,10],[0,1,3,4,6,7,9,10],[0,3,4,5,6,8,9,10],[0,1,2,4,5,7,8,10]],
+  offbeat:     [[1,2,4,5,7,8,10],[0,2,4,6,8,10],[1,3,5,7,9],[0,1,4,5,7,8,10],[1,2,5,6,9,10]],
+  dotted:      [[0,3,4.5,6,9],[0,1.5,3,6,7.5,9],[0,2.5,3,6,8.5,9],[0,3,5.5,6,9],[0,1.5,4,5.5,8,9.5]],
+  triplet:     [[0,0.333,0.667,3,3.333,3.667,6,6.333,6.667,9,9.333,9.667],[0,1,1.333,1.667,3,6,7,7.333,7.667,9],[0,3,4,4.333,4.667,6,9,10],[0,0.333,0.667,3,6,8,8.333,8.667,10]],
+  syncopation: [[0,2,3.5,5,6,8,9.5],[1,2,3,5,7,8,10],[0,1.5,3,4.5,6,7.5,9],[1,3,4,6,7,9,10],[0,0.5,2.5,4,6,8.5,10]],
+};
+
 // 12/8 uses twelve eighth-note pulses per bar.
 // The metronome accents only pulse 1 of each bar, while patterns stay inside the 12-pulse bar.
 const R_BAR_VOCAB_128={
@@ -7469,9 +7584,11 @@ function r_getMeterVocab(unit){
   if((r_meter==='3/4'||(bpb===3&&r_meter!=='3/8'))&&R_BAR_VOCAB_34[unit])return R_BAR_VOCAB_34[unit];
   if(r_meter==='5/8'&&R_BAR_VOCAB_58[unit])return R_BAR_VOCAB_58[unit];
   if((r_meter==='5/4'||(bpb===5&&r_meter!=='5/8'))&&R_BAR_VOCAB_54[unit])return R_BAR_VOCAB_54[unit];
+  if(r_meter==='7/4'&&R_BAR_VOCAB_74[unit])return R_BAR_VOCAB_74[unit];
   if((r_meter==='6/8'||bpb===6)&&R_BAR_VOCAB_68[unit])return R_BAR_VOCAB_68[unit];
-  if((r_meter==='7/8'||bpb===7)&&R_BAR_VOCAB_78[unit])return R_BAR_VOCAB_78[unit];
+  if(r_meter==='7/8'&&R_BAR_VOCAB_78[unit])return R_BAR_VOCAB_78[unit];
   if((r_meter==='9/8'||bpb===9)&&R_BAR_VOCAB_98[unit])return R_BAR_VOCAB_98[unit];
+  if((r_meter==='11/8'||bpb===11)&&R_BAR_VOCAB_118[unit])return R_BAR_VOCAB_118[unit];
   if((r_meter==='12/8'||bpb===12)&&R_BAR_VOCAB_128[unit])return R_BAR_VOCAB_128[unit];
   const base=R_BAR_VOCAB[unit]||[];
   return base.map(bar=>bar.filter(v=>v<bpb));
@@ -7484,6 +7601,86 @@ function r_getMeterDisplay(){
 function r_updateMeterLabel(){
   const el=document.getElementById('r-meterLabel');
   if(el)el.textContent=r_getMeterDisplay();
+}
+
+// Odd Meter Feel options. These affect visual grouping and nudge pattern generation
+// toward the selected feel while leaving the metronome accent on beat 1 only.
+const R_ODD_METER_GROUPS={
+  '5/4':[[2,3],[3,2]],
+  '5/8':[[2,3],[3,2]],
+  '7/4':[[4,3],[3,4],[2,2,3],[2,3,2],[3,2,2]],
+  '7/8':[[2,2,3],[2,3,2],[3,2,2]],
+  '11/8':[[3,3,3,2],[3,3,2,3],[3,2,3,3],[2,3,3,3]],
+};
+function r_groupValue(group){return Array.isArray(group)?group.join('+'):'';}
+function r_groupLabel(group){return Array.isArray(group)?group.join(' + '):'';}
+function r_getGroupsForMeter(meter){return R_ODD_METER_GROUPS[meter||r_meter]||[];}
+function r_updateOddFeelOptions(){
+  const sel=document.getElementById('r-oddFeelSelect');
+  const wrap=document.getElementById('r-oddFeelGroup');
+  if(!sel)return;
+  const previous=sel.value||r_oddFeel||'auto';
+  const groups=r_getGroupsForMeter(r_meter);
+  sel.innerHTML='';
+  const add=(value,label)=>{const opt=document.createElement('option');opt.value=value;opt.textContent=label;sel.appendChild(opt);};
+  if(!groups.length){
+    add('auto','Not needed');
+    sel.value='auto';
+    sel.disabled=true;
+    r_oddFeel='auto';
+    if(wrap)wrap.style.opacity='.55';
+    return;
+  }
+  add('auto','Auto');
+  groups.forEach(g=>add(r_groupValue(g),r_groupLabel(g)));
+  const values=[...sel.options].map(o=>o.value);
+  sel.value=values.includes(previous)?previous:'auto';
+  sel.disabled=false;
+  r_oddFeel=sel.value;
+  if(wrap)wrap.style.opacity='1';
+}
+function r_getActiveOddGroup(barIndex){
+  const groups=r_getGroupsForMeter(r_meter);
+  if(!groups.length)return null;
+  if(r_oddFeel&&r_oddFeel!=='auto'){
+    const found=groups.find(g=>r_groupValue(g)===r_oddFeel);
+    if(found)return found;
+  }
+  return groups[0];
+}
+function r_getActiveOddFeelLabel(){
+  const group=r_getActiveOddGroup(0);
+  return group?r_groupLabel(group):'';
+}
+function r_getOddGroupBoundaries(group){
+  if(!Array.isArray(group)||!group.length)return [];
+  const out=[];
+  let sum=0;
+  group.forEach((g,idx)=>{
+    if(idx>0)out.push(sum);
+    sum+=Number(g)||0;
+  });
+  return out.filter(v=>v>0&&v<(r_beatsPerBar||4));
+}
+function r_isOddGroupBoundary(beat,group){
+  return r_getOddGroupBoundaries(group).some(v=>Math.abs(v-beat)<0.001);
+}
+function r_applyOddGroupingToBarPattern(bp,barIndex){
+  const group=r_getActiveOddGroup(barIndex||0);
+  if(!group||!bp||!Array.isArray(bp.beats))return bp;
+  const unit=bp.unit||'quarter';
+  // Offbeat and triplet drills keep their original vocabulary so the focus stays honest.
+  if(unit==='offbeat'||unit==='triplet'||unit==='whole')return Object.assign({},bp,{group:group.slice()});
+  const boundaries=[0].concat(r_getOddGroupBoundaries(group));
+  const beats=bp.beats.slice();
+  const shouldNudge=['quarter','quarter_rest','accent_varied','eighth','dotted','syncopation'].includes(unit);
+  if(shouldNudge){
+    boundaries.forEach(pos=>{
+      if(pos>=0&&pos<(r_beatsPerBar||4)&&!beats.some(b=>Math.abs(b-pos)<0.01))beats.push(pos);
+    });
+  }
+  beats.sort((a,b)=>a-b);
+  return{beats,unit,group:group.slice()};
 }
 
 // Unit types available per explicit Rhythm Focus selection
@@ -7500,12 +7697,67 @@ const R_FOCUS_UNITS={
   mixed:        ['quarter','eighth','offbeat','syncopation'],
 };
 
-// Random stays beginner-safe; explicit Focus selections use subdivision visuals for eighths, offbeats, dotted rhythms, triplets, and syncopation.
+// Rhythm level design. Random and Mixed Review now move through a clear progression:
+// Easy keeps large values and simple downbeats. Medium introduces rests and eighths.
+// Hard brings offbeats, dotted rhythm, and syncopation. Expert adds triplets and denser mixed ideas.
+const R_LEVELS={
+  easy:{
+    title:'Easy',
+    goal:'Large values, clear downbeats, repeated phrase.',
+    random:['whole','half','quarter','quarter','quarter_rest'],
+    mixed:['whole','half','quarter','quarter_rest'],
+    distinct:1,
+    form:'repeat',
+    maxBarCopies:99,
+    maxRowCopies:99
+  },
+  medium:{
+    title:'Medium',
+    goal:'Quarter rests and eighth notes with a simple A/B phrase.',
+    random:['half','quarter','quarter','quarter_rest','eighth'],
+    mixed:['half','quarter','quarter_rest','eighth'],
+    distinct:2,
+    form:'ab',
+    maxBarCopies:4,
+    maxRowCopies:2
+  },
+  hard:{
+    title:'Hard',
+    goal:'Offbeats, dotted rhythms, and syncopation with more variation.',
+    random:['quarter','quarter_rest','eighth','offbeat','dotted','syncopation','accent_varied'],
+    mixed:['quarter','quarter_rest','eighth','offbeat','dotted','syncopation'],
+    distinct:4,
+    form:'varied',
+    maxBarCopies:3,
+    maxRowCopies:1
+  },
+  expert:{
+    title:'Expert',
+    goal:'Dense mixed vocabulary with triplets, syncopation, and fewer repeats.',
+    random:['quarter_rest','eighth','offbeat','dotted','triplet','syncopation','syncopation','accent_varied'],
+    mixed:['quarter_rest','eighth','offbeat','dotted','triplet','syncopation'],
+    distinct:8,
+    form:'advanced',
+    maxBarCopies:2,
+    maxRowCopies:1
+  }
+};
+
+function r_getLevel(){return R_LEVELS[r_diff]||R_LEVELS.easy;}
+function r_levelTitle(){const lvl=r_getLevel();return lvl&&lvl.title?lvl.title:(r_diff||'easy');}
+function r_levelGoal(){const lvl=r_getLevel();return lvl&&lvl.goal?lvl.goal:'';}
+function r_getUnitsForLevel(focus,diff){
+  const lvl=R_LEVELS[diff]||R_LEVELS.easy;
+  if(focus==='mixed')return (lvl.mixed||lvl.random).slice();
+  if(focus!=='random'&&R_FOCUS_UNITS[focus])return R_FOCUS_UNITS[focus].slice();
+  return (lvl.random||R_LEVELS.easy.random).slice();
+}
+// Kept for compatibility with older rhythm calls.
 const R_RANDOM_UNITS={
-  easy:   ['whole','half','quarter','quarter_rest'],
-  medium: ['half','quarter','quarter_rest'],
-  hard:   ['quarter','quarter_rest','accent_varied'],
-  expert: ['quarter_rest','accent_varied','quarter'],
+  easy:R_LEVELS.easy.random,
+  medium:R_LEVELS.medium.random,
+  hard:R_LEVELS.hard.random,
+  expert:R_LEVELS.expert.random,
 };
 
 function r_getBeatMs(){return 60000/r_bpm;}
@@ -7564,10 +7816,11 @@ function r_mutateBarWithinFocus(bp,units){
 // Expert: max 2 bar copies, max 1 identical row.
 // Easy is left untouched.
 function r_reducePhraseRepetition(barSeq,diff,units){
+  const lvl=R_LEVELS[diff]||R_LEVELS.easy;
   if(diff==='easy')return barSeq;
   const result=barSeq.slice();
-  const maxBarCopies=diff==='expert'?2:diff==='hard'?3:4;
-  const maxRowCopies=diff==='expert'?1:diff==='hard'?1:2;
+  const maxBarCopies=lvl.maxBarCopies||4;
+  const maxRowCopies=lvl.maxRowCopies||2;
   // Pass 1: bar-level repetition limit
   const barCount={};
   for(let i=0;i<result.length;i++){
@@ -7599,17 +7852,15 @@ function r_buildPhrase(){
   const diff=r_diff;
   const focus=r_focus;
 
-  // Determine available unit types: explicit focus overrides difficulty
-  const units=(focus!=='random'&&R_FOCUS_UNITS[focus])
-    ?R_FOCUS_UNITS[focus]
-    :(R_RANDOM_UNITS[diff]||R_RANDOM_UNITS.easy);
+  // Determine available unit types: difficulty controls Random and Mixed Review.
+  // Explicit focus choices still honor the selected focus, while variation comes from the level.
+  const lvl=r_getLevel();
+  const units=r_getUnitsForLevel(focus,diff);
 
-  // Number of distinct bar patterns, controlled by difficulty
-  let numDistinct;
-  if(diff==='easy') numDistinct=1;
-  else if(diff==='medium') numDistinct=2;
-  else if(diff==='hard') numDistinct=Math.min(bars,4);
-  else numDistinct=Math.min(bars,Math.max(3,bars));
+  // Number of distinct bar patterns, controlled by difficulty and capped for long charts.
+  let numDistinct=Math.min(bars,lvl.distinct||1);
+  if(diff==='expert'&&bars>=16)numDistinct=Math.min(bars,8);
+  if(diff==='hard'&&bars>=16)numDistinct=Math.min(bars,6);
 
   // Select distinct patterns (try to avoid duplicates)
   const distinct=[];
@@ -7622,41 +7873,53 @@ function r_buildPhrase(){
     distinct.push(bp);
   }
 
-  // Build bar sequence based on difficulty
+  // Build bar sequence based on difficulty.
   const barSeq=[];
   if(diff==='easy'){
-    // Single repeated pattern: A A A A
+    // A A A A. Designed for first-pass accuracy and steady pulse.
     for(let b=0;b<bars;b++)barSeq.push(distinct[0]);
   } else if(diff==='medium'){
-    // Two patterns in musical forms: A B A B, A A B A, or A B B A
+    // A/B phrase forms. Repeats enough to feel musical, not random.
     const A=distinct[0],B=distinct[1]||distinct[0];
-    const form=['ABAB','AABA','ABBA'][Math.floor(Math.random()*3)];
+    const forms=['ABAB','AABA','ABBA','AABB'];
+    const form=forms[Math.floor(Math.random()*forms.length)];
     for(let b=0;b<bars;b++){
       const pos=b%4;
-      const useA=form==='ABAB'?(pos%2===0):form==='AABA'?(pos!==2):(pos===0||pos===3);
+      const useA=form==='ABAB'?(pos%2===0):form==='AABA'?(pos!==2):form==='AABB'?(pos<2):(pos===0||pos===3);
       barSeq.push(useA?A:B);
     }
   } else if(diff==='hard'){
-    // Cycle through A B C D
-    for(let b=0;b<bars;b++)barSeq.push(distinct[b%distinct.length]);
+    // A/B/C/D with occasional return to A so the phrase remains readable.
+    const forms=[[0,1,0,2],[0,1,2,3],[0,1,2,1],[0,2,1,3]];
+    const form=forms[Math.floor(Math.random()*forms.length)];
+    for(let b=0;b<bars;b++)barSeq.push(distinct[form[b%form.length]%distinct.length]);
   } else {
-    // Expert: non-trivial cycling then shuffle
-    for(let b=0;b<bars;b++)barSeq.push(distinct[(b*2+1)%distinct.length]);
-    for(let b=bars-1;b>0;b--){
-      const j=Math.floor(Math.random()*(b+1));
-      [barSeq[b],barSeq[j]]=[barSeq[j],barSeq[b]];
+    // Expert: more forward motion, but still motif-based instead of fully random.
+    const form=[0,1,2,3,1,4,2,5];
+    for(let b=0;b<bars;b++)barSeq.push(distinct[form[b%form.length]%distinct.length]);
+    // Light rotation for long phrases so pages do not all start the same way.
+    if(bars>8){
+      const shift=Math.floor(Math.random()*Math.min(4,distinct.length));
+      for(let i=0;i<shift;i++)barSeq.push(barSeq.shift());
     }
   }
 
   // Reduce obvious repetition in Medium, Hard, and Expert phrases
   const finalBarSeq=diff!=='easy'?r_reducePhraseRepetition(barSeq,diff,units):barSeq;
 
-  // Build flat beats array and structured barPatterns
+  // Build flat beats array and structured barPatterns.
+  // Odd Meter Feel can add group-start targets so the phrase matches the selected feel.
   const beats=[];
   const barPatterns=[];
   finalBarSeq.forEach((bp,barIdx)=>{
-    barPatterns.push({bar:barIdx+1,unit:bp.unit,localBeats:bp.beats.slice()});
-    bp.beats.forEach(lb=>beats.push(Math.round((lb+barIdx*(r_beatsPerBar||4))*1000)/1000));
+    const groupedBp=r_applyOddGroupingToBarPattern(bp,barIdx);
+    barPatterns.push({
+      bar:barIdx+1,
+      unit:groupedBp.unit,
+      localBeats:groupedBp.beats.slice(),
+      group:groupedBp.group?groupedBp.group.slice():null
+    });
+    groupedBp.beats.forEach(lb=>beats.push(Math.round((lb+barIdx*(r_beatsPerBar||4))*1000)/1000));
   });
 
   // Dominant unit for naming/display
@@ -7664,9 +7927,9 @@ function r_buildPhrase(){
   finalBarSeq.forEach(bp=>{unitCounts[bp.unit]=(unitCounts[bp.unit]||0)+1;});
   const dominantUnit=Object.entries(unitCounts).sort((a,b)=>b[1]-a[1])[0][0];
   const focusLabel=focus==='random'?dominantUnit.replace(/_/g,' '):focus.replace(/_/g,' ');
-  const diffLabel=diff.charAt(0).toUpperCase()+diff.slice(1);
+  const diffLabel=r_levelTitle();
   const barLabel=bars>=8?(bars+'-Bar '):'';
-  const formLabel=diff==='easy'?'Pattern':diff==='medium'?'A/B Phrase':diff==='hard'?'Varied Phrase':'Complex Phrase';
+  const formLabel=diff==='easy'?'Steady Pattern':diff==='medium'?'A/B Phrase':diff==='hard'?'Varied Phrase':'Expert Phrase';
 
   return{
     name:diffLabel+' '+barLabel+formLabel,
@@ -7678,6 +7941,7 @@ function r_buildPhrase(){
     totalBeats:bars*r_beatsPerBar,
     unit:dominantUnit,
     focusLabel,
+    oddFeelLabel:r_getActiveOddFeelLabel(),
   };
 }
 
@@ -7742,10 +8006,10 @@ function r_pickPattern(){
   r_computePages();
   r_renderPattern();
   r_updatePatternInfo();
-  r_setStatus('Choose Audition to listen or Practice to test your timing.');
+  r_setStatus(r_levelTitle()+' level loaded. Choose Audition to listen or Practice to test your timing.');
   r_setFeedback('No attempt yet.','neutral');
   console.log('[Rhythm phrase]',{
-    difficulty:r_diff,focus:r_focus,
+    difficulty:r_diff,focus:r_focus,oddFeel:r_currentPattern.oddFeelLabel,
     bars:r_currentPattern.bars,beatsPerBar:r_currentPattern.beatsPerBar,
     barPatterns:r_currentPattern.barPatterns,
     beats:r_currentPattern.beats,totalBeats:r_currentPattern.totalBeats
@@ -7761,15 +8025,23 @@ function r_onSettingsChange(){
   const rg=document.getElementById('r-rhythmGuideSelect');
   const fc=document.getElementById('r-focusSelect');
   const me=document.getElementById('r-meterSelect');
+  const of=document.getElementById('r-oddFeelSelect');
+  const ds=document.getElementById('r-displaySelect');
+  const sc=document.getElementById('r-staffClefSelect');
   r_diff=d?d.value:'easy';
   r_lengthBars=l?parseInt(l.value,10):2;
   r_countInBars=ci?parseInt(ci.value,10):2;
   r_guideClick=mt?mt.value==='on':true;
   r_rhythmGuide=rg?rg.value==='on':true;
   r_focus=fc?fc.value:'random';
+  r_displayMode=ds?ds.value:'blocks';
+  r_staffClef=sc?sc.value:'percussion';
   r_meter=me?me.value:'4/4';
-  r_beatsPerBar=r_meter==='2/4'?2:r_meter==='3/4'?3:r_meter==='3/8'?3:r_meter==='5/4'?5:r_meter==='5/8'?5:r_meter==='6/8'?6:r_meter==='7/8'?7:r_meter==='9/8'?9:r_meter==='12/8'?12:4;
+  r_beatsPerBar=r_meter==='2/4'?2:r_meter==='3/4'?3:r_meter==='3/8'?3:r_meter==='5/4'?5:r_meter==='5/8'?5:r_meter==='6/8'?6:r_meter==='7/4'?7:r_meter==='7/8'?7:r_meter==='9/8'?9:r_meter==='11/8'?11:r_meter==='12/8'?12:4;
+  r_updateOddFeelOptions();
+  r_oddFeel=of?of.value:'auto';
   r_updateMeterLabel();
+  r_updateStaffDisplayControls();
   r_pickPattern();
   r_updateMobileSettingsSummary();
 }
@@ -7843,6 +8115,50 @@ function r_localBeatHasHit(localBeats,pos,subdiv){
   const tolerance=subdiv===3?0.02:0.01;
   return (localBeats||[]).some(lb=>Math.abs(lb-pos)<=tolerance);
 }
+function r_getDisplayModeLabel(){
+  if(r_displayMode==='staff')return 'Staff';
+  if(r_displayMode==='both')return 'Blocks + Staff';
+  return 'Blocks';
+}
+function r_getStaffClefSymbol(){
+  if(r_staffClef==='treble')return '𝄞';
+  if(r_staffClef==='bass')return '𝄢';
+  return '║';
+}
+function r_getStaffClefLabel(){
+  if(r_staffClef==='treble')return 'Treble rhythm staff';
+  if(r_staffClef==='bass')return 'Bass rhythm staff';
+  return 'Percussion rhythm staff';
+}
+function r_updateStaffDisplayControls(){
+  const group=document.getElementById('r-staffClefGroup');
+  if(!group)return;
+  const active=r_displayMode==='staff'||r_displayMode==='both';
+  group.classList.toggle('staff-disabled',!active);
+}
+function r_renderStaffFoundation(activeIndex,userIndex,missIndex){
+  const wrap=document.createElement('div');
+  wrap.className='rhythm-staff-display is-placeholder';
+  const meter=r_getMeterDisplay();
+  const parts=meter.split('/');
+  const top=parts[0]||'4';
+  const bottom=parts[1]||'4';
+  const activeText=(typeof activeIndex==='number')?' · beat '+(Math.floor(activeIndex%(r_beatsPerBar||4))+1):'';
+  wrap.innerHTML=
+    '<div class="rhythm-staff-top">'+
+      '<div class="rhythm-staff-title">Staff View Foundation</div>'+
+      '<div class="rhythm-staff-meta">'+r_getStaffClefLabel()+' · '+meter+activeText+'</div>'+
+    '</div>'+
+    '<div class="rhythm-staff-paper">'+
+      '<div class="rhythm-staff-clef '+(r_staffClef==='percussion'?'percussion':'')+'">'+r_getStaffClefSymbol()+'</div>'+
+      '<div class="rhythm-staff-time"><div>'+top+'</div><div>'+bottom+'</div></div>'+
+      '<div class="rhythm-staff-lines"><div class="rhythm-staff-line"></div><div class="rhythm-staff-line"></div><div class="rhythm-staff-line"></div><div class="rhythm-staff-line"></div><div class="rhythm-staff-line"></div></div>'+
+      '<div class="rhythm-staff-fixed-note"></div>'+
+      '<div class="rhythm-staff-note-label">Fixed rhythm note lane. Traditional note values come next.</div>'+
+    '</div>'+
+    '<div class="rhythm-staff-mode-note">Stage 1 adds the display switch and staff shell only. Blocks remain untouched and grading still uses the existing rhythm engine.</div>';
+  return wrap;
+}
 function r_renderPattern(activeIndex,userIndex,missIndex){
   const el=document.getElementById('r-visual');if(!el)return;
   if(!r_currentPattern){el.innerHTML='<div class="rhythm-empty">Press Audition or Practice to begin.</div>';return;}
@@ -7854,8 +8170,11 @@ function r_renderPattern(activeIndex,userIndex,missIndex){
   if(refIndex!==null)r_ensurePageForBeat(refIndex);
 
   el.innerHTML='';
-  el.classList.remove('rhythm-density-normal','rhythm-density-compact','rhythm-density-chart','rhythm-long-chart','rhythm-wide-meter');
+  el.classList.remove('rhythm-density-normal','rhythm-density-compact','rhythm-density-chart','rhythm-long-chart','rhythm-wide-meter','rhythm-display-blocks','rhythm-display-staff-only','rhythm-display-both');
   el.classList.add(bars<=4?'rhythm-density-normal':bars<=8?'rhythm-density-compact':'rhythm-density-chart');
+  const showBlocks=r_displayMode!=='staff';
+  const showStaff=r_displayMode==='staff'||r_displayMode==='both';
+  el.classList.add(r_displayMode==='staff'?'rhythm-display-staff-only':(r_displayMode==='both'?'rhythm-display-both':'rhythm-display-blocks'));
   if(bars>16)el.classList.add('rhythm-long-chart');
   if(beatsPerBar>=9)el.classList.add('rhythm-wide-meter');
 
@@ -7919,7 +8238,16 @@ function r_renderPattern(activeIndex,userIndex,missIndex){
         }
         const barEl=document.createElement('div');
         barEl.className='rhythm-bar';
-        for(let beat=0;beat<beatsPerBar;beat++)renderBeatCell(barEl,bar,beat);
+        const barPattern=r_getBarPatternForIndex(bar);
+        const group=barPattern&&barPattern.group?barPattern.group:r_getActiveOddGroup(bar);
+        for(let beat=0;beat<beatsPerBar;beat++){
+          if(beat>0&&r_isOddGroupBoundary(beat,group)){
+            const gsep=document.createElement('div');
+            gsep.className='rhythm-group-sep';
+            barEl.appendChild(gsep);
+          }
+          renderBeatCell(barEl,bar,beat);
+        }
         rowEl.appendChild(barEl);
       }
       container.appendChild(rowEl);
@@ -7927,23 +8255,31 @@ function r_renderPattern(activeIndex,userIndex,missIndex){
   };
 
   let mainStart=0,mainEnd=bars-1;
-  if(bars>16){
-    mainStart=r_currentPage*r_barsPerPage;
-    mainEnd=Math.min(mainStart+r_barsPerPage-1,bars-1);
-    el.appendChild(makeLabel('Playing bars '+(mainStart+1)+'-'+(mainEnd+1),'rhythm-chart-label'));
-  }
-  renderBars(el,mainStart,mainEnd,false);
-
-  if(bars>16){
-    const previewStart=mainEnd+1;
-    const previewEnd=Math.min(mainEnd+r_getReadAheadBars(),bars-1);
-    if(previewStart<=previewEnd){
-      const preview=document.createElement('div');
-      preview.className='rhythm-preview';
-      preview.appendChild(makeLabel('Read ahead: bars '+(previewStart+1)+'-'+(previewEnd+1),'rhythm-preview-label'));
-      renderBars(preview,previewStart,previewEnd,true);
-      el.appendChild(preview);
+  const blockMount=document.createElement('div');
+  blockMount.className='rhythm-block-display';
+  if(showBlocks){
+    if(bars>16){
+      mainStart=r_currentPage*r_barsPerPage;
+      mainEnd=Math.min(mainStart+r_barsPerPage-1,bars-1);
+      blockMount.appendChild(makeLabel('Playing bars '+(mainStart+1)+'-'+(mainEnd+1),'rhythm-chart-label'));
     }
+    renderBars(blockMount,mainStart,mainEnd,false);
+
+    if(bars>16){
+      const previewStart=mainEnd+1;
+      const previewEnd=Math.min(mainEnd+r_getReadAheadBars(),bars-1);
+      if(previewStart<=previewEnd){
+        const preview=document.createElement('div');
+        preview.className='rhythm-preview';
+        preview.appendChild(makeLabel('Read ahead: bars '+(previewStart+1)+'-'+(previewEnd+1),'rhythm-preview-label'));
+        renderBars(preview,previewStart,previewEnd,true);
+        blockMount.appendChild(preview);
+      }
+    }
+    el.appendChild(blockMount);
+  }
+  if(showStaff){
+    el.appendChild(r_renderStaffFoundation(activeIndex,userIndex,missIndex));
   }
   r_updatePageIndicator();
 }
@@ -7968,10 +8304,15 @@ function r_updatePatternInfo(){
   const focusDisplay=r_focus==='random'
     ?(r_currentPattern.focusLabel||r_currentPattern.unit||'random')
     :r_focus.replace(/_/g,' ');
+  const feelDisplay=r_currentPattern.oddFeelLabel||r_getActiveOddFeelLabel();
   el.innerHTML=
     '<strong>'+r_currentPattern.name+'</strong>'+
+    '<br>Level: '+r_levelTitle()+
+    (r_levelGoal()?'<br><span style="color:var(--ink3)">'+r_levelGoal()+'</span>':'')+
     '<br>Focus: '+focusDisplay+
     '<br>Meter: '+(r_currentPattern.meter||r_meter)+
+    (feelDisplay?'<br>Feel: '+feelDisplay:'')+
+    '<br>Display: '+r_getDisplayModeLabel()+(r_displayMode==='blocks'?'':' · '+r_getStaffClefLabel())+
     '<br>Length: '+r_currentPattern.bars+' bar(s)'+
     '<br>Targets: '+r_currentPattern.beats.length+' taps';
 }
@@ -8150,7 +8491,10 @@ function r_updateMobileSettingsSummary(){
   const diffLabel=diff.charAt(0).toUpperCase()+diff.slice(1);
   const bars=r_lengthBars||2;
   const barsLabel=bars+(bars===1?' Bar':' Bars');
-  el.textContent=(r_meter||'4/4')+' \u00b7 '+diffLabel+' \u00b7 '+barsLabel+' \u00b7 '+(r_bpm||84)+' BPM';
+  const feelLabel=r_getActiveOddFeelLabel();
+  const meterLabel=(r_meter||'4/4')+(feelLabel?' '+feelLabel:'');
+  const displayLabel=r_getDisplayModeLabel();
+  el.textContent=meterLabel+' \u00b7 '+diffLabel+' \u00b7 '+displayLabel+' \u00b7 '+barsLabel+' \u00b7 '+(r_bpm||84)+' BPM';
 }
 
 // Play a pitched MIDI note in Rhythm Training.
