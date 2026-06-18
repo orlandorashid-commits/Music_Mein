@@ -1886,6 +1886,100 @@ body {
   #page-sight .sight-bottom-cards{grid-template-columns:1fr;gap:.75rem;}
 }
 
+
+/* Sight Reading Stage 2: treble, bass, and grand staff display. */
+#page-sight .sight-staff-wrap{overflow-x:auto;overflow-y:hidden;}
+#page-sight .sight-staff svg{min-width:720px;height:auto;}
+#page-sight .sight-staff-label{font-family:'DM Mono',monospace;font-size:9px;font-weight:800;letter-spacing:.06em;fill:var(--ink3);opacity:.85;}
+#page-sight .sight-ledger{stroke:var(--ink2);stroke-width:1.2;opacity:.55;}
+#page-sight .sight-clef{fill:var(--ink2);opacity:.84;font-family:serif;}
+#page-sight .sight-grand-brace{fill:var(--gold);opacity:.72;font-family:'Playfair Display',serif;}
+@media(max-width:700px){
+  #page-sight .sight-staff svg{min-width:620px;}
+}
+
+
+/* Sight Reading Stage 3: bar-based length foundation and transport controls. */
+#page-sight .sight-transport-row{justify-content:center;margin-top:.85rem;flex-wrap:wrap;gap:.5rem;}
+#page-sight .sight-transport-row .p-btn{min-height:40px;}
+#page-sight .sight-transport-row .p-auto-flow-btn{width:64px;min-width:64px;height:40px;}
+#page-sight .sight-transport-row .p-btn.latched{background:var(--gold);border-color:var(--gold-dark);color:white;}
+#page-sight .sight-bar-note-hint{font-size:.68rem;color:var(--ink3);text-align:center;margin-top:-.25rem;margin-bottom:.55rem;font-family:'DM Mono',monospace;}
+@media(max-width:700px){
+  #page-sight .sight-transport-row .p-btn{flex:1 1 calc(50% - .5rem);padding:.55rem .65rem;}
+  #page-sight .sight-transport-row .p-auto-flow-btn{flex:0 0 64px;}
+}
+
+
+/* Sight Reading Stage 4: true measure layout with barlines and grouped reading. */
+#page-sight .sight-staff svg{min-width:760px;height:auto;}
+#page-sight .sight-measure-line{stroke:var(--ink2);stroke-width:1.05;opacity:.58;}
+#page-sight .sight-measure-strong{stroke-width:1.55;opacity:.78;}
+#page-sight .sight-measure-label{fill:var(--ink3);font-family:'DM Mono',monospace;font-size:8px;font-weight:800;letter-spacing:.04em;opacity:.76;}
+#page-sight .sight-time{fill:var(--ink2);font-family:'DM Mono',monospace;font-size:18px;font-weight:900;text-anchor:middle;}
+#page-sight .sight-key-sig{fill:var(--ink2);opacity:.88;font-family:serif;font-weight:700;}
+#page-sight .sight-system-gap-line{stroke:var(--border);stroke-width:1;stroke-dasharray:4 6;opacity:.55;}
+#page-sight .sight-chip-bar-sep{width:1px;align-self:stretch;min-height:24px;background:var(--border);opacity:.85;margin:0 .18rem;border-radius:2px;}
+@media(max-width:700px){
+  #page-sight .sight-staff svg{min-width:660px;}
+  #page-sight .sight-measure-label{font-size:7.5px;}
+}
+
+
+
+/* Sight Reading Stage 6: key signature trainer. */
+#page-sight .sight-key-drill-card{margin-top:.75rem;margin-bottom:.75rem;}
+#page-sight .sight-keydrill-layout{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(260px,.85fr);gap:1rem;align-items:start;}
+#page-sight .sight-keydrill-controls{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:.55rem;margin-bottom:.65rem;}
+#page-sight .sight-keydrill-controls .p-control-group{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:.5rem .6rem;}
+#page-sight .sight-keydrill-controls select{width:100%;padding:.4rem .55rem;background:var(--surface);border:1px solid var(--border);border-radius:8px;color:var(--ink);font-family:'DM Sans',sans-serif;font-size:.78rem;font-weight:700;}
+#page-sight .sight-keydrill-clef-name{font-family:'DM Mono',monospace;color:var(--gold);font-weight:800;}
+#page-sight .sight-keydrill-staff{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:.55rem .35rem;overflow-x:auto;}
+#page-sight .sight-keydrill-staff svg{display:block;width:100%;min-width:440px;height:auto;}
+#page-sight .sight-keydrill-prompt{font-size:.82rem;color:var(--ink2);line-height:1.45;margin-bottom:.65rem;}
+#page-sight .sight-keydrill-prompt strong{color:var(--gold);font-family:'DM Mono',monospace;font-size:.78rem;}
+#page-sight .sight-keydrill-buttons{display:grid;grid-template-columns:repeat(auto-fit,minmax(72px,1fr));gap:.35rem;margin-bottom:.65rem;}
+#page-sight .sight-keydrill-btn{padding:.42rem .5rem;border-radius:9px;border:1px solid var(--border);background:var(--surface);color:var(--ink2);font-family:'DM Mono',monospace;font-size:.72rem;font-weight:800;cursor:pointer;transition:all .15s;}
+#page-sight .sight-keydrill-btn:hover{border-color:var(--gold);color:var(--gold);transform:translateY(-1px);}
+#page-sight .sight-keydrill-btn.correct{background:rgba(58,158,111,.18);border-color:rgba(58,158,111,.55);color:#3A9E6F;}
+#page-sight .sight-keydrill-btn.wrong{background:rgba(192,97,74,.16);border-color:rgba(192,97,74,.55);color:#C0614A;}
+#page-sight .sight-keydrill-feedback{padding:.52rem .7rem;border-radius:10px;border:1px solid var(--border);background:var(--bg2);font-size:.78rem;font-weight:700;color:var(--ink3);line-height:1.35;margin-bottom:.65rem;}
+#page-sight .sight-keydrill-feedback.correct{background:rgba(58,158,111,.14);border-color:rgba(58,158,111,.35);color:#3A9E6F;}
+#page-sight .sight-keydrill-feedback.wrong{background:rgba(192,97,74,.14);border-color:rgba(192,97,74,.35);color:#C0614A;}
+#page-sight .sight-keydrill-score{font-family:'DM Mono',monospace;font-size:.72rem;font-weight:800;color:var(--ink3);margin-left:auto;align-self:center;}
+@media(max-width:780px){#page-sight .sight-keydrill-layout{grid-template-columns:1fr;}#page-sight .sight-keydrill-staff svg{min-width:390px;}}
+
+
+/* Sight Reading Stage 8: key signature trainer levels and full major key set. */
+#page-sight .sight-keydrill-buttons{grid-template-columns:repeat(auto-fit,minmax(62px,1fr));}
+#page-sight .sight-keydrill-btn{min-height:38px;}
+#page-sight .sight-keydrill-controls{grid-template-columns:repeat(auto-fit,minmax(180px,1fr));}
+
+
+/* Sight Reading Stage 9: basic note values inside the bars. */
+#page-sight .sight-chip .sight-chip-value{margin-left:.28rem;opacity:.68;font-size:.64rem;font-weight:900;color:var(--gold);}
+#page-sight .sight-chip.done .sight-chip-value,
+#page-sight .sight-chip.current .sight-chip-value,
+#page-sight .sight-chip.hearing .sight-chip-value{color:inherit;opacity:.86;}
+#page-sight .sight-duration-label{fill:var(--ink3);font-family:'DM Mono',monospace;font-size:7px;font-weight:800;opacity:.7;text-anchor:middle;}
+#page-sight .sight-note-open{fill:var(--bg2);stroke-width:1.8;}
+
+
+/* Sight Reading Stage 10: rests inside sight-reading bars. */
+#page-sight .sight-chip.rest{border-style:dashed;color:var(--ink3);background:rgba(255,255,255,.025);}
+#page-sight .sight-chip.rest.current{background:rgba(201,168,76,.18);border-color:var(--gold);color:var(--gold);}
+#page-sight .sight-rest-symbol{stroke:var(--ink2);fill:var(--ink2);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;}
+#page-sight .sight-rest-symbol.current{stroke:var(--gold);fill:var(--gold);}
+#page-sight .sight-rest-label{fill:var(--ink3);font-family:'DM Mono',monospace;font-size:7px;font-weight:800;opacity:.72;text-anchor:middle;}
+
+
+/* Sight Reading Stage 11: eighth notes and eighth rests. */
+#page-sight .sight-note-flag{fill:none;stroke-linecap:round;stroke-linejoin:round;}
+#page-sight .sight-eighth-rest-dot{stroke:none;}
+#page-sight .sight-eighth-rest-hook{fill:none;}
+#page-sight .sight-chip.eighth .sight-chip-value{color:var(--accent-sight);}
+#page-sight .sight-chip.rest.eighth{border-style:dotted;}
+
 </style>
 </head>
 <body>
@@ -2833,18 +2927,33 @@ body {
             </select>
           </div>
           <div class="p-control-group">
-            <label>Notes</label>
+            <label>Bars</label>
             <select id="s-lengthSelect" onchange="s_onSettingsChange()">
-              <option value="4" selected>4 Notes</option>
-              <option value="8">8 Notes</option>
-              <option value="12">12 Notes</option>
-              <option value="16">16 Notes</option>
+              <option value="1" selected>1 Bar</option>
+              <option value="2">2 Bars</option>
+              <option value="4">4 Bars</option>
+              <option value="8">8 Bars</option>
+            </select>
+          </div>
+          <div class="p-control-group">
+            <label>Note Values</label>
+            <select id="s-noteValueSelect" onchange="s_onSettingsChange()">
+              <option value="quarter" selected>Quarter Notes</option>
+              <option value="quarter_half">Quarter + Half</option>
+              <option value="whole_half_quarter">Whole + Half + Quarter</option>
+              <option value="quarter_rests">Quarter Notes + Quarter Rests</option>
+              <option value="mixed_rests">Mixed Notes + Rests</option>
+              <option value="quarter_eighth">Quarter + Eighth</option>
+              <option value="eighth_rests">Eighth Notes + Rests</option>
+              <option value="mixed_eighth_rests">Mixed Notes + Rests + Eighths</option>
             </select>
           </div>
           <div class="p-control-group">
             <label>Clef</label>
             <select id="s-clefSelect" onchange="s_onSettingsChange()">
               <option value="treble" selected>Treble</option>
+              <option value="bass">Bass</option>
+              <option value="grand">Grand Staff</option>
             </select>
           </div>
           <div class="p-control-group">
@@ -2884,11 +2993,17 @@ body {
             </div>
             <div class="sight-note-row" id="s-noteRow"></div>
             <div class="sight-feedback neutral" id="s-feedback">Press Start to begin.</div>
-            <div class="p-btn-row" style="justify-content:center;margin-top:.85rem;flex-wrap:wrap;gap:.5rem;">
+            <div class="sight-bar-note-hint" id="s-barNoteHint">1 bar · 4 notes</div>
+            <div class="p-btn-row sight-transport-row">
+              <button class="p-btn p-btn-sec" id="s-auditionBtn" onclick="s_audition()">&#9834; Audition</button>
               <button class="p-btn p-btn-primary" id="s-startBtn" onclick="s_start()">&#9654; Start</button>
-              <button class="p-btn p-btn-sec" onclick="s_hearIt()">&#9834; Hear It</button>
-              <button class="p-btn p-btn-sec" onclick="s_nextExercise()">Next &#8594;</button>
-              <button class="p-btn p-btn-sec" onclick="s_reset()">&#8634; Reset</button>
+              <button class="p-btn p-btn-sec" id="s-stopBtn" onclick="s_stopTransport()">&#9632; Stop</button>
+              <button class="p-btn p-btn-sec" id="s-prevBtn" onclick="s_prevExercise()">&#8592; Previous</button>
+              <button class="p-btn p-btn-sec" id="s-nextBtn" onclick="s_nextExercise()">Next &#8594;</button>
+              <button class="p-btn p-btn-sec" id="s-redoBtn" onclick="s_redoExercise()">&#8635; Redo</button>
+              <button class="p-btn p-btn-danger" id="s-resetBtn" onclick="s_reset()">&#10005; Reset</button>
+              <button class="p-btn p-btn-sec p-auto-flow-btn" id="s-autoNextBtn" onclick="s_toggleAutoNext()"><span>Auto</span><span>Next</span></button>
+              <button class="p-btn p-btn-sec p-auto-flow-btn" id="s-autoStartBtn" onclick="s_toggleAutoStart()"><span>Auto</span><span>Start</span></button>
             </div>
           </div>
         </div>
@@ -2927,12 +3042,52 @@ body {
           <div class="p-card">
             <div class="p-card-title">Score</div>
             <div class="sight-score" id="s-score">0 / 0</div>
-            <div class="p-score-label">Notes correct this exercise</div>
+            <div class="p-score-label">Notes and rests correct this exercise</div>
             <div id="s-wrongCount" style="font-size:.72rem;color:var(--ink3);margin-top:.18rem;"></div>
           </div>
           <div class="p-card">
             <div class="p-card-title">Recent Exercises</div>
             <div id="s-history"><div class="p-history-empty">No attempts yet</div></div>
+          </div>
+        </div>
+
+
+
+        <div class="p-card sight-key-drill-card">
+          <div class="p-card-title">Key Signature Trainer</div>
+          <div class="sight-keydrill-layout">
+            <div class="sight-keydrill-staff" id="s-keyDrillStaff"></div>
+            <div>
+              <div class="sight-keydrill-controls">
+                <div class="p-control-group">
+                  <label>Trainer Staff</label>
+                  <select id="s-keyDrillStaffSelect" onchange="s_onKeyDrillStaffChange()">
+                    <option value="follow" selected>Follow Sight Clef</option>
+                    <option value="treble">Treble Clef</option>
+                    <option value="bass">Bass Clef</option>
+                    <option value="grand">Grand Staff</option>
+                    <option value="alto">Alto C Clef</option>
+                    <option value="tenor">Tenor C Clef</option>
+                  </select>
+                </div>
+                <div class="p-control-group">
+                  <label>Trainer Level</label>
+                  <select id="s-keyDrillLevelSelect" onchange="s_onKeyDrillLevelChange()">
+                    <option value="beginner" selected>Beginner</option>
+                    <option value="intermediate">Intermediate</option>
+                    <option value="expert">Expert</option>
+                  </select>
+                </div>
+              </div>
+              <div class="sight-keydrill-prompt" id="s-keyDrillPrompt">Identify the key signature. Choose the trainer staff and level from the dropdowns.</div>
+              <div class="sight-keydrill-buttons" id="s-keyDrillButtons"></div>
+              <div class="sight-keydrill-feedback neutral" id="s-keyDrillFeedback">Press New Key to begin.</div>
+              <div class="p-btn-row" style="margin-bottom:0;align-items:center;">
+                <button class="p-btn p-btn-primary" id="s-keyDrillNewBtn" onclick="s_keyDrillNew(true)">New Key</button>
+                <button class="p-btn p-btn-sec" id="s-keyDrillRevealBtn" onclick="s_keyDrillReveal()">Reveal</button>
+                <span class="sight-keydrill-score" id="s-keyDrillScore">0 / 0</span>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -7497,9 +7652,10 @@ function e_init() {
 
 
 /* ============================================================
-   SIGHT READING — Phase 2
-   Treble clef, C/G/F Major, accidentals, MIDI grading,
-   octave match, metronome, volume controls, Hear It highlight
+   SIGHT READING — Phase 3
+   Treble, bass, and grand staff display, expanded keys,
+   accidentals, MIDI grading, octave match, metronome,
+   volume controls, and Hear It highlight
    ============================================================ */
 
 // SVG y-coordinates for noteheads (viewBox 0 0 540 108)
@@ -7515,7 +7671,7 @@ const S_NOTE_Y={
 };
 
 // Note pools by key (C4-C5 range, treble clef)
-const S_KEY_POOLS={
+const S_TREBLE_POOLS={
   C:['C4','D4','E4','F4','G4','A4','B4','C5'],
   G:['C4','D4','E4','F#4','G4','A4','B4','C5'],
   D:['C#4','D4','E4','F#4','G4','A4','B4','C#5'],
@@ -7526,6 +7682,198 @@ const S_KEY_POOLS={
   Eb:['C4','D4','Eb4','F4','G4','Ab4','Bb4','C5'],
   Ab:['C4','Db4','Eb4','F4','G4','Ab4','Bb4','C5']
 };
+
+const S_BASS_POOLS={
+  C:['C3','D3','E3','F3','G3','A3','B3','C4'],
+  G:['C3','D3','E3','F#3','G3','A3','B3','C4'],
+  D:['C#3','D3','E3','F#3','G3','A3','B3','C#4'],
+  A:['C#3','D3','E3','F#3','G#3','A3','B3','C#4'],
+  E:['C#3','D#3','E3','F#3','G#3','A3','B3','C#4'],
+  F:['C3','D3','E3','F3','G3','A3','Bb3','C4'],
+  Bb:['C3','D3','Eb3','F3','G3','A3','Bb3','C4'],
+  Eb:['C3','D3','Eb3','F3','G3','Ab3','Bb3','C4'],
+  Ab:['C3','Db3','Eb3','F3','G3','Ab3','Bb3','C4']
+};
+
+const S_KEY_POOLS=S_TREBLE_POOLS;
+const S_NOTE_LETTER_STEP={C:0,D:1,E:2,F:3,G:4,A:5,B:6};
+
+function s_noteParts(note){
+  const m=String(note||'').match(/^([A-G])([b#]?)(\d+)$/);
+  if(!m)return null;
+  return {letter:m[1],acc:m[2]||'',oct:parseInt(m[3],10)};
+}
+
+function s_diatonicValue(note){
+  const p=s_noteParts(note);if(!p)return 0;
+  return p.oct*7+S_NOTE_LETTER_STEP[p.letter];
+}
+
+function s_midiValue(note){
+  const p=s_noteParts(note);if(!p)return 60;
+  const semis={C:0,D:2,E:4,F:5,G:7,A:9,B:11};
+  const acc=p.acc==='#'?1:(p.acc==='b'?-1:0);
+  return (p.oct+1)*12+semis[p.letter]+acc;
+}
+
+function s_poolForCurrentClef(){
+  const treble=S_TREBLE_POOLS[s_key]||S_TREBLE_POOLS.C;
+  const bass=S_BASS_POOLS[s_key]||S_BASS_POOLS.C;
+  if(s_clef==='bass')return bass;
+  if(s_clef==='grand'){
+    const merged=[...bass,...treble.filter(n=>!bass.includes(n))];
+    return merged.sort((a,b)=>s_midiValue(a)-s_midiValue(b));
+  }
+  return treble;
+}
+
+function s_staffForNote(note){
+  if(s_clef==='grand')return s_midiValue(note)<=60?'bass':'treble';
+  return s_clef==='bass'?'bass':'treble';
+}
+
+function s_staffBottomBase(staff){
+  if(staff==='bass')return 'G2';
+  if(staff==='alto')return 'F3';
+  if(staff==='tenor')return 'D3';
+  return 'E4';
+}
+
+function s_staffY(note,staff,bottomLineY){
+  const base=s_staffBottomBase(staff);
+  return bottomLineY-(s_diatonicValue(note)-s_diatonicValue(base))*6;
+}
+
+const S_KEY_SIGNATURES={
+  C:{type:'none',count:0},
+  G:{type:'sharp',count:1},
+  D:{type:'sharp',count:2},
+  A:{type:'sharp',count:3},
+  E:{type:'sharp',count:4},
+  B:{type:'sharp',count:5},
+  'F#':{type:'sharp',count:6},
+  'C#':{type:'sharp',count:7},
+  F:{type:'flat',count:1},
+  Bb:{type:'flat',count:2},
+  Eb:{type:'flat',count:3},
+  Ab:{type:'flat',count:4},
+  Db:{type:'flat',count:5},
+  Gb:{type:'flat',count:6},
+  Cb:{type:'flat',count:7}
+};
+const S_KEY_SIG_LETTERS={
+  sharp:['F','C','G','D','A','E','B'],
+  flat:['B','E','A','D','G','C','F']
+};
+const S_KEY_SIG_STAFF_NOTES={
+  sharp:{
+    treble:['F5','C5','G5','D5','A4','E5','B4'],
+    bass:['F3','C3','G3','D3','A2','E3','B2'],
+    alto:['F4','C4','G4','D4','A3','E4','B3'],
+    tenor:['F3','C4','G3','D4','A3','E4','B3']
+  },
+  flat:{
+    treble:['B4','E5','A4','D5','G4','C5','F4'],
+    bass:['B2','E3','A2','D3','G2','C3','F2'],
+    alto:['B3','E4','A3','D4','G3','C4','F3'],
+    tenor:['B3','E4','A3','D4','G3','C4','F3']
+  }
+};
+function s_keySignatureInfo(key){
+  return S_KEY_SIGNATURES[key]||S_KEY_SIGNATURES.C;
+}
+function s_keyAccidentalCovered(note){
+  const p=s_noteParts(note);
+  const info=s_keySignatureInfo(s_key);
+  if(!p||!info||info.type==='none')return false;
+  if(info.type==='sharp'&&p.acc!=='#')return false;
+  if(info.type==='flat'&&p.acc!=='b')return false;
+  const letters=(S_KEY_SIG_LETTERS[info.type]||[]).slice(0,info.count);
+  return letters.includes(p.letter);
+}
+
+
+function s_itemIsRest(item){
+  return !!(item&&typeof item==='object'&&(item.rest===true||item.type==='rest'));
+}
+function s_itemNote(item){
+  if(s_itemIsRest(item))return '';
+  return (item&&typeof item==='object')?item.note:item;
+}
+function s_itemBeats(item){
+  return (item&&typeof item==='object')?(item.beats||1):1;
+}
+function s_itemValue(item){
+  return (item&&typeof item==='object')?(item.value||'quarter'):'quarter';
+}
+function s_valueName(beats){
+  return beats>=4?'whole':(beats>=2?'half':(beats>=1?'quarter':'eighth'));
+}
+function s_valueSymbol(item){
+  const base=({eighth:'e',quarter:'q',half:'h',whole:'w'}[s_itemValue(item)]||'q');
+  return s_itemIsRest(item)?base+'r':base;
+}
+function s_valueReadable(item){
+  return ({eighth:'eighth',quarter:'quarter',half:'half',whole:'whole'}[s_itemValue(item)]||'quarter');
+}
+function s_valueArticle(item){
+  return s_valueReadable(item)==='eighth'?'an':'a';
+}
+function s_beatsReadable(beats){
+  if(beats===0.5)return 'half a beat';
+  if(beats===1)return '1 beat';
+  return beats+' beats';
+}
+function s_valueModeLabel(mode){
+  return ({
+    quarter:'Quarter notes',
+    quarter_half:'Quarter and half notes',
+    whole_half_quarter:'Whole, half, and quarter notes',
+    quarter_rests:'Quarter notes and rests',
+    mixed_rests:'Mixed notes and rests',
+    quarter_eighth:'Quarter and eighth notes',
+    eighth_rests:'Eighth notes and rests',
+    mixed_eighth_rests:'Mixed notes, rests, and eighths'
+  }[mode||s_noteValueMode]||'Quarter notes');
+}
+function s_valueChoices(){
+  if(s_noteValueMode==='quarter_half')return [1,1,1,2];
+  if(s_noteValueMode==='whole_half_quarter')return [1,1,2,2,4];
+  if(s_noteValueMode==='mixed_rests')return [1,1,2,2,4];
+  if(s_noteValueMode==='quarter_eighth')return [0.5,0.5,1,1,1];
+  if(s_noteValueMode==='eighth_rests')return [0.5,0.5,0.5,1,1];
+  if(s_noteValueMode==='mixed_eighth_rests')return [0.5,0.5,1,1,2,2,4];
+  return [1];
+}
+function s_restChance(){
+  if(s_noteValueMode==='quarter_rests')return .22;
+  if(s_noteValueMode==='mixed_rests')return .18;
+  if(s_noteValueMode==='eighth_rests')return .20;
+  if(s_noteValueMode==='mixed_eighth_rests')return .18;
+  return 0;
+}
+function s_itemDisplayText(item){
+  if(s_itemIsRest(item)){
+    const label=s_showNoteNames?'Rest':'◇';
+    return label+' <span class="sight-chip-value">'+s_valueSymbol(item)+'</span>';
+  }
+  const note=s_itemNote(item)||'?';
+  const main=s_showNoteNames?note:'●';
+  return main+' <span class="sight-chip-value">'+s_valueSymbol(item)+'</span>';
+}
+function s_itemPromptText(item){
+  if(s_itemIsRest(item))return s_valueArticle(item)+' '+s_valueReadable(item)+' rest';
+  const note=s_itemNote(item)||'?';
+  return s_showNoteNames?note:'the note';
+}
+function s_sequenceBeatStart(index){
+  let beat=0;
+  for(let i=0;i<index&&i<s_sequence.length;i++)beat+=s_itemBeats(s_sequence[i]);
+  return beat;
+}
+function s_totalSequenceBeats(){
+  return s_sequence.reduce((sum,item)=>sum+s_itemBeats(item),0);
+}
 
 // State
 let s_sequence=[];
@@ -7538,8 +7886,11 @@ let s_totalWrong=0;
 let s_history=[];
 let s_showNoteNames=true;
 let s_diff='medium';
+let s_bars=1;
 let s_length=4;
 let s_key='C';
+let s_clef='treble';
+let s_noteValueMode='quarter';
 let s_octaveMatch='exact';
 let s_hearItIndex=-1;
 let s_hearItTimers=[];
@@ -7548,6 +7899,196 @@ let s_bpm=84;
 let s_metronomeOn=false;
 let s_metroTimer=null;
 let s_metroBeat=0;
+let s_autoNext=false;
+let s_autoStart=false;
+let s_autoTimer=null;
+let s_exercises=[];
+let s_exercisePos=-1;
+let s_restTimer=null;
+let s_restToken=0;
+let s_restWrong=false;
+
+let s_keyDrillKey='C';
+let s_keyDrillStaffMode='follow';
+let s_keyDrillLevel='beginner';
+let s_keyDrillSelected='';
+let s_keyDrillAnswered=false;
+let s_keyDrillCorrect=0;
+let s_keyDrillTotal=0;
+const S_KEY_DRILL_LEVELS={
+  beginner:['C','G','D','F','Bb'],
+  intermediate:['C','G','D','A','E','F','Bb','Eb','Ab'],
+  expert:['C','G','D','A','E','B','F#','C#','F','Bb','Eb','Ab','Db','Gb','Cb']
+};
+function s_keyDrillKeysForLevel(){
+  return S_KEY_DRILL_LEVELS[s_keyDrillLevel]||S_KEY_DRILL_LEVELS.beginner;
+}
+function s_keyDrillLevelLabel(){
+  return ({beginner:'Beginner',intermediate:'Intermediate',expert:'Expert'}[s_keyDrillLevel]||'Beginner');
+}
+
+function s_keyLabel(key){
+  return (key||'C')+' Major';
+}
+
+function s_keyDrillClef(){
+  const mode=s_keyDrillStaffMode||'follow';
+  if(mode==='treble'||mode==='bass'||mode==='grand'||mode==='alto'||mode==='tenor')return mode;
+  return s_clef==='bass'?'bass':(s_clef==='grand'?'grand':'treble');
+}
+
+function s_keyDrillClefLabel(clef){
+  return ({treble:'treble clef',bass:'bass clef',grand:'grand staff',alto:'alto C clef',tenor:'tenor C clef'}[clef]||'treble clef');
+}
+
+function s_onKeyDrillStaffChange(){
+  const sel=document.getElementById('s-keyDrillStaffSelect');
+  if(sel)s_keyDrillStaffMode=sel.value||'follow';
+  s_renderKeyDrill();
+}
+
+function s_onKeyDrillLevelChange(){
+  const sel=document.getElementById('s-keyDrillLevelSelect');
+  if(sel)s_keyDrillLevel=sel.value||'beginner';
+  const keys=s_keyDrillKeysForLevel();
+  if(!keys.includes(s_keyDrillKey)){
+    s_keyDrillKey=keys[0]||'C';
+    s_keyDrillSelected='';
+    s_keyDrillAnswered=false;
+  }
+  s_renderKeyDrill();
+  s_keyDrillSetFeedback('Level updated. Press New Key for a fresh key signature.','neutral');
+}
+
+function s_keyDrillSetFeedback(msg,type){
+  const el=document.getElementById('s-keyDrillFeedback');
+  if(!el)return;
+  el.textContent=msg;
+  el.className='sight-keydrill-feedback '+(type||'neutral');
+}
+
+function s_keyDrillNew(showPrompt){
+  const keys=s_keyDrillKeysForLevel();
+  let next=s_keyDrillKey;
+  let tries=0;
+  while(tries<20&&next===s_keyDrillKey&&keys.length>1){
+    next=keys[Math.floor(Math.random()*keys.length)];
+    tries++;
+  }
+  if(!keys.includes(next))next=keys[0]||'C';
+  s_keyDrillKey=next;
+  s_keyDrillSelected='';
+  s_keyDrillAnswered=false;
+  s_renderKeyDrill();
+  if(showPrompt)s_keyDrillSetFeedback('Identify the key signature.','neutral');
+}
+
+function s_keyDrillAnswer(key){
+  if(s_keyDrillAnswered)return;
+  s_keyDrillSelected=key;
+  s_keyDrillAnswered=true;
+  s_keyDrillTotal++;
+  const ok=key===s_keyDrillKey;
+  if(ok)s_keyDrillCorrect++;
+  s_keyDrillSetFeedback(ok?'Correct: '+s_keyLabel(s_keyDrillKey)+'.':'Not this time. It was '+s_keyLabel(s_keyDrillKey)+'.',ok?'correct':'wrong');
+  s_renderKeyDrill();
+}
+
+function s_keyDrillReveal(){
+  s_keyDrillAnswered=true;
+  s_keyDrillSelected='';
+  s_keyDrillSetFeedback('Reveal: '+s_keyLabel(s_keyDrillKey)+'.','neutral');
+  s_renderKeyDrill();
+}
+
+function s_renderKeyDrillButtons(){
+  const el=document.getElementById('s-keyDrillButtons');
+  if(!el)return;
+  const keys=s_keyDrillKeysForLevel();
+  el.innerHTML=keys.map(key=>{
+    let cls='sight-keydrill-btn';
+    if(s_keyDrillAnswered&&key===s_keyDrillKey)cls+=' correct';
+    if(s_keyDrillAnswered&&s_keyDrillSelected===key&&key!==s_keyDrillKey)cls+=' wrong';
+    return `<button class="${cls}" onclick="s_keyDrillAnswer('${key}')">${s_keyLabel(key).replace(' Major','')}</button>`;
+  }).join('');
+}
+
+function s_keyDrillLineSet(lines,W){
+  let out='';
+  lines.forEach(y=>{
+    out+='<line x1="14" y1="'+y+'" x2="'+(W-10)+'" y2="'+y+'" stroke="var(--ink2)" stroke-width="1.2" opacity=".52"/>';
+  });
+  return out;
+}
+
+function s_keyDrillKeySig(key,staff,lines,x0){
+  const info=s_keySignatureInfo(key);
+  if(!info||!info.count||info.type==='none')return '';
+  const notes=((S_KEY_SIG_STAFF_NOTES[info.type]||{})[staff]||[]).slice(0,info.count);
+  const symbol=info.type==='sharp'?'\u266F':'\u266D';
+  const fontSize=info.type==='sharp'?18:19;
+  let out='';
+  notes.forEach((note,i)=>{
+    const x=x0+i*12;
+    const y=s_staffY(note,staff,lines[lines.length-1])+5;
+    out+='<text class="sight-key-sig" x="'+x+'" y="'+y+'" font-size="'+fontSize+'" text-anchor="middle">'+symbol+'</text>';
+  });
+  return out;
+}
+
+function s_keyDrillStaffSVG(){
+  const clef=s_keyDrillClef();
+  const isGrand=clef==='grand';
+  const W=520;
+  const H=isGrand?184:112;
+  const trebleClef=String.fromCodePoint(0x1D11E);
+  const bassClef=String.fromCodePoint(0x1D122);
+  const cClef=String.fromCodePoint(0x1D121);
+  const topLines=[24,36,48,60,72];
+  const bassLines=isGrand?[104,116,128,140,152]:topLines;
+  let svg='<svg viewBox="0 0 '+W+' '+H+'" xmlns="http://www.w3.org/2000/svg">';
+  svg+=s_keyDrillLineSet(topLines,W);
+  if(isGrand)svg+=s_keyDrillLineSet(bassLines,W);
+  if(isGrand){
+    svg+='<line class="sight-measure-line sight-measure-strong" x1="78" y1="'+topLines[0]+'" x2="78" y2="'+bassLines[4]+'"/>';
+    svg+='<text class="sight-clef" x="22" y="88" font-size="74">'+trebleClef+'</text>';
+    svg+='<text class="sight-clef" x="24" y="152" font-size="54">'+bassClef+'</text>';
+    svg+=s_keyDrillKeySig(s_keyDrillKey,'treble',topLines,96);
+    svg+=s_keyDrillKeySig(s_keyDrillKey,'bass',bassLines,96);
+  } else {
+    const staff=(clef==='bass'||clef==='alto'||clef==='tenor')?clef:'treble';
+    let clefChar=trebleClef,clefSize=82,clefY=92,clefX=12;
+    if(staff==='bass'){clefChar=bassClef;clefSize=56;clefY=68;clefX=12;}
+    if(staff==='alto'){clefChar=cClef;clefSize=64;clefY=76;clefX=16;}
+    if(staff==='tenor'){clefChar=cClef;clefSize=64;clefY=88;clefX=16;}
+    svg+='<line class="sight-measure-line sight-measure-strong" x1="76" y1="'+topLines[0]+'" x2="76" y2="'+topLines[4]+'"/>';
+    svg+='<text class="sight-clef" x="'+clefX+'" y="'+clefY+'" font-size="'+clefSize+'">'+clefChar+'</text>';
+    svg+=s_keyDrillKeySig(s_keyDrillKey,staff,topLines,94);
+  }
+  const answerText=s_keyDrillAnswered?s_keyLabel(s_keyDrillKey):'Which key is this?';
+  svg+='<text x="'+(W-16)+'" y="'+(H-14)+'" text-anchor="end" font-size="10" fill="var(--ink3)" font-family="DM Mono, monospace" font-weight="800" opacity=".7">'+answerText+'</text>';
+  svg+='</svg>';
+  return svg;
+}
+
+function s_renderKeyDrill(){
+  const staff=document.getElementById('s-keyDrillStaff');
+  if(staff)staff.innerHTML=s_keyDrillStaffSVG();
+  s_renderKeyDrillButtons();
+  const sel=document.getElementById('s-keyDrillStaffSelect');
+  if(sel&&sel.value!==s_keyDrillStaffMode)sel.value=s_keyDrillStaffMode||'follow';
+  const lvl=document.getElementById('s-keyDrillLevelSelect');
+  if(lvl&&lvl.value!==s_keyDrillLevel)lvl.value=s_keyDrillLevel||'beginner';
+  const prompt=document.getElementById('s-keyDrillPrompt');
+  if(prompt){
+    const label=s_keyDrillClefLabel(s_keyDrillClef());
+    const mode=s_keyDrillStaffMode==='follow'?'following the main Sight Reading clef':'using the selected trainer staff';
+    prompt.innerHTML='Identify the key signature. Current staff: <strong class="sight-keydrill-clef-name">'+label+'</strong>, '+mode+'. Level: <strong class="sight-keydrill-clef-name">'+s_keyDrillLevelLabel()+'</strong>.';
+  }
+  const score=document.getElementById('s-keyDrillScore');
+  if(score)score.textContent=s_keyDrillCorrect+' / '+s_keyDrillTotal;
+}
+
 
 function s_toPlayableNote(note){
   const m=String(note||'').match(/^([A-G])([b#]?)(\d+)$/);
@@ -7564,11 +8105,14 @@ function s_pitchKey(note){
 
 function s_init(){
   s_readControls();
-  s_generateExercise(false);
+  s_createNewExercise(false);
+  s_keyDrillNew(false);
   s_renderStaff();
   s_renderNoteRow();
   s_renderScore();
   s_renderHistory();
+  s_renderKeyDrill();
+  s_updateTransportUI();
   s_setFeedback('Press Start to begin.','neutral');
   s_updateMetroVol(65);
 }
@@ -7576,28 +8120,108 @@ function s_init(){
 function s_readControls(){
   const d=document.getElementById('s-diffSelect');
   const l=document.getElementById('s-lengthSelect');
+  const nv=document.getElementById('s-noteValueSelect');
   const k=document.getElementById('s-keySelect');
+  const c=document.getElementById('s-clefSelect');
   const om=document.getElementById('s-octaveSelect');
   if(d)s_diff=d.value;
-  if(l)s_length=parseInt(l.value,10);
+  if(l){
+    s_bars=parseInt(l.value,10)||1;
+    s_length=s_bars*4;
+  }
+  if(nv)s_noteValueMode=nv.value||'quarter';
   if(k)s_key=k.value;
+  if(c)s_clef=c.value;
   if(om)s_octaveMatch=om.value;
+  s_updateBarNoteHint();
 }
 
 function s_onSettingsChange(){
   const wasActive=s_active;
   s_readControls();
-  s_generateExercise(wasActive);
+  s_createNewExercise(wasActive);
   s_renderStaff();
   s_renderNoteRow();
   s_renderScore();
+  s_renderKeyDrill();
+  s_updateTransportUI();
   if(wasActive&&s_sequence.length){
-    const cur=s_showNoteNames?s_sequence[0]:'the first note';
+    const cur=s_itemPromptText(s_sequence[0]);
     s_setFeedback('Settings updated. Play '+cur+'.','neutral');
   } else {
     s_setFeedback('Settings updated. Press Start to begin.','neutral');
   }
 }
+
+function s_updateBarNoteHint(){
+  const el=document.getElementById('s-barNoteHint');
+  if(!el)return;
+  const items=s_sequence&&s_sequence.length?s_sequence.length:0;
+  const rests=s_sequence?s_sequence.filter(s_itemIsRest).length:0;
+  const itemText=items?(' · '+items+' item'+(items===1?'':'s')):'';
+  const restText=rests?(' · '+rests+' rest'+(rests===1?'':'s')):'';
+  el.textContent=s_bars+' bar'+(s_bars===1?'':'s')+' · '+s_length+' beats'+itemText+restText+' · '+s_valueModeLabel(s_noteValueMode);
+}
+
+function s_updateTransportUI(){
+  s_updateBarNoteHint();
+  const start=document.getElementById('s-startBtn');
+  const prev=document.getElementById('s-prevBtn');
+  const stop=document.getElementById('s-stopBtn');
+  const autoNextBtn=document.getElementById('s-autoNextBtn');
+  const autoStartBtn=document.getElementById('s-autoStartBtn');
+  if(start)start.innerHTML=s_active?'&#9654; Restart':'&#9654; Start';
+  if(prev)prev.disabled=s_exercisePos<=0;
+  if(stop)stop.disabled=!s_active&&s_hearItIndex<0;
+  if(autoNextBtn)autoNextBtn.classList.toggle('latched',s_autoNext);
+  if(autoStartBtn){
+    autoStartBtn.classList.toggle('latched',s_autoStart);
+    autoStartBtn.disabled=!s_autoNext;
+  }
+}
+
+function s_clearAutoTimer(){
+  if(s_autoTimer){clearTimeout(s_autoTimer);s_autoTimer=null;}
+}
+
+function s_clearRestTimer(){
+  s_restToken++;
+  if(s_restTimer){clearTimeout(s_restTimer);s_restTimer=null;}
+  s_restWrong=false;
+}
+
+function s_storeCurrentExercise(){
+  const snap={seq:s_sequence.map(item=>item&&typeof item==='object'?Object.assign({},item):item),diff:s_diff,clef:s_clef,key:s_key,bars:s_bars,length:s_length,values:s_noteValueMode};
+  s_exercises=s_exercises.slice(0,s_exercisePos+1);
+  s_exercises.push(snap);
+  s_exercises=s_exercises.slice(-24);
+  s_exercisePos=s_exercises.length-1;
+}
+
+function s_loadExerciseSnapshot(snap,active){
+  if(!snap||!snap.seq)return;
+  s_sequence=snap.seq.slice();
+  s_diff=snap.diff||s_diff;
+  s_clef=snap.clef||s_clef;
+  s_key=snap.key||s_key;
+  s_noteValueMode=snap.values||s_noteValueMode||'quarter';
+  s_bars=snap.bars||Math.max(1,Math.round((snap.length||s_totalSequenceBeats()||4)/4));
+  s_length=s_bars*4;
+  s_index=0;
+  s_active=!!active;
+  s_scoreCorrect=0;
+  s_wrongAttempts=0;
+  s_totalWrong=0;
+  s_scoreTotal=s_sequence.length;
+  s_hearItIndex=-1;
+}
+
+function s_createNewExercise(active){
+  s_clearAutoTimer();
+  s_generateExercise(active);
+  s_storeCurrentExercise();
+}
+
 
 function s_onNoteNamesChange(){
   const sel=document.getElementById('s-noteNamesSelect');
@@ -7611,6 +8235,7 @@ function s_onOctaveMatchChange(){
 }
 
 function s_generateExercise(active){
+  s_clearRestTimer();
   s_hearItTimers.forEach(t=>clearTimeout(t));s_hearItTimers=[];
   s_hearItIndex=-1;
   s_index=0;s_active=!!active;
@@ -7620,10 +8245,22 @@ function s_generateExercise(active){
 }
 
 function s_generateSequence(){
-  const allNotes=S_KEY_POOLS[s_key]||S_KEY_POOLS.C;
-  const pool=s_diff==='easy'?allNotes.slice(0,5):allNotes;
-  const seq=[];let prev=null;
-  for(let i=0;i<s_length;i++){
+  const allNotes=s_poolForCurrentClef();
+  const pool=s_diff==='easy'?allNotes.slice(0,Math.min(6,allNotes.length)):allNotes;
+  const seq=[];let prev=null;let beat=0;
+  const targetBeats=Math.max(4,s_bars*4);
+  while(beat<targetBeats){
+    const remainingTotal=targetBeats-beat;
+    const remainingInBar=4-(beat%4);
+    const choices=s_valueChoices().filter(v=>v<=remainingTotal&&v<=remainingInBar);
+    const beats=choices.length?choices[Math.floor(Math.random()*choices.length)]:1;
+    const canRest=s_restChance()>0&&seq.length>0&&!s_itemIsRest(seq[seq.length-1]);
+    const makeRest=canRest&&Math.random()<s_restChance();
+    if(makeRest){
+      seq.push({type:'rest',rest:true,beats,value:s_valueName(beats)});
+      beat+=beats;
+      continue;
+    }
     let note,tries=0;
     do{
       const pi=prev?pool.indexOf(prev):-1;
@@ -7644,9 +8281,25 @@ function s_generateSequence(){
       }
       tries++;
     }while(tries<12&&note===prev&&pool.length>1);
-    seq.push(note);prev=note;
+    seq.push({note,beats,value:s_valueName(beats)});
+    prev=note;
+    beat+=beats;
   }
   return seq;
+}
+
+function s_beginCurrentExercise(){
+  s_clearRestTimer();
+  s_hearItTimers.forEach(t=>clearTimeout(t));s_hearItTimers=[];
+  s_hearItIndex=-1;
+  s_index=0;
+  s_active=true;
+  s_scoreCorrect=0;
+  s_wrongAttempts=0;
+  s_totalWrong=0;
+  s_scoreTotal=s_sequence.length;
+  s_renderStaff();s_renderNoteRow();s_renderScore();s_updateTransportUI();
+  s_processCurrentItem();
 }
 
 function s_start(){
@@ -7654,21 +8307,55 @@ function s_start(){
   const ns=document.getElementById('s-noteNamesSelect');
   const hideNames=(s_diff==='hard'||s_diff==='expert');
   if(ns){ns.value=hideNames?'off':'on';s_showNoteNames=!hideNames;}
-  s_generateExercise(true);
-  s_renderStaff();s_renderNoteRow();s_renderScore();
-  const cur=s_showNoteNames&&s_sequence.length?s_sequence[0]:'the first note';
-  s_setFeedback('Play '+cur+' on your MIDI keyboard.','neutral');
-  const btn=document.getElementById('s-startBtn');
-  if(btn)btn.textContent='\u25B6 Restart';
+  if(!s_sequence.length){s_createNewExercise(false);}
+  s_beginCurrentExercise();
+}
+
+function s_completeExercise(){
+  s_clearRestTimer();
+  s_active=false;
+  const pct=s_scoreTotal?Math.round((s_scoreCorrect/s_scoreTotal)*100):0;
+  s_history.unshift({diff:s_diff,clef:s_clef,key:s_key,bars:s_bars,length:s_length,notes:s_sequence.filter(item=>!s_itemIsRest(item)).length,rests:s_sequence.filter(s_itemIsRest).length,values:s_noteValueMode,correct:s_scoreCorrect,total:s_scoreTotal,pct});
+  s_history=s_history.slice(0,6);
+  s_setFeedback('Exercise complete. Score: '+pct+'%',pct>=80?'correct':'wrong');
+  s_renderHistory();
+  s_scheduleAutoNext();
+}
+
+function s_processCurrentItem(){
+  if(!s_active)return;
+  s_clearRestTimer();
+  if(s_index>=s_sequence.length){
+    s_completeExercise();
+    s_renderStaff();s_renderNoteRow();s_renderScore();s_updateTransportUI();
+    return;
+  }
+  const item=s_sequence[s_index];
+  s_renderStaff();s_renderNoteRow();s_renderScore();s_updateTransportUI();
+  if(!s_itemIsRest(item)){
+    const cur=s_itemPromptText(item);
+    s_setFeedback('Play '+cur+' on your MIDI keyboard.','neutral');
+    return;
+  }
+  const token=++s_restToken;
+  s_restWrong=false;
+  const beats=s_itemBeats(item);
+  s_setFeedback('Rest for '+s_beatsReadable(beats)+'. Do not play.','neutral');
+  s_restTimer=setTimeout(()=>{
+    if(token!==s_restToken||!s_active)return;
+    if(!s_restWrong)s_scoreCorrect++;
+    else s_totalWrong+=s_wrongAttempts;
+    s_wrongAttempts=0;
+    s_index++;
+    s_processCurrentItem();
+  },Math.max(300,Math.round((60000/s_bpm)*beats)));
 }
 
 // Called by p_handleMIDI. Sight handles live sound here because the main MIDI router only routes the note.
 function s_handleMidiNote(noteName,velocity){
   if(!s_active){s_setFeedback('Press Start first.','neutral');return;}
   if(s_index>=s_sequence.length)return;
-  const expected=s_sequence[s_index];
-  const notePitch=s_pitchKey(noteName);
-  const expectedPitch=s_pitchKey(expected);
+  const expectedItem=s_sequence[s_index];
   const last=document.getElementById('s-lastMidi');
   const dot=document.getElementById('s-midiDot');
   const mt=document.getElementById('s-midiText');
@@ -7676,23 +8363,32 @@ function s_handleMidiNote(noteName,velocity){
   if(mt)mt.textContent='MIDI: '+noteName;
   if(dot){dot.style.background='var(--gold)';setTimeout(()=>{const d=document.getElementById('s-midiDot');if(d)d.style.background='';},280);}
   if(s_browserSynthOn&&typeof p_noteOn==='function')p_noteOn(noteName,velocity||90,'live');
+
+  if(s_itemIsRest(expectedItem)){
+    s_wrongAttempts++;
+    s_restWrong=true;
+    s_setFeedback('This is a rest. Do not play during the rest.','wrong');
+    s_renderStaff(true);
+    setTimeout(()=>s_renderStaff(false),300);
+    return;
+  }
+
+  const expected=s_itemNote(expectedItem);
+  const notePitch=s_pitchKey(noteName);
+  const expectedPitch=s_pitchKey(expected);
   if(notePitch===expectedPitch){
     s_scoreCorrect++;
     s_totalWrong+=s_wrongAttempts;
     s_wrongAttempts=0;
     s_index++;
     if(s_index>=s_sequence.length){
-      s_active=false;
-      const pct=Math.round((s_scoreCorrect/s_scoreTotal)*100);
-      s_history.unshift({diff:s_diff,key:s_key,length:s_length,correct:s_scoreCorrect,total:s_scoreTotal,pct});
-      s_history=s_history.slice(0,6);
-      s_setFeedback('Exercise complete. Score: '+pct+'%',pct>=80?'correct':'wrong');
-      s_renderHistory();
+      s_completeExercise();
+      s_renderStaff();s_renderNoteRow();s_renderScore();s_updateTransportUI();
     } else {
-      const next=s_showNoteNames?s_sequence[s_index]:'the next note';
-      s_setFeedback('Correct. Play '+next+'.','correct');
+      const next=s_itemPromptText(s_sequence[s_index]);
+      s_setFeedback('Correct. Next: '+next+'.','correct');
+      s_processCurrentItem();
     }
-    s_renderStaff();s_renderNoteRow();s_renderScore();
   } else {
     s_wrongAttempts++;
     let msg='Try again.';
@@ -7710,33 +8406,46 @@ function s_handleMidiNote(noteName,velocity){
 }
 
 // Play full sequence with staff highlighting (routed through GUIDE volume)
+function s_audition(){s_hearIt();}
+
 function s_hearIt(){
   if(!s_sequence.length){s_setFeedback('Press Start first.','neutral');return;}
   s_hearItTimers.forEach(t=>clearTimeout(t));s_hearItTimers=[];
-  s_setFeedback('Playing sequence\u2026','neutral');
+  s_setFeedback('Auditioning sequence…','neutral');
   const beatMs=Math.round(60000/s_bpm);
-  const noteDur=Math.round(beatMs*0.72);
-  s_sequence.forEach((note,i)=>{
+  let beatCursor=0;
+  s_sequence.forEach((item,i)=>{
+    const note=s_itemNote(item);
+    const beats=s_itemBeats(item);
+    const startMs=beatCursor*beatMs;
+    const noteDur=Math.round(beatMs*beats*0.78);
     const t1=setTimeout(()=>{
       s_hearItIndex=i;s_renderStaff();s_renderNoteRow();
-      s_playGuideNote(note);
-    },i*beatMs);
-    const t2=setTimeout(()=>p_noteOff(s_toPlayableNote(note)),i*beatMs+noteDur);
-    s_hearItTimers.push(t1,t2);
+      if(!s_itemIsRest(item))s_playGuideNote(note);
+    },startMs);
+    s_hearItTimers.push(t1);
+    if(!s_itemIsRest(item)){
+      const t2=setTimeout(()=>p_noteOff(s_toPlayableNote(note)),startMs+noteDur);
+      s_hearItTimers.push(t2);
+    }
+    beatCursor+=beats;
   });
   const doneT=setTimeout(()=>{
     s_hearItIndex=-1;s_renderStaff();s_renderNoteRow();
     s_setFeedback('Now you try.','neutral');
-  },s_sequence.length*beatMs+280);
+  },beatCursor*beatMs+280);
   s_hearItTimers.push(doneT);
 }
 
+
 function s_stopPlayback(){
+  s_clearRestTimer();
   s_hearItTimers.forEach(t=>clearTimeout(t));s_hearItTimers=[];
   s_hearItIndex=-1;
-  if(s_sequence&&s_sequence.length)s_sequence.forEach(n=>p_noteOff(s_toPlayableNote(n)));
+  if(s_sequence&&s_sequence.length)s_sequence.forEach(n=>{if(!s_itemIsRest(n))p_noteOff(s_toPlayableNote(s_itemNote(n)));});
   s_renderStaff();
   s_renderNoteRow();
+  s_updateTransportUI();
 }
 
 // Pitched note through p_demoGain (GUIDE volume slider)
@@ -7765,16 +8474,71 @@ function s_playGuideNote(noteStr){
   }catch(e){console.warn('[s_playGuideNote]',e);}
 }
 
-function s_nextExercise(){s_start();}
+function s_nextExercise(){
+  s_readControls();
+  s_createNewExercise(false);
+  s_beginCurrentExercise();
+}
+
+function s_prevExercise(){
+  if(s_exercisePos<=0)return;
+  s_clearAutoTimer();
+  s_exercisePos--;
+  s_loadExerciseSnapshot(s_exercises[s_exercisePos],false);
+  s_renderStaff();s_renderNoteRow();s_renderScore();s_updateTransportUI();
+  s_setFeedback('Previous exercise loaded. Press Start or Audition.','neutral');
+}
+
+function s_redoExercise(){
+  if(!s_sequence.length)return;
+  s_beginCurrentExercise();
+  const cur=s_sequence.length?s_itemPromptText(s_sequence[0]):'the first note';
+  s_setFeedback('Redo started. Play '+cur+'.','neutral');
+}
+
+function s_stopTransport(){
+  s_stopPlayback();
+  s_active=false;
+  s_updateTransportUI();
+  s_setFeedback('Stopped. Press Start to continue from the beginning.','neutral');
+}
 
 function s_reset(){
   if(!s_sequence.length)return;
+  s_clearAutoTimer();
+  s_clearRestTimer();
   s_hearItTimers.forEach(t=>clearTimeout(t));s_hearItTimers=[];
   s_hearItIndex=-1;
-  s_index=0;s_active=true;s_scoreCorrect=0;s_wrongAttempts=0;s_totalWrong=0;
-  s_renderStaff();s_renderNoteRow();s_renderScore();
-  const cur=s_showNoteNames&&s_sequence.length?s_sequence[0]:'the first note';
-  s_setFeedback('Restarted. Play '+cur+'.','neutral');
+  s_index=0;s_active=false;s_scoreCorrect=0;s_wrongAttempts=0;s_totalWrong=0;
+  s_renderStaff();s_renderNoteRow();s_renderScore();s_updateTransportUI();
+  s_setFeedback('Reset. Press Start to begin this exercise.','neutral');
+}
+
+function s_toggleAutoNext(){
+  s_autoNext=!s_autoNext;
+  if(!s_autoNext)s_autoStart=false;
+  s_updateTransportUI();
+}
+
+function s_toggleAutoStart(){
+  if(!s_autoNext)return;
+  s_autoStart=!s_autoStart;
+  s_updateTransportUI();
+}
+
+function s_scheduleAutoNext(){
+  s_updateTransportUI();
+  if(!s_autoNext)return;
+  s_clearAutoTimer();
+  s_autoTimer=setTimeout(()=>{
+    s_createNewExercise(false);
+    s_renderStaff();s_renderNoteRow();s_renderScore();s_updateTransportUI();
+    if(s_autoStart){
+      s_beginCurrentExercise();
+    } else {
+      s_setFeedback('Next exercise loaded. Press Start when ready.','neutral');
+    }
+  },900);
 }
 
 function s_toggleBrowserSynth(checked){s_browserSynthOn=!!checked;}
@@ -7849,68 +8613,219 @@ function s_renderHistory(){
   if(!s_history.length){el.innerHTML='<div class="p-history-empty">No attempts yet</div>';return;}
   el.innerHTML=s_history.map(h=>
     '<div class="p-history-item">'+
-    '<span>'+(h.diff||'?')+' \u00b7 '+(h.key||'C')+' \u00b7 '+h.length+' notes</span>'+
+    '<span>'+(h.diff||'?')+' · '+(h.clef||'treble')+' · '+(h.key||'C')+' · '+(h.bars||Math.max(1,Math.round((h.length||4)/4)))+' bars · '+s_valueModeLabel(h.values||'quarter')+'</span>'+
     '<span class="p-history-grade" style="color:'+(h.pct>=80?'var(--accent-practice)':'var(--accent-ear)')+'">'+h.pct+'%</span>'+
     '</div>'
   ).join('');
 }
 
+
 function s_renderNoteRow(){
   const el=document.getElementById('s-noteRow');if(!el)return;
   if(!s_sequence.length){el.innerHTML='';return;}
-  el.innerHTML=s_sequence.map((note,i)=>{
+  let html='';let beat=0;
+  s_sequence.forEach((item,i)=>{
+    if(i>0&&beat%4===0)html+='<span class="sight-chip-bar-sep" aria-hidden="true"></span>';
     let cls='sight-chip';
+    if(s_itemValue(item)==='eighth')cls+=' eighth';
+    if(s_itemIsRest(item))cls+=' rest';
     if(i<s_index)cls+=' done';
     else if(i===s_hearItIndex)cls+=' hearing';
     else if(i===s_index&&s_active)cls+=' current';
-    const txt=s_showNoteNames?note:'\u25CF';
-    return '<span class="'+cls+'">'+txt+'</span>';
-  }).join('');
+    html+='<span class="'+cls+'">'+s_itemDisplayText(item)+'</span>';
+    beat+=s_itemBeats(item);
+  });
+  el.innerHTML=html;
 }
+
 
 function s_renderStaff(flashWrong){
   const el=document.getElementById('s-staff');if(!el)return;
-  const W=540,H=108;
-  const lY=[28,40,52,64,76];
+  const isGrand=s_clef==='grand';
+  const W=760;
+  const bars=Math.max(1,s_bars||Math.ceil((s_totalSequenceBeats()||4)/4));
+  const barsPerSystem=Math.min(4,bars);
+  const systemCount=Math.max(1,Math.ceil(bars/barsPerSystem));
+  const systemH=isGrand?214:122;
+  const H=systemCount*systemH+10;
   const n=s_sequence.length;
-  const clefW=62,padR=12;
-  const spacing=n>0?Math.min(76,(W-clefW-padR)/n):76;
-  const startX=clefW+spacing*0.4;
-  const rx=5.8,ry=4.2;
+  const sigInfo=s_keySignatureInfo(s_key);
+  const sigCount=sigInfo.count||0;
+  const sigWidth=sigCount?sigCount*10+4:0;
+  const clefW=(isGrand?112:98)+sigWidth,padR=16;
+  const barW=(W-clefW-padR)/barsPerSystem;
+  const timeX=(isGrand?86:72)+sigWidth;
+  const keySigX=isGrand?68:58;
+  const baseRx=5.8,baseRy=4.2;
+  const trebleClef=String.fromCodePoint(0x1D11E);
+  const bassClef=String.fromCodePoint(0x1D122);
+
+  function linesForSystem(systemTop,bass){
+    const base=bass?(isGrand?124:28):28;
+    return [base,base+12,base+24,base+36,base+48].map(v=>v+systemTop);
+  }
+
+  function lineSet(lines){
+    let out='';
+    lines.forEach(y=>{
+      out+='<line x1="14" y1="'+y+'" x2="'+(W-8)+'" y2="'+y+'" stroke="var(--ink2)" stroke-width="1.2" opacity=".5"/>';
+    });
+    return out;
+  }
+
+  function ledgerLines(x,y,lines,rx){
+    const top=lines[0],bottom=lines[lines.length-1];
+    let out='';
+    if(y>bottom+6){
+      for(let ly=bottom+12;ly<=y+1;ly+=12){
+        out+='<line class="sight-ledger" x1="'+(x-rx-5)+'" y1="'+ly+'" x2="'+(x+rx+5)+'" y2="'+ly+'"/>';
+      }
+    } else if(y<top-6){
+      for(let ly=top-12;ly>=y-1;ly-=12){
+        out+='<line class="sight-ledger" x1="'+(x-rx-5)+'" y1="'+ly+'" x2="'+(x+rx+5)+'" y2="'+ly+'"/>';
+      }
+    }
+    return out;
+  }
+
+  function noteColor(i){
+    if(i<s_index)return 'var(--accent-practice)';
+    if(i===s_hearItIndex)return '#7b5ea7';
+    if(i===s_index&&s_active)return flashWrong?'var(--accent-ear)':'var(--gold)';
+    return 'var(--ink2)';
+  }
+
+  function drawKeySignature(systemTop,staff,lines){
+    if(!sigCount||sigInfo.type==='none')return '';
+    const notes=((S_KEY_SIG_STAFF_NOTES[sigInfo.type]||{})[staff]||[]).slice(0,sigCount);
+    const symbol=sigInfo.type==='sharp'?'♯':'♭';
+    const fontSize=sigInfo.type==='sharp'?16:17;
+    const yOffset=sigInfo.type==='sharp'?5:5;
+    let out='';
+    notes.forEach((note,i)=>{
+      const x=keySigX+i*10;
+      const y=s_staffY(note,staff,lines[lines.length-1])+yOffset;
+      out+='<text class="sight-key-sig" x="'+x+'" y="'+y+'" font-size="'+fontSize+'" text-anchor="middle">'+symbol+'</text>';
+    });
+    return out;
+  }
+
+  function drawTimeSignature(systemTop){
+    const x=timeX;
+    return '<text class="sight-time" x="'+x+'" y="'+(systemTop+48)+'">4</text><text class="sight-time" x="'+x+'" y="'+(systemTop+70)+'">4</text>';
+  }
+
+  function drawSystem(systemIndex){
+    const systemTop=5+systemIndex*systemH;
+    const firstBar=systemIndex*barsPerSystem;
+    const barsHere=Math.min(barsPerSystem,bars-firstBar);
+    const topLines=linesForSystem(systemTop,false);
+    const bassLines=isGrand?linesForSystem(systemTop,true):topLines;
+    let out='';
+    if(systemIndex>0){
+      out+='<line class="sight-system-gap-line" x1="14" y1="'+(systemTop-10)+'" x2="'+(W-8)+'" y2="'+(systemTop-10)+'"/>';
+    }
+    if(isGrand){
+      out+=lineSet(topLines)+lineSet(bassLines);
+      out+='<line class="sight-measure-line sight-measure-strong" x1="'+(clefW-10)+'" y1="'+topLines[0]+'" x2="'+(clefW-10)+'" y2="'+bassLines[4]+'"/>';
+      out+='<text class="sight-clef" x="22" y="'+(systemTop+88)+'" font-size="74">'+trebleClef+'</text>';
+      out+='<text class="sight-clef" x="24" y="'+(systemTop+164)+'" font-size="54">'+bassClef+'</text>';
+      out+=drawKeySignature(systemTop,'treble',topLines);
+      out+=drawKeySignature(systemTop,'bass',bassLines);
+    } else {
+      const staff=s_clef==='bass'?'bass':'treble';
+      out+=lineSet(topLines);
+      const clefChar=staff==='bass'?bassClef:trebleClef;
+      const clefSize=staff==='bass'?56:82;
+      const clefY=staff==='bass'?systemTop+68:systemTop+92;
+      out+='<text class="sight-clef" x="12" y="'+clefY+'" font-size="'+clefSize+'">'+clefChar+'</text>';
+      out+=drawKeySignature(systemTop,staff,topLines);
+    }
+    out+=drawTimeSignature(systemTop);
+    for(let b=0;b<=barsHere;b++){
+      const x=clefW+b*barW;
+      const cls=(b===0||b===barsHere)?'sight-measure-line sight-measure-strong':'sight-measure-line';
+      const y1=topLines[0];
+      const y2=isGrand?bassLines[4]:topLines[4];
+      out+='<line class="'+cls+'" x1="'+x+'" y1="'+y1+'" x2="'+x+'" y2="'+y2+'"/>';
+      if(b<barsHere){
+        out+='<text class="sight-measure-label" x="'+(x+5)+'" y="'+(systemTop+15)+'">Bar '+(firstBar+b+1)+'</text>';
+      }
+    }
+    return out;
+  }
+
   let svg='<svg viewBox="0 0 '+W+' '+H+'" xmlns="http://www.w3.org/2000/svg">';
-  lY.forEach(y=>{
-    svg+='<line x1="12" y1="'+y+'" x2="'+(W-6)+'" y2="'+y+'" stroke="var(--ink2)" stroke-width="1.2" opacity=".5"/>';
-  });
-  svg+='<text x="10" y="92" font-family="serif" font-size="82" fill="var(--ink2)" opacity=".8">'+
-       String.fromCodePoint(0x1D11E)+'</text>';
+  for(let s=0;s<systemCount;s++)svg+=drawSystem(s);
+
   if(n>0){
-    s_sequence.forEach((note,i)=>{
-      const y=S_NOTE_Y[note];if(!y)return;
-      const x=startX+i*spacing;
-      if(note==='C4'){
-        svg+='<line x1="'+(x-rx-4)+'" y1="88" x2="'+(x+rx+4)+'" y2="88" stroke="var(--ink2)" stroke-width="1.2" opacity=".5"/>';
+    let beatCursor=0;
+    s_sequence.forEach((item,i)=>{
+      const note=s_itemNote(item);
+      const beats=s_itemBeats(item);
+      const value=s_itemValue(item);
+      const barIndex=Math.floor(beatCursor/4);
+      const beatInBar=beatCursor%4;
+      const systemIndex=Math.floor(barIndex/barsPerSystem);
+      const localBar=barIndex%barsPerSystem;
+      const systemTop=5+systemIndex*systemH;
+      const restStaff=isGrand?'treble':(s_clef==='bass'?'bass':'treble');
+      const staff=s_itemIsRest(item)?restStaff:s_staffForNote(note);
+      const topLines=linesForSystem(systemTop,false);
+      const bassLines=isGrand?linesForSystem(systemTop,true):topLines;
+      const lines=isGrand&&staff==='bass'?bassLines:topLines;
+      const bottom=lines[lines.length-1];
+      const x=clefW+localBar*barW+(beatInBar+(beats/2))*(barW/4);
+      const fill=noteColor(i);
+      if(s_itemIsRest(item)){
+        const restCls='sight-rest-symbol '+((i===s_index&&s_active)?'current':'');
+        const yMid=lines[2];
+        if(value==='whole'){
+          svg+='<rect class="'+restCls+'" x="'+(x-8)+'" y="'+(lines[1])+'" width="16" height="5" rx="1"/>';
+        } else if(value==='half'){
+          svg+='<rect class="'+restCls+'" x="'+(x-8)+'" y="'+(lines[2]-5)+'" width="16" height="5" rx="1"/>';
+        } else if(value==='eighth'){
+          svg+='<g class="'+restCls+'"><circle class="sight-eighth-rest-dot" cx="'+(x-5)+'" cy="'+(yMid-12)+'" r="3"/><path class="sight-eighth-rest-hook" d="M '+(x-2)+' '+(yMid-14)+' C '+(x+7)+' '+(yMid-7)+' '+(x+4)+' '+(yMid+2)+' '+(x-2)+' '+(yMid+12)+'"/></g>';
+        } else {
+          svg+='<path class="'+restCls+'" d="M '+(x-4)+' '+(yMid-20)+' C '+(x+8)+' '+(yMid-12)+' '+(x-10)+' '+(yMid-4)+' '+(x+4)+' '+(yMid+5)+' C '+(x+10)+' '+(yMid+10)+' '+(x-5)+' '+(yMid+13)+' '+(x-2)+' '+(yMid+22)+'" fill="none"/>';
+        }
+        svg+='<text class="sight-rest-label" x="'+x+'" y="'+(isGrand&&staff==='bass'?lines[4]+23:lines[4]+20)+'">'+s_valueSymbol(item)+'</text>';
+        beatCursor+=beats;
+        return;
       }
-      let fill;
-      if(i<s_index) fill='var(--accent-practice)';
-      else if(i===s_hearItIndex) fill='#7b5ea7';
-      else if(i===s_index&&s_active) fill=flashWrong?'var(--accent-ear)':'var(--gold)';
-      else fill='var(--ink2)';
-      const isSharp=note.includes('#');
-      const isFlat=note.length>=3&&note[1]==='b';
+      const y=s_staffY(note,staff,bottom);
+      const rx=value==='whole'?7.4:baseRx;
+      const ry=value==='whole'?4.5:baseRy;
+      const isOpen=value==='half'||value==='whole';
+      const isSharp=note.includes('#')&&!s_keyAccidentalCovered(note);
+      const isFlat=note.length>=3&&note[1]==='b'&&!s_keyAccidentalCovered(note);
+      svg+=ledgerLines(x,y,lines,rx);
       if(isSharp){
-        svg+='<text x="'+(x-rx-3)+'" y="'+(y+ry)+'" font-size="11" font-weight="700" fill="'+fill+'" text-anchor="end" font-family="serif">\u266F</text>';
+        svg+='<text x="'+(x-rx-4)+'" y="'+(y+ry)+'" font-size="11" font-weight="700" fill="'+fill+'" text-anchor="end" font-family="serif">♯</text>';
       } else if(isFlat){
-        svg+='<text x="'+(x-rx-3)+'" y="'+(y+5)+'" font-size="13" font-weight="700" fill="'+fill+'" text-anchor="end" font-family="serif">\u266D</text>';
+        svg+='<text x="'+(x-rx-4)+'" y="'+(y+5)+'" font-size="13" font-weight="700" fill="'+fill+'" text-anchor="end" font-family="serif">♭</text>';
       }
-      svg+='<ellipse cx="'+x+'" cy="'+y+'" rx="'+rx+'" ry="'+ry+'" fill="'+fill+'" transform="rotate(-12 '+x+' '+y+')"/>';
-      if(y>=52){
-        svg+='<line x1="'+(x+rx-0.5)+'" y1="'+y+'" x2="'+(x+rx-0.5)+'" y2="'+(y-30)+'" stroke="'+fill+'" stroke-width="1.5"/>';
+      if(isOpen){
+        svg+='<ellipse class="sight-note-open" cx="'+x+'" cy="'+y+'" rx="'+rx+'" ry="'+ry+'" stroke="'+fill+'" transform="rotate(-12 '+x+' '+y+')"/>';
       } else {
-        svg+='<line x1="'+(x-rx+0.5)+'" y1="'+y+'" x2="'+(x-rx+0.5)+'" y2="'+(y+30)+'" stroke="'+fill+'" stroke-width="1.5"/>';
+        svg+='<ellipse cx="'+x+'" cy="'+y+'" rx="'+rx+'" ry="'+ry+'" fill="'+fill+'" transform="rotate(-12 '+x+' '+y+')"/>';
       }
+      if(value!=='whole'){
+        if(y>=lines[2]){
+          const sx=x+rx-0.5,sy=y-30;
+          svg+='<line x1="'+sx+'" y1="'+y+'" x2="'+sx+'" y2="'+sy+'" stroke="'+fill+'" stroke-width="1.5"/>';
+          if(value==='eighth')svg+='<path class="sight-note-flag" d="M '+sx+' '+sy+' C '+(sx+14)+' '+(sy+5)+' '+(sx+14)+' '+(sy+13)+' '+(sx+3)+' '+(sy+18)+'" stroke="'+fill+'" stroke-width="1.5"/>';
+        } else {
+          const sx=x-rx+0.5,sy=y+30;
+          svg+='<line x1="'+sx+'" y1="'+y+'" x2="'+sx+'" y2="'+sy+'" stroke="'+fill+'" stroke-width="1.5"/>';
+          if(value==='eighth')svg+='<path class="sight-note-flag" d="M '+sx+' '+sy+' C '+(sx-14)+' '+(sy-5)+' '+(sx-14)+' '+(sy-13)+' '+(sx-3)+' '+(sy-18)+'" stroke="'+fill+'" stroke-width="1.5"/>';
+        }
+      }
+      svg+='<text class="sight-duration-label" x="'+x+'" y="'+(isGrand&&staff==='bass'?lines[4]+23:lines[4]+20)+'">'+s_valueSymbol(item)+'</text>';
+      beatCursor+=beats;
     });
   } else {
-    svg+='<text x="'+(W/2)+'" y="60" text-anchor="middle" font-size="13" fill="var(--ink3)" font-family="DM Sans,sans-serif">Press Start to generate a sequence</text>';
+    svg+='<text x="'+(W/2)+'" y="'+(H/2)+'" text-anchor="middle" font-size="13" fill="var(--ink3)" font-family="DM Sans,sans-serif">Press Start to generate a sequence</text>';
   }
   svg+='</svg>';
   el.innerHTML=svg;
