@@ -2428,13 +2428,20 @@ body {
           <div class="p-control-group">
             <label>Meter</label>
             <select id="r-meterSelect" onchange="r_onSettingsChange()">
-              <option value="4/4" selected>4/4</option>
-              <option value="2/4">2/4</option>
-              <option value="3/4">3/4</option>
-              <option value="5/4">5/4</option>
-              <option value="6/8">6/8</option>
-              <option value="9/8">9/8</option>
-              <option value="12/8">12/8</option>
+              <optgroup label="Common Meters">
+                <option value="2/4">2/4</option>
+                <option value="3/4">3/4</option>
+                <option value="4/4" selected>4/4</option>
+                <option value="3/8">3/8</option>
+                <option value="6/8">6/8</option>
+                <option value="9/8">9/8</option>
+                <option value="12/8">12/8</option>
+              </optgroup>
+              <optgroup label="Odd Meters">
+                <option value="5/4">5/4</option>
+                <option value="5/8">5/8</option>
+                <option value="7/8">7/8</option>
+              </optgroup>
             </select>
           </div>
           <div class="p-control-group">
@@ -7350,6 +7357,21 @@ const R_BAR_VOCAB_34={
   syncopation: [[0,1.5,2.5],[0.5,1.5,2],[0,0.5,1.5,2.5],[0,1,1.5]],
 };
 
+// 3/8 uses three eighth-note pulses per bar.
+// It is kept separate from 3/4 so short eighth-note meter patterns stay compact.
+const R_BAR_VOCAB_38={
+  whole:       [[0]],
+  half:        [[0],[1],[0,2]],
+  quarter:     [[0,2],[0,1],[1,2],[0]],
+  quarter_rest:[[0,2],[1,2],[0,1],[0],[2]],
+  accent_varied:[[0,2],[0,1],[1,2],[1],[2]],
+  eighth:      [[0,1,2],[0,2],[0,1],[1,2]],
+  offbeat:     [[1],[2],[0,2],[1,2]],
+  dotted:      [[0,1.5],[0,0.75,2],[0,2.5],[1,2]],
+  triplet:     [[0,0.333,0.667,1,1.333,1.667,2,2.333,2.667],[0,1,1.333,1.667],[0,2,2.333,2.667]],
+  syncopation: [[0,1.5,2.5],[0.5,1.5,2],[0,0.5,1.5],[0,1,2.5]],
+};
+
 // 5/4 uses five quarter-note beats per bar.
 // This is the first odd-meter option and keeps all patterns inside a 5-beat bar.
 const R_BAR_VOCAB_54={
@@ -7365,6 +7387,21 @@ const R_BAR_VOCAB_54={
   syncopation: [[0,1.5,2.5,4],[0.5,1.5,2,3.5,4.5],[0,0.5,1.5,2.5,4],[0,1,1.5,3,4.5],[0.5,2,2.5,3.5]],
 };
 
+// 5/8 uses five eighth-note pulses per bar.
+// This keeps the next odd-meter option separate from 5/4 while preserving the beat-1-only accent rule.
+const R_BAR_VOCAB_58={
+  whole:       [[0]],
+  half:        [[0,3],[0],[2],[3]],
+  quarter:     [[0,2,4],[0,3],[0,2],[2,4],[0,1,3]],
+  quarter_rest:[[0,2,4],[0,3],[1,3],[0,4],[2,4]],
+  accent_varied:[[0,2,3],[0,3],[0,2,4],[1,3],[0,1,3],[2,4]],
+  eighth:      [[0,1,2,3,4],[0,2,3,4],[0,1,3],[0,2,4],[0,1,2,4]],
+  offbeat:     [[1,3],[1,2,4],[0,2,4],[1,4],[0,1,3,4]],
+  dotted:      [[0,1.5,3],[0,1.5,3.5],[0,2.5,4],[0,0.75,2,3.5]],
+  triplet:     [[0,0.333,0.667,2,2.333,2.667,4],[0,1,1.333,1.667,3],[0,0.333,0.667,3,3.333,3.667],[0,2,2.333,2.667,4]],
+  syncopation: [[0,1.5,3,4.5],[1,2,3.5],[0,0.5,2.5,4],[0,1,2.5,3.5],[1,3,4.5]],
+};
+
 // 6/8 uses six eighth-note pulses per bar.
 // The metronome accents only pulse 1 of each bar, while patterns stay inside the 6-pulse bar.
 const R_BAR_VOCAB_68={
@@ -7378,6 +7415,21 @@ const R_BAR_VOCAB_68={
   dotted:      [[0,3,4.5],[0,1.5,3],[0,2.5,3,5],[0,3,5.5]],
   triplet:     [[0,0.333,0.667,3,3.333,3.667],[0,1,1.333,1.667,3],[0,3,4,4.333,4.667],[0,0.333,0.667,3,5]],
   syncopation: [[0,2,3.5,5],[1,2,3,5],[0,1.5,3,4.5],[1,3,4,5]],
+};
+
+// 7/8 uses seven eighth-note pulses per bar.
+// This adds the next odd eighth-note meter while keeping the beat-1-only accent rule.
+const R_BAR_VOCAB_78={
+  whole:       [[0]],
+  half:        [[0,4],[0],[3],[4]],
+  quarter:     [[0,2,4,6],[0,2,5],[0,3,5],[0,4,6],[2,4,6]],
+  quarter_rest:[[0,2,4],[0,3,6],[1,3,5],[0,4],[2,5],[0,2,6]],
+  accent_varied:[[0,2,4],[0,3,5],[1,3,6],[0,2,5],[0,3,6],[1,4,6]],
+  eighth:      [[0,1,2,3,4,5,6],[0,2,3,5,6],[0,1,3,4,6],[0,2,4,5,6],[0,1,2,4,6]],
+  offbeat:     [[1,3,5],[1,2,4,6],[0,2,4,6],[1,4,6],[0,1,3,5]],
+  dotted:      [[0,1.5,3,4.5,6],[0,1.5,4,5.5],[0,2.5,4,6],[0,0.75,2,3.5,5]],
+  triplet:     [[0,0.333,0.667,3,3.333,3.667,6],[0,1,1.333,1.667,4],[0,0.333,0.667,4,4.333,4.667],[0,2,2.333,2.667,5,5.333,5.667]],
+  syncopation: [[0,1.5,3,4.5,6],[1,2,3.5,5],[0,0.5,2.5,4,6],[0,1,2.5,4.5,6],[1,3,4.5,6]],
 };
 
 // 9/8 uses nine eighth-note pulses per bar.
@@ -7413,9 +7465,12 @@ const R_BAR_VOCAB_128={
 function r_getMeterVocab(unit){
   const bpb=Math.max(1,r_beatsPerBar||4);
   if(bpb===2&&R_BAR_VOCAB_24[unit])return R_BAR_VOCAB_24[unit];
-  if(bpb===3&&R_BAR_VOCAB_34[unit])return R_BAR_VOCAB_34[unit];
-  if((r_meter==='5/4'||bpb===5)&&R_BAR_VOCAB_54[unit])return R_BAR_VOCAB_54[unit];
+  if(r_meter==='3/8'&&R_BAR_VOCAB_38[unit])return R_BAR_VOCAB_38[unit];
+  if((r_meter==='3/4'||(bpb===3&&r_meter!=='3/8'))&&R_BAR_VOCAB_34[unit])return R_BAR_VOCAB_34[unit];
+  if(r_meter==='5/8'&&R_BAR_VOCAB_58[unit])return R_BAR_VOCAB_58[unit];
+  if((r_meter==='5/4'||(bpb===5&&r_meter!=='5/8'))&&R_BAR_VOCAB_54[unit])return R_BAR_VOCAB_54[unit];
   if((r_meter==='6/8'||bpb===6)&&R_BAR_VOCAB_68[unit])return R_BAR_VOCAB_68[unit];
+  if((r_meter==='7/8'||bpb===7)&&R_BAR_VOCAB_78[unit])return R_BAR_VOCAB_78[unit];
   if((r_meter==='9/8'||bpb===9)&&R_BAR_VOCAB_98[unit])return R_BAR_VOCAB_98[unit];
   if((r_meter==='12/8'||bpb===12)&&R_BAR_VOCAB_128[unit])return R_BAR_VOCAB_128[unit];
   const base=R_BAR_VOCAB[unit]||[];
@@ -7713,7 +7768,7 @@ function r_onSettingsChange(){
   r_rhythmGuide=rg?rg.value==='on':true;
   r_focus=fc?fc.value:'random';
   r_meter=me?me.value:'4/4';
-  r_beatsPerBar=r_meter==='2/4'?2:r_meter==='3/4'?3:r_meter==='5/4'?5:r_meter==='6/8'?6:r_meter==='9/8'?9:r_meter==='12/8'?12:4;
+  r_beatsPerBar=r_meter==='2/4'?2:r_meter==='3/4'?3:r_meter==='3/8'?3:r_meter==='5/4'?5:r_meter==='5/8'?5:r_meter==='6/8'?6:r_meter==='7/8'?7:r_meter==='9/8'?9:r_meter==='12/8'?12:4;
   r_updateMeterLabel();
   r_pickPattern();
   r_updateMobileSettingsSummary();
