@@ -1980,6 +1980,51 @@ body {
 #page-sight .sight-chip.eighth .sight-chip-value{color:var(--accent-sight);}
 #page-sight .sight-chip.rest.eighth{border-style:dotted;}
 
+
+/* Sight Reading Stage 12: dotted quarter rhythm reading. */
+#page-sight .sight-note-dot{fill:var(--gold);opacity:.95;}
+#page-sight .sight-chip.dotted .sight-chip-value{color:var(--gold);}
+#page-sight .sight-dotted-guide{fill:var(--ink3);font-family:'DM Mono',monospace;font-size:7px;font-weight:800;opacity:.68;text-anchor:middle;}
+
+
+/* Sight Reading Stage 13: triplet eighth-note reading. */
+#page-sight .sight-triplet-bracket{stroke:var(--gold);stroke-width:1.1;fill:none;stroke-linecap:round;stroke-linejoin:round;opacity:.9;}
+#page-sight .sight-triplet-number{fill:var(--gold);font-family:'DM Mono',monospace;font-size:8px;font-weight:900;opacity:.96;text-anchor:middle;}
+#page-sight .sight-chip.triplet .sight-chip-value{color:var(--accent-sight);}
+#page-sight .sight-triplet-guide{fill:var(--ink3);font-family:'DM Mono',monospace;font-size:7px;font-weight:800;opacity:.68;text-anchor:middle;}
+
+
+/* Sight Reading Stage 14: tied notes and syncopation reading. */
+#page-sight .sight-tie{stroke:var(--gold);stroke-width:1.3;fill:none;stroke-linecap:round;opacity:.92;}
+#page-sight .sight-chip.tie-start .sight-chip-value{color:var(--gold);}
+#page-sight .sight-chip.tie-hold{border-style:dotted;background:rgba(201,168,76,.055);color:var(--ink3);}
+#page-sight .sight-chip.tie-hold.current{background:rgba(201,168,76,.18);border-color:var(--gold);color:var(--gold);}
+#page-sight .sight-chip.syncopated{box-shadow:inset 0 -2px 0 rgba(58,158,111,.45);}
+#page-sight .sight-tie-guide{fill:var(--ink3);font-family:'DM Mono',monospace;font-size:7px;font-weight:800;opacity:.68;text-anchor:middle;}
+
+
+/* Sight Reading Stage 15: meter choices for simple and compound reading. */
+#page-sight .sight-meter-note{fill:var(--ink3);font-family:'DM Mono',monospace;font-size:7px;font-weight:800;opacity:.68;text-anchor:middle;}
+
+/* Sight Reading Stage 16: advanced meters with automatic beat grouping. */
+#page-sight .sight-meter-group-line{stroke:var(--gold);stroke-width:.95;stroke-dasharray:3 5;opacity:.34;}
+#page-sight .sight-meter-accent-dot{fill:var(--gold);opacity:.58;}
+#page-sight .sight-meter-group-label{fill:var(--ink3);font-family:'DM Mono',monospace;font-size:7px;font-weight:800;opacity:.62;text-anchor:middle;}
+
+
+/* Sight Reading Stage 17: full key set and key flow modes. */
+#page-sight .sight-key-flow-pill{display:inline-flex;align-items:center;gap:.3rem;padding:.2rem .55rem;border-radius:999px;border:1px solid rgba(201,168,76,.35);background:rgba(201,168,76,.07);color:var(--gold);font-family:'DM Mono',monospace;font-size:.66rem;font-weight:800;white-space:nowrap;}
+#page-sight .sight-key-flow-note{fill:var(--gold);font-family:'DM Mono',monospace;font-size:7px;font-weight:900;opacity:.72;text-anchor:middle;}
+
+/* Sight Reading Stage 18: reading focus and melodic motion control. */
+#page-sight .sight-focus-note{fill:var(--ink3);font-family:'DM Mono',monospace;font-size:7px;font-weight:900;opacity:.68;text-anchor:middle;}
+
+
+/* Sight Reading Stage 19: range and ledger-line reading. */
+#page-sight .sight-range-note{fill:var(--gold);font-family:'DM Mono',monospace;font-size:7px;font-weight:900;opacity:.72;text-anchor:middle;}
+#page-sight .sight-chip.ledger{box-shadow:inset 0 2px 0 rgba(201,168,76,.38);}
+#page-sight .sight-ledger-focus{stroke:var(--gold);stroke-width:1.1;opacity:.32;stroke-dasharray:2 4;}
+
 </style>
 </head>
 <body>
@@ -2927,12 +2972,51 @@ body {
             </select>
           </div>
           <div class="p-control-group">
+            <label>Reading Focus</label>
+            <select id="s-readingFocusSelect" onchange="s_onSettingsChange()">
+              <option value="mixed" selected>Mixed Review</option>
+              <option value="stepwise">Stepwise Motion</option>
+              <option value="skips">Skips</option>
+              <option value="leaps">Leaps</option>
+              <option value="arpeggio">Arpeggio Shapes</option>
+            </select>
+          </div>
+          <div class="p-control-group">
+            <label>Range</label>
+            <select id="s-rangeSelect" onchange="s_onSettingsChange()">
+              <option value="core" selected>Core Range</option>
+              <option value="expanded">Expanded Range</option>
+              <option value="ledger">Ledger Lines</option>
+            </select>
+          </div>
+          <div class="p-control-group">
             <label>Bars</label>
             <select id="s-lengthSelect" onchange="s_onSettingsChange()">
               <option value="1" selected>1 Bar</option>
               <option value="2">2 Bars</option>
               <option value="4">4 Bars</option>
               <option value="8">8 Bars</option>
+            </select>
+          </div>
+          <div class="p-control-group">
+            <label>Meter</label>
+            <select id="s-meterSelect" onchange="s_onSettingsChange()">
+              <optgroup label="Common Meters">
+                <option value="4/4" selected>4/4</option>
+                <option value="3/4">3/4</option>
+                <option value="2/4">2/4</option>
+                <option value="3/8">3/8</option>
+                <option value="6/8">6/8</option>
+                <option value="9/8">9/8</option>
+                <option value="12/8">12/8</option>
+              </optgroup>
+              <optgroup label="Odd Meters">
+                <option value="5/4">5/4</option>
+                <option value="7/4">7/4</option>
+                <option value="5/8">5/8</option>
+                <option value="7/8">7/8</option>
+                <option value="11/8">11/8</option>
+              </optgroup>
             </select>
           </div>
           <div class="p-control-group">
@@ -2946,6 +3030,12 @@ body {
               <option value="quarter_eighth">Quarter + Eighth</option>
               <option value="eighth_rests">Eighth Notes + Rests</option>
               <option value="mixed_eighth_rests">Mixed Notes + Rests + Eighths</option>
+              <option value="dotted_quarter_eighth">Dotted Quarter + Eighth</option>
+              <option value="mixed_dotted">Mixed Notes + Dotted Rhythms</option>
+              <option value="triplet_eighth">Triplet Eighth Notes</option>
+              <option value="mixed_triplets">Mixed Notes + Triplets</option>
+              <option value="syncopation_ties">Syncopation + Ties</option>
+              <option value="mixed_ties">Mixed Notes + Ties</option>
             </select>
           </div>
           <div class="p-control-group">
@@ -2959,15 +3049,45 @@ body {
           <div class="p-control-group">
             <label>Key</label>
             <select id="s-keySelect" onchange="s_onSettingsChange()">
-              <option value="C" selected>C Major</option>
-              <option value="G">G Major</option>
-              <option value="D">D Major</option>
-              <option value="A">A Major</option>
-              <option value="E">E Major</option>
-              <option value="F">F Major</option>
-              <option value="Bb">Bb Major</option>
-              <option value="Eb">Eb Major</option>
-              <option value="Ab">Ab Major</option>
+              <optgroup label="No accidentals">
+                <option value="C" selected>C Major</option>
+              </optgroup>
+              <optgroup label="Sharp keys">
+                <option value="G">G Major</option>
+                <option value="D">D Major</option>
+                <option value="A">A Major</option>
+                <option value="E">E Major</option>
+                <option value="B">B Major</option>
+                <option value="F#">F# Major</option>
+                <option value="C#">C# Major</option>
+              </optgroup>
+              <optgroup label="Flat keys">
+                <option value="F">F Major</option>
+                <option value="Bb">Bb Major</option>
+                <option value="Eb">Eb Major</option>
+                <option value="Ab">Ab Major</option>
+                <option value="Db">Db Major</option>
+                <option value="Gb">Gb Major</option>
+                <option value="Cb">Cb Major</option>
+              </optgroup>
+            </select>
+          </div>
+          <div class="p-control-group">
+            <label>Key Set</label>
+            <select id="s-keySetSelect" onchange="s_onSettingsChange()">
+              <option value="beginner">Beginner Keys</option>
+              <option value="intermediate" selected>Intermediate Keys</option>
+              <option value="expert">Expert Keys</option>
+              <option value="all">All Major Keys</option>
+            </select>
+          </div>
+          <div class="p-control-group">
+            <label>Key Mode</label>
+            <select id="s-keyModeSelect" onchange="s_onSettingsChange()">
+              <option value="fixed" selected>Fixed Key</option>
+              <option value="random">Random Key Each Exercise</option>
+              <option value="fifths">Circle of Fifths</option>
+              <option value="fourths">Circle of Fourths</option>
             </select>
           </div>
           <div class="p-control-group">
@@ -2993,7 +3113,7 @@ body {
             </div>
             <div class="sight-note-row" id="s-noteRow"></div>
             <div class="sight-feedback neutral" id="s-feedback">Press Start to begin.</div>
-            <div class="sight-bar-note-hint" id="s-barNoteHint">1 bar · 4 notes</div>
+            <div class="sight-bar-note-hint" id="s-barNoteHint">1 bar · 4/4 · 4 beats</div>
             <div class="p-btn-row sight-transport-row">
               <button class="p-btn p-btn-sec" id="s-auditionBtn" onclick="s_audition()">&#9834; Audition</button>
               <button class="p-btn p-btn-primary" id="s-startBtn" onclick="s_start()">&#9654; Start</button>
@@ -3042,7 +3162,7 @@ body {
           <div class="p-card">
             <div class="p-card-title">Score</div>
             <div class="sight-score" id="s-score">0 / 0</div>
-            <div class="p-score-label">Notes and rests correct this exercise</div>
+            <div class="p-score-label">Notes, rests, and ties correct this exercise</div>
             <div id="s-wrongCount" style="font-size:.72rem;color:var(--ink3);margin-top:.18rem;"></div>
           </div>
           <div class="p-card">
@@ -7677,10 +7797,16 @@ const S_TREBLE_POOLS={
   D:['C#4','D4','E4','F#4','G4','A4','B4','C#5'],
   A:['C#4','D4','E4','F#4','G#4','A4','B4','C#5'],
   E:['C#4','D#4','E4','F#4','G#4','A4','B4','C#5'],
+  B:['C#4','D#4','E4','F#4','G#4','A#4','B4','C#5'],
+  'F#':['C#4','D#4','E#4','F#4','G#4','A#4','B4','C#5'],
+  'C#':['C#4','D#4','E#4','F#4','G#4','A#4','B#4','C#5'],
   F:['C4','D4','E4','F4','G4','A4','Bb4','C5'],
   Bb:['C4','D4','Eb4','F4','G4','A4','Bb4','C5'],
   Eb:['C4','D4','Eb4','F4','G4','Ab4','Bb4','C5'],
-  Ab:['C4','Db4','Eb4','F4','G4','Ab4','Bb4','C5']
+  Ab:['C4','Db4','Eb4','F4','G4','Ab4','Bb4','C5'],
+  Db:['C4','Db4','Eb4','F4','Gb4','Ab4','Bb4','C5'],
+  Gb:['Cb4','Db4','Eb4','F4','Gb4','Ab4','Bb4','Cb5'],
+  Cb:['Cb4','Db4','Eb4','Fb4','Gb4','Ab4','Bb4','Cb5']
 };
 
 const S_BASS_POOLS={
@@ -7689,10 +7815,16 @@ const S_BASS_POOLS={
   D:['C#3','D3','E3','F#3','G3','A3','B3','C#4'],
   A:['C#3','D3','E3','F#3','G#3','A3','B3','C#4'],
   E:['C#3','D#3','E3','F#3','G#3','A3','B3','C#4'],
+  B:['C#3','D#3','E3','F#3','G#3','A#3','B3','C#4'],
+  'F#':['C#3','D#3','E#3','F#3','G#3','A#3','B3','C#4'],
+  'C#':['C#3','D#3','E#3','F#3','G#3','A#3','B#3','C#4'],
   F:['C3','D3','E3','F3','G3','A3','Bb3','C4'],
   Bb:['C3','D3','Eb3','F3','G3','A3','Bb3','C4'],
   Eb:['C3','D3','Eb3','F3','G3','Ab3','Bb3','C4'],
-  Ab:['C3','Db3','Eb3','F3','G3','Ab3','Bb3','C4']
+  Ab:['C3','Db3','Eb3','F3','G3','Ab3','Bb3','C4'],
+  Db:['C3','Db3','Eb3','F3','Gb3','Ab3','Bb3','C4'],
+  Gb:['Cb3','Db3','Eb3','F3','Gb3','Ab3','Bb3','Cb4'],
+  Cb:['Cb3','Db3','Eb3','Fb3','Gb3','Ab3','Bb3','Cb4']
 };
 
 const S_KEY_POOLS=S_TREBLE_POOLS;
@@ -7716,15 +7848,68 @@ function s_midiValue(note){
   return (p.oct+1)*12+semis[p.letter]+acc;
 }
 
-function s_poolForCurrentClef(){
-  const treble=S_TREBLE_POOLS[s_key]||S_TREBLE_POOLS.C;
-  const bass=S_BASS_POOLS[s_key]||S_BASS_POOLS.C;
-  if(s_clef==='bass')return bass;
-  if(s_clef==='grand'){
-    const merged=[...bass,...treble.filter(n=>!bass.includes(n))];
-    return merged.sort((a,b)=>s_midiValue(a)-s_midiValue(b));
-  }
+function s_keyAccidentalForLetter(letter,key){
+  const info=S_KEY_SIGNATURES[key||s_key]||S_KEY_SIGNATURES.C;
+  if(!info||!info.count||info.type==='none')return '';
+  const letters=(S_KEY_SIG_LETTERS[info.type]||[]).slice(0,info.count);
+  return letters.includes(letter)?(info.type==='sharp'?'#':'b'):'';
+}
+
+function s_noteFromDiatonicValue(value,key){
+  const letters=['C','D','E','F','G','A','B'];
+  const letter=letters[((value%7)+7)%7];
+  const octave=Math.floor(value/7);
+  return letter+s_keyAccidentalForLetter(letter,key)+octave;
+}
+
+function s_keyRangePool(startNote,endNote,key){
+  const start=s_diatonicValue(startNote);
+  const end=s_diatonicValue(endNote);
+  const pool=[];
+  for(let v=start;v<=end;v++)pool.push(s_noteFromDiatonicValue(v,key));
+  return pool;
+}
+
+function s_uniqueSortedNotes(notes){
+  const seen=new Set(),out=[];
+  (notes||[]).forEach(note=>{if(note&&!seen.has(note)){seen.add(note);out.push(note);}});
+  return out.sort((a,b)=>s_midiValue(a)-s_midiValue(b)||s_diatonicValue(a)-s_diatonicValue(b));
+}
+
+function s_corePoolForClef(clef){
+  const treble=(S_TREBLE_POOLS[s_key]||S_TREBLE_POOLS.C).slice();
+  const bass=(S_BASS_POOLS[s_key]||S_BASS_POOLS.C).slice();
+  if(clef==='bass')return bass;
+  if(clef==='grand')return s_uniqueSortedNotes(bass.concat(treble));
   return treble;
+}
+
+function s_rangePoolForClef(clef){
+  if(s_range==='core')return s_corePoolForClef(clef);
+  const table={
+    treble:{expanded:['A3','E5'],ledger:['G3','G5']},
+    bass:{expanded:['G2','E4'],ledger:['E2','G4']},
+    grand:{expanded:['G2','E5'],ledger:['E2','G5']}
+  };
+  const mode=s_range==='ledger'?'ledger':'expanded';
+  const spec=(table[clef]||table.treble)[mode];
+  const full=s_keyRangePool(spec[0],spec[1],s_key);
+  if(s_range!=='ledger')return s_uniqueSortedNotes(full);
+  const core=s_corePoolForClef(clef);
+  const minCore=Math.min(...core.map(s_diatonicValue));
+  const maxCore=Math.max(...core.map(s_diatonicValue));
+  const ledger=full.filter(note=>s_diatonicValue(note)<minCore||s_diatonicValue(note)>maxCore);
+  return s_uniqueSortedNotes(ledger.length?ledger:full);
+}
+
+function s_poolForCurrentClef(){
+  return s_rangePoolForClef(s_clef==='bass'?'bass':(s_clef==='grand'?'grand':'treble'));
+}
+
+function s_sightDifficultyPool(pool){
+  if(s_diff!=='easy'||s_range!=='core'||pool.length<=6)return pool;
+  const start=Math.max(0,Math.floor((pool.length-6)/2));
+  return pool.slice(start,start+6);
 }
 
 function s_staffForNote(note){
@@ -7796,6 +7981,9 @@ function s_keyAccidentalCovered(note){
 function s_itemIsRest(item){
   return !!(item&&typeof item==='object'&&(item.rest===true||item.type==='rest'));
 }
+function s_itemIsHold(item){
+  return !!(item&&typeof item==='object'&&(item.tieHold===true||item.type==='tie'));
+}
 function s_itemNote(item){
   if(s_itemIsRest(item))return '';
   return (item&&typeof item==='object')?item.note:item;
@@ -7807,21 +7995,30 @@ function s_itemValue(item){
   return (item&&typeof item==='object')?(item.value||'quarter'):'quarter';
 }
 function s_valueName(beats){
-  return beats>=4?'whole':(beats>=2?'half':(beats>=1?'quarter':'eighth'));
+  if(Math.abs(beats-(1/3))<0.001)return 'triplet_eighth';
+  if(beats===0.5)return 'eighth';
+  if(beats===1.5)return 'dotted_quarter';
+  if(beats>=4)return 'whole';
+  if(beats>=2)return 'half';
+  return 'quarter';
 }
 function s_valueSymbol(item){
-  const base=({eighth:'e',quarter:'q',half:'h',whole:'w'}[s_itemValue(item)]||'q');
+  if(s_itemIsHold(item))return 'tie';
+  const base=({triplet_eighth:'t',eighth:'e',quarter:'q',dotted_quarter:'dq',half:'h',whole:'w'}[s_itemValue(item)]||'q');
+  if(item&&typeof item==='object'&&item.tieStart)return base+'~';
   return s_itemIsRest(item)?base+'r':base;
 }
 function s_valueReadable(item){
-  return ({eighth:'eighth',quarter:'quarter',half:'half',whole:'whole'}[s_itemValue(item)]||'quarter');
+  return ({triplet_eighth:'triplet eighth',eighth:'eighth',quarter:'quarter',dotted_quarter:'dotted quarter',half:'half',whole:'whole'}[s_itemValue(item)]||'quarter');
 }
 function s_valueArticle(item){
-  return s_valueReadable(item)==='eighth'?'an':'a';
+  return (s_valueReadable(item)==='eighth'||s_valueReadable(item)==='triplet eighth')?'an':'a';
 }
 function s_beatsReadable(beats){
+  if(Math.abs(beats-(1/3))<0.001)return 'one third of a beat';
   if(beats===0.5)return 'half a beat';
   if(beats===1)return '1 beat';
+  if(beats===1.5)return '1 and a half beats';
   return beats+' beats';
 }
 function s_valueModeLabel(mode){
@@ -7833,7 +8030,13 @@ function s_valueModeLabel(mode){
     mixed_rests:'Mixed notes and rests',
     quarter_eighth:'Quarter and eighth notes',
     eighth_rests:'Eighth notes and rests',
-    mixed_eighth_rests:'Mixed notes, rests, and eighths'
+    mixed_eighth_rests:'Mixed notes, rests, and eighths',
+    dotted_quarter_eighth:'Dotted quarter and eighth notes',
+    mixed_dotted:'Mixed notes and dotted rhythms',
+    triplet_eighth:'Triplet eighth notes',
+    mixed_triplets:'Mixed notes and triplets',
+    syncopation_ties:'Syncopation and ties',
+    mixed_ties:'Mixed notes and ties'
   }[mode||s_noteValueMode]||'Quarter notes');
 }
 function s_valueChoices(){
@@ -7843,6 +8046,12 @@ function s_valueChoices(){
   if(s_noteValueMode==='quarter_eighth')return [0.5,0.5,1,1,1];
   if(s_noteValueMode==='eighth_rests')return [0.5,0.5,0.5,1,1];
   if(s_noteValueMode==='mixed_eighth_rests')return [0.5,0.5,1,1,2,2,4];
+  if(s_noteValueMode==='dotted_quarter_eighth')return [1.5,0.5,1,1];
+  if(s_noteValueMode==='mixed_dotted')return [0.5,0.5,1,1,1.5,1.5,2,2];
+  if(s_noteValueMode==='mixed_triplets')return [0.5,0.5,1,1,1.5,2,2];
+  if(s_noteValueMode==='triplet_eighth')return [1];
+  if(s_noteValueMode==='syncopation_ties')return [0.5,1,1.5];
+  if(s_noteValueMode==='mixed_ties')return [0.5,0.5,1,1,1.5,2];
   return [1];
 }
 function s_restChance(){
@@ -7850,11 +8059,18 @@ function s_restChance(){
   if(s_noteValueMode==='mixed_rests')return .18;
   if(s_noteValueMode==='eighth_rests')return .20;
   if(s_noteValueMode==='mixed_eighth_rests')return .18;
+  if(s_noteValueMode==='syncopation_ties')return .12;
+  if(s_noteValueMode==='mixed_ties')return .10;
   return 0;
 }
 function s_itemDisplayText(item){
   if(s_itemIsRest(item)){
     const label=s_showNoteNames?'Rest':'◇';
+    return label+' <span class="sight-chip-value">'+s_valueSymbol(item)+'</span>';
+  }
+  if(s_itemIsHold(item)){
+    const note=s_itemNote(item)||'';
+    const label=s_showNoteNames?('Hold '+note):'Tie';
     return label+' <span class="sight-chip-value">'+s_valueSymbol(item)+'</span>';
   }
   const note=s_itemNote(item)||'?';
@@ -7863,6 +8079,7 @@ function s_itemDisplayText(item){
 }
 function s_itemPromptText(item){
   if(s_itemIsRest(item))return s_valueArticle(item)+' '+s_valueReadable(item)+' rest';
+  if(s_itemIsHold(item))return s_showNoteNames?('hold '+(s_itemNote(item)||'the tied note')):'the tied hold';
   const note=s_itemNote(item)||'?';
   return s_showNoteNames?note:'the note';
 }
@@ -7873,6 +8090,67 @@ function s_sequenceBeatStart(index){
 }
 function s_totalSequenceBeats(){
   return s_sequence.reduce((sum,item)=>sum+s_itemBeats(item),0);
+}
+function s_meterParts(meter){
+  const parts=String(meter||s_meter||'4/4').split('/');
+  const top=parseInt(parts[0],10)||4;
+  const bottom=parseInt(parts[1],10)||4;
+  return {top,bottom};
+}
+function s_barBeatsForMeter(meter){
+  const p=s_meterParts(meter);
+  if(p.bottom===8)return p.top*0.5;
+  return p.top;
+}
+function s_barBeats(){
+  return s_barBeatsForMeter(s_meter);
+}
+function s_meterDisplay(meter){
+  const p=s_meterParts(meter);
+  return p.top+'/'+p.bottom;
+}
+function s_meterDurationText(){
+  const p=s_meterParts(s_meter);
+  if(p.bottom===8){
+    const pulses=s_bars*p.top;
+    return pulses+' eighth-note pulse'+(pulses===1?'':'s');
+  }
+  const beats=s_length;
+  return beats+' beat'+(beats===1?'':'s');
+}
+function s_meterGroupPattern(meter){
+  const label=s_meterDisplay(meter||s_meter);
+  const patterns={
+    '2/4':[1,1],
+    '3/4':[1,1,1],
+    '4/4':[1,1,1,1],
+    '5/4':[3,2],
+    '7/4':[4,3],
+    '3/8':[1.5],
+    '5/8':[1.5,1],
+    '6/8':[1.5,1.5],
+    '7/8':[1,1,1.5],
+    '9/8':[1.5,1.5,1.5],
+    '11/8':[1.5,1.5,1,1.5],
+    '12/8':[1.5,1.5,1.5,1.5]
+  };
+  return patterns[label]||[];
+}
+function s_meterGroupText(){
+  const groups=s_meterGroupPattern(s_meter);
+  if(groups.length<2)return '';
+  const p=s_meterParts(s_meter);
+  if(p.bottom===8){
+    const nums=groups.map(g=>Math.round(g/0.5));
+    return 'grouped '+nums.join('+');
+  }
+  return 'grouped '+groups.join('+');
+}
+function s_isBarBoundary(beat){
+  const bar=s_barBeats();
+  if(!bar)return false;
+  const div=beat/bar;
+  return Math.abs(div-Math.round(div))<0.0001;
 }
 
 // State
@@ -7886,9 +8164,15 @@ let s_totalWrong=0;
 let s_history=[];
 let s_showNoteNames=true;
 let s_diff='medium';
+let s_readingFocus='mixed';
+let s_range='core';
 let s_bars=1;
+let s_meter='4/4';
 let s_length=4;
 let s_key='C';
+let s_keySet='intermediate';
+let s_keyMode='fixed';
+let s_keyCycleIndex=0;
 let s_clef='treble';
 let s_noteValueMode='quarter';
 let s_octaveMatch='exact';
@@ -7920,11 +8204,81 @@ const S_KEY_DRILL_LEVELS={
   intermediate:['C','G','D','A','E','F','Bb','Eb','Ab'],
   expert:['C','G','D','A','E','B','F#','C#','F','Bb','Eb','Ab','Db','Gb','Cb']
 };
+const S_SIGHT_KEY_SETS={
+  beginner:['C','G','D','F','Bb'],
+  intermediate:['C','G','D','A','E','F','Bb','Eb','Ab'],
+  expert:['C','G','D','A','E','B','F#','C#','F','Bb','Eb','Ab','Db','Gb','Cb'],
+  all:['C','G','D','A','E','B','F#','C#','F','Bb','Eb','Ab','Db','Gb','Cb']
+};
+const S_CIRCLE_FIFTHS=['C','G','D','A','E','B','F#','C#','F','Bb','Eb','Ab','Db','Gb','Cb'];
+const S_CIRCLE_FOURTHS=['C','F','Bb','Eb','Ab','Db','Gb','Cb','G','D','A','E','B','F#','C#'];
 function s_keyDrillKeysForLevel(){
   return S_KEY_DRILL_LEVELS[s_keyDrillLevel]||S_KEY_DRILL_LEVELS.beginner;
 }
 function s_keyDrillLevelLabel(){
   return ({beginner:'Beginner',intermediate:'Intermediate',expert:'Expert'}[s_keyDrillLevel]||'Beginner');
+}
+function s_sightKeysForSet(){
+  return S_SIGHT_KEY_SETS[s_keySet]||S_SIGHT_KEY_SETS.intermediate;
+}
+function s_sightKeySetLabel(){
+  return ({beginner:'Beginner keys',intermediate:'Intermediate keys',expert:'Expert keys',all:'All major keys'}[s_keySet]||'Intermediate keys');
+}
+function s_sightKeyModeLabel(){
+  return ({fixed:'Fixed key',random:'Random key',fifths:'Circle of fifths',fourths:'Circle of fourths'}[s_keyMode]||'Fixed key');
+}
+function s_readingFocusLabel(mode){
+  return ({mixed:'Mixed review',stepwise:'Stepwise motion',skips:'Skips',leaps:'Leaps',arpeggio:'Arpeggio shapes'}[mode||s_readingFocus]||'Mixed review');
+}
+function s_sightRangeLabel(mode){
+  return ({core:'Core range',expanded:'Expanded range',ledger:'Ledger lines'}[mode||s_range]||'Core range');
+}
+const S_KEY_ROOT_LETTERS={C:'C',G:'G',D:'D',A:'A',E:'E',B:'B','F#':'F','C#':'C',F:'F',Bb:'B',Eb:'E',Ab:'A',Db:'D',Gb:'G',Cb:'C'};
+function s_keyChordLetters(key){
+  const letters=['C','D','E','F','G','A','B'];
+  const root=S_KEY_ROOT_LETTERS[key||s_key]||'C';
+  const i=letters.indexOf(root);
+  if(i<0)return ['C','E','G'];
+  return [letters[i],letters[(i+2)%7],letters[(i+4)%7]];
+}
+function s_focusPool(pool){
+  if(s_readingFocus!=='arpeggio')return pool;
+  const letters=s_keyChordLetters(s_key);
+  const filtered=pool.filter(note=>{
+    const p=s_noteParts(note);
+    return p&&letters.includes(p.letter);
+  });
+  return filtered.length>=3?filtered:pool;
+}
+function s_filterSightKeyOrder(order){
+  const allowed=s_sightKeysForSet();
+  const filtered=order.filter(k=>allowed.includes(k));
+  return filtered.length?filtered:allowed.slice();
+}
+function s_chooseSightKeyForNewExercise(){
+  const allowed=s_sightKeysForSet();
+  if(!allowed.includes(s_key))s_key=allowed[0]||'C';
+  if(s_keyMode==='fixed'){
+    s_syncSightControls();
+    return;
+  }
+  if(s_keyMode==='random'){
+    let next=s_key,tries=0;
+    while(tries<20&&allowed.length>1&&next===s_key){
+      next=allowed[Math.floor(Math.random()*allowed.length)];
+      tries++;
+    }
+    s_key=next||'C';
+    s_syncSightControls();
+    return;
+  }
+  const order=s_filterSightKeyOrder(s_keyMode==='fourths'?S_CIRCLE_FOURTHS:S_CIRCLE_FIFTHS);
+  let idx=order.indexOf(s_key);
+  if(idx<0)idx=s_keyCycleIndex%order.length;
+  idx=(idx+1)%order.length;
+  s_keyCycleIndex=idx;
+  s_key=order[idx]||'C';
+  s_syncSightControls();
 }
 
 function s_keyLabel(key){
@@ -8091,11 +8445,15 @@ function s_renderKeyDrill(){
 
 
 function s_toPlayableNote(note){
-  const m=String(note||'').match(/^([A-G])([b#]?)(\d+)$/);
-  if(!m)return String(note||'');
-  const flatMap={Db:'C#',Eb:'D#',Gb:'F#',Ab:'G#',Bb:'A#'};
-  const name=m[1]+m[2];
-  return (flatMap[name]||name)+m[3];
+  const p=s_noteParts(note);
+  if(!p)return String(note||'');
+  const names=['C','C#','D','D#','E','F','F#','G','G#','A','A#','B'];
+  const semis={C:0,D:2,E:4,F:5,G:7,A:9,B:11};
+  const acc=p.acc==='#'?1:(p.acc==='b'?-1:0);
+  const midi=(p.oct+1)*12+semis[p.letter]+acc;
+  const name=names[((midi%12)+12)%12];
+  const octave=Math.floor(midi/12)-1;
+  return name+octave;
 }
 
 function s_pitchKey(note){
@@ -8119,20 +8477,30 @@ function s_init(){
 
 function s_readControls(){
   const d=document.getElementById('s-diffSelect');
+  const rf=document.getElementById('s-readingFocusSelect');
+  const rg=document.getElementById('s-rangeSelect');
   const l=document.getElementById('s-lengthSelect');
+  const m=document.getElementById('s-meterSelect');
   const nv=document.getElementById('s-noteValueSelect');
   const k=document.getElementById('s-keySelect');
+  const ks=document.getElementById('s-keySetSelect');
+  const km=document.getElementById('s-keyModeSelect');
   const c=document.getElementById('s-clefSelect');
   const om=document.getElementById('s-octaveSelect');
   if(d)s_diff=d.value;
-  if(l){
-    s_bars=parseInt(l.value,10)||1;
-    s_length=s_bars*4;
-  }
+  if(rf)s_readingFocus=rf.value||'mixed';
+  if(rg)s_range=rg.value||'core';
+  if(l)s_bars=parseInt(l.value,10)||1;
+  if(m)s_meter=m.value||'4/4';
+  s_length=s_bars*s_barBeats();
   if(nv)s_noteValueMode=nv.value||'quarter';
+  if(ks)s_keySet=ks.value||'intermediate';
+  if(km)s_keyMode=km.value||'fixed';
   if(k)s_key=k.value;
+  if(!s_sightKeysForSet().includes(s_key))s_key=s_sightKeysForSet()[0]||'C';
   if(c)s_clef=c.value;
   if(om)s_octaveMatch=om.value;
+  s_syncSightControls();
   s_updateBarNoteHint();
 }
 
@@ -8158,9 +8526,15 @@ function s_updateBarNoteHint(){
   if(!el)return;
   const items=s_sequence&&s_sequence.length?s_sequence.length:0;
   const rests=s_sequence?s_sequence.filter(s_itemIsRest).length:0;
+  const holds=s_sequence?s_sequence.filter(s_itemIsHold).length:0;
   const itemText=items?(' · '+items+' item'+(items===1?'':'s')):'';
   const restText=rests?(' · '+rests+' rest'+(rests===1?'':'s')):'';
-  el.textContent=s_bars+' bar'+(s_bars===1?'':'s')+' · '+s_length+' beats'+itemText+restText+' · '+s_valueModeLabel(s_noteValueMode);
+  const holdText=holds?(' · '+holds+' tied hold'+(holds===1?'':'s')):'';
+  const groupText=s_meterGroupText()?(' · '+s_meterGroupText()):'';
+  const keyText=' · '+s_keyLabel(s_key)+' · '+s_sightKeyModeLabel();
+  const focusText=' · '+s_readingFocusLabel();
+  const rangeText=' · '+s_sightRangeLabel();
+  el.textContent=s_bars+' bar'+(s_bars===1?'':'s')+' · '+s_meterDisplay(s_meter)+' · '+s_meterDurationText()+groupText+keyText+focusText+rangeText+itemText+restText+holdText+' · '+s_valueModeLabel(s_noteValueMode);
 }
 
 function s_updateTransportUI(){
@@ -8191,7 +8565,7 @@ function s_clearRestTimer(){
 }
 
 function s_storeCurrentExercise(){
-  const snap={seq:s_sequence.map(item=>item&&typeof item==='object'?Object.assign({},item):item),diff:s_diff,clef:s_clef,key:s_key,bars:s_bars,length:s_length,values:s_noteValueMode};
+  const snap={seq:s_sequence.map(item=>item&&typeof item==='object'?Object.assign({},item):item),diff:s_diff,focus:s_readingFocus,range:s_range,clef:s_clef,key:s_key,keySet:s_keySet,keyMode:s_keyMode,bars:s_bars,meter:s_meter,length:s_length,values:s_noteValueMode};
   s_exercises=s_exercises.slice(0,s_exercisePos+1);
   s_exercises.push(snap);
   s_exercises=s_exercises.slice(-24);
@@ -8202,11 +8576,18 @@ function s_loadExerciseSnapshot(snap,active){
   if(!snap||!snap.seq)return;
   s_sequence=snap.seq.slice();
   s_diff=snap.diff||s_diff;
+  s_readingFocus=snap.focus||s_readingFocus||'mixed';
+  s_range=snap.range||s_range||'core';
   s_clef=snap.clef||s_clef;
   s_key=snap.key||s_key;
+  s_keySet=snap.keySet||s_keySet||'intermediate';
+  s_keyMode=snap.keyMode||s_keyMode||'fixed';
   s_noteValueMode=snap.values||s_noteValueMode||'quarter';
-  s_bars=snap.bars||Math.max(1,Math.round((snap.length||s_totalSequenceBeats()||4)/4));
-  s_length=s_bars*4;
+  s_meter=snap.meter||s_meter||'4/4';
+  const snapBar=s_barBeats();
+  s_bars=snap.bars||Math.max(1,Math.round((snap.length||s_totalSequenceBeats()||snapBar)/snapBar));
+  s_length=s_bars*snapBar;
+  s_syncSightControls();
   s_index=0;
   s_active=!!active;
   s_scoreCorrect=0;
@@ -8216,8 +8597,24 @@ function s_loadExerciseSnapshot(snap,active){
   s_hearItIndex=-1;
 }
 
+function s_syncSightControls(){
+  const setVal=(id,val)=>{const el=document.getElementById(id);if(el)el.value=val;};
+  setVal('s-diffSelect',s_diff);
+  setVal('s-readingFocusSelect',s_readingFocus);
+  setVal('s-rangeSelect',s_range);
+  setVal('s-lengthSelect',String(s_bars));
+  setVal('s-meterSelect',s_meter);
+  setVal('s-noteValueSelect',s_noteValueMode);
+  setVal('s-keySelect',s_key);
+  setVal('s-keySetSelect',s_keySet);
+  setVal('s-keyModeSelect',s_keyMode);
+  setVal('s-clefSelect',s_clef);
+  setVal('s-octaveSelect',s_octaveMatch);
+}
+
 function s_createNewExercise(active){
   s_clearAutoTimer();
+  s_chooseSightKeyForNewExercise();
   s_generateExercise(active);
   s_storeCurrentExercise();
 }
@@ -8246,44 +8643,114 @@ function s_generateExercise(active){
 
 function s_generateSequence(){
   const allNotes=s_poolForCurrentClef();
-  const pool=s_diff==='easy'?allNotes.slice(0,Math.min(6,allNotes.length)):allNotes;
-  const seq=[];let prev=null;let beat=0;
-  const targetBeats=Math.max(4,s_bars*4);
-  while(beat<targetBeats){
-    const remainingTotal=targetBeats-beat;
-    const remainingInBar=4-(beat%4);
-    const choices=s_valueChoices().filter(v=>v<=remainingTotal&&v<=remainingInBar);
-    const beats=choices.length?choices[Math.floor(Math.random()*choices.length)]:1;
-    const canRest=s_restChance()>0&&seq.length>0&&!s_itemIsRest(seq[seq.length-1]);
-    const makeRest=canRest&&Math.random()<s_restChance();
-    if(makeRest){
-      seq.push({type:'rest',rest:true,beats,value:s_valueName(beats)});
-      beat+=beats;
-      continue;
+  const basePool=s_sightDifficultyPool(allNotes);
+  const pool=s_focusPool(basePool);
+  const motionPool=basePool;
+  const seq=[];let prev=null;let beat=0;let tripletGroup=0;let tieGroup=0;
+  const barBeats=s_barBeats();
+  const targetBeats=Math.max(barBeats,s_bars*barBeats);
+  const roundBeat=v=>Math.round(v*1000000)/1000000;
+  function chooseByMotion(poolRef,offsets,allowFar){
+    const pi=prev?poolRef.indexOf(prev):-1;
+    if(pi<0)return null;
+    let cands=[];
+    offsets.forEach(off=>{
+      const idx=pi+off;
+      if(idx>=0&&idx<poolRef.length)cands.push(poolRef[idx]);
+    });
+    if(!cands.length&&allowFar){
+      cands=poolRef.filter((_,idx)=>idx!==pi&&Math.abs(idx-pi)>=3);
     }
+    return cands.length?cands[Math.floor(Math.random()*cands.length)]:null;
+  }
+  function chooseNote(){
     let note,tries=0;
     do{
-      const pi=prev?pool.indexOf(prev):-1;
-      if(s_diff==='easy'&&pi>=0){
-        const cands=[];
-        if(pi>0)cands.push(pool[pi-1]);
-        if(pi<pool.length-1)cands.push(pool[pi+1]);
-        note=cands.length?cands[Math.floor(Math.random()*cands.length)]:pool[Math.floor(Math.random()*pool.length)];
-      } else if(s_diff==='medium'&&pi>=0){
-        const lo=Math.max(0,pi-2),hi=Math.min(pool.length-1,pi+2);
-        note=pool.slice(lo,hi+1)[Math.floor(Math.random()*(hi-lo+1))];
-      } else if(s_diff==='expert'&&pi>=0){
-        const leapCands=pool.filter((_,idx)=>idx!==pi&&Math.abs(idx-pi)>=3);
-        const cands=leapCands.length?leapCands:pool.filter((_,idx)=>idx!==pi);
-        note=cands.length?cands[Math.floor(Math.random()*cands.length)]:pool[Math.floor(Math.random()*pool.length)];
+      if(s_readingFocus==='stepwise'){
+        note=chooseByMotion(motionPool,[-1,1],false)||motionPool[Math.floor(Math.random()*motionPool.length)];
+      } else if(s_readingFocus==='skips'){
+        note=chooseByMotion(motionPool,[-2,2],false)||chooseByMotion(motionPool,[-1,1],false)||motionPool[Math.floor(Math.random()*motionPool.length)];
+      } else if(s_readingFocus==='leaps'){
+        note=chooseByMotion(motionPool,[-5,-4,-3,3,4,5],true)||motionPool[Math.floor(Math.random()*motionPool.length)];
+      } else if(s_readingFocus==='arpeggio'){
+        note=chooseByMotion(pool,[-2,2,-1,1],false)||pool[Math.floor(Math.random()*pool.length)];
       } else {
-        note=pool[Math.floor(Math.random()*pool.length)];
+        const pi=prev?pool.indexOf(prev):-1;
+        if(s_diff==='easy'&&pi>=0){
+          const cands=[];
+          if(pi>0)cands.push(pool[pi-1]);
+          if(pi<pool.length-1)cands.push(pool[pi+1]);
+          note=cands.length?cands[Math.floor(Math.random()*cands.length)]:pool[Math.floor(Math.random()*pool.length)];
+        } else if(s_diff==='medium'&&pi>=0){
+          const lo=Math.max(0,pi-2),hi=Math.min(pool.length-1,pi+2);
+          note=pool.slice(lo,hi+1)[Math.floor(Math.random()*(hi-lo+1))];
+        } else if(s_diff==='expert'&&pi>=0){
+          const leapCands=pool.filter((_,idx)=>idx!==pi&&Math.abs(idx-pi)>=3);
+          const cands=leapCands.length?leapCands:pool.filter((_,idx)=>idx!==pi);
+          note=cands.length?cands[Math.floor(Math.random()*cands.length)]:pool[Math.floor(Math.random()*pool.length)];
+        } else {
+          note=pool[Math.floor(Math.random()*pool.length)];
+        }
       }
       tries++;
     }while(tries<12&&note===prev&&pool.length>1);
-    seq.push({note,beats,value:s_valueName(beats)});
     prev=note;
-    beat+=beats;
+    return note;
+  }
+  function pushSyncopatedTie(){
+    const note=chooseNote();
+    const groupId=++tieGroup;
+    seq.push({type:'rest',rest:true,beats:0.5,value:'eighth',syncopation:true});
+    seq.push({note,beats:0.5,value:'eighth',tieStart:true,tieGroup:groupId,syncopation:true});
+    seq.push({type:'tie',note,beats:1,value:'quarter',tieHold:true,tieGroup:groupId,syncopation:true});
+    beat=roundBeat(beat+2);
+  }
+  function pushSimpleTie(){
+    const note=chooseNote();
+    const groupId=++tieGroup;
+    const useEighth=Math.random()<0.55;
+    const firstBeats=useEighth?0.5:1;
+    const holdBeats=useEighth?1.5:1;
+    seq.push({note,beats:firstBeats,value:s_valueName(firstBeats),tieStart:true,tieGroup:groupId});
+    seq.push({type:'tie',note,beats:holdBeats,value:s_valueName(holdBeats),tieHold:true,tieGroup:groupId});
+    beat=roundBeat(beat+firstBeats+holdBeats);
+  }
+  while(beat<targetBeats-0.0001){
+    const remainingTotal=roundBeat(targetBeats-beat);
+    const beatInCurrentBar=roundBeat(beat%barBeats);
+    const remainingInBar=roundBeat(barBeats-beatInCurrentBar);
+    const canTieMode=(s_noteValueMode==='syncopation_ties'||s_noteValueMode==='mixed_ties');
+    const canAddTie=canTieMode&&remainingTotal>=2&&remainingInBar>=2;
+    if(canAddTie){
+      const mustTie=s_noteValueMode==='syncopation_ties';
+      const makeTie=mustTie||Math.random()<0.30;
+      if(makeTie){
+        if(mustTie||Math.random()<0.65)pushSyncopatedTie();
+        else pushSimpleTie();
+        continue;
+      }
+    }
+    const canTriplet=(s_noteValueMode==='triplet_eighth'||s_noteValueMode==='mixed_triplets')&&remainingTotal>=1&&remainingInBar>=1;
+    const makeTriplet=canTriplet&&(s_noteValueMode==='triplet_eighth'||Math.random()<0.32);
+    if(makeTriplet){
+      const groupId=++tripletGroup;
+      for(let t=0;t<3;t++){
+        seq.push({note:chooseNote(),beats:1/3,value:'triplet_eighth',triplet:true,tripletGroup:groupId,tripletPos:t,tripletSize:3});
+        beat=roundBeat(beat+(1/3));
+      }
+      continue;
+    }
+    const choices=s_valueChoices().filter(v=>v<=remainingTotal+0.0001&&v<=remainingInBar+0.0001);
+    const beats=choices.length?choices[Math.floor(Math.random()*choices.length)]:Math.min(1,remainingTotal,remainingInBar);
+    const canRest=s_restChance()>0&&seq.length>0&&!s_itemIsRest(seq[seq.length-1])&&!s_itemIsHold(seq[seq.length-1]);
+    const makeRest=canRest&&Math.random()<s_restChance();
+    if(makeRest){
+      seq.push({type:'rest',rest:true,beats,value:s_valueName(beats)});
+      beat=roundBeat(beat+beats);
+      continue;
+    }
+    seq.push({note:chooseNote(),beats,value:s_valueName(beats)});
+    beat=roundBeat(beat+beats);
   }
   return seq;
 }
@@ -8315,7 +8782,7 @@ function s_completeExercise(){
   s_clearRestTimer();
   s_active=false;
   const pct=s_scoreTotal?Math.round((s_scoreCorrect/s_scoreTotal)*100):0;
-  s_history.unshift({diff:s_diff,clef:s_clef,key:s_key,bars:s_bars,length:s_length,notes:s_sequence.filter(item=>!s_itemIsRest(item)).length,rests:s_sequence.filter(s_itemIsRest).length,values:s_noteValueMode,correct:s_scoreCorrect,total:s_scoreTotal,pct});
+  s_history.unshift({diff:s_diff,focus:s_readingFocus,range:s_range,clef:s_clef,key:s_key,keyMode:s_keyMode,keySet:s_keySet,bars:s_bars,meter:s_meter,length:s_length,notes:s_sequence.filter(item=>!s_itemIsRest(item)&&!s_itemIsHold(item)).length,rests:s_sequence.filter(s_itemIsRest).length,ties:s_sequence.filter(s_itemIsHold).length,values:s_noteValueMode,correct:s_scoreCorrect,total:s_scoreTotal,pct});
   s_history=s_history.slice(0,6);
   s_setFeedback('Exercise complete. Score: '+pct+'%',pct>=80?'correct':'wrong');
   s_renderHistory();
@@ -8332,7 +8799,7 @@ function s_processCurrentItem(){
   }
   const item=s_sequence[s_index];
   s_renderStaff();s_renderNoteRow();s_renderScore();s_updateTransportUI();
-  if(!s_itemIsRest(item)){
+  if(!s_itemIsRest(item)&&!s_itemIsHold(item)){
     const cur=s_itemPromptText(item);
     s_setFeedback('Play '+cur+' on your MIDI keyboard.','neutral');
     return;
@@ -8340,7 +8807,8 @@ function s_processCurrentItem(){
   const token=++s_restToken;
   s_restWrong=false;
   const beats=s_itemBeats(item);
-  s_setFeedback('Rest for '+s_beatsReadable(beats)+'. Do not play.','neutral');
+  const message=s_itemIsHold(item)?('Hold the tied note for '+s_beatsReadable(beats)+'. Do not replay it.'):('Rest for '+s_beatsReadable(beats)+'. Do not play.');
+  s_setFeedback(message,'neutral');
   s_restTimer=setTimeout(()=>{
     if(token!==s_restToken||!s_active)return;
     if(!s_restWrong)s_scoreCorrect++;
@@ -8364,10 +8832,11 @@ function s_handleMidiNote(noteName,velocity){
   if(dot){dot.style.background='var(--gold)';setTimeout(()=>{const d=document.getElementById('s-midiDot');if(d)d.style.background='';},280);}
   if(s_browserSynthOn&&typeof p_noteOn==='function')p_noteOn(noteName,velocity||90,'live');
 
-  if(s_itemIsRest(expectedItem)){
+  if(s_itemIsRest(expectedItem)||s_itemIsHold(expectedItem)){
     s_wrongAttempts++;
     s_restWrong=true;
-    s_setFeedback('This is a rest. Do not play during the rest.','wrong');
+    const msg=s_itemIsHold(expectedItem)?'This is a tied hold. Do not replay the note during the tie.':'This is a rest. Do not play during the rest.';
+    s_setFeedback(msg,'wrong');
     s_renderStaff(true);
     setTimeout(()=>s_renderStaff(false),300);
     return;
@@ -8418,13 +8887,21 @@ function s_hearIt(){
     const note=s_itemNote(item);
     const beats=s_itemBeats(item);
     const startMs=beatCursor*beatMs;
-    const noteDur=Math.round(beatMs*beats*0.78);
+    let holdBeats=0;
+    if(item&&typeof item==='object'&&item.tieStart){
+      for(let j=i+1;j<s_sequence.length;j++){
+        const next=s_sequence[j];
+        if(next&&next.tieHold&&next.tieGroup===item.tieGroup)holdBeats+=s_itemBeats(next);
+        else break;
+      }
+    }
+    const noteDur=Math.round(beatMs*(beats+holdBeats)*0.78);
     const t1=setTimeout(()=>{
       s_hearItIndex=i;s_renderStaff();s_renderNoteRow();
-      if(!s_itemIsRest(item))s_playGuideNote(note);
+      if(!s_itemIsRest(item)&&!s_itemIsHold(item))s_playGuideNote(note);
     },startMs);
     s_hearItTimers.push(t1);
-    if(!s_itemIsRest(item)){
+    if(!s_itemIsRest(item)&&!s_itemIsHold(item)){
       const t2=setTimeout(()=>p_noteOff(s_toPlayableNote(note)),startMs+noteDur);
       s_hearItTimers.push(t2);
     }
@@ -8613,7 +9090,7 @@ function s_renderHistory(){
   if(!s_history.length){el.innerHTML='<div class="p-history-empty">No attempts yet</div>';return;}
   el.innerHTML=s_history.map(h=>
     '<div class="p-history-item">'+
-    '<span>'+(h.diff||'?')+' · '+(h.clef||'treble')+' · '+(h.key||'C')+' · '+(h.bars||Math.max(1,Math.round((h.length||4)/4)))+' bars · '+s_valueModeLabel(h.values||'quarter')+'</span>'+
+    '<span>'+(h.diff||'?')+' · '+s_readingFocusLabel(h.focus||'mixed')+' · '+s_sightRangeLabel(h.range||'core')+' · '+(h.clef||'treble')+' · '+(h.key||'C')+' · '+(h.keyMode?({fixed:'fixed',random:'random',fifths:'fifths',fourths:'fourths'}[h.keyMode]||h.keyMode):'fixed')+' · '+(h.meter||'4/4')+' · '+(h.bars||Math.max(1,Math.round((h.length||4)/s_barBeatsForMeter(h.meter||'4/4'))))+' bars · '+s_valueModeLabel(h.values||'quarter')+'</span>'+
     '<span class="p-history-grade" style="color:'+(h.pct>=80?'var(--accent-practice)':'var(--accent-ear)')+'">'+h.pct+'%</span>'+
     '</div>'
   ).join('');
@@ -8625,9 +9102,15 @@ function s_renderNoteRow(){
   if(!s_sequence.length){el.innerHTML='';return;}
   let html='';let beat=0;
   s_sequence.forEach((item,i)=>{
-    if(i>0&&beat%4===0)html+='<span class="sight-chip-bar-sep" aria-hidden="true"></span>';
+    if(i>0&&s_isBarBoundary(beat))html+='<span class="sight-chip-bar-sep" aria-hidden="true"></span>';
     let cls='sight-chip';
     if(s_itemValue(item)==='eighth')cls+=' eighth';
+    if(s_itemValue(item)==='triplet_eighth')cls+=' triplet';
+    if(s_itemValue(item)==='dotted_quarter')cls+=' dotted';
+    if(item&&typeof item==='object'&&item.tieStart)cls+=' tie-start';
+    if(s_itemIsHold(item))cls+=' tie-hold';
+    if(item&&typeof item==='object'&&item.syncopation)cls+=' syncopated';
+    if(!s_itemIsRest(item)&&!s_itemIsHold(item)&&s_range==='ledger')cls+=' ledger';
     if(s_itemIsRest(item))cls+=' rest';
     if(i<s_index)cls+=' done';
     else if(i===s_hearItIndex)cls+=' hearing';
@@ -8643,7 +9126,9 @@ function s_renderStaff(flashWrong){
   const el=document.getElementById('s-staff');if(!el)return;
   const isGrand=s_clef==='grand';
   const W=760;
-  const bars=Math.max(1,s_bars||Math.ceil((s_totalSequenceBeats()||4)/4));
+  const barBeats=s_barBeats();
+  const meterParts=s_meterParts(s_meter);
+  const bars=Math.max(1,s_bars||Math.ceil((s_totalSequenceBeats()||barBeats)/barBeats));
   const barsPerSystem=Math.min(4,bars);
   const systemCount=Math.max(1,Math.ceil(bars/barsPerSystem));
   const systemH=isGrand?214:122;
@@ -8712,7 +9197,33 @@ function s_renderStaff(flashWrong){
 
   function drawTimeSignature(systemTop){
     const x=timeX;
-    return '<text class="sight-time" x="'+x+'" y="'+(systemTop+48)+'">4</text><text class="sight-time" x="'+x+'" y="'+(systemTop+70)+'">4</text>';
+    let out='<text class="sight-time" x="'+x+'" y="'+(systemTop+48)+'">'+meterParts.top+'</text><text class="sight-time" x="'+x+'" y="'+(systemTop+70)+'">'+meterParts.bottom+'</text>';
+    out+='<text class="sight-key-flow-note" x="'+(W-padR)+'" y="'+(systemTop+15)+'">'+s_keyLabel(s_key)+' · '+s_sightKeyModeLabel()+' · '+s_readingFocusLabel()+' · '+s_sightRangeLabel()+'</text>';
+    return out;
+  }
+
+  function drawMeterGroups(systemTop,topLines,bassLines,barsHere){
+    const groups=s_meterGroupPattern(s_meter);
+    if(groups.length<2)return '';
+    const y1=topLines[0];
+    const y2=isGrand?bassLines[4]:topLines[4];
+    let out='';
+    for(let b=0;b<barsHere;b++){
+      const barStart=clefW+b*barW;
+      let acc=0;
+      groups.forEach((g,idx)=>{
+        if(idx===0){
+          out+='<circle class="sight-meter-accent-dot" cx="'+(barStart+5)+'" cy="'+(y1-7)+'" r="2.1"/>';
+        }
+        acc+=g;
+        if(acc<barBeats-0.0001){
+          const gx=barStart+(acc/barBeats)*barW;
+          out+='<line class="sight-meter-group-line" x1="'+gx+'" y1="'+y1+'" x2="'+gx+'" y2="'+y2+'"/>';
+          out+='<circle class="sight-meter-accent-dot" cx="'+gx+'" cy="'+(y1-7)+'" r="2.1"/>';
+        }
+      });
+    }
+    return out;
   }
 
   function drawSystem(systemIndex){
@@ -8752,6 +9263,7 @@ function s_renderStaff(flashWrong){
         out+='<text class="sight-measure-label" x="'+(x+5)+'" y="'+(systemTop+15)+'">Bar '+(firstBar+b+1)+'</text>';
       }
     }
+    out+=drawMeterGroups(systemTop,topLines,bassLines,barsHere);
     return out;
   }
 
@@ -8764,8 +9276,8 @@ function s_renderStaff(flashWrong){
       const note=s_itemNote(item);
       const beats=s_itemBeats(item);
       const value=s_itemValue(item);
-      const barIndex=Math.floor(beatCursor/4);
-      const beatInBar=beatCursor%4;
+      const barIndex=Math.floor(beatCursor/barBeats);
+      const beatInBar=beatCursor%barBeats;
       const systemIndex=Math.floor(barIndex/barsPerSystem);
       const localBar=barIndex%barsPerSystem;
       const systemTop=5+systemIndex*systemH;
@@ -8775,8 +9287,30 @@ function s_renderStaff(flashWrong){
       const bassLines=isGrand?linesForSystem(systemTop,true):topLines;
       const lines=isGrand&&staff==='bass'?bassLines:topLines;
       const bottom=lines[lines.length-1];
-      const x=clefW+localBar*barW+(beatInBar+(beats/2))*(barW/4);
+      const x=clefW+localBar*barW+((beatInBar+(beats/2))/barBeats)*barW;
       const fill=noteColor(i);
+      let tieTarget=null;
+      if(item&&typeof item==='object'&&item.tieStart&&s_sequence[i+1]&&s_sequence[i+1].tieHold&&s_sequence[i+1].tieGroup===item.tieGroup){
+        const next=s_sequence[i+1];
+        const nextBeat=roundBeat(beatCursor+beats);
+        const nextBarIndex=Math.floor(nextBeat/barBeats);
+        const nextBeatInBar=nextBeat%barBeats;
+        const nextSystemIndex=Math.floor(nextBarIndex/barsPerSystem);
+        if(nextSystemIndex===systemIndex){
+          const nextLocalBar=nextBarIndex%barsPerSystem;
+          tieTarget={
+            x:clefW+nextLocalBar*barW+((nextBeatInBar+(s_itemBeats(next)/2))/barBeats)*barW,
+            beats:s_itemBeats(next)
+          };
+        }
+      }
+      if(value==='triplet_eighth'&&item.tripletPos===0){
+        const bx1=clefW+localBar*barW+((beatInBar+0.08)/barBeats)*barW;
+        const bx2=clefW+localBar*barW+((beatInBar+0.92)/barBeats)*barW;
+        const by=lines[0]-12;
+        svg+='<path class="sight-triplet-bracket" d="M '+bx1+' '+(by+4)+' L '+bx1+' '+by+' L '+bx2+' '+by+' L '+bx2+' '+(by+4)+'"/>';
+        svg+='<text class="sight-triplet-number" x="'+((bx1+bx2)/2)+'" y="'+(by-3)+'">3</text>';
+      }
       if(s_itemIsRest(item)){
         const restCls='sight-rest-symbol '+((i===s_index&&s_active)?'current':'');
         const yMid=lines[2];
@@ -8797,8 +9331,8 @@ function s_renderStaff(flashWrong){
       const rx=value==='whole'?7.4:baseRx;
       const ry=value==='whole'?4.5:baseRy;
       const isOpen=value==='half'||value==='whole';
-      const isSharp=note.includes('#')&&!s_keyAccidentalCovered(note);
-      const isFlat=note.length>=3&&note[1]==='b'&&!s_keyAccidentalCovered(note);
+      const isSharp=note.includes('#')&&!s_keyAccidentalCovered(note)&&!s_itemIsHold(item);
+      const isFlat=note.length>=3&&note[1]==='b'&&!s_keyAccidentalCovered(note)&&!s_itemIsHold(item);
       svg+=ledgerLines(x,y,lines,rx);
       if(isSharp){
         svg+='<text x="'+(x-rx-4)+'" y="'+(y+ry)+'" font-size="11" font-weight="700" fill="'+fill+'" text-anchor="end" font-family="serif">♯</text>';
@@ -8810,15 +9344,24 @@ function s_renderStaff(flashWrong){
       } else {
         svg+='<ellipse cx="'+x+'" cy="'+y+'" rx="'+rx+'" ry="'+ry+'" fill="'+fill+'" transform="rotate(-12 '+x+' '+y+')"/>';
       }
+      if(tieTarget){
+        const bow=(y>=lines[2])?12:-12;
+        const x1=x+rx+2,x2=tieTarget.x-rx-2;
+        const y1=y+(bow>0?8:-8),cy=y+bow;
+        svg+='<path class="sight-tie" d="M '+x1+' '+y1+' C '+(x1+(x2-x1)*0.30)+' '+cy+' '+(x1+(x2-x1)*0.70)+' '+cy+' '+x2+' '+y1+'"/>';
+      }
+      if(value==='dotted_quarter'){
+        svg+='<circle class="sight-note-dot" cx="'+(x+rx+7)+'" cy="'+y+'" r="2.2" fill="'+fill+'"/>';
+      }
       if(value!=='whole'){
         if(y>=lines[2]){
           const sx=x+rx-0.5,sy=y-30;
           svg+='<line x1="'+sx+'" y1="'+y+'" x2="'+sx+'" y2="'+sy+'" stroke="'+fill+'" stroke-width="1.5"/>';
-          if(value==='eighth')svg+='<path class="sight-note-flag" d="M '+sx+' '+sy+' C '+(sx+14)+' '+(sy+5)+' '+(sx+14)+' '+(sy+13)+' '+(sx+3)+' '+(sy+18)+'" stroke="'+fill+'" stroke-width="1.5"/>';
+          if(value==='eighth'||value==='triplet_eighth')svg+='<path class="sight-note-flag" d="M '+sx+' '+sy+' C '+(sx+14)+' '+(sy+5)+' '+(sx+14)+' '+(sy+13)+' '+(sx+3)+' '+(sy+18)+'" stroke="'+fill+'" stroke-width="1.5"/>';
         } else {
           const sx=x-rx+0.5,sy=y+30;
           svg+='<line x1="'+sx+'" y1="'+y+'" x2="'+sx+'" y2="'+sy+'" stroke="'+fill+'" stroke-width="1.5"/>';
-          if(value==='eighth')svg+='<path class="sight-note-flag" d="M '+sx+' '+sy+' C '+(sx-14)+' '+(sy-5)+' '+(sx-14)+' '+(sy-13)+' '+(sx-3)+' '+(sy-18)+'" stroke="'+fill+'" stroke-width="1.5"/>';
+          if(value==='eighth'||value==='triplet_eighth')svg+='<path class="sight-note-flag" d="M '+sx+' '+sy+' C '+(sx-14)+' '+(sy-5)+' '+(sx-14)+' '+(sy-13)+' '+(sx-3)+' '+(sy-18)+'" stroke="'+fill+'" stroke-width="1.5"/>';
         }
       }
       svg+='<text class="sight-duration-label" x="'+x+'" y="'+(isGrand&&staff==='bass'?lines[4]+23:lines[4]+20)+'">'+s_valueSymbol(item)+'</text>';
