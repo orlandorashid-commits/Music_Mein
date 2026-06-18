@@ -1763,6 +1763,74 @@ body {
   #page-rhythm .rhythm-staff-note-label{font-size:.62rem;left:140px;}
 }
 
+
+/* Rhythm staff notation stage 2: basic traditional note and rest values. */
+#page-rhythm .rhythm-staff-display{overflow:visible;}
+#page-rhythm .rhythm-staff-display.is-placeholder{opacity:1;}
+#page-rhythm .rhythm-staff-paper{min-height:0;overflow-x:auto;overflow-y:hidden;padding:.35rem;background:rgba(255,255,255,.03);}
+#page-rhythm .rhythm-staff-paper svg{display:block;width:100%;min-width:640px;height:auto;}
+#page-rhythm .r-staff-line{stroke:var(--ink3);stroke-width:1.4;opacity:.62;}
+#page-rhythm .r-staff-clef{fill:var(--gold);font-family:'Playfair Display',serif;font-weight:700;}
+#page-rhythm .r-staff-clef.percussion{font-family:'DM Mono',monospace;font-weight:900;}
+#page-rhythm .r-staff-time{fill:var(--ink);font-family:'DM Mono',monospace;font-weight:900;}
+#page-rhythm .r-staff-barline{stroke:var(--ink3);stroke-width:1.5;opacity:.7;}
+#page-rhythm .r-staff-group-line{stroke:var(--gold);stroke-width:1.1;stroke-dasharray:3 4;opacity:.35;}
+#page-rhythm .r-staff-note-fill{fill:var(--gold);stroke:var(--gold-dark);stroke-width:1;}
+#page-rhythm .r-staff-note-open{fill:var(--bg2);stroke:var(--gold);stroke-width:2;}
+#page-rhythm .r-staff-stem{stroke:var(--gold);stroke-width:2;stroke-linecap:round;}
+#page-rhythm .r-staff-flag{stroke:var(--gold);stroke-width:1.7;fill:none;stroke-linecap:round;}
+#page-rhythm .r-staff-rest{fill:var(--ink3);opacity:.82;}
+#page-rhythm .r-staff-rest-line{stroke:var(--ink3);stroke-width:2.2;stroke-linecap:round;opacity:.82;fill:none;}
+#page-rhythm .r-staff-count{fill:var(--ink3);font-family:'DM Mono',monospace;font-size:10px;font-weight:800;opacity:.68;}
+#page-rhythm .r-staff-hit-glow{fill:rgba(201,168,76,.22);stroke:rgba(201,168,76,.75);stroke-width:1.5;}
+#page-rhythm .r-staff-user-glow{fill:rgba(58,158,111,.18);stroke:rgba(58,158,111,.75);stroke-width:1.5;}
+#page-rhythm .r-staff-miss-glow{fill:rgba(192,97,74,.18);stroke:rgba(192,97,74,.75);stroke-width:1.5;}
+#page-rhythm .r-staff-system-label{fill:var(--ink3);font-family:'DM Mono',monospace;font-size:10px;font-weight:800;letter-spacing:.06em;}
+#page-rhythm .r-staff-legend{margin-top:.45rem;font-size:.7rem;color:var(--ink3);line-height:1.4;text-align:center;}
+#page-rhythm .r-staff-legend span{color:var(--gold);font-family:'DM Mono',monospace;font-weight:800;}
+@media(max-width:700px){
+  #page-rhythm .rhythm-staff-paper svg{min-width:560px;}
+  #page-rhythm .r-staff-count{font-size:9px;}
+  #page-rhythm .r-staff-legend{font-size:.64rem;}
+}
+
+
+/* Rhythm full width layout stage 3: give notation more horizontal room and move support cards below. */
+#page-rhythm .rhythm-wrap{max-width:1320px;width:100%;}
+#page-rhythm .rhythm-main-grid{display:grid;grid-template-columns:minmax(0,1fr);gap:1rem;align-items:start;width:100%;}
+#page-rhythm .rhythm-card{width:100%;max-width:100%;min-width:0;}
+#page-rhythm .rhythm-visual{width:100%;max-width:100%;}
+#page-rhythm .rhythm-side{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1rem;width:100%;max-width:100%;min-width:0;}
+#page-rhythm .rhythm-side .p-card{min-width:0;height:100%;}
+#page-rhythm .rhythm-side #r-history{max-height:190px;overflow-y:auto;}
+#page-rhythm .rhythm-staff-display{max-width:100%;}
+#page-rhythm .rhythm-staff-paper svg{min-width:720px;}
+@media(max-width:700px){
+  #page-rhythm .rhythm-wrap{max-width:100%;padding:.75rem .65rem 7.5rem;}
+  #page-rhythm .rhythm-main-grid{grid-template-columns:minmax(0,1fr);gap:.8rem;}
+  #page-rhythm .rhythm-side{grid-template-columns:1fr;gap:.75rem;}
+  #page-rhythm .rhythm-staff-paper svg{min-width:560px;}
+}
+
+
+/* Rhythm staff notation Stage 5A: 0.64 glyph scale, beamed eighths, and staff-only syncopation ties. */
+#page-rhythm .r-staff-note-open{stroke-width:1.25;}
+#page-rhythm .r-staff-note-fill{stroke-width:.7;}
+#page-rhythm .r-staff-stem{stroke-width:1.25;}
+#page-rhythm .r-staff-flag{stroke-width:1;}
+#page-rhythm .r-staff-beam{fill:var(--gold);opacity:.96;}
+#page-rhythm .r-staff-tie{stroke:var(--gold);stroke-width:1.1;fill:none;stroke-linecap:round;opacity:.92;}
+#page-rhythm .r-staff-rest{opacity:.68;}
+#page-rhythm .r-staff-rest-line{stroke-width:1.35;opacity:.68;}
+#page-rhythm .r-staff-count{font-size:7.5px;font-weight:700;opacity:.42;}
+#page-rhythm .r-staff-system-label{font-size:9px;opacity:.84;}
+#page-rhythm .r-staff-hit-glow{stroke-width:1;}
+#page-rhythm .r-staff-user-glow{stroke-width:1;}
+#page-rhythm .r-staff-miss-glow{stroke-width:1;}
+@media(max-width:700px){
+  #page-rhythm .r-staff-count{font-size:7px;}
+}
+
 </style>
 </head>
 <body>
@@ -8136,27 +8204,233 @@ function r_updateStaffDisplayControls(){
   const active=r_displayMode==='staff'||r_displayMode==='both';
   group.classList.toggle('staff-disabled',!active);
 }
-function r_renderStaffFoundation(activeIndex,userIndex,missIndex){
+function r_staffEsc(value){
+  return String(value==null?'':value).replace(/[&<>"]/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[ch]));
+}
+const R_STAFF_GLYPH_SCALE=0.64;
+function r_staffGlyph(value){
+  return Math.round((Number(value)||0)*R_STAFF_GLYPH_SCALE*100)/100;
+}
+
+function r_staffValueForUnit(unit,step,remaining){
+  if(unit==='whole')return 'whole';
+  if(unit==='half'&&step>=2&&remaining>=2)return 'half';
+  if(unit==='eighth'||unit==='offbeat'||unit==='syncopation')return 'eighth';
+  if(unit==='triplet')return 'eighth';
+  if(unit==='dotted')return 'eighth';
+  return 'quarter';
+}
+function r_staffStepForUnit(unit,localBeats){
+  if(unit==='whole')return 0;
+  if(unit==='half')return 2;
+  if(unit==='eighth'||unit==='offbeat'||unit==='syncopation')return 0.5;
+  if(unit==='triplet')return 1/3;
+  if(unit==='dotted')return 0.5;
+  if(Array.isArray(localBeats)&&localBeats.some(v=>Math.abs(v-Math.round(v))>0.001))return r_getSubdivisionForUnit(unit,localBeats)===3?1/3:0.5;
+  return 1;
+}
+function r_staffHasHit(localBeats,pos){
+  return (localBeats||[]).some(lb=>Math.abs((Number(lb)||0)-pos)<0.025);
+}
+function r_staffEventsForBar(bp,beatsPerBar){
+  const unit=bp&&bp.unit?bp.unit:'quarter';
+  const localBeats=bp&&Array.isArray(bp.localBeats)?bp.localBeats:[];
+  if(unit==='whole'){
+    return [{pos:0,dur:beatsPerBar,kind:r_staffHasHit(localBeats,0)?'note':'rest',value:'whole',unit,isAttack:true}];
+  }
+  const step=r_staffStepForUnit(unit,localBeats);
+  const events=[];
+  if(!step||step<=0)return events;
+  for(let pos=0;pos<beatsPerBar-0.001;pos+=step){
+    const rounded=r_roundBeatValue(pos);
+    const remaining=beatsPerBar-rounded;
+    const value=r_staffValueForUnit(unit,step,remaining);
+    const hit=r_staffHasHit(localBeats,rounded);
+    const onStrongSubdivision=Math.abs(rounded-Math.round(rounded))<0.001;
+    const prevOffbeat=unit==='syncopation'&&onStrongSubdivision&&rounded>=0.5&&r_staffHasHit(localBeats,r_roundBeatValue(rounded-0.5))&&!hit;
+    if(prevOffbeat){
+      const prevIdx=events.length-1;
+      const ev={pos:rounded,dur:step,kind:'note',value:'eighth',unit,isAttack:false,tieEnd:true};
+      if(prevIdx>=0&&events[prevIdx]&&events[prevIdx].kind==='note'){
+        events[prevIdx].tieStart=true;
+        events[prevIdx].tieToIndex=events.length;
+      }
+      events.push(ev);
+    }else{
+      events.push({pos:rounded,dur:step,kind:hit?'note':'rest',value,unit,isAttack:hit});
+    }
+  }
+  return events;
+}
+function r_staffDrawNote(x,y,value,stateClass,opts){
+  opts=opts||{};
+  const open=value==='whole'||value==='half';
+  const cls=open?'r-staff-note-open':'r-staff-note-fill';
+  let s='';
+  // Stage 5A: draw at a 0.64 staff glyph scale so dense syncopation breathes more.
+  // Beamed eighths omit individual flags and share a beam drawn after the noteheads.
+  if(stateClass)s+='<ellipse class="'+stateClass+'" cx="'+x+'" cy="'+y+'" rx="'+r_staffGlyph(14)+'" ry="'+r_staffGlyph(11)+'"></ellipse>';
+  s+='<ellipse class="'+cls+'" cx="'+x+'" cy="'+y+'" rx="'+r_staffGlyph(8)+'" ry="'+r_staffGlyph(5.4)+'" transform="rotate(-18 '+x+' '+y+')"></ellipse>';
+  if(value!=='whole'){
+    const sx=x+r_staffGlyph(7);
+    const top=typeof opts.stemTop==='number'?opts.stemTop:(y-r_staffGlyph(40));
+    s+='<line class="r-staff-stem" x1="'+sx+'" y1="'+(y-r_staffGlyph(2))+'" x2="'+sx+'" y2="'+top+'"></line>';
+    if(value==='eighth'&&!opts.beamed)s+='<path class="r-staff-flag" d="M '+sx+' '+top+' C '+(sx+r_staffGlyph(13))+' '+(top+r_staffGlyph(5))+' '+(sx+r_staffGlyph(12))+' '+(top+r_staffGlyph(15))+' '+(sx+r_staffGlyph(4))+' '+(top+r_staffGlyph(19))+'"></path>';
+  }
+  return s;
+}
+function r_staffDrawRest(x,y,value,stateClass){
+  let s='';
+  if(stateClass)s+='<rect class="'+stateClass+'" x="'+(x-r_staffGlyph(12))+'" y="'+(y-r_staffGlyph(12))+'" width="'+r_staffGlyph(24)+'" height="'+r_staffGlyph(24)+'" rx="'+r_staffGlyph(6)+'"></rect>';
+  if(value==='whole')return s+'<rect class="r-staff-rest" x="'+(x-r_staffGlyph(8.5))+'" y="'+(y-r_staffGlyph(6))+'" width="'+r_staffGlyph(17)+'" height="'+r_staffGlyph(6)+'" rx="1"></rect>';
+  if(value==='half')return s+'<rect class="r-staff-rest" x="'+(x-r_staffGlyph(8.5))+'" y="'+(y+r_staffGlyph(1.5))+'" width="'+r_staffGlyph(17)+'" height="'+r_staffGlyph(6)+'" rx="1"></rect>';
+  if(value==='eighth'){
+    return s+
+      '<circle class="r-staff-rest" cx="'+(x-r_staffGlyph(3))+'" cy="'+(y-r_staffGlyph(14))+'" r="'+r_staffGlyph(3.4)+'"></circle>'+ 
+      '<path class="r-staff-rest-line" d="M '+(x+r_staffGlyph(2))+' '+(y-r_staffGlyph(16))+' C '+(x+r_staffGlyph(8))+' '+(y-r_staffGlyph(7))+' '+(x+r_staffGlyph(4))+' '+(y+r_staffGlyph(4))+' '+(x-r_staffGlyph(5))+' '+(y+r_staffGlyph(12))+'"></path>';
+  }
+  return s+'<path class="r-staff-rest-line" d="M '+(x-r_staffGlyph(3))+' '+(y-r_staffGlyph(20))+' L '+(x+r_staffGlyph(7))+' '+(y-r_staffGlyph(11))+' L '+(x-r_staffGlyph(6))+' '+(y-r_staffGlyph(1))+' L '+(x+r_staffGlyph(6))+' '+(y+r_staffGlyph(10))+' L '+(x-r_staffGlyph(3))+' '+(y+r_staffGlyph(18))+'"></path>';
+}
+function r_staffCanBeamEvent(ev){
+  return !!ev&&ev.kind==='note'&&ev.value==='eighth'&&ev.unit!=='triplet'&&!ev.tieStart&&!ev.tieEnd&&!ev.tiedContinuation;
+}
+function r_staffBeamSpansForBar(group,beatsPerBar){
+  const bpb=Math.max(1,Number(beatsPerBar)||4);
+  let points=[0];
+  if(Array.isArray(group)&&group.length){
+    points=points.concat(r_getOddGroupBoundaries(group));
+  }else if((r_meter==='6/8'||r_meter==='9/8'||r_meter==='12/8')&&bpb>=6){
+    for(let p=3;p<bpb;p+=3)points.push(p);
+  }else{
+    for(let p=1;p<bpb;p+=1)points.push(p);
+  }
+  points.push(bpb);
+  points=points.map(v=>r_roundBeatValue(v)).filter((v,i,a)=>i===0||Math.abs(v-a[i-1])>0.001);
+  const spans=[];
+  for(let i=0;i<points.length-1;i++)spans.push({start:points[i],end:points[i+1]});
+  return spans;
+}
+function r_staffGetBeamSegments(events,group,beatsPerBar){
+  const spans=r_staffBeamSpansForBar(group,beatsPerBar);
+  const segments=[];
+  spans.forEach(span=>{
+    let run=[];
+    events.forEach((ev,idx)=>{
+      const inside=ev.pos>=span.start-0.001&&ev.pos<span.end-0.001;
+      if(!inside)return;
+      if(r_staffCanBeamEvent(ev)){
+        if(run.length&&Math.abs(ev.pos-(run[run.length-1].ev.pos+run[run.length-1].ev.dur))>0.026){
+          if(run.length>=2)segments.push(run);
+          run=[];
+        }
+        run.push({idx,ev});
+      }else{
+        if(run.length>=2)segments.push(run);
+        run=[];
+      }
+    });
+    if(run.length>=2)segments.push(run);
+  });
+  return segments;
+}
+function r_staffDrawBeam(segment,beamY){
+  if(!Array.isArray(segment)||segment.length<2)return '';
+  const first=segment[0].ev;
+  const last=segment[segment.length-1].ev;
+  const x1=(first.x||0)+r_staffGlyph(5.6);
+  const x2=(last.x||0)+r_staffGlyph(8.2);
+  return '<rect class="r-staff-beam" x="'+x1+'" y="'+(beamY-r_staffGlyph(3))+'" width="'+Math.max(r_staffGlyph(8),x2-x1)+'" height="'+r_staffGlyph(6)+'" rx="1"></rect>';
+}
+function r_staffDrawTie(x1,x2,y){
+  if(!Number.isFinite(x1)||!Number.isFinite(x2)||x2<=x1)return '';
+  const start=x1+r_staffGlyph(6.5);
+  const end=x2-r_staffGlyph(6.5);
+  const mid=(start+end)/2;
+  const curve=y+r_staffGlyph(11);
+  return '<path class="r-staff-tie" d="M '+start+' '+y+' C '+mid+' '+curve+' '+mid+' '+curve+' '+end+' '+y+'"></path>';
+}
+function r_staffEventStateClass(absPos,activeIndex,userIndex,missIndex){
+  if(r_absBeatMatches(activeIndex,absPos,0.05))return 'r-staff-hit-glow';
+  if(r_absBeatMatches(userIndex,absPos,0.09))return 'r-staff-user-glow';
+  if(r_absBeatMatches(missIndex,absPos,0.09))return 'r-staff-miss-glow';
+  return '';
+}
+function r_renderStaffFoundation(activeIndex,userIndex,missIndex,startBar,endBar){
   const wrap=document.createElement('div');
-  wrap.className='rhythm-staff-display is-placeholder';
+  wrap.className='rhythm-staff-display';
   const meter=r_getMeterDisplay();
   const parts=meter.split('/');
   const top=parts[0]||'4';
   const bottom=parts[1]||'4';
-  const activeText=(typeof activeIndex==='number')?' · beat '+(Math.floor(activeIndex%(r_beatsPerBar||4))+1):'';
+  const bars=r_currentPattern?r_currentPattern.bars:0;
+  const beatsPerBar=r_currentPattern&&r_currentPattern.beatsPerBar?r_currentPattern.beatsPerBar:(r_beatsPerBar||4);
+  const firstBar=Math.max(0,typeof startBar==='number'?startBar:0);
+  const lastBar=Math.min((bars||1)-1,typeof endBar==='number'?endBar:(bars||1)-1);
+  const visibleBars=Math.max(1,lastBar-firstBar+1);
+  const barsPerSystem=beatsPerBar>=9?2:(visibleBars<=2?visibleBars:4);
+  const systemCount=Math.ceil(visibleBars/Math.max(1,barsPerSystem));
+  const W=760, left=96, right=22, systemH=104, topPad=24, lineGap=12;
+  const H=topPad+systemCount*systemH+14;
+  const clefClass=r_staffClef==='percussion'?'r-staff-clef percussion':'r-staff-clef';
+  const clefYAdjust=r_staffClef==='percussion'?34:42;
+  const barWindow=(bars>16)?' · bars '+(firstBar+1)+'-'+(lastBar+1):'';
+  let svg='<svg viewBox="0 0 '+W+' '+H+'" role="img" aria-label="Traditional rhythm staff">';
+  for(let sys=0;sys<systemCount;sys++){
+    const sysFirst=firstBar+sys*barsPerSystem;
+    const sysLast=Math.min(sysFirst+barsPerSystem-1,lastBar);
+    const barsInSys=Math.max(1,sysLast-sysFirst+1);
+    const staffTop=topPad+sys*systemH;
+    const staffMid=staffTop+24;
+    const contentW=W-left-right;
+    const barW=contentW/barsInSys;
+    svg+='<text class="r-staff-system-label" x="18" y="'+(staffTop-7)+'">Bars '+(sysFirst+1)+'-'+(sysLast+1)+'</text>';
+    for(let i=0;i<5;i++)svg+='<line class="r-staff-line" x1="'+left+'" y1="'+(staffTop+i*lineGap)+'" x2="'+(W-right)+'" y2="'+(staffTop+i*lineGap)+'"></line>';
+    svg+='<text class="'+clefClass+'" x="24" y="'+(staffTop+clefYAdjust)+'" font-size="'+(r_staffClef==='percussion'?26:42)+'">'+r_getStaffClefSymbol()+'</text>';
+    svg+='<text class="r-staff-time" x="64" y="'+(staffTop+18)+'" font-size="17" text-anchor="middle"><tspan x="64" dy="0">'+r_staffEsc(top)+'</tspan><tspan x="64" dy="18">'+r_staffEsc(bottom)+'</tspan></text>';
+    for(let bar=sysFirst;bar<=sysLast;bar++){
+      const localBar=bar-sysFirst;
+      const x0=left+localBar*barW;
+      const x1=x0+barW;
+      svg+='<line class="r-staff-barline" x1="'+x0+'" y1="'+staffTop+'" x2="'+x0+'" y2="'+(staffTop+48)+'"></line>';
+      if(bar===sysLast)svg+='<line class="r-staff-barline" x1="'+x1+'" y1="'+staffTop+'" x2="'+x1+'" y2="'+(staffTop+48)+'"></line>';
+      const bp=r_getBarPatternForIndex(bar);
+      const group=bp&&bp.group?bp.group:r_getActiveOddGroup(bar);
+      r_getOddGroupBoundaries(group).forEach(boundary=>{
+        const gx=x0+(boundary/beatsPerBar)*barW;
+        svg+='<line class="r-staff-group-line" x1="'+gx+'" y1="'+(staffTop-4)+'" x2="'+gx+'" y2="'+(staffTop+52)+'"></line>';
+      });
+      const events=r_staffEventsForBar(bp,beatsPerBar).map(ev=>Object.assign({},ev,{
+        x:x0+((ev.pos+(ev.dur/2))/beatsPerBar)*barW,
+        abs:bar*beatsPerBar+ev.pos
+      }));
+      const beamSegments=r_staffGetBeamSegments(events,group,beatsPerBar);
+      const beamed={};
+      beamSegments.forEach(seg=>seg.forEach(item=>{beamed[item.idx]=true;}));
+      const beamY=staffMid-26;
+      const countEvery=events.length>16?2:1;
+      events.forEach((ev,idx)=>{
+        const x=ev.x;
+        const state=ev.isAttack===false?'':r_staffEventStateClass(ev.abs,activeIndex,userIndex,missIndex);
+        if(ev.kind==='note')svg+=r_staffDrawNote(x,staffMid,ev.value,state,{beamed:!!beamed[idx],stemTop:beamed[idx]?beamY:null});
+        else svg+=r_staffDrawRest(x,staffMid,ev.value,state);
+        if(idx%countEvery===0)svg+='<text class="r-staff-count" x="'+x+'" y="'+(staffTop+67)+'" text-anchor="middle">'+r_staffEsc(r_getSubdivisionLabel(0,1,Math.floor(ev.pos)+1))+'</text>';
+      });
+      beamSegments.forEach(seg=>{svg+=r_staffDrawBeam(seg,beamY);});
+      events.forEach(ev=>{
+        if(ev.tieStart&&typeof ev.tieToIndex==='number'&&events[ev.tieToIndex]){
+          svg+=r_staffDrawTie(ev.x,events[ev.tieToIndex].x,staffMid+7);
+        }
+      });
+    }
+  }
+  svg+='</svg>';
   wrap.innerHTML=
     '<div class="rhythm-staff-top">'+
-      '<div class="rhythm-staff-title">Staff View Foundation</div>'+
-      '<div class="rhythm-staff-meta">'+r_getStaffClefLabel()+' · '+meter+activeText+'</div>'+
+      '<div class="rhythm-staff-title">Traditional Rhythm Staff</div>'+
+      '<div class="rhythm-staff-meta">'+r_getStaffClefLabel()+' · '+meter+barWindow+'</div>'+
     '</div>'+
-    '<div class="rhythm-staff-paper">'+
-      '<div class="rhythm-staff-clef '+(r_staffClef==='percussion'?'percussion':'')+'">'+r_getStaffClefSymbol()+'</div>'+
-      '<div class="rhythm-staff-time"><div>'+top+'</div><div>'+bottom+'</div></div>'+
-      '<div class="rhythm-staff-lines"><div class="rhythm-staff-line"></div><div class="rhythm-staff-line"></div><div class="rhythm-staff-line"></div><div class="rhythm-staff-line"></div><div class="rhythm-staff-line"></div></div>'+
-      '<div class="rhythm-staff-fixed-note"></div>'+
-      '<div class="rhythm-staff-note-label">Fixed rhythm note lane. Traditional note values come next.</div>'+
-    '</div>'+
-    '<div class="rhythm-staff-mode-note">Stage 1 adds the display switch and staff shell only. Blocks remain untouched and grading still uses the existing rhythm engine.</div>';
+    '<div class="rhythm-staff-paper">'+svg+'</div>'+
+    '<div class="r-staff-legend"><span>Stage 5A:</span> 0.64 notation scale, beamed eighths, and staff-only ties for syncopated offbeat holds.</div>';
   return wrap;
 }
 function r_renderPattern(activeIndex,userIndex,missIndex){
@@ -8255,12 +8529,14 @@ function r_renderPattern(activeIndex,userIndex,missIndex){
   };
 
   let mainStart=0,mainEnd=bars-1;
+  if(bars>16){
+    mainStart=r_currentPage*r_barsPerPage;
+    mainEnd=Math.min(mainStart+r_barsPerPage-1,bars-1);
+  }
   const blockMount=document.createElement('div');
   blockMount.className='rhythm-block-display';
   if(showBlocks){
     if(bars>16){
-      mainStart=r_currentPage*r_barsPerPage;
-      mainEnd=Math.min(mainStart+r_barsPerPage-1,bars-1);
       blockMount.appendChild(makeLabel('Playing bars '+(mainStart+1)+'-'+(mainEnd+1),'rhythm-chart-label'));
     }
     renderBars(blockMount,mainStart,mainEnd,false);
@@ -8279,7 +8555,7 @@ function r_renderPattern(activeIndex,userIndex,missIndex){
     el.appendChild(blockMount);
   }
   if(showStaff){
-    el.appendChild(r_renderStaffFoundation(activeIndex,userIndex,missIndex));
+    el.appendChild(r_renderStaffFoundation(activeIndex,userIndex,missIndex,mainStart,mainEnd));
   }
   r_updatePageIndicator();
 }
