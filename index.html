@@ -1681,6 +1681,30 @@ body {
   #page-rhythm .rhythm-subcell{font-size:.32rem;}
 }
 
+
+/* Rhythm wide-meter visual sizing: keep 9/8 and 12/8 bars readable without changing other tabs. */
+#page-rhythm .rhythm-visual.rhythm-wide-meter .rhythm-row{gap:.2rem;}
+#page-rhythm .rhythm-visual.rhythm-wide-meter .rhythm-bar{gap:.14rem;}
+#page-rhythm .rhythm-visual.rhythm-wide-meter .rhythm-beat.rhythm-subbeat{height:30px;width:30px;padding:2px;gap:1px;border-radius:6px;}
+#page-rhythm .rhythm-visual.rhythm-wide-meter .rhythm-beat.rhythm-subbeat.subdiv-1{width:24px;height:30px;padding:0;}
+#page-rhythm .rhythm-visual.rhythm-wide-meter .rhythm-beat.rhythm-subbeat.subdiv-2{width:32px;}
+#page-rhythm .rhythm-visual.rhythm-wide-meter .rhythm-beat.rhythm-subbeat.subdiv-3{width:38px;}
+#page-rhythm .rhythm-visual.rhythm-wide-meter .rhythm-beat.rhythm-subbeat.subdiv-4{width:42px;}
+#page-rhythm .rhythm-visual.rhythm-wide-meter .rhythm-subcell{font-size:.34rem;border-radius:3px;}
+#page-rhythm .rhythm-visual.rhythm-wide-meter .rhythm-bar-sep{min-height:30px;margin:0 2px;}
+#page-rhythm .rhythm-visual.rhythm-wide-meter .rhythm-beat.triplet-group::before{top:-8px;font-size:.38rem;}
+@media(max-width:700px){
+  #page-rhythm .rhythm-visual.rhythm-wide-meter .rhythm-row{gap:.16rem;}
+  #page-rhythm .rhythm-visual.rhythm-wide-meter .rhythm-bar{gap:.1rem;}
+  #page-rhythm .rhythm-visual.rhythm-wide-meter .rhythm-beat.rhythm-subbeat{height:24px;width:24px;padding:1px;gap:1px;border-radius:5px;}
+  #page-rhythm .rhythm-visual.rhythm-wide-meter .rhythm-beat.rhythm-subbeat.subdiv-1{width:20px;height:24px;padding:0;}
+  #page-rhythm .rhythm-visual.rhythm-wide-meter .rhythm-beat.rhythm-subbeat.subdiv-2{width:25px;}
+  #page-rhythm .rhythm-visual.rhythm-wide-meter .rhythm-beat.rhythm-subbeat.subdiv-3{width:29px;}
+  #page-rhythm .rhythm-visual.rhythm-wide-meter .rhythm-beat.rhythm-subbeat.subdiv-4{width:31px;}
+  #page-rhythm .rhythm-visual.rhythm-wide-meter .rhythm-subcell{font-size:.28rem;}
+  #page-rhythm .rhythm-visual.rhythm-wide-meter .rhythm-bar-sep{min-height:24px;margin:0 1px;}
+}
+
 </style>
 </head>
 <body>
@@ -2407,7 +2431,10 @@ body {
               <option value="4/4" selected>4/4</option>
               <option value="2/4">2/4</option>
               <option value="3/4">3/4</option>
+              <option value="5/4">5/4</option>
               <option value="6/8">6/8</option>
+              <option value="9/8">9/8</option>
+              <option value="12/8">12/8</option>
             </select>
           </div>
           <div class="p-control-group">
@@ -7323,8 +7350,23 @@ const R_BAR_VOCAB_34={
   syncopation: [[0,1.5,2.5],[0.5,1.5,2],[0,0.5,1.5,2.5],[0,1,1.5]],
 };
 
-// 6/8 uses six eighth-note pulses per bar, grouped as 1-la-li 2-la-li.
-// Strong clicks happen on pulse 1 and pulse 4, while patterns stay inside the 6-pulse bar.
+// 5/4 uses five quarter-note beats per bar.
+// This is the first odd-meter option and keeps all patterns inside a 5-beat bar.
+const R_BAR_VOCAB_54={
+  whole:       [[0]],
+  half:        [[0,2,4],[0,2],[0,3],[2,4]],
+  quarter:     [[0,1,2,3,4],[0,2,3,4],[0,1,3,4],[0,2,4],[0,1,2,4]],
+  quarter_rest:[[0,2,4],[0,1,3,4],[1,2,4],[0,3],[0,2,3],[1,3,4]],
+  accent_varied:[[0,2,4],[1,3],[0,1,3],[0,2,3],[1,2,4],[0,1,2,4]],
+  eighth:      [[0,0.5,1,1.5,2,2.5,3,3.5,4,4.5],[0,1,1.5,2,3,4.5],[0,0.5,2,2.5,3,4],[0,1,2,2.5,3.5,4.5]],
+  offbeat:     [[0.5,1.5,2.5,3.5,4.5],[0,1.5,2.5,3.5],[0.5,2,3.5,4],[0,0.5,2,3.5,4.5]],
+  dotted:      [[0,1.5,2,3.5,4],[0,1.5,3,4.5],[0,0.75,2,3,4],[0,2,3.5,4.5]],
+  triplet:     [[0,0.333,0.667,2,2.333,2.667,4,4.333,4.667],[0,1,1.333,1.667,3,4],[0,0.333,0.667,2,4],[0,2,2.333,2.667,3,4]],
+  syncopation: [[0,1.5,2.5,4],[0.5,1.5,2,3.5,4.5],[0,0.5,1.5,2.5,4],[0,1,1.5,3,4.5],[0.5,2,2.5,3.5]],
+};
+
+// 6/8 uses six eighth-note pulses per bar.
+// The metronome accents only pulse 1 of each bar, while patterns stay inside the 6-pulse bar.
 const R_BAR_VOCAB_68={
   whole:       [[0]],
   half:        [[0,3],[0],[3]],
@@ -7338,11 +7380,44 @@ const R_BAR_VOCAB_68={
   syncopation: [[0,2,3.5,5],[1,2,3,5],[0,1.5,3,4.5],[1,3,4,5]],
 };
 
+// 9/8 uses nine eighth-note pulses per bar.
+// The metronome accents only pulse 1 of each bar, while patterns stay inside the 9-pulse bar.
+const R_BAR_VOCAB_98={
+  whole:       [[0]],
+  half:        [[0,6],[0],[3],[6]],
+  quarter:     [[0,3,6],[0,3],[0,6],[3,6]],
+  quarter_rest:[[0,3,6],[0,6],[3],[0,3],[3,6]],
+  accent_varied:[[0,3,6],[0,4,6],[1,3,7],[0,2,6],[0,3,5],[1,3,8]],
+  eighth:      [[0,1,2,3,4,5,6,7,8],[0,2,3,5,6,8],[0,1,3,4,6,7],[0,3,4,5,6,7,8]],
+  offbeat:     [[1,2,4,5,7,8],[0,2,4,6,8],[1,3,5,7],[0,1,4,5,7,8]],
+  dotted:      [[0,3,4.5,6],[0,1.5,3,6,7.5],[0,2.5,3,6,8.5],[0,3,5.5,6]],
+  triplet:     [[0,0.333,0.667,3,3.333,3.667,6,6.333,6.667],[0,1,1.333,1.667,3,6,7,7.333,7.667],[0,3,4,4.333,4.667,6],[0,0.333,0.667,3,6,8]],
+  syncopation: [[0,2,3.5,5,6,8],[1,2,3,5,7,8],[0,1.5,3,4.5,6,7.5],[1,3,4,6,7,8]],
+};
+
+// 12/8 uses twelve eighth-note pulses per bar.
+// The metronome accents only pulse 1 of each bar, while patterns stay inside the 12-pulse bar.
+const R_BAR_VOCAB_128={
+  whole:       [[0]],
+  half:        [[0,6],[0],[6]],
+  quarter:     [[0,3,6,9],[0,3,6],[0,6,9],[3,6,9]],
+  quarter_rest:[[0,3,6,9],[0,6],[3,9],[0,3,9],[0,6,9]],
+  accent_varied:[[0,3,6,9],[0,4,6,10],[1,3,7,9],[0,2,6,8],[0,3,5,9],[1,3,6,11]],
+  eighth:      [[0,1,2,3,4,5,6,7,8,9,10,11],[0,2,3,5,6,8,9,11],[0,1,3,4,6,7,9,10],[0,3,4,5,6,9,10,11]],
+  offbeat:     [[1,2,4,5,7,8,10,11],[0,2,4,6,8,10],[1,3,5,7,9,11],[0,1,4,5,6,7,10,11]],
+  dotted:      [[0,3,4.5,6,9,10.5],[0,1.5,3,6,7.5,9],[0,2.5,3,6,8.5,9],[0,3,5.5,6,9,11.5]],
+  triplet:     [[0,0.333,0.667,3,3.333,3.667,6,6.333,6.667,9,9.333,9.667],[0,1,1.333,1.667,3,6,7,7.333,7.667,9],[0,3,4,4.333,4.667,6,9,10,10.333,10.667],[0,0.333,0.667,3,6,6.333,6.667,9,11]],
+  syncopation: [[0,2,3.5,5,6,8,9.5,11],[1,2,3,5,7,8,9,11],[0,1.5,3,4.5,6,7.5,9,10.5],[1,3,4,6,7,9,10,11]],
+};
+
 function r_getMeterVocab(unit){
   const bpb=Math.max(1,r_beatsPerBar||4);
   if(bpb===2&&R_BAR_VOCAB_24[unit])return R_BAR_VOCAB_24[unit];
   if(bpb===3&&R_BAR_VOCAB_34[unit])return R_BAR_VOCAB_34[unit];
+  if((r_meter==='5/4'||bpb===5)&&R_BAR_VOCAB_54[unit])return R_BAR_VOCAB_54[unit];
   if((r_meter==='6/8'||bpb===6)&&R_BAR_VOCAB_68[unit])return R_BAR_VOCAB_68[unit];
+  if((r_meter==='9/8'||bpb===9)&&R_BAR_VOCAB_98[unit])return R_BAR_VOCAB_98[unit];
+  if((r_meter==='12/8'||bpb===12)&&R_BAR_VOCAB_128[unit])return R_BAR_VOCAB_128[unit];
   const base=R_BAR_VOCAB[unit]||[];
   return base.map(bar=>bar.filter(v=>v<bpb));
 }
@@ -7638,7 +7713,7 @@ function r_onSettingsChange(){
   r_rhythmGuide=rg?rg.value==='on':true;
   r_focus=fc?fc.value:'random';
   r_meter=me?me.value:'4/4';
-  r_beatsPerBar=r_meter==='2/4'?2:r_meter==='3/4'?3:r_meter==='6/8'?6:4;
+  r_beatsPerBar=r_meter==='2/4'?2:r_meter==='3/4'?3:r_meter==='5/4'?5:r_meter==='6/8'?6:r_meter==='9/8'?9:r_meter==='12/8'?12:4;
   r_updateMeterLabel();
   r_pickPattern();
   r_updateMobileSettingsSummary();
@@ -7681,18 +7756,26 @@ function r_getSubdivisionForUnit(unit,localBeats){
 function r_isCompoundSixEight(){
   return r_meter==='6/8';
 }
+function r_isCompoundNineEight(){
+  return r_meter==='9/8';
+}
+function r_isCompoundTwelveEight(){
+  return r_meter==='12/8';
+}
+function r_isCompoundMeter(){
+  return r_isCompoundSixEight()||r_isCompoundNineEight()||r_isCompoundTwelveEight();
+}
 function r_getBeatLabel(beatNum){
-  if(r_isCompoundSixEight()){
-    const labels=['1','la','li','2','la','li'];
-    return labels[(Math.max(1,beatNum)-1)%6];
-  }
+  // Count-in and pulse labels stay numeric in every meter.
+  // Triplet syllables are still handled separately inside r_getSubdivisionLabel().
   return String(beatNum);
 }
 function r_isStrongBeat(beat){
   const bpb=Math.max(1,r_beatsPerBar||4);
   const raw=((Number(beat)||0)%bpb+bpb)%bpb;
   const pos=Math.round(raw*1000)/1000;
-  if(r_isCompoundSixEight())return Math.abs(pos-0)<0.001||Math.abs(pos-3)<0.001;
+  // Rhythm metronome accent policy: only beat 1 of each bar is accented.
+  // This applies to simple meters and compound-pulse meters like 6/8, 9/8, and 12/8.
   return Math.abs(pos-0)<0.001;
 }
 function r_getSubdivisionLabel(sub,subdiv,beatNum){
@@ -7716,9 +7799,10 @@ function r_renderPattern(activeIndex,userIndex,missIndex){
   if(refIndex!==null)r_ensurePageForBeat(refIndex);
 
   el.innerHTML='';
-  el.classList.remove('rhythm-density-normal','rhythm-density-compact','rhythm-density-chart','rhythm-long-chart');
+  el.classList.remove('rhythm-density-normal','rhythm-density-compact','rhythm-density-chart','rhythm-long-chart','rhythm-wide-meter');
   el.classList.add(bars<=4?'rhythm-density-normal':bars<=8?'rhythm-density-compact':'rhythm-density-chart');
   if(bars>16)el.classList.add('rhythm-long-chart');
+  if(beatsPerBar>=9)el.classList.add('rhythm-wide-meter');
 
   const makeLabel=(txt,cls)=>{
     const label=document.createElement('div');
@@ -7765,7 +7849,7 @@ function r_renderPattern(activeIndex,userIndex,missIndex){
 
   const renderBars=(container,startBar,endBar,isPreview)=>{
     const visibleBars=Math.max(0,endBar-startBar+1);
-    const barsPerRow=visibleBars<=1?1:2;
+    const barsPerRow=beatsPerBar>=9?1:(visibleBars<=1?1:2);
     const numRows=Math.ceil(visibleBars/barsPerRow);
     for(let row=0;row<numRows;row++){
       const rowEl=document.createElement('div');
@@ -8264,7 +8348,7 @@ function r_beginUserTapAttempt(){
   r_transportState='listening';r_isPlaying=false;r_isListening=true;
   r_userTaps=[];r_startTime=performance.now();
   r_updateTransportButtons();
-  r_setStatus(r_guideClick?(r_isCompoundSixEight()?'Tap now. Metronome accents 1 and 2 in 6/8.':'Tap now. Metronome gives the quarter-note pulse.'):'Tap now.');
+  r_setStatus(r_guideClick?'Tap now. Metronome accents beat 1 only.':'Tap now.');
   r_setFeedback('Tap the rhythm.','neutral');
   r_renderPattern();
   r_startGuideClick(totalMs);
