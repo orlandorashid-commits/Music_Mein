@@ -3108,6 +3108,232 @@ body {
 #page-improv .improv-review-btn-row .p-btn:disabled{opacity:.38;cursor:not-allowed;}
 #page-improv .improv-review-note{font-size:.68rem;line-height:1.35;color:var(--ink3);margin-top:.45rem;text-align:center;}
 @media(max-width:700px){#page-improv .improv-review-grid{grid-template-columns:1fr;}#page-improv .improv-review-row{grid-template-columns:1fr;gap:.18rem;}#page-improv .improv-review-meta{white-space:normal;}}
+/* Improv Stage 17: guided level path for a complete practice order. */
+#page-improv .improv-path-card{border-color:rgba(201,168,76,.28);}
+#page-improv .improv-path-title{font-family:'Playfair Display',serif;font-size:1rem;font-weight:800;color:var(--gold);line-height:1.18;margin-bottom:.32rem;}
+#page-improv .improv-path-desc{font-size:.76rem;font-weight:700;color:var(--ink2);line-height:1.38;margin-bottom:.55rem;}
+#page-improv .improv-path-settings{border:1px dashed var(--border);border-radius:10px;background:rgba(201,168,76,.035);padding:.48rem .55rem;font-family:'DM Mono',monospace;font-size:.65rem;font-weight:800;color:var(--ink3);line-height:1.35;margin-bottom:.55rem;}
+#page-improv .improv-path-meter{height:7px;border:1px solid var(--border);background:var(--bg2);border-radius:999px;overflow:hidden;margin:.45rem 0 .5rem;}
+#page-improv .improv-path-fill{height:100%;width:0%;background:linear-gradient(90deg,var(--gold-dark),var(--gold));border-radius:999px;transition:width .25s ease;}
+#page-improv .improv-path-fill.complete{background:#3A9E6F;}
+#page-improv .improv-path-status{font-family:'DM Mono',monospace;font-size:.66rem;font-weight:800;color:var(--ink3);line-height:1.35;margin-bottom:.6rem;}
+#page-improv .improv-path-steps{display:flex;flex-wrap:wrap;gap:.28rem;margin:.55rem 0 .65rem;}
+#page-improv .improv-path-step{min-width:28px;height:26px;padding:0 .42rem;border-radius:999px;border:1px solid var(--border);background:var(--bg2);color:var(--ink3);display:inline-flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:.66rem;font-weight:900;cursor:pointer;transition:all .15s;}
+#page-improv .improv-path-step:hover{border-color:var(--gold);color:var(--gold);}
+#page-improv .improv-path-step.current{border-color:rgba(201,168,76,.62);background:rgba(201,168,76,.14);color:var(--gold);}
+#page-improv .improv-path-step.done{border-color:rgba(58,158,111,.45);background:rgba(58,158,111,.14);color:#3A9E6F;}
+#page-improv .improv-path-btn-row{display:flex;flex-wrap:wrap;gap:.42rem;margin-top:.55rem;}
+#page-improv .improv-path-btn-row .p-btn{flex:1 1 88px;padding:.44rem .55rem;font-size:.74rem;}
+#page-improv .improv-path-note{font-size:.68rem;line-height:1.35;color:var(--ink3);margin-top:.45rem;text-align:center;}
+@media(max-width:700px){#page-improv .improv-path-btn-row .p-btn{flex:1 1 100%;}}
+
+/* Improv Stage 18: mobile polish and collapsible settings for the Improv window only. */
+#page-improv .improv-mobile-settings-toggle{display:none;}
+#page-improv .improv-mobile-settings-btn{padding:.45rem .8rem;border-radius:10px;border:1px solid var(--border);background:var(--bg2);color:var(--ink2);font-family:'DM Sans',sans-serif;font-size:.78rem;font-weight:900;cursor:pointer;white-space:nowrap;transition:all .15s;}
+#page-improv .improv-mobile-settings-btn:hover{border-color:var(--gold);color:var(--gold);}
+#page-improv .improv-mobile-settings-summary{font-family:'DM Mono',monospace;font-size:.68rem;font-weight:900;color:var(--ink3);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0;flex:1;}
+@media(max-width:700px){
+  #page-improv .improv-wrap{padding:.72rem .6rem 1.5rem;max-width:100%;}
+  #page-improv .improv-header{padding:.82rem .9rem;margin-bottom:.6rem;border-radius:14px;}
+  #page-improv .improv-header h2{font-size:1.12rem;}
+  #page-improv .improv-header p{font-size:.74rem;line-height:1.35;}
+  #page-improv .improv-mobile-settings-toggle{display:flex;align-items:center;gap:.55rem;margin-bottom:.6rem;flex-wrap:wrap;}
+  #page-improv .improv-mobile-settings-panel{max-height:0;overflow:hidden;opacity:0;pointer-events:none;transition:max-height .28s ease,opacity .2s ease;margin-bottom:.6rem!important;padding-top:0!important;padding-bottom:0!important;border-width:0!important;}
+  #page-improv .improv-mobile-settings-panel.open{max-height:1800px;opacity:1;pointer-events:auto;padding:.75rem!important;border-width:1px!important;}
+  #page-improv .improv-controls{grid-template-columns:repeat(2,minmax(0,1fr));gap:.5rem;border-radius:13px;}
+  #page-improv .improv-controls .p-control-group{min-width:0;}
+  #page-improv .improv-controls label{font-size:.56rem;margin-bottom:.22rem;}
+  #page-improv .improv-controls select{font-size:.72rem;padding:.42rem .52rem;}
+  #page-improv .improv-control-note{font-size:.58rem;line-height:1.25;margin-top:.2rem;}
+  #page-improv .improv-main-grid{grid-template-columns:minmax(0,1fr);gap:.75rem;}
+  #page-improv .improv-card{padding:.78rem;border-radius:14px;min-width:0;}
+  #page-improv .improv-mode-label{font-size:.58rem;margin-bottom:.32rem;}
+  #page-improv .improv-question{font-size:1.35rem;line-height:1.08;margin-bottom:.2rem;}
+  #page-improv .improv-step{font-size:.68rem;line-height:1.35;margin-bottom:.5rem;}
+  #page-improv .improv-timeline-wrap{padding:.62rem;border-radius:12px;margin:.55rem 0;}
+  #page-improv .improv-timeline-label{font-size:.6rem;gap:.35rem;}
+  #page-improv .improv-timeline{gap:.28rem;overflow-x:auto;padding-bottom:.1rem;justify-content:flex-start;}
+  #page-improv .improv-timeline-step{min-width:82px;padding:.4rem .45rem;font-size:.62rem;}
+  #page-improv .improv-timeline-status{font-size:.62rem;line-height:1.3;gap:.25rem;}
+  #page-improv .improv-coach-panel{padding:.55rem .62rem;border-radius:11px;margin:.5rem 0;}
+  #page-improv .improv-coach-label{font-size:.54rem;}
+  #page-improv .improv-coach-text{font-size:.72rem;line-height:1.32;}
+  #page-improv .improv-feedback{min-height:42px;font-size:.76rem;padding:.5rem .6rem;margin-bottom:.55rem;}
+  #page-improv .improv-detected-title{font-size:.56rem;}
+  #page-improv .improv-note-box{min-height:36px;padding:.5rem;gap:.28rem;}
+  #page-improv .improv-note-chip,#page-improv .improv-phrase-chip{font-size:.66rem;padding:.24rem .48rem;}
+  #page-improv .improv-help{font-size:.62rem;line-height:1.25;margin:.35rem 0 .55rem;}
+  #page-improv .improv-card>.p-btn-row{gap:.38rem;margin-bottom:.55rem;}
+  #page-improv .improv-card>.p-btn-row .p-btn{flex:1 1 calc(50% - .38rem);min-height:40px;padding:.5rem .5rem;font-size:.75rem;}
+  #page-improv .improv-answer-box{padding:.62rem;border-radius:12px;margin:.55rem 0;}
+  #page-improv .improv-answer-label{font-size:.55rem;}
+  #page-improv .improv-answer-notes{font-size:.78rem;line-height:1.32;}
+  #page-improv .improv-answer-meta{font-size:.66rem;line-height:1.3;}
+  #page-improv .improv-keyboard-wrap{padding:.55rem .05rem .45rem;border-radius:11px;overflow-x:auto;}
+  #page-improv .improv-keyboard{min-width:620px;}
+  #page-improv .improv-keyboard-help{font-size:.6rem;line-height:1.3;padding:0 .45rem;}
+  #page-improv .improv-bpm-row{align-items:center;gap:.5rem;flex-wrap:wrap;justify-content:center;margin:.58rem 0 .48rem;padding:.5rem .55rem;}
+  #page-improv .improv-bpm-row .p-bpm-label{font-size:.58rem;}
+  #page-improv .improv-bpm-row .p-bpm-slider{min-width:120px;flex:1 1 120px;}
+  #page-improv .improv-countoff-select{min-width:92px;}
+  #page-improv .improv-audio-row{display:grid;grid-template-columns:1fr;gap:.45rem;padding:.55rem;margin:.48rem 0 .58rem;}
+  #page-improv .improv-audio-row .p-vol-group{min-width:0;display:grid;grid-template-columns:auto minmax(96px,1fr) 34px;align-items:center;gap:.42rem;}
+  #page-improv .improv-audio-row .p-bpm-label{font-size:.58rem;white-space:nowrap;}
+  #page-improv .improv-audio-row .p-bpm-slider{width:100%;min-width:0;}
+  #page-improv .improv-audio-row .p-vol-val{text-align:right;min-width:34px;}
+  #page-improv .improv-synth-toggle{margin-left:0;font-size:.68rem;}
+  #page-improv .p-midi-bar{font-size:.68rem;align-items:flex-start;line-height:1.3;}
+  #page-improv .p-midi-last{margin-left:0;flex-basis:100%;}
+  #page-improv .improv-side{display:grid;grid-template-columns:1fr!important;gap:.7rem;}
+  #page-improv .improv-side .p-card{padding:.78rem;border-radius:13px;min-width:0;}
+  #page-improv .improv-side .p-card-title{font-size:.86rem;margin-bottom:.55rem;padding-bottom:.36rem;}
+  #page-improv .improv-score{font-size:1.05rem;}
+  #page-improv .rhythm-info{font-size:.72rem;line-height:1.42;}
+  #page-improv .improv-path-title{font-size:.96rem;}
+  #page-improv .improv-path-desc{font-size:.72rem;}
+  #page-improv .improv-path-settings,#page-improv .improv-path-status,#page-improv .improv-path-note{font-size:.64rem;}
+  #page-improv .improv-path-step{min-width:26px;height:24px;font-size:.62rem;}
+  #page-improv .improv-review-grid{grid-template-columns:1fr;}
+  #page-improv .improv-review-row{grid-template-columns:1fr;gap:.18rem;}
+  #page-improv .improv-review-meta{white-space:normal;}
+  #page-improv .improv-review-btn-row .p-btn{flex:1 1 100%;}
+  #page-improv .p-history-item{font-size:.7rem;gap:.35rem;}
+}
+@media(max-width:390px){
+  #page-improv .improv-controls{grid-template-columns:1fr;}
+  #page-improv .improv-card>.p-btn-row .p-btn{flex:1 1 100%;}
+  #page-improv .improv-question{font-size:1.22rem;}
+}
+
+
+
+/* Improv Stage 19: Quick Focus presets for one tap practice setups. */
+#page-improv .improv-quick-card{border-color:rgba(74,127,192,.28);}
+#page-improv .improv-quick-status{border:1px dashed var(--border);border-radius:10px;background:rgba(74,127,192,.045);padding:.5rem .58rem;font-size:.7rem;font-weight:800;color:var(--ink3);line-height:1.35;margin-bottom:.62rem;}
+#page-improv .improv-quick-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.38rem;}
+#page-improv .improv-quick-btn{min-height:46px;padding:.45rem .5rem;border-radius:10px;border:1px solid var(--border);background:var(--bg2);color:var(--ink2);font-family:'DM Sans',sans-serif;font-size:.7rem;font-weight:900;line-height:1.18;cursor:pointer;transition:all .15s;text-align:center;}
+#page-improv .improv-quick-btn:hover{border-color:var(--gold);color:var(--gold);transform:translateY(-1px);}
+#page-improv .improv-quick-btn.active{border-color:rgba(201,168,76,.62);background:rgba(201,168,76,.14);color:var(--gold);}
+#page-improv .improv-quick-note{font-size:.66rem;line-height:1.35;color:var(--ink3);margin-top:.55rem;text-align:center;}
+@media(max-width:700px){
+  #page-improv .improv-quick-grid{grid-template-columns:1fr;gap:.32rem;}
+  #page-improv .improv-quick-btn{min-height:40px;font-size:.68rem;}
+  #page-improv .improv-quick-status,#page-improv .improv-quick-note{font-size:.64rem;}
+}
+
+
+
+/* Improv Stage 20: Practice Plan sequences Quick Focus presets into guided routines. */
+#page-improv .improv-plan-card{border-color:rgba(201,168,76,.28);}
+#page-improv .improv-plan-top{display:grid;grid-template-columns:minmax(0,1fr);gap:.42rem;margin-bottom:.55rem;}
+#page-improv .improv-plan-select{width:100%;padding:.45rem .6rem;background:var(--bg2);border:1px solid var(--border);border-radius:9px;color:var(--ink);font-family:'DM Sans',sans-serif;font-size:.75rem;font-weight:800;}
+#page-improv .improv-plan-status{border:1px dashed var(--border);border-radius:10px;background:rgba(201,168,76,.045);padding:.5rem .58rem;font-size:.7rem;font-weight:800;color:var(--ink3);line-height:1.35;margin-bottom:.62rem;}
+#page-improv .improv-plan-steps{display:flex;flex-direction:column;gap:.36rem;margin-bottom:.62rem;}
+#page-improv .improv-plan-step{display:grid;grid-template-columns:22px minmax(0,1fr);gap:.42rem;align-items:start;padding:.42rem .48rem;border:1px solid var(--border);border-radius:10px;background:var(--bg2);cursor:pointer;transition:all .15s;}
+#page-improv .improv-plan-step:hover{border-color:var(--gold);transform:translateY(-1px);}
+#page-improv .improv-plan-step.active{border-color:rgba(201,168,76,.62);background:rgba(201,168,76,.11);}
+#page-improv .improv-plan-step.done{opacity:.68;}
+#page-improv .improv-plan-num{width:22px;height:22px;border-radius:999px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:.64rem;font-weight:900;color:var(--ink3);}
+#page-improv .improv-plan-step.active .improv-plan-num{background:var(--gold);border-color:var(--gold-dark);color:#111;}
+#page-improv .improv-plan-step.done .improv-plan-num{background:rgba(58,158,111,.18);border-color:rgba(58,158,111,.45);color:#3A9E6F;}
+#page-improv .improv-plan-name{font-size:.72rem;font-weight:900;color:var(--ink2);line-height:1.2;}
+#page-improv .improv-plan-step.active .improv-plan-name{color:var(--gold);}
+#page-improv .improv-plan-note{font-size:.64rem;font-weight:700;color:var(--ink3);line-height:1.3;margin-top:.12rem;}
+#page-improv .improv-plan-btn-row{display:flex;gap:.4rem;flex-wrap:wrap;}
+#page-improv .improv-plan-btn-row .p-btn{flex:1 1 82px;padding:.42rem .5rem;font-size:.72rem;}
+#page-improv .improv-plan-footer{font-size:.64rem;line-height:1.35;color:var(--ink3);margin-top:.55rem;text-align:center;}
+@media(max-width:700px){
+  #page-improv .improv-plan-status{font-size:.64rem;}
+  #page-improv .improv-plan-name{font-size:.68rem;}
+  #page-improv .improv-plan-note{font-size:.6rem;}
+  #page-improv .improv-plan-btn-row .p-btn{flex:1 1 100%;}
+}
+
+
+/* Improv Stage 21: Practice Plan timer and auto advance. */
+#page-improv .improv-plan-timer{border:1px solid var(--border);border-radius:12px;background:rgba(201,168,76,.035);padding:.58rem .62rem;margin-bottom:.62rem;}
+#page-improv .improv-plan-timer-head{display:flex;align-items:center;justify-content:space-between;gap:.55rem;margin-bottom:.42rem;}
+#page-improv .improv-plan-timer-head span{font-size:.58rem;font-weight:900;text-transform:uppercase;letter-spacing:.1em;color:var(--ink3);}
+#page-improv .improv-plan-timer-head strong{font-family:'DM Mono',monospace;font-size:1rem;font-weight:900;color:var(--gold);}
+#page-improv .improv-plan-timer-track{height:7px;border:1px solid var(--border);border-radius:999px;background:var(--bg2);overflow:hidden;margin-bottom:.5rem;}
+#page-improv .improv-plan-timer-fill{height:100%;width:0%;background:linear-gradient(90deg,var(--gold-dark),var(--gold));border-radius:999px;transition:width .25s linear;}
+#page-improv .improv-plan-timer-fill.done{background:#3A9E6F;}
+#page-improv .improv-plan-timer-controls{display:flex;flex-wrap:wrap;gap:.36rem;}
+#page-improv .improv-plan-timer-controls .p-btn{flex:1 1 72px;padding:.38rem .46rem;font-size:.68rem;}
+#page-improv .improv-plan-timer-hint{font-size:.62rem;line-height:1.35;color:var(--ink3);margin-top:.45rem;text-align:center;font-weight:700;}
+#page-improv .improv-plan-timer.running{border-color:rgba(201,168,76,.48);background:rgba(201,168,76,.07);}
+#page-improv .improv-plan-timer.complete{border-color:rgba(58,158,111,.4);background:rgba(58,158,111,.07);}
+@media(max-width:700px){
+  #page-improv .improv-plan-timer-head strong{font-size:.92rem;}
+  #page-improv .improv-plan-timer-controls .p-btn{flex:1 1 100%;font-size:.66rem;}
+  #page-improv .improv-plan-timer-hint{font-size:.6rem;}
+}
+
+
+
+/* Improv Stage 22: daily goal tracking for timed practice plans. */
+#page-improv .improv-daily-card{border-color:rgba(74,127,192,.24);}
+#page-improv .improv-daily-top{display:grid;grid-template-columns:minmax(0,1fr);gap:.5rem;margin-bottom:.55rem;}
+#page-improv .improv-daily-select{width:100%;padding:.42rem .6rem;background:var(--bg2);border:1px solid var(--border);border-radius:9px;color:var(--ink);font-family:'DM Sans',sans-serif;font-size:.78rem;font-weight:800;}
+#page-improv .improv-daily-main{display:grid;grid-template-columns:1fr 1fr;gap:.45rem;margin-bottom:.55rem;}
+#page-improv .improv-daily-box{border:1px solid var(--border);border-radius:10px;background:var(--bg2);padding:.52rem .58rem;min-width:0;}
+#page-improv .improv-daily-box span{display:block;font-size:.54rem;font-weight:900;text-transform:uppercase;letter-spacing:.09em;color:var(--ink3);margin-bottom:.22rem;}
+#page-improv .improv-daily-box strong{display:block;font-family:'DM Mono',monospace;font-size:.78rem;font-weight:900;color:var(--gold);line-height:1.25;overflow:hidden;text-overflow:ellipsis;}
+#page-improv .improv-daily-track{height:8px;border:1px solid var(--border);background:var(--bg2);border-radius:999px;overflow:hidden;margin:.4rem 0 .55rem;}
+#page-improv .improv-daily-fill{height:100%;width:0%;background:linear-gradient(90deg,var(--gold-dark),var(--gold));border-radius:999px;transition:width .25s ease;}
+#page-improv .improv-daily-fill.done{background:#3A9E6F;}
+#page-improv .improv-daily-status{border:1px dashed var(--border);border-radius:10px;background:rgba(201,168,76,.035);padding:.48rem .58rem;font-size:.7rem;font-weight:700;color:var(--ink3);line-height:1.35;text-align:center;margin-bottom:.55rem;}
+#page-improv .improv-daily-actions{display:flex;flex-wrap:wrap;gap:.42rem;}
+#page-improv .improv-daily-actions .p-btn{flex:1 1 105px;padding:.44rem .55rem;font-size:.74rem;}
+@media(max-width:700px){#page-improv .improv-daily-main{grid-template-columns:1fr;}#page-improv .improv-daily-actions .p-btn{flex:1 1 100%;}}
+
+
+
+/* Improv Stage 23: weekly streak tracking from Daily Goal completion. */
+#page-improv .improv-weekly-card{border-color:rgba(58,158,111,.24);}
+#page-improv .improv-weekly-main{display:grid;grid-template-columns:1fr 1fr;gap:.45rem;margin-bottom:.55rem;}
+#page-improv .improv-weekly-box{border:1px solid var(--border);border-radius:10px;background:var(--bg2);padding:.52rem .58rem;min-width:0;}
+#page-improv .improv-weekly-box span{display:block;font-size:.54rem;font-weight:900;text-transform:uppercase;letter-spacing:.09em;color:var(--ink3);margin-bottom:.22rem;}
+#page-improv .improv-weekly-box strong{display:block;font-family:'DM Mono',monospace;font-size:.78rem;font-weight:900;color:var(--gold);line-height:1.25;overflow:hidden;text-overflow:ellipsis;}
+#page-improv .improv-weekly-days{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:.3rem;margin:.45rem 0 .55rem;}
+#page-improv .improv-weekly-day{border:1px solid var(--border);border-radius:10px;background:var(--bg2);padding:.42rem .24rem;text-align:center;min-width:0;}
+#page-improv .improv-weekly-day span{display:block;font-family:'DM Mono',monospace;font-size:.54rem;font-weight:900;color:var(--ink3);text-transform:uppercase;letter-spacing:.05em;margin-bottom:.18rem;}
+#page-improv .improv-weekly-day strong{display:flex;align-items:center;justify-content:center;margin:0 auto .18rem;width:22px;height:22px;border-radius:999px;border:1px solid var(--border);background:var(--surface);color:var(--ink3);font-family:'DM Mono',monospace;font-size:.7rem;font-weight:900;}
+#page-improv .improv-weekly-day em{display:block;font-style:normal;font-family:'DM Mono',monospace;font-size:.52rem;font-weight:800;color:var(--ink3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+#page-improv .improv-weekly-day.done{border-color:rgba(58,158,111,.45);background:rgba(58,158,111,.08);}
+#page-improv .improv-weekly-day.done strong{background:rgba(58,158,111,.2);border-color:rgba(58,158,111,.55);color:#3A9E6F;}
+#page-improv .improv-weekly-day.today{border-color:rgba(201,168,76,.55);}
+#page-improv .improv-weekly-day.today span{color:var(--gold);}
+#page-improv .improv-weekly-status{border:1px dashed var(--border);border-radius:10px;background:rgba(58,158,111,.035);padding:.48rem .58rem;font-size:.7rem;font-weight:700;color:var(--ink3);line-height:1.35;text-align:center;margin-bottom:.55rem;}
+#page-improv .improv-weekly-status.done{background:rgba(58,158,111,.12);border-color:rgba(58,158,111,.35);color:#3A9E6F;}
+#page-improv .improv-weekly-actions{display:flex;flex-wrap:wrap;gap:.42rem;}
+#page-improv .improv-weekly-actions .p-btn{flex:1 1 105px;padding:.44rem .55rem;font-size:.74rem;}
+@media(max-width:700px){#page-improv .improv-weekly-main{grid-template-columns:1fr;}#page-improv .improv-weekly-days{gap:.22rem;}#page-improv .improv-weekly-day{padding:.36rem .16rem;}#page-improv .improv-weekly-day span{font-size:.48rem;}#page-improv .improv-weekly-day strong{width:20px;height:20px;font-size:.64rem;}#page-improv .improv-weekly-day em{display:none;}#page-improv .improv-weekly-actions .p-btn{flex:1 1 100%;}}
+
+/* Improv Stage 24: milestone progress built from daily, weekly, and lifetime Improv work. */
+#page-improv .improv-milestone-card{border-color:rgba(201,168,76,.26);}
+#page-improv .improv-milestone-main{display:grid;grid-template-columns:1fr 1fr;gap:.45rem;margin-bottom:.55rem;}
+#page-improv .improv-milestone-box{border:1px solid var(--border);border-radius:10px;background:var(--bg2);padding:.52rem .58rem;min-width:0;}
+#page-improv .improv-milestone-box span{display:block;font-size:.54rem;font-weight:900;text-transform:uppercase;letter-spacing:.09em;color:var(--ink3);margin-bottom:.22rem;}
+#page-improv .improv-milestone-box strong{display:block;font-family:'DM Mono',monospace;font-size:.78rem;font-weight:900;color:var(--gold);line-height:1.25;overflow:hidden;text-overflow:ellipsis;}
+#page-improv .improv-milestone-track{height:8px;border:1px solid var(--border);background:var(--bg2);border-radius:999px;overflow:hidden;margin:.4rem 0 .55rem;}
+#page-improv .improv-milestone-fill{height:100%;width:0%;background:linear-gradient(90deg,var(--gold-dark),var(--gold));border-radius:999px;transition:width .25s ease;}
+#page-improv .improv-milestone-fill.done{background:#3A9E6F;}
+#page-improv .improv-milestone-next{border:1px dashed var(--border);border-radius:10px;background:rgba(201,168,76,.035);padding:.48rem .58rem;font-size:.7rem;font-weight:800;color:var(--ink3);line-height:1.35;text-align:center;margin-bottom:.55rem;}
+#page-improv .improv-milestone-next.done{background:rgba(58,158,111,.12);border-color:rgba(58,158,111,.35);color:#3A9E6F;}
+#page-improv .improv-milestone-list{display:flex;flex-direction:column;gap:.34rem;max-height:210px;overflow-y:auto;margin-bottom:.6rem;}
+#page-improv .improv-milestone-row{display:grid;grid-template-columns:24px minmax(0,1fr) auto;gap:.42rem;align-items:center;border:1px solid var(--border);border-radius:10px;background:var(--bg2);padding:.42rem .48rem;}
+#page-improv .improv-milestone-mark{width:24px;height:24px;border-radius:999px;border:1px solid var(--border);background:var(--surface);color:var(--ink3);display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:.68rem;font-weight:900;}
+#page-improv .improv-milestone-name{font-size:.7rem;font-weight:900;color:var(--ink2);line-height:1.18;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+#page-improv .improv-milestone-desc{font-size:.6rem;font-weight:700;color:var(--ink3);line-height:1.25;margin-top:.1rem;}
+#page-improv .improv-milestone-meta{font-family:'DM Mono',monospace;font-size:.62rem;font-weight:900;color:var(--ink3);white-space:nowrap;}
+#page-improv .improv-milestone-row.done{border-color:rgba(58,158,111,.44);background:rgba(58,158,111,.075);}
+#page-improv .improv-milestone-row.done .improv-milestone-mark{background:rgba(58,158,111,.18);border-color:rgba(58,158,111,.55);color:#3A9E6F;}
+#page-improv .improv-milestone-row.next{border-color:rgba(201,168,76,.55);background:rgba(201,168,76,.075);}
+#page-improv .improv-milestone-row.next .improv-milestone-mark{border-color:rgba(201,168,76,.6);color:var(--gold);}
+#page-improv .improv-milestone-actions{display:flex;flex-wrap:wrap;gap:.42rem;}
+#page-improv .improv-milestone-actions .p-btn{flex:1 1 110px;padding:.44rem .55rem;font-size:.74rem;}
+@media(max-width:700px){#page-improv .improv-milestone-main{grid-template-columns:1fr;}#page-improv .improv-milestone-row{grid-template-columns:22px minmax(0,1fr);gap:.36rem;}#page-improv .improv-milestone-meta{grid-column:2;white-space:normal;}#page-improv .improv-milestone-actions .p-btn{flex:1 1 100%;}}
 
 </style>
 </head>
@@ -4706,10 +4932,15 @@ body {
       <div class="improv-wrap">
         <div class="improv-header">
           <h2>Improv Trainer</h2>
-          <p>Read the chord symbol, play the chord tones from memory, and move forward only when the answer is correct. Use the timeline, metronome, count off, backing pulse, progression library, guide-tone line practice, call and response phrase echo work, motif variation, approach-tone resolution, and Improv Challenge to connect chord work to real musical flow.</p>
+          <p>Read the chord symbol, play the chord tones from memory, and move forward only when the answer is correct. Use the timeline, metronome, count off, backing pulse, progression library, guide-tone line practice, call and response phrase echo work, motif variation, approach-tone resolution, Improv Challenge, and the Improv Path to connect chord work to real musical flow.</p>
         </div>
 
-        <div class="improv-controls">
+        <div class="improv-mobile-settings-toggle">
+          <button class="improv-mobile-settings-btn" id="im-mobileSettingsBtn" onclick="im_toggleMobileSettings()">Settings</button>
+          <div class="improv-mobile-settings-summary" id="im-mobileSettingsSummary">Mode · Difficulty · Source</div>
+        </div>
+
+        <div class="improv-controls improv-mobile-settings-panel" id="im-mobileSettingsPanel">
           <div class="p-control-group">
             <label>Mode</label>
             <select id="im-modeSelect" onchange="im_onSettingsChange()">
@@ -5021,9 +5252,138 @@ body {
             </div>
             <div class="p-card">
               <div class="p-card-title">How To Use</div>
-              <div class="rhythm-info">Look at the chord symbol and play the required tones from memory. Use Voicing Target for full chords, shells, guide tones, or rootless 9ths. Target Note Drill trains single landing notes. Approach Tone Drill trains one or two notes resolving into the selected target role. Phrase Builder asks for a short melodic phrase from the selected Solo Source and checks that the final note lands on the target role. Guide Tone Line trains the 3rd and 7th movement through the selected progression. Call and Response plays a short model phrase for you to echo by ear. Choose Progression Timeline, set the count off beside the metronome, choose a Backing sound, press Start, and follow the highlighted chord in time. Use Improv Challenge as the final mixed review across chords, targets, guide tones, phrases, and approaches.</div>
+              <div class="rhythm-info">Look at the chord symbol and play the required tones from memory. Use Voicing Target for full chords, shells, guide tones, or rootless 9ths. Target Note Drill trains single landing notes. Approach Tone Drill trains one or two notes resolving into the selected target role. Phrase Builder asks for a short melodic phrase from the selected Solo Source and checks that the final note lands on the target role. Guide Tone Line trains the 3rd and 7th movement through the selected progression. Call and Response plays a short model phrase for you to echo by ear. Choose Progression Timeline, set the count off beside the metronome, choose a Backing sound, press Start, and follow the highlighted chord in time. Use Improv Challenge as the final mixed review across chords, targets, guide tones, phrases, and approaches. Use Practice Plan and the Step Timer when you want a timed routine. Use Improv Path when you want a guided order for the tools.</div>
             </div>
 
+
+
+            <div class="p-card improv-quick-card">
+              <div class="p-card-title">Quick Focus</div>
+              <div class="improv-quick-status" id="im-quickFocusStatus">Choose a preset to load a focused setup.</div>
+              <div class="improv-quick-grid" id="im-quickFocusList"></div>
+              <div class="improv-quick-note">One tap setups for common improv practice. Timeline presets still use Start.</div>
+            </div>
+
+            <div class="p-card improv-plan-card">
+              <div class="p-card-title">Practice Plan</div>
+              <div class="improv-plan-top">
+                <select id="im-planSelect" class="improv-plan-select" onchange="im_changePracticePlan(this.value)">
+                  <option value="five">5 Minute Tune Up</option>
+                  <option value="ten" selected>10 Minute Builder</option>
+                  <option value="fifteen">15 Minute Full Run</option>
+                </select>
+              </div>
+              <div class="improv-plan-status" id="im-planStatus">Choose a plan and load the first step.</div>
+              <div class="improv-plan-timer" id="im-planTimerBox">
+                <div class="improv-plan-timer-head">
+                  <span>Step Timer</span>
+                  <strong id="im-planTimerDisplay">00:00</strong>
+                </div>
+                <div class="improv-plan-timer-track"><div class="improv-plan-timer-fill" id="im-planTimerFill"></div></div>
+                <div class="improv-plan-timer-controls">
+                  <button class="p-btn p-btn-primary" id="im-planTimerBtn" onclick="im_togglePlanTimer()">Start Timer</button>
+                  <button class="p-btn p-btn-sec" onclick="im_resetPlanTimer()">Reset Timer</button>
+                  <button class="p-btn p-btn-sec" id="im-planAutoBtn" onclick="im_togglePlanAutoAdvance()">Auto Advance On</button>
+                </div>
+                <div class="improv-plan-timer-hint" id="im-planTimerHint">Start the timer after loading the current step.</div>
+              </div>
+              <div class="improv-plan-steps" id="im-planSteps"></div>
+              <div class="improv-plan-btn-row">
+                <button class="p-btn p-btn-primary" onclick="im_loadPracticePlanStep()">Load Step</button>
+                <button class="p-btn p-btn-sec" onclick="im_planNext()">Next Step</button>
+                <button class="p-btn p-btn-sec" onclick="im_planReset()">Reset</button>
+              </div>
+              <div class="improv-plan-footer">A simple routine built from Quick Focus presets. Use Load Step, practice, then move to the next step.</div>
+            </div>
+
+            <div class="p-card improv-daily-card">
+              <div class="p-card-title">Daily Goal</div>
+              <div class="improv-daily-top">
+                <select id="im-dailyGoalSelect" class="improv-daily-select" onchange="im_changeDailyGoal(this.value)">
+                  <option value="5">5 Minute Goal</option>
+                  <option value="10" selected>10 Minute Goal</option>
+                  <option value="15">15 Minute Goal</option>
+                  <option value="20">20 Minute Goal</option>
+                  <option value="30">30 Minute Goal</option>
+                </select>
+              </div>
+              <div class="improv-daily-main">
+                <div class="improv-daily-box">
+                  <span>Today</span>
+                  <strong id="im-dailyToday">00:00</strong>
+                </div>
+                <div class="improv-daily-box">
+                  <span>Goal</span>
+                  <strong id="im-dailyGoalText">10 min</strong>
+                </div>
+              </div>
+              <div class="improv-daily-track"><div class="improv-daily-fill" id="im-dailyFill"></div></div>
+              <div class="improv-daily-status" id="im-dailyStatus">Start the Practice Plan timer to fill today&apos;s goal.</div>
+              <div class="improv-daily-actions">
+                <button class="p-btn p-btn-sec" onclick="im_dailyAddMinute()">Add 1 Min</button>
+                <button class="p-btn p-btn-sec" onclick="im_dailyResetToday()">Reset Today</button>
+              </div>
+              <div class="improv-plan-footer">Tracks timed Improv practice for today. The Practice Plan timer adds time automatically.</div>
+            </div>
+
+
+            <div class="p-card improv-weekly-card">
+              <div class="p-card-title">Weekly Streak</div>
+              <div class="improv-weekly-main">
+                <div class="improv-weekly-box">
+                  <span>Current</span>
+                  <strong id="im-weeklyCurrent">0 days</strong>
+                </div>
+                <div class="improv-weekly-box">
+                  <span>Best</span>
+                  <strong id="im-weeklyBest">0 days</strong>
+                </div>
+              </div>
+              <div class="improv-weekly-days" id="im-weeklyDays"></div>
+              <div class="improv-weekly-status" id="im-weeklyStatus">Complete today&apos;s Daily Goal to start a streak.</div>
+              <div class="improv-weekly-actions">
+                <button class="p-btn p-btn-primary" onclick="im_weeklyLoadTodayPlan()">Load Today Plan</button>
+                <button class="p-btn p-btn-sec" onclick="im_weeklyClearHistory()">Clear Streak</button>
+              </div>
+              <div class="improv-plan-footer">Weekly Streak updates when the Daily Goal is complete.</div>
+            </div>
+
+            <div class="p-card improv-milestone-card">
+              <div class="p-card-title">Milestones</div>
+              <div class="improv-milestone-main">
+                <div class="improv-milestone-box">
+                  <span>Earned</span>
+                  <strong id="im-milestoneEarned">0 / 13</strong>
+                </div>
+                <div class="improv-milestone-box">
+                  <span>Lifetime</span>
+                  <strong id="im-milestoneLifetime">0 correct</strong>
+                </div>
+              </div>
+              <div class="improv-milestone-track"><div class="improv-milestone-fill" id="im-milestoneFill"></div></div>
+              <div class="improv-milestone-next" id="im-milestoneNext">Finish a prompt to start earning Improv milestones.</div>
+              <div class="improv-milestone-list" id="im-milestoneList"></div>
+              <div class="improv-milestone-actions">
+                <button class="p-btn p-btn-primary" onclick="im_loadNextMilestone()">Load Next Goal</button>
+                <button class="p-btn p-btn-sec" onclick="im_resetMilestones()">Reset Milestones</button>
+              </div>
+              <div class="improv-plan-footer">Milestones use Improv lifetime progress, Daily Goal, and Weekly Streak.</div>
+            </div>
+            <div class="p-card improv-path-card">
+              <div class="p-card-title">Improv Path</div>
+              <div class="improv-path-title" id="im-pathTitle">Level 1: Chord Shapes</div>
+              <div class="improv-path-desc" id="im-pathDesc">Start with full 7th chord shapes before moving into lines.</div>
+              <div class="improv-path-settings" id="im-pathSettings">Random 7th Chord · Easy · Full 7th Chord</div>
+              <div class="improv-path-meter"><div class="improv-path-fill" id="im-pathFill"></div></div>
+              <div class="improv-path-status" id="im-pathStatus">Goal: 3 correct chord prompts.</div>
+              <div class="improv-path-steps" id="im-pathSteps"></div>
+              <div class="improv-path-btn-row">
+                <button class="p-btn p-btn-sec" onclick="im_pathPrev()">Previous</button>
+                <button class="p-btn p-btn-primary" onclick="im_applyPathLevel()">Load Level</button>
+                <button class="p-btn p-btn-sec" onclick="im_pathNext()">Next</button>
+              </div>
+              <div class="improv-path-note">A guided order for using the Improv tools. Session progress only.</div>
+            </div>
             <div class="p-card improv-review-card">
               <div class="p-card-title">Improv Review</div>
               <div class="improv-review-grid">
@@ -15343,6 +15703,70 @@ const IM_CALL_STYLE_LABELS={echo:'Simple Echo',stepwise:'Stepwise Shape',leapMix
 const IM_MOTIF_MOVE_LABELS={repeat:'Repeat Motif',sequenceUp:'Sequence Up',sequenceDown:'Sequence Down',invert:'Invert Shape',guideFinish:'Guide Tone Finish'};
 const IM_APPROACH_LABELS={random:'Random Approach',diatonicAbove:'Diatonic Above',diatonicBelow:'Diatonic Below',chromaticAbove:'Chromatic Above',chromaticBelow:'Chromatic Below',enclosure:'Enclosure'};
 const IM_CHALLENGE_LABELS={mixed:'Mixed Skills',chordsTargets:'Chords and Targets',linesApproaches:'Lines and Approaches',guideFlow:'Guide Tone Flow'};
+const IM_PATH_LEVELS=[
+  {level:1,title:'Chord Shapes',desc:'Build full 7th chord shapes from the symbol without hints.',goal:'3 correct chord prompts',skill:'chord',goalGood:3,settings:{mode:'chord',difficulty:'easy',voicing:'full7',inversionRule:'exact',guidance:'noHint',chordType:'all',soloSource:'chordTones',targetRole:'random'}},
+  {level:2,title:'Shells and Guide Tones',desc:'Reduce the chord to the notes that define the harmony.',goal:'3 correct progression chord prompts',skill:'chord',goalGood:3,settings:{mode:'iiVI',difficulty:'medium',progressionKind:'iiVI',voicing:'guide',inversionRule:'any',guidance:'formula',soloSource:'guideTones',targetRole:'random'}},
+  {level:3,title:'Target Notes',desc:'Find one strong landing tone over a changing chord.',goal:'3 correct target notes',skill:'target',goalGood:3,settings:{mode:'target',difficulty:'easy',voicing:'full7',soloSource:'chordTones',targetRole:'third',guidance:'noHint'}},
+  {level:4,title:'Guide Tone Line',desc:'Connect 3rds and 7ths through the selected progression.',goal:'3 correct guide tones',skill:'guide',goalGood:3,settings:{mode:'guideLine',difficulty:'medium',progressionKind:'iiVI',guideLineMode:'closest',soloSource:'guideTones',targetRole:'random'}},
+  {level:5,title:'Phrase Landing',desc:'Build a short phrase that resolves to the requested chord role.',goal:'3 correct phrase landings',skill:'phrase',goalGood:3,settings:{mode:'phrase',difficulty:'medium',soloSource:'chordTones',targetRole:'third',phraseLength:4}},
+  {level:6,title:'Approach Resolution',desc:'Approach the target tone from above, below, or an enclosure.',goal:'3 correct approaches',skill:'approach',goalGood:3,settings:{mode:'approach',difficulty:'medium',approachType:'random',soloSource:'scale',targetRole:'seventh',phraseLength:3}},
+  {level:7,title:'Ear Phrase Echo',desc:'Listen to a short call and play it back by ear.',goal:'3 correct ear phrases',skill:'ear',goalGood:3,settings:{mode:'callResponse',difficulty:'medium',callStyle:'guideFinish',soloSource:'chordTones',phraseLength:4,targetRole:'random'}},
+  {level:8,title:'Final Challenge',desc:'Mix chords, target notes, guide tones, phrases, and approaches.',goal:'8 correct mixed review prompts',skill:'mixed',goalGood:8,settings:{mode:'challenge',difficulty:'hard',challengeFocus:'mixed',progressionKind:'iiVI',voicing:'guide',soloSource:'chordTones',targetRole:'random',phraseLength:4}}
+];
+
+const IM_QUICK_FOCUS=[
+  {key:'warmup',title:'Warm Up Chords',desc:'Full 7th chord shapes with no hints.',settings:{mode:'chord',difficulty:'easy',voicing:'full7',inversionRule:'exact',guidance:'noHint',chordType:'all',soloSource:'chordTones',targetRole:'random',backing:'off'}},
+  {key:'flow',title:'ii V I Flow',desc:'Guide-tone voicings through the ii V I progression.',settings:{mode:'iiVI',difficulty:'medium',progressionKind:'iiVI',voicing:'guide',inversionRule:'any',guidance:'formula',soloSource:'guideTones',targetRole:'random',backing:'off'}},
+  {key:'timeline',title:'Timeline Groove',desc:'Progression Timeline with a light root pulse backing.',settings:{mode:'timeline',difficulty:'medium',progressionKind:'iiVI',voicing:'guide',inversionRule:'any',guidance:'formula',barsPerChord:1,countOffBars:1,backing:'rootPulse',soloSource:'guideTones',targetRole:'random'}},
+  {key:'target',title:'Target Landings',desc:'Single-note landing tones over random chords.',settings:{mode:'target',difficulty:'easy',soloSource:'chordTones',targetRole:'third',guidance:'noHint',backing:'off'}},
+  {key:'guide',title:'Guide Tone Line',desc:'Connect 3rds and 7ths across the selected progression.',settings:{mode:'guideLine',difficulty:'medium',progressionKind:'iiVI',guideLineMode:'closest',soloSource:'guideTones',targetRole:'random',backing:'off'}},
+  {key:'phrase',title:'Phrase Landing',desc:'Build a short phrase that lands on a strong tone.',settings:{mode:'phrase',difficulty:'medium',soloSource:'chordTones',targetRole:'third',phraseLength:4,guidance:'noHint',backing:'off'}},
+  {key:'approach',title:'Approach Tones',desc:'Resolve into a target tone from above, below, or an enclosure.',settings:{mode:'approach',difficulty:'medium',approachType:'random',soloSource:'scale',targetRole:'seventh',phraseLength:3,backing:'off'}},
+  {key:'earEcho',title:'Ear Echo',desc:'Hear a short call and play it back by ear.',settings:{mode:'callResponse',difficulty:'medium',callStyle:'guideFinish',soloSource:'chordTones',phraseLength:4,targetRole:'random',backing:'off'}},
+  {key:'challenge',title:'Final Challenge',desc:'Mixed review across chords, lines, targets, and approaches.',settings:{mode:'challenge',difficulty:'hard',challengeFocus:'mixed',progressionKind:'iiVI',voicing:'guide',soloSource:'chordTones',targetRole:'random',phraseLength:4,backing:'off'}}
+];
+
+const IM_PRACTICE_PLANS={
+  five:{title:'5 Minute Tune Up',summary:'Fast routine: chords, target notes, final review.',steps:[
+    {focus:'warmup',title:'Warm Up Chords',note:'Build the chord shape from memory.'},
+    {focus:'target',title:'Target Landings',note:'Land on a strong chord tone.'},
+    {focus:'challenge',title:'Final Check',note:'Finish with a short mixed review.'}
+  ]},
+  ten:{title:'10 Minute Builder',summary:'Balanced routine: chords, flow, phrase, approach, challenge.',steps:[
+    {focus:'warmup',title:'Chord Shapes',note:'Lock in the basic 7th chord shape.'},
+    {focus:'flow',title:'ii V I Flow',note:'Connect guide tones through the progression.'},
+    {focus:'phrase',title:'Phrase Landing',note:'Build a short line that lands clearly.'},
+    {focus:'approach',title:'Approach Resolution',note:'Resolve into the target note with control.'},
+    {focus:'challenge',title:'Final Challenge',note:'Review the mixed skill set.'}
+  ]},
+  fifteen:{title:'15 Minute Full Run',summary:'Full routine: chords, timeline, guide tones, phrases, ear, and challenge.',steps:[
+    {focus:'warmup',title:'Chord Shapes',note:'Start with clean chord recognition.'},
+    {focus:'flow',title:'ii V I Flow',note:'Play the progression voicings.'},
+    {focus:'timeline',title:'Timeline Groove',note:'Use Start and follow the chord changes in time.'},
+    {focus:'guide',title:'Guide Tone Line',note:'Connect 3rds and 7ths smoothly.'},
+    {focus:'phrase',title:'Phrase Landing',note:'Create a short phrase with a target landing.'},
+    {focus:'approach',title:'Approach Tones',note:'Resolve into the selected target tone.'},
+    {focus:'earEcho',title:'Ear Echo',note:'Repeat the call by ear.'},
+    {focus:'challenge',title:'Final Challenge',note:'Put the whole session together.'}
+  ]}
+};
+
+const IM_MILESTONES=[
+  {key:'firstMinute',title:'First Minute',desc:'Track 1 minute of Improv practice.',kind:'seconds',target:60,focus:'plan'},
+  {key:'dailyGoal',title:'Daily Goal',desc:'Complete today\'s Improv time goal.',kind:'daily',target:1,focus:'plan'},
+  {key:'threeDay',title:'3 Day Streak',desc:'Complete the Daily Goal 3 days in a row.',kind:'streak',target:3,focus:'plan'},
+  {key:'sevenDay',title:'7 Day Streak',desc:'Complete the Daily Goal 7 days in a row.',kind:'streak',target:7,focus:'plan'},
+  {key:'tenCorrect',title:'10 Correct',desc:'Reach 10 lifetime correct Improv answers.',kind:'correct',target:10,focus:'warmup'},
+  {key:'fiftyCorrect',title:'50 Correct',desc:'Reach 50 lifetime correct Improv answers.',kind:'correct',target:50,focus:'challenge'},
+  {key:'chordStarter',title:'Chord Starter',desc:'Get 5 correct chord prompts.',kind:'skill',skill:'chord',target:5,focus:'warmup'},
+  {key:'targetStarter',title:'Target Starter',desc:'Get 5 correct target notes.',kind:'skill',skill:'target',target:5,focus:'target'},
+  {key:'guideStarter',title:'Guide Starter',desc:'Get 5 correct guide tones.',kind:'skill',skill:'guide',target:5,focus:'guide'},
+  {key:'phraseStarter',title:'Phrase Starter',desc:'Get 5 correct phrase landings.',kind:'skill',skill:'phrase',target:5,focus:'phrase'},
+  {key:'approachStarter',title:'Approach Starter',desc:'Get 5 correct approach lines.',kind:'skill',skill:'approach',target:5,focus:'approach'},
+  {key:'earStarter',title:'Ear Echo Starter',desc:'Get 5 correct call and response or motif answers.',kind:'skill',skill:'ear',target:5,focus:'earEcho'},
+  {key:'challengeFinish',title:'Challenge Finisher',desc:'Complete one full Improv Challenge.',kind:'challenge',target:1,focus:'challenge'}
+];
+
 const IM_SOLO_SETS={
   maj7:{chordTones:[[0,'1'],[4,'3'],[7,'5'],[11,'7']],guideTones:[[4,'3'],[11,'7']],pentatonic:[[0,'1'],[2,'9'],[4,'3'],[7,'5'],[9,'6']],scale:[[0,'1'],[2,'9'],[4,'3'],[5,'4'],[7,'5'],[9,'6'],[11,'7']]},
   min7:{chordTones:[[0,'1'],[3,'b3'],[7,'5'],[10,'b7']],guideTones:[[3,'b3'],[10,'b7']],pentatonic:[[0,'1'],[3,'b3'],[5,'4'],[7,'5'],[10,'b7']],scale:[[0,'1'],[2,'9'],[3,'b3'],[5,'4'],[7,'5'],[9,'6'],[10,'b7']]},
@@ -15355,6 +15779,13 @@ let im_targetPCs=[], im_targetEntries=[], im_requiredBassPc=null, im_progression
 let im_currentRootPc=0, im_currentChordType='maj7', im_currentChordName='Cmaj7';
 let im_phraseNotes=[], im_phraseTarget=null, im_callPhrase=[], im_motifSource=[], im_motifAnswer=[], im_approachAnswer=[], im_approachKind='random';
 let im_challengeSteps=[], im_challengeIndex=0, im_challengeTask='chord';
+let im_pathLevel=1;
+let im_quickFocus='custom';
+let im_planKind='ten', im_planStep=0, im_planAutoAdvance=true, im_planTimer=null, im_planTimerRunning=false, im_planTimerRemaining=0, im_planTimerTotal=0, im_planTimerKey='';
+let im_dailyGoalMinutes=10, im_dailySeconds=0, im_dailyDate='', im_dailySaveCount=0;
+let im_dailyHistory={};
+let im_lifetimeStats={correct:0,attempts:0,seconds:0,challengeCompletions:0,bySkill:{chord:{good:0,total:0},target:{good:0,total:0},guide:{good:0,total:0},phrase:{good:0,total:0},approach:{good:0,total:0},ear:{good:0,total:0}}};
+let im_mobileSettingsOpen=false;
 let im_heldNotes=new Set(), im_latchedVirtualNotes=new Set(), im_latchMode=true, im_answerShown=false, im_auditionTimers=[], im_backingTimers=[];
 let im_correct=0, im_attempts=0, im_streak=0, im_history=[];
 let im_sessionStats={chord:{good:0,total:0},target:{good:0,total:0},guide:{good:0,total:0},phrase:{good:0,total:0},approach:{good:0,total:0},ear:{good:0,total:0}};
@@ -15422,6 +15853,497 @@ function im_challengeTaskLabel(task=im_challengeTask){
   const labels={chord:'Chord Voicing',target:'Target Note',guide:'Guide Tone',phrase:'Phrase Landing',approach:'Approach Resolution'};
   return labels[task]||'Challenge';
 }
+function im_pathLevelObj(level=im_pathLevel){return IM_PATH_LEVELS.find(l=>l.level==level)||IM_PATH_LEVELS[0];}
+function im_pathStatsFor(levelObj){
+  const goal=Math.max(1,parseInt((levelObj||{}).goalGood,10)||3);
+  if(!levelObj)return {good:0,total:0,pct:0,goal};
+  if(levelObj.skill==='mixed'){
+    const rows=im_sessionStatRows?im_sessionStatRows():[];
+    const good=rows.reduce((sum,r)=>sum+(r.good||0),0);
+    const total=rows.reduce((sum,r)=>sum+(r.total||0),0);
+    return {good,total,pct:Math.min(100,Math.round((good/goal)*100)),goal};
+  }
+  const st=(im_sessionStats&&im_sessionStats[levelObj.skill])||{good:0,total:0};
+  return {good:st.good||0,total:st.total||0,pct:Math.min(100,Math.round(((st.good||0)/goal)*100)),goal};
+}
+function im_pathSettingsLabel(levelObj){
+  if(!levelObj)return '';
+  const s=levelObj.settings||{};
+  const modeLabel={chord:'Random 7th Chord',iiVI:'Progression Chord Flow',timeline:'Progression Timeline',target:'Target Note Drill',approach:'Approach Tone Drill',challenge:'Improv Challenge',phrase:'Phrase Builder',callResponse:'Call and Response',motif:'Motif Variation',guideLine:'Guide Tone Line'}[s.mode]||'Improv';
+  const parts=[modeLabel];
+  if(s.difficulty)parts.push(String(s.difficulty).charAt(0).toUpperCase()+String(s.difficulty).slice(1));
+  if(s.voicing)parts.push(IM_VOICING_LABELS[s.voicing]||s.voicing);
+  if(s.progressionKind)parts.push(IM_PROGRESSION_LABELS[s.progressionKind]||s.progressionKind);
+  if(s.soloSource)parts.push(IM_SOLO_SOURCE_LABELS[s.soloSource]||s.soloSource);
+  if(s.challengeFocus)parts.push(IM_CHALLENGE_LABELS[s.challengeFocus]||s.challengeFocus);
+  return parts.join(' · ');
+}
+function im_renderImprovPath(){
+  const levelObj=im_pathLevelObj();
+  const title=document.getElementById('im-pathTitle');const desc=document.getElementById('im-pathDesc');const settings=document.getElementById('im-pathSettings');const status=document.getElementById('im-pathStatus');const fill=document.getElementById('im-pathFill');const steps=document.getElementById('im-pathSteps');
+  if(!title||!desc||!settings||!status||!fill||!steps)return;
+  const stats=im_pathStatsFor(levelObj);
+  title.textContent='Level '+levelObj.level+': '+levelObj.title;
+  desc.textContent=levelObj.desc;
+  settings.textContent=im_pathSettingsLabel(levelObj);
+  fill.style.width=stats.pct+'%';
+  fill.classList.toggle('complete',stats.pct>=100);
+  status.textContent='Goal: '+levelObj.goal+'. Progress: '+Math.min(stats.good,stats.goal)+' / '+stats.goal+(stats.pct>=100?' complete':'');
+  steps.innerHTML='';
+  IM_PATH_LEVELS.forEach(l=>{
+    const st=im_pathStatsFor(l);
+    const b=document.createElement('button');
+    b.type='button';
+    b.className='improv-path-step'+(l.level===im_pathLevel?' current':'')+(st.pct>=100?' done':'');
+    b.textContent=l.level;
+    b.title='Level '+l.level+': '+l.title;
+    b.onclick=()=>{im_pathLevel=l.level;im_saveSettings();im_renderImprovPath();im_updateMobileSettingsSummary();};
+    steps.appendChild(b);
+  });
+}
+function im_setImprovControl(id,value){const el=document.getElementById(id);if(el&&value!==undefined&&value!==null)el.value=String(value);}
+
+function im_quickFocusObj(key=im_quickFocus){return IM_QUICK_FOCUS.find(p=>p.key===key)||null;}
+function im_applyQuickSettings(s){
+  if(!s)return;
+  im_setImprovControl('im-modeSelect',s.mode);im_setImprovControl('im-diffSelect',s.difficulty);im_setImprovControl('im-progressionSelect',s.progressionKind);im_setImprovControl('im-voicingSelect',s.voicing);im_setImprovControl('im-inversionRuleSelect',s.inversionRule);im_setImprovControl('im-guidanceSelect',s.guidance);im_setImprovControl('im-chordTypeSelect',s.chordType);im_setImprovControl('im-soloSourceSelect',s.soloSource);im_setImprovControl('im-targetRoleSelect',s.targetRole);im_setImprovControl('im-guideLineSelect',s.guideLineMode);im_setImprovControl('im-callStyleSelect',s.callStyle);im_setImprovControl('im-motifMoveSelect',s.motifMove);im_setImprovControl('im-approachTypeSelect',s.approachType);im_setImprovControl('im-challengeFocusSelect',s.challengeFocus);im_setImprovControl('im-phraseLengthSelect',s.phraseLength);im_setImprovControl('im-barsPerChordSelect',s.barsPerChord);im_setImprovControl('im-countOffSelect',s.countOffBars);im_setImprovControl('im-backingSelect',s.backing);
+}
+function im_renderQuickFocus(){
+  const list=document.getElementById('im-quickFocusList');const status=document.getElementById('im-quickFocusStatus');
+  if(!list)return;
+  const active=im_quickFocusObj();
+  if(status)status.textContent=active?active.desc:'Choose a preset to load a focused setup.';
+  list.innerHTML='';
+  IM_QUICK_FOCUS.forEach(p=>{
+    const b=document.createElement('button');
+    b.type='button';
+    b.className='improv-quick-btn'+(im_quickFocus===p.key?' active':'');
+    b.textContent=p.title;
+    b.title=p.desc;
+    b.onclick=()=>im_applyQuickFocus(p.key);
+    list.appendChild(b);
+  });
+}
+function im_applyQuickFocus(key){
+  const preset=im_quickFocusObj(key);if(!preset)return;
+  im_stopTimeline(false);
+  im_quickFocus=preset.key;
+  im_applyQuickSettings(preset.settings);
+  im_readSettings();im_setBackingUI();im_applyModeLatchDefault(im_mode);im_saveSettings();im_newQuestion();im_renderQuickFocus();im_renderPracticePlan();im_renderDailyGoal();im_updateMobileSettingsSummary();im_setFeedback('Loaded Quick Focus: '+preset.title+'.','info');
+}
+
+function im_dailyTodayKey(){
+  const d=new Date();
+  return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+}
+function im_weeklyKeyOffset(offset=0){
+  const d=new Date();d.setDate(d.getDate()+(parseInt(offset,10)||0));
+  return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+}
+function im_weeklyKeyToDate(key){
+  const parts=String(key||'').split('-').map(n=>parseInt(n,10));
+  if(parts.length!==3||parts.some(n=>!Number.isFinite(n)))return new Date();
+  return new Date(parts[0],parts[1]-1,parts[2]);
+}
+function im_weeklyShortLabel(key){
+  const d=im_weeklyKeyToDate(key);return ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'][d.getDay()]||'';
+}
+function im_weeklyDaysBetween(a,b){
+  const da=im_weeklyKeyToDate(a);const db=im_weeklyKeyToDate(b);
+  return Math.round((db.getTime()-da.getTime())/86400000);
+}
+function im_dailyPruneHistory(){
+  if(!im_dailyHistory||typeof im_dailyHistory!=='object')im_dailyHistory={};
+  const cutoff=im_weeklyKeyOffset(-120);
+  Object.keys(im_dailyHistory).forEach(key=>{if(key<cutoff)delete im_dailyHistory[key];});
+}
+function im_dailyRecordDate(date,seconds,goalMinutes){
+  if(!date)return;
+  if(!im_dailyHistory||typeof im_dailyHistory!=='object')im_dailyHistory={};
+  const sec=Math.max(0,parseInt(seconds,10)||0);
+  const goal=Math.max(1,parseInt(goalMinutes,10)||10);
+  im_dailyHistory[date]={seconds:sec,goalMinutes:goal,complete:sec>=goal*60};
+  im_dailyPruneHistory();
+}
+function im_dailyRecordToday(){
+  im_dailyEnsureDate();
+  im_dailyRecordDate(im_dailyDate||im_dailyTodayKey(),im_dailySeconds,im_dailyGoalMinutes);
+}
+function im_dailyEnsureDate(){
+  const today=im_dailyTodayKey();
+  if(im_dailyDate!==today){
+    if(im_dailyDate)im_dailyRecordDate(im_dailyDate,im_dailySeconds,im_dailyGoalMinutes);
+    im_dailyDate=today;im_dailySeconds=0;im_dailySaveCount=0;
+  }
+  im_dailyPruneHistory();
+}
+function im_dailyGoalSeconds(){return Math.max(60,(parseInt(im_dailyGoalMinutes,10)||10)*60);}
+function im_dailyAddSeconds(sec=0,save=false){
+  im_dailyEnsureDate();
+  const add=Math.max(0,parseInt(sec,10)||0);
+  im_lifetimeEnsure();
+  im_lifetimeStats.seconds=Math.max(0,(parseInt(im_lifetimeStats.seconds,10)||0)+add);
+  im_dailySeconds=Math.max(0,im_dailySeconds+add);
+  im_dailyRecordToday();
+  im_renderDailyGoal();
+  if(save)im_saveSettings();
+}
+function im_dailyIsComplete(key){
+  im_dailyEnsureDate();
+  const today=im_dailyTodayKey();
+  if(key===today)return im_dailySeconds>=im_dailyGoalSeconds();
+  const row=(im_dailyHistory&&im_dailyHistory[key])||null;
+  return !!(row&&row.complete);
+}
+function im_dailyHistorySeconds(key){
+  im_dailyEnsureDate();
+  const today=im_dailyTodayKey();
+  if(key===today)return Math.max(0,parseInt(im_dailySeconds,10)||0);
+  const row=(im_dailyHistory&&im_dailyHistory[key])||null;
+  return row?Math.max(0,parseInt(row.seconds,10)||0):0;
+}
+function im_weeklyCurrentStreak(){
+  im_dailyRecordToday();
+  let streak=0;
+  for(let i=0;i<180;i++){
+    const key=im_weeklyKeyOffset(-i);
+    if(im_dailyIsComplete(key))streak++;
+    else break;
+  }
+  return streak;
+}
+function im_weeklyBestStreak(){
+  im_dailyRecordToday();
+  const keys=Object.keys(im_dailyHistory||{}).filter(k=>im_dailyIsComplete(k)).sort();
+  let best=0,current=0,prev='';
+  keys.forEach(key=>{
+    current=(prev&&im_weeklyDaysBetween(prev,key)===1)?current+1:1;
+    best=Math.max(best,current);prev=key;
+  });
+  return best;
+}
+function im_renderWeeklyStreak(){
+  im_dailyRecordToday();
+  const current=document.getElementById('im-weeklyCurrent');const best=document.getElementById('im-weeklyBest');const days=document.getElementById('im-weeklyDays');const status=document.getElementById('im-weeklyStatus');
+  const streak=im_weeklyCurrentStreak();const bestVal=im_weeklyBestStreak();
+  if(current)current.textContent=streak+' '+(streak===1?'day':'days');
+  if(best)best.textContent=bestVal+' '+(bestVal===1?'day':'days');
+  if(days){
+    days.innerHTML='';
+    for(let i=-6;i<=0;i++){
+      const key=im_weeklyKeyOffset(i);const done=im_dailyIsComplete(key);const today=i===0;
+      const div=document.createElement('div');div.className='improv-weekly-day'+(done?' done':'')+(today?' today':'');
+      const label=document.createElement('span');label.textContent=today?'Today':im_weeklyShortLabel(key);
+      const mark=document.createElement('strong');mark.textContent=done?'✓':'•';
+      const time=document.createElement('em');time.textContent=im_formatPlanTime(im_dailyHistorySeconds(key));
+      div.title=key+' · '+im_formatPlanTime(im_dailyHistorySeconds(key));
+      div.appendChild(label);div.appendChild(mark);div.appendChild(time);days.appendChild(div);
+    }
+  }
+  if(status){
+    const complete=im_dailyIsComplete(im_dailyTodayKey());
+    status.classList.toggle('done',complete);
+    status.textContent=complete?'Today complete. Current streak: '+streak+' '+(streak===1?'day.':'days.'):'Finish today\'s Daily Goal to keep the streak alive.';
+  }
+}
+function im_renderDailyGoal(){
+  im_dailyEnsureDate();
+  const sel=document.getElementById('im-dailyGoalSelect');if(sel)sel.value=String(im_dailyGoalMinutes);
+  const today=document.getElementById('im-dailyToday');const goal=document.getElementById('im-dailyGoalText');const fill=document.getElementById('im-dailyFill');const status=document.getElementById('im-dailyStatus');
+  const goalSec=im_dailyGoalSeconds();const pct=goalSec?Math.min(100,Math.round((im_dailySeconds/goalSec)*100)):0;
+  if(today)today.textContent=im_formatPlanTime(im_dailySeconds);
+  if(goal)goal.textContent=String(im_dailyGoalMinutes)+' min';
+  if(fill){fill.style.width=pct+'%';fill.classList.toggle('done',pct>=100);}
+  if(status){
+    const remaining=Math.max(0,goalSec-im_dailySeconds);
+    status.textContent=pct>=100?'Daily goal complete. Nice work.':im_formatPlanTime(remaining)+' left to reach today\'s goal.';
+  }
+  im_dailyRecordToday();
+  im_renderWeeklyStreak();
+  im_renderMilestones();
+}
+function im_changeDailyGoal(value){
+  im_dailyGoalMinutes=Math.max(1,parseInt(value,10)||10);
+  im_dailyEnsureDate();
+  im_dailyRecordToday();
+  im_saveSettings();
+  im_renderDailyGoal();
+  im_setFeedback('Daily goal set to '+im_dailyGoalMinutes+' minutes.','info');
+}
+function im_dailyAddMinute(){
+  im_dailyAddSeconds(60,true);
+  im_setFeedback('Added one minute to today\'s Improv goal.','info');
+}
+function im_dailyResetToday(){
+  im_dailyDate=im_dailyTodayKey();im_dailySeconds=0;im_dailySaveCount=0;im_dailyRecordToday();
+  im_saveSettings();im_renderDailyGoal();
+  im_setFeedback('Today\'s Improv goal was reset.','info');
+}
+function im_weeklyLoadTodayPlan(){
+  im_planPauseTimer(true);
+  im_planStep=0;im_planTimerKey='';
+  im_loadPracticePlanStep();
+  im_setFeedback('Today plan loaded. Start the Step Timer when ready.','info');
+}
+function im_weeklyClearHistory(){
+  im_dailyHistory={};im_dailyRecordToday();im_saveSettings();im_renderDailyGoal();
+  im_setFeedback('Weekly streak history cleared. Today remains based on the current Daily Goal.','info');
+}
+
+
+function im_emptyLifetimeStats(){return {correct:0,attempts:0,seconds:0,challengeCompletions:0,bySkill:{chord:{good:0,total:0},target:{good:0,total:0},guide:{good:0,total:0},phrase:{good:0,total:0},approach:{good:0,total:0},ear:{good:0,total:0}}};}
+function im_lifetimeEnsure(){
+  const fresh=im_emptyLifetimeStats();
+  if(!im_lifetimeStats||typeof im_lifetimeStats!=='object')im_lifetimeStats=fresh;
+  im_lifetimeStats.correct=Math.max(0,parseInt(im_lifetimeStats.correct,10)||0);
+  im_lifetimeStats.attempts=Math.max(0,parseInt(im_lifetimeStats.attempts,10)||0);
+  im_lifetimeStats.seconds=Math.max(0,parseInt(im_lifetimeStats.seconds,10)||0);
+  im_lifetimeStats.challengeCompletions=Math.max(0,parseInt(im_lifetimeStats.challengeCompletions,10)||0);
+  if(!im_lifetimeStats.bySkill||typeof im_lifetimeStats.bySkill!=='object')im_lifetimeStats.bySkill=fresh.bySkill;
+  Object.keys(fresh.bySkill).forEach(k=>{
+    if(!im_lifetimeStats.bySkill[k]||typeof im_lifetimeStats.bySkill[k]!=='object')im_lifetimeStats.bySkill[k]={good:0,total:0};
+    im_lifetimeStats.bySkill[k].good=Math.max(0,parseInt(im_lifetimeStats.bySkill[k].good,10)||0);
+    im_lifetimeStats.bySkill[k].total=Math.max(0,parseInt(im_lifetimeStats.bySkill[k].total,10)||0);
+  });
+}
+function im_lifetimeSkillGood(skill){im_lifetimeEnsure();return ((im_lifetimeStats.bySkill[skill]||{}).good)||0;}
+function im_milestoneValue(m){
+  im_lifetimeEnsure();
+  if(m.kind==='seconds')return im_lifetimeStats.seconds||0;
+  if(m.kind==='daily')return im_dailyIsComplete(im_dailyTodayKey())?1:0;
+  if(m.kind==='streak')return im_weeklyCurrentStreak();
+  if(m.kind==='correct')return im_lifetimeStats.correct||0;
+  if(m.kind==='skill')return im_lifetimeSkillGood(m.skill);
+  if(m.kind==='challenge')return im_lifetimeStats.challengeCompletions||0;
+  return 0;
+}
+function im_milestoneValueText(m,value){
+  const v=Math.max(0,parseInt(value,10)||0);const t=Math.max(1,parseInt(m.target,10)||1);
+  if(m.kind==='seconds')return im_formatPlanTime(v)+' / '+im_formatPlanTime(t);
+  if(m.kind==='daily')return v>=1?'Complete':'Not yet';
+  if(m.kind==='streak')return Math.min(v,t)+' / '+t+' days';
+  if(m.kind==='challenge')return Math.min(v,t)+' / '+t;
+  return Math.min(v,t)+' / '+t;
+}
+function im_milestoneRows(){return IM_MILESTONES.map(m=>{const value=im_milestoneValue(m);return {...m,value,done:value>=(parseInt(m.target,10)||1)};});}
+function im_renderMilestones(){
+  im_lifetimeEnsure();
+  const earned=document.getElementById('im-milestoneEarned');const life=document.getElementById('im-milestoneLifetime');const fill=document.getElementById('im-milestoneFill');const nextBox=document.getElementById('im-milestoneNext');const list=document.getElementById('im-milestoneList');
+  if(!earned||!life||!fill||!nextBox||!list)return;
+  const rows=im_milestoneRows();const done=rows.filter(r=>r.done).length;const total=rows.length;const next=rows.find(r=>!r.done)||null;const pct=total?Math.round((done/total)*100):0;
+  earned.textContent=done+' / '+total;
+  life.textContent=(im_lifetimeStats.correct||0)+' correct';
+  fill.style.width=pct+'%';fill.classList.toggle('done',done===total);
+  nextBox.classList.toggle('done',done===total);
+  nextBox.textContent=next?'Next: '+next.title+' · '+im_milestoneValueText(next,next.value):'All Improv milestones complete.';
+  list.innerHTML='';
+  rows.forEach(r=>{
+    const div=document.createElement('div');div.className='improv-milestone-row'+(r.done?' done':(next&&r.key===next.key?' next':''));
+    const mark=document.createElement('div');mark.className='improv-milestone-mark';mark.textContent=r.done?'✓':'•';
+    const body=document.createElement('div');
+    const name=document.createElement('div');name.className='improv-milestone-name';name.textContent=r.title;
+    const desc=document.createElement('div');desc.className='improv-milestone-desc';desc.textContent=r.desc;
+    body.appendChild(name);body.appendChild(desc);
+    const meta=document.createElement('div');meta.className='improv-milestone-meta';meta.textContent=im_milestoneValueText(r,r.value);
+    div.appendChild(mark);div.appendChild(body);div.appendChild(meta);list.appendChild(div);
+  });
+}
+function im_loadNextMilestone(){
+  const rows=im_milestoneRows();const next=rows.find(r=>!r.done);
+  if(!next){im_setFeedback('All Improv milestones are complete.','correct');return;}
+  if(next.focus==='plan'){
+    im_planPauseTimer(true);
+    im_planKind=(im_dailyGoalMinutes<=5?'five':(im_dailyGoalMinutes<=10?'ten':'fifteen'));
+    im_planStep=0;im_planTimerKey='';im_saveSettings();im_renderPracticePlan();im_loadPracticePlanStep();
+    im_setFeedback('Loaded a Practice Plan for milestone: '+next.title+'.','info');
+    return;
+  }
+  const focusMap={warmup:'warmup',target:'target',guide:'guide',phrase:'phrase',approach:'approach',earEcho:'earEcho',challenge:'challenge'};
+  im_applyQuickFocus(focusMap[next.focus]||'warmup');
+  im_setFeedback('Loaded next milestone: '+next.title+'.','info');
+}
+function im_resetMilestones(){
+  im_lifetimeStats=im_emptyLifetimeStats();
+  im_saveSettings();im_renderMilestones();
+  im_setFeedback('Improv milestones reset. Daily Goal and Weekly Streak were not changed.','info');
+}
+
+function im_currentPlan(){return IM_PRACTICE_PLANS[im_planKind]||IM_PRACTICE_PLANS.ten;}
+function im_currentPlanStep(){const plan=im_currentPlan();const steps=plan.steps||[];if(!steps.length)return null;im_planStep=Math.max(0,Math.min(steps.length-1,parseInt(im_planStep,10)||0));return steps[im_planStep];}
+function im_renderPracticePlan(){
+  const plan=im_currentPlan();const steps=plan.steps||[];
+  const sel=document.getElementById('im-planSelect');if(sel)sel.value=im_planKind;
+  const status=document.getElementById('im-planStatus');
+  if(status){status.textContent=(plan.title||'Practice Plan')+': Step '+(steps.length?im_planStep+1:0)+' of '+steps.length+'. '+(plan.summary||'');}
+  const list=document.getElementById('im-planSteps');if(!list)return;
+  list.innerHTML='';
+  steps.forEach((step,idx)=>{
+    const row=document.createElement('button');
+    row.type='button';
+    row.className='improv-plan-step'+(idx===im_planStep?' active':'')+(idx<im_planStep?' done':'');
+    row.onclick=()=>{im_planPauseTimer(true);im_planStep=idx;im_planTimerKey='';im_saveSettings();im_renderPracticePlan();};
+    const num=document.createElement('div');num.className='improv-plan-num';num.textContent=idx<im_planStep?'✓':String(idx+1);
+    const body=document.createElement('div');
+    const name=document.createElement('div');name.className='improv-plan-name';name.textContent=step.title||'Step';
+    const note=document.createElement('div');note.className='improv-plan-note';note.textContent=step.note||'';
+    body.appendChild(name);body.appendChild(note);row.appendChild(num);row.appendChild(body);list.appendChild(row);
+  });
+  im_renderPlanTimer();
+}
+function im_planStepKey(){return im_planKind+'|'+im_planStep;}
+function im_planTotalSeconds(){return ({five:300,ten:600,fifteen:900}[im_planKind]||600);}
+function im_planStepSeconds(){
+  const plan=im_currentPlan();const steps=plan.steps||[];const step=steps[im_planStep]||{};
+  if(step.seconds)return Math.max(20,parseInt(step.seconds,10)||60);
+  return Math.max(30,Math.round(im_planTotalSeconds()/Math.max(1,steps.length||1)));
+}
+function im_formatPlanTime(sec){
+  sec=Math.max(0,Math.round(sec||0));
+  const m=Math.floor(sec/60);const s=sec%60;
+  return String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');
+}
+function im_planEnsureTimer(reset=false){
+  const key=im_planStepKey();const total=im_planStepSeconds();
+  if(reset||im_planTimerKey!==key||im_planTimerTotal!==total||im_planTimerTotal<=0){
+    im_planTimerKey=key;im_planTimerTotal=total;im_planTimerRemaining=total;
+  }
+  if(im_planTimerRemaining<0)im_planTimerRemaining=0;
+}
+function im_renderPlanTimer(){
+  im_planEnsureTimer(false);
+  const box=document.getElementById('im-planTimerBox');const display=document.getElementById('im-planTimerDisplay');const fill=document.getElementById('im-planTimerFill');const btn=document.getElementById('im-planTimerBtn');const auto=document.getElementById('im-planAutoBtn');const hint=document.getElementById('im-planTimerHint');
+  if(box)box.classList.toggle('running',!!im_planTimerRunning);
+  if(box)box.classList.toggle('complete',im_planTimerRemaining<=0&&!im_planTimerRunning);
+  if(display)display.textContent=im_formatPlanTime(im_planTimerRemaining);
+  if(fill){const pct=im_planTimerTotal?Math.max(0,Math.min(100,Math.round(((im_planTimerTotal-im_planTimerRemaining)/im_planTimerTotal)*100))):0;fill.style.width=pct+'%';fill.classList.toggle('done',im_planTimerRemaining<=0&&!im_planTimerRunning);}
+  if(btn)btn.textContent=im_planTimerRunning?'Pause Timer':'Start Timer';
+  if(auto){auto.textContent=im_planAutoAdvance?'Auto Advance On':'Auto Advance Off';auto.classList.toggle('latched',!!im_planAutoAdvance);}
+  if(hint){const step=im_currentPlanStep();const plan=im_currentPlan();const steps=plan.steps||[];hint.textContent=im_planTimerRunning?'Timer running for '+((step&&step.title)||'this step')+'.':(im_planTimerRemaining<=0?'Step time complete. Press Next Step or Reset Timer.':'Step '+(steps.length?im_planStep+1:0)+' target: '+im_formatPlanTime(im_planStepSeconds())+'.');}
+}
+function im_planPauseTimer(silent=false){
+  if(im_planTimer){clearInterval(im_planTimer);im_planTimer=null;}
+  im_planTimerRunning=false;
+  im_dailyEnsureDate();
+  im_saveSettings();
+  if(!silent)im_setFeedback('Practice Plan timer paused.','info');
+  im_renderPlanTimer();
+  im_renderDailyGoal();
+}
+function im_togglePlanTimer(){
+  if(im_planTimerRunning){im_planPauseTimer();return;}
+  im_planEnsureTimer(false);
+  if(im_planTimerRemaining<=0)im_planEnsureTimer(true);
+  im_planTimerRunning=true;
+  im_renderPlanTimer();
+  if(im_planTimer)clearInterval(im_planTimer);
+  im_planTimer=setInterval(im_planTimerTick,1000);
+  im_setFeedback('Practice Plan timer started.','info');
+}
+function im_resetPlanTimer(silent=false){
+  if(im_planTimer){clearInterval(im_planTimer);im_planTimer=null;}
+  im_planTimerRunning=false;im_planEnsureTimer(true);im_renderPlanTimer();
+  im_renderDailyGoal();
+  if(!silent)im_setFeedback('Practice Plan timer reset.','info');
+}
+function im_togglePlanAutoAdvance(){
+  im_planAutoAdvance=!im_planAutoAdvance;im_saveSettings();im_renderPlanTimer();
+  im_setFeedback(im_planAutoAdvance?'Practice Plan auto advance on.':'Practice Plan auto advance off.','info');
+}
+function im_planTimerTick(){
+  if(!im_planTimerRunning)return;
+  im_dailyAddSeconds(1,false);
+  im_dailySaveCount=(im_dailySaveCount||0)+1;
+  if(im_dailySaveCount>=10){im_dailySaveCount=0;im_saveSettings();}
+  im_planTimerRemaining=Math.max(0,im_planTimerRemaining-1);
+  im_renderPlanTimer();
+  if(im_planTimerRemaining>0)return;
+  if(im_planTimer){clearInterval(im_planTimer);im_planTimer=null;}
+  im_planTimerRunning=false;
+  const plan=im_currentPlan();const steps=plan.steps||[];
+  im_saveSettings();
+  if(im_planAutoAdvance&&im_planStep<steps.length-1){
+    im_planStep++;
+    im_loadPracticePlanStep(true);
+    im_planEnsureTimer(true);
+    im_togglePlanTimer();
+    im_setFeedback('Timer complete. Moving to Practice Plan Step '+(im_planStep+1)+'.','info');
+  }else if(im_planAutoAdvance&&im_planStep>=steps.length-1){
+    im_renderPlanTimer();
+    im_setFeedback('Practice Plan complete. Reset the plan or choose another routine.','correct');
+  }else{
+    im_renderPlanTimer();
+    im_setFeedback('Step time complete. Press Next Step when ready.','info');
+  }
+}
+function im_changePracticePlan(kind){
+  im_planPauseTimer(true);
+  im_planKind=IM_PRACTICE_PLANS[kind]?kind:'ten';
+  im_planStep=0;
+  im_planTimerKey='';
+  im_saveSettings();
+  im_renderPracticePlan();
+  im_renderDailyGoal();
+  im_setFeedback('Practice Plan changed to '+im_currentPlan().title+'.','info');
+}
+function im_loadPracticePlanStep(fromTimer=false){
+  const step=im_currentPlanStep();if(!step)return;
+  if(!fromTimer)im_planPauseTimer(true);
+  im_planTimerKey='';
+  im_applyQuickFocus(step.focus);
+  im_saveSettings();
+  im_renderPracticePlan();
+  im_renderDailyGoal();
+  im_setFeedback('Loaded Practice Plan Step '+(im_planStep+1)+': '+(step.title||'Step')+'.','info');
+}
+function im_planNext(){
+  const plan=im_currentPlan();const steps=plan.steps||[];if(!steps.length)return;
+  im_planPauseTimer(true);
+  im_planStep=(im_planStep>=steps.length-1)?0:im_planStep+1;
+  im_loadPracticePlanStep();
+}
+function im_planReset(){
+  im_planPauseTimer(true);
+  im_planStep=0;
+  im_planTimerKey='';
+  im_saveSettings();
+  im_renderPracticePlan();
+  im_renderDailyGoal();
+  im_setFeedback('Practice Plan reset to Step 1.','info');
+}
+function im_selectText(id,fallback=''){
+  const el=document.getElementById(id);
+  if(!el)return fallback;
+  const opt=el.options&&el.options[el.selectedIndex];
+  return opt?opt.textContent:fallback;
+}
+function im_updateMobileSettingsSummary(){
+  const el=document.getElementById('im-mobileSettingsSummary');
+  if(!el)return;
+  const mode=im_selectText('im-modeSelect','Improv');
+  const diff=im_selectText('im-diffSelect','Easy');
+  let detail='';
+  if(im_mode==='timeline'||im_mode==='iiVI'||im_mode==='guideLine'||im_mode==='challenge')detail=im_selectText('im-progressionSelect',im_progLabel());
+  else if(im_mode==='target'||im_mode==='phrase'||im_mode==='callResponse'||im_mode==='motif'||im_mode==='approach')detail=im_selectText('im-soloSourceSelect',im_targetSourceLabel());
+  else detail=im_selectText('im-voicingSelect',IM_VOICING_LABELS[im_voicing]||'Voicing');
+  el.textContent=mode+' · '+diff+' · '+detail;
+}
+function im_toggleMobileSettings(force){
+  im_mobileSettingsOpen=(typeof force==='boolean')?force:!im_mobileSettingsOpen;
+  const panel=document.getElementById('im-mobileSettingsPanel');
+  const btn=document.getElementById('im-mobileSettingsBtn');
+  if(panel)panel.classList.toggle('open',im_mobileSettingsOpen);
+  if(btn){btn.textContent=im_mobileSettingsOpen?'Hide Settings':'Settings';btn.setAttribute('aria-expanded',im_mobileSettingsOpen?'true':'false');}
+  im_updateMobileSettingsSummary();
+}
+function im_applyPathLevel(){
+  const levelObj=im_pathLevelObj();const s=levelObj.settings||{};
+  im_stopTimeline(false);
+  im_quickFocus='custom';
+  im_setImprovControl('im-modeSelect',s.mode);im_setImprovControl('im-diffSelect',s.difficulty);im_setImprovControl('im-progressionSelect',s.progressionKind);im_setImprovControl('im-voicingSelect',s.voicing);im_setImprovControl('im-inversionRuleSelect',s.inversionRule);im_setImprovControl('im-guidanceSelect',s.guidance);im_setImprovControl('im-chordTypeSelect',s.chordType);im_setImprovControl('im-soloSourceSelect',s.soloSource);im_setImprovControl('im-targetRoleSelect',s.targetRole);im_setImprovControl('im-guideLineSelect',s.guideLineMode);im_setImprovControl('im-callStyleSelect',s.callStyle);im_setImprovControl('im-approachTypeSelect',s.approachType);im_setImprovControl('im-challengeFocusSelect',s.challengeFocus);im_setImprovControl('im-phraseLengthSelect',s.phraseLength);
+  im_readSettings();im_applyModeLatchDefault(im_mode);im_saveSettings();im_newQuestion();im_renderImprovPath();im_renderQuickFocus();im_renderPracticePlan();im_renderDailyGoal();im_updateMobileSettingsSummary();im_setFeedback('Loaded Improv Path Level '+levelObj.level+': '+levelObj.title+'.','info');
+}
+function im_pathPrev(){im_pathLevel=Math.max(1,im_pathLevel-1);im_saveSettings();im_renderImprovPath();im_updateMobileSettingsSummary();}
+function im_pathNext(){im_pathLevel=Math.min(IM_PATH_LEVELS.length,im_pathLevel+1);im_saveSettings();im_renderImprovPath();im_updateMobileSettingsSummary();}
 function im_isPhraseEntryMode(){return im_mode==='phrase'||im_mode==='callResponse'||im_mode==='motif'||(im_mode==='challenge'&&im_challengeTask==='phrase');}
 function im_isApproachEntryMode(){return im_mode==='approach'||(im_mode==='challenge'&&im_challengeTask==='approach');}
 function im_isLineEntryMode(){return im_isPhraseEntryMode()||im_isApproachEntryMode();}
@@ -16245,9 +17167,10 @@ function im_readSettings(){
   const bars=document.getElementById('im-barsPerChordSelect');if(bars)im_barsPerChord=Math.max(1,Math.min(4,parseInt(bars.value,10)||1));
   const countOff=document.getElementById('im-countOffSelect');if(countOff)im_countOffBars=Math.max(1,Math.min(4,parseInt(countOff.value,10)||1));
   const bpm=document.getElementById('im-bpmSlider');if(bpm)im_bpm=Math.max(40,Math.min(220,parseInt(bpm.value,10)||100));
+  im_updateMobileSettingsSummary();
 }
-function im_settingsSnapshot(){return {mode:im_mode,difficulty:im_diff,iiVIType:im_iiVIType,progressionKind:im_progressionKind,chordType:im_chordType,root:im_rootSetting,voicing:im_voicing,inversionRule:im_inversionRule,guidance:im_guidance,soloSource:im_soloSource,targetRole:im_targetRole,guideLineMode:im_guideLineMode,callStyle:im_callStyle,motifMove:im_motifMove,approachType:im_approachType,challengeFocus:im_challengeFocus,phraseLength:im_phraseLength,backing:im_backing,backingVol:im_backingVol,barsPerChord:im_barsPerChord,countOffBars:im_countOffBars,bpm:im_bpm,metroVol:Math.round((p_metroVol/P_METRO_MAX_GAIN)*100)||0};}
-function im_saveSettings(){mm_saveModuleSettings('improv',im_settingsSnapshot());}
+function im_settingsSnapshot(){return {mode:im_mode,difficulty:im_diff,iiVIType:im_iiVIType,progressionKind:im_progressionKind,chordType:im_chordType,root:im_rootSetting,voicing:im_voicing,inversionRule:im_inversionRule,guidance:im_guidance,soloSource:im_soloSource,targetRole:im_targetRole,guideLineMode:im_guideLineMode,callStyle:im_callStyle,motifMove:im_motifMove,approachType:im_approachType,challengeFocus:im_challengeFocus,phraseLength:im_phraseLength,backing:im_backing,backingVol:im_backingVol,barsPerChord:im_barsPerChord,countOffBars:im_countOffBars,bpm:im_bpm,metroVol:Math.round((p_metroVol/P_METRO_MAX_GAIN)*100)||0,pathLevel:im_pathLevel,quickFocus:im_quickFocus,planKind:im_planKind,planStep:im_planStep,planAutoAdvance:im_planAutoAdvance,dailyGoalMinutes:im_dailyGoalMinutes,dailySeconds:im_dailySeconds,dailyDate:im_dailyDate,dailyHistory:im_dailyHistory,lifetimeStats:im_lifetimeStats};}
+function im_saveSettings(){if(typeof im_dailyRecordToday==='function')im_dailyRecordToday();mm_saveModuleSettings('improv',im_settingsSnapshot());}
 function im_applySavedSettings(){
   const st=mm_getModuleSettings('improv');if(!st)return;
   mm_setControlValue('im-modeSelect',st.mode);mm_setControlValue('im-diffSelect',st.difficulty);mm_setControlValue('im-iiVITypeSelect',st.iiVIType);mm_setControlValue('im-progressionSelect',st.progressionKind);mm_setControlValue('im-chordTypeSelect',st.chordType);mm_setControlValue('im-rootSelect',st.root);mm_setControlValue('im-voicingSelect',st.voicing);mm_setControlValue('im-inversionRuleSelect',st.inversionRule);mm_setControlValue('im-guidanceSelect',st.guidance);mm_setControlValue('im-soloSourceSelect',st.soloSource);mm_setControlValue('im-targetRoleSelect',st.targetRole);mm_setControlValue('im-guideLineSelect',st.guideLineMode);mm_setControlValue('im-callStyleSelect',st.callStyle);mm_setControlValue('im-motifMoveSelect',st.motifMove);mm_setControlValue('im-approachTypeSelect',st.approachType);mm_setControlValue('im-challengeFocusSelect',st.challengeFocus);mm_setControlValue('im-phraseLengthSelect',st.phraseLength);mm_setControlValue('im-backingSelect',st.backing);mm_setControlValue('im-backingVolSlider',st.backingVol);mm_setControlValue('im-barsPerChordSelect',st.barsPerChord);mm_setControlValue('im-countOffSelect',st.countOffBars);mm_setControlValue('im-bpmSlider',st.bpm);mm_setControlValue('im-metroVolSlider',st.metroVol);
@@ -16265,11 +17188,23 @@ function im_applySavedSettings(){
   if(typeof st.barsPerChord==='number')im_barsPerChord=Math.max(1,Math.min(4,parseInt(st.barsPerChord,10)||1));
   if(typeof st.countOffBars==='number')im_countOffBars=Math.max(1,Math.min(4,parseInt(st.countOffBars,10)||1));
   if(typeof st.bpm==='number')im_bpm=Math.max(40,Math.min(220,parseInt(st.bpm,10)||100));
+  if(typeof st.pathLevel==='number')im_pathLevel=Math.max(1,Math.min(IM_PATH_LEVELS.length,parseInt(st.pathLevel,10)||1));
+  if(typeof st.quickFocus==='string')im_quickFocus=st.quickFocus;
+  if(typeof st.planKind==='string'&&IM_PRACTICE_PLANS[st.planKind])im_planKind=st.planKind;
+  if(typeof st.planStep==='number')im_planStep=Math.max(0,Math.min((im_currentPlan().steps||[]).length-1,parseInt(st.planStep,10)||0));
+  if(typeof st.planAutoAdvance==='boolean')im_planAutoAdvance=st.planAutoAdvance;
+  if(typeof st.dailyGoalMinutes==='number')im_dailyGoalMinutes=Math.max(1,parseInt(st.dailyGoalMinutes,10)||10);
+  if(st.dailyHistory&&typeof st.dailyHistory==='object')im_dailyHistory=st.dailyHistory;
+  if(st.lifetimeStats&&typeof st.lifetimeStats==='object')im_lifetimeStats=st.lifetimeStats;
+  im_lifetimeEnsure();
+  if(typeof st.dailyDate==='string')im_dailyDate=st.dailyDate;
+  if(typeof st.dailySeconds==='number')im_dailySeconds=Math.max(0,parseInt(st.dailySeconds,10)||0);
+  im_dailyEnsureDate();
   if(typeof st.metroVol==='number')im_updateMetroVol(st.metroVol);
   im_latchMode=im_defaultLatchForMode(st.mode||im_mode);
   im_metroOn=false;
 }
-function im_onSettingsChange(){const priorMode=im_mode;im_stopTimeline(false);im_readSettings();im_setBackingUI();if(priorMode!==im_mode)im_applyModeLatchDefault(im_mode);im_saveSettings();im_newQuestion();}
+function im_onSettingsChange(){const priorMode=im_mode;im_stopTimeline(false);im_quickFocus='custom';im_readSettings();im_setBackingUI();if(priorMode!==im_mode)im_applyModeLatchDefault(im_mode);im_dailyEnsureDate();im_saveSettings();im_newQuestion();im_renderQuickFocus();im_renderPracticePlan();im_renderDailyGoal();im_updateMobileSettingsSummary();}
 function im_makeIiVIQuestion(){
   im_clearInput(true);im_hideAnswer();
   const root=im_pickRoot();
@@ -16603,7 +17538,7 @@ function im_completeCorrect(){
     }else if(im_mode==='challenge'){
       im_challengeIndex++;
       if(im_challengeIndex<(im_challengeSteps||[]).length)im_loadChallengeStep();
-      else{im_currentStep=(im_challengeSteps||[]).length;im_renderTimeline();im_setFeedback('Improv Challenge complete. Press New Question for another challenge.','correct');}
+      else{im_lifetimeEnsure();im_lifetimeStats.challengeCompletions++;im_currentStep=(im_challengeSteps||[]).length;im_renderTimeline();im_saveSettings();im_renderMilestones();im_setFeedback('Improv Challenge complete. Press New Question for another challenge.','correct');}
     }else{im_newQuestion();}
   },650);
 }
@@ -16648,6 +17583,7 @@ function im_recordSessionStat(good,skill=im_currentSkillKey()){
   im_sessionStats[skill].total++;
   if(good)im_sessionStats[skill].good++;
   im_renderSessionReview();
+  im_renderImprovPath();
 }
 function im_sessionStatRows(){
   const order=['chord','target','guide','phrase','approach','ear'];
@@ -16693,7 +17629,7 @@ function im_startWeakReview(){
 }
 function im_resetSessionReview(){
   im_sessionStats={chord:{good:0,total:0},target:{good:0,total:0},guide:{good:0,total:0},phrase:{good:0,total:0},approach:{good:0,total:0},ear:{good:0,total:0}};
-  im_renderSessionReview();im_setFeedback('Improv review reset for this session.','info');
+  im_renderSessionReview();im_renderImprovPath();im_setFeedback('Improv review reset for this session.','info');
 }
 
 function im_updateScore(){
@@ -16706,8 +17642,13 @@ function im_addHistory(good,msg=''){
   const q=(document.getElementById('im-questionDisplay')||{}).textContent||'Chord';
   const skill=im_currentSkillKey();
   im_recordSessionStat(!!good,skill);
+  im_lifetimeEnsure();
+  im_lifetimeStats.attempts++;
+  if(!im_lifetimeStats.bySkill[skill])im_lifetimeStats.bySkill[skill]={good:0,total:0};
+  im_lifetimeStats.bySkill[skill].total++;
+  if(good){im_lifetimeStats.correct++;im_lifetimeStats.bySkill[skill].good++;}
   im_history.unshift({q:q.replace(/^Play:\s*/,''),good,msg,skill,ts:Date.now()});
-  im_history=im_history.slice(0,12);im_renderHistory();
+  im_history=im_history.slice(0,12);im_renderHistory();im_renderMilestones();im_saveSettings();
 }
 function im_renderHistory(){
   const el=document.getElementById('im-history');if(!el)return;
@@ -16743,19 +17684,22 @@ function im_syncAudioControls(){
   const ap=document.getElementById('im-approachTypeSelect');if(ap)ap.value=im_approachType;
   const cf=document.getElementById('im-challengeFocusSelect');if(cf)cf.value=im_challengeFocus;
   const phraseLen=document.getElementById('im-phraseLengthSelect');if(phraseLen)phraseLen.value=String(im_phraseLength);
+  const dg=document.getElementById('im-dailyGoalSelect');if(dg)dg.value=String(im_dailyGoalMinutes);
   im_setBackingUI();
   const btn=document.getElementById('im-latchBtn');if(btn)btn.textContent='Latch Keys: '+(im_latchMode?'On':'Off');
   im_setMetroUI();
+  im_updateMobileSettingsSummary();
   if(p_midiAccess&&p_midiAccess.inputs&&Array.from(p_midiAccess.inputs.values()).length){const d=document.getElementById('im-midiDot');if(d)d.classList.add('connected');const t=document.getElementById('im-midiText');if(t)t.textContent='MIDI: '+Array.from(p_midiAccess.inputs.values())[0].name;}
 }
 function im_init(){
-  im_applySavedSettings();im_readSettings();im_buildKeyboard();im_updateScore();im_renderHistory();im_renderSessionReview();im_newQuestion();im_syncAudioControls();im_showDetected();im_renderTimeline();im_setTimelineButtons();
+  im_applySavedSettings();im_readSettings();im_buildKeyboard();im_updateScore();im_renderHistory();im_renderSessionReview();im_renderImprovPath();im_renderQuickFocus();im_renderPracticePlan();im_renderDailyGoal();im_renderWeeklyStreak();im_renderMilestones();im_newQuestion();im_syncAudioControls();im_showDetected();im_renderTimeline();im_setTimelineButtons();im_toggleMobileSettings(false);im_updateMobileSettingsSummary();
 }
 
 /* ── Hook switchPage to render progress on demand ─────────────────── */
 const _orig_switchPage = switchPage;
 switchPage = function(page) {
   if(page!=='improv'&&typeof im_stopMetronome==='function')im_stopMetronome(true);
+  if(page!=='improv'&&typeof im_planPauseTimer==='function')im_planPauseTimer(true);
   _orig_switchPage(page);
   if (page === 'progress') pg_render();
 };
