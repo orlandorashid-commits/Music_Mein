@@ -819,7 +819,7 @@ body {
 
 /* ============================================================
    THEORY REFERENCE PAGE STYLES
-   Stage 1: reference foundation, formula lab, circle, glossary
+   Stage 3: reference foundation, interactive trainer, piano map, Roman builder
    ============================================================ */
 #page-theory .theory-wrap{max-width:1180px;margin:0 auto;padding:1.25rem 1.25rem 2.4rem;}
 #page-theory .theory-header{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:1.25rem 1.4rem;margin-bottom:.9rem;display:flex;gap:1rem;align-items:flex-start;}
@@ -868,7 +868,62 @@ body {
 #page-theory .theory-term-name{font-size:.78rem;font-weight:900;color:var(--ink);margin-bottom:.15rem;}
 #page-theory .theory-term-def{font-size:.75rem;color:var(--ink3);line-height:1.38;}
 #page-theory .theory-empty{padding:1rem;text-align:center;color:var(--ink3);font-size:.82rem;border:1px dashed var(--border);border-radius:10px;background:var(--bg2);}
-@media(max-width:940px){#page-theory .theory-main-grid{grid-template-columns:1fr;}#page-theory .theory-controls{grid-template-columns:repeat(2,minmax(0,1fr));}#page-theory .theory-side-col{display:grid;grid-template-columns:1fr 1fr;}#page-theory .theory-side-col .p-card:last-child{grid-column:1/-1;}}
+#page-theory .theory-trainer-panel{display:flex;flex-direction:column;gap:.7rem;}
+#page-theory .theory-trainer-top{display:grid;grid-template-columns:minmax(180px,1fr) auto auto;gap:.55rem;align-items:end;}
+#page-theory .theory-trainer-top select{width:100%;padding:.45rem .7rem;background:var(--bg2);border:1px solid var(--border);border-radius:8px;color:var(--ink);font-family:'DM Sans',sans-serif;font-size:.84rem;font-weight:500;}
+#page-theory .theory-trainer-question{padding:.8rem .9rem;border:1px solid rgba(160,96,122,.25);border-radius:12px;background:rgba(160,96,122,.075);font-size:.9rem;line-height:1.5;color:var(--ink);font-weight:700;}
+#page-theory .theory-answer-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.5rem;}
+#page-theory .theory-answer-btn{min-height:46px;padding:.58rem .68rem;border:1px solid var(--border);border-radius:10px;background:var(--bg2);color:var(--ink2);font-family:'DM Sans',sans-serif;font-size:.82rem;font-weight:800;text-align:left;cursor:pointer;transition:all .15s;line-height:1.28;}
+#page-theory .theory-answer-btn:hover{border-color:var(--gold);color:var(--gold);transform:translateY(-1px);}
+#page-theory .theory-answer-btn.locked{cursor:not-allowed;transform:none;opacity:.72;}
+#page-theory .theory-answer-btn.correct{background:rgba(58,158,111,.18);border-color:rgba(58,158,111,.55);color:#3A9E6F;}
+#page-theory .theory-answer-btn.wrong{background:rgba(192,97,74,.16);border-color:rgba(192,97,74,.48);color:#C0614A;}
+#page-theory .theory-trainer-feedback{min-height:45px;padding:.62rem .72rem;border:1px solid var(--border);border-radius:10px;background:var(--bg2);font-size:.82rem;line-height:1.45;color:var(--ink3);} 
+#page-theory .theory-trainer-feedback.correct{border-color:rgba(58,158,111,.35);background:rgba(58,158,111,.12);color:#3A9E6F;}
+#page-theory .theory-trainer-feedback.wrong{border-color:rgba(192,97,74,.35);background:rgba(192,97,74,.12);color:#C0614A;}
+#page-theory .theory-trainer-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.45rem;}
+#page-theory .theory-stat-box{padding:.5rem .55rem;border:1px solid var(--border);border-radius:9px;background:var(--bg2);text-align:center;}
+#page-theory .theory-stat-box span{display:block;font-size:.6rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--ink3);margin-bottom:.15rem;}
+#page-theory .theory-stat-box strong{display:block;font-family:'DM Mono',monospace;font-size:.9rem;color:var(--gold);} 
+#page-theory .theory-path-list{display:flex;flex-direction:column;gap:.38rem;}
+#page-theory .theory-path-step{display:flex;align-items:center;gap:.55rem;padding:.5rem .6rem;border:1px solid var(--border);border-radius:9px;background:var(--bg2);font-size:.78rem;color:var(--ink2);}
+#page-theory .theory-path-dot{width:18px;height:18px;border-radius:50%;border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:.62rem;font-weight:900;color:var(--ink3);flex-shrink:0;}
+#page-theory .theory-path-step.done{border-color:rgba(58,158,111,.35);background:rgba(58,158,111,.1);}
+#page-theory .theory-path-step.done .theory-path-dot{background:#3A9E6F;border-color:#3A9E6F;color:white;}
+#page-theory .theory-path-step.active{border-color:rgba(201,168,76,.4);background:rgba(201,168,76,.08);}
+#page-theory .theory-mistake-list{display:flex;flex-direction:column;gap:.35rem;max-height:180px;overflow-y:auto;}
+#page-theory .theory-mistake-item{padding:.48rem .58rem;border:1px solid var(--border);border-radius:9px;background:var(--bg2);font-size:.75rem;color:var(--ink3);line-height:1.35;}
+#page-theory .theory-mistake-item strong{display:block;color:var(--ink2);font-size:.76rem;margin-bottom:.12rem;}
+#page-theory .theory-trainer-note{font-size:.75rem;color:var(--ink3);line-height:1.4;}
+#page-theory .theory-map-controls{display:grid;grid-template-columns:minmax(180px,260px) 1fr;gap:.7rem;align-items:end;margin-bottom:.75rem;}
+#page-theory .theory-map-controls select{width:100%;padding:.45rem .7rem;background:var(--bg2);border:1px solid var(--border);border-radius:8px;color:var(--ink);font-family:'DM Sans',sans-serif;font-size:.84rem;font-weight:500;}
+#page-theory .theory-map-summary{padding:.55rem .7rem;border:1px solid rgba(160,96,122,.25);border-radius:10px;background:rgba(160,96,122,.075);font-size:.82rem;line-height:1.4;color:var(--ink2);}
+#page-theory .theory-keyboard{position:relative;min-height:146px;border:1px solid var(--border);border-radius:12px;background:var(--bg2);overflow-x:auto;padding:.55rem .55rem .45rem;margin-bottom:.65rem;}
+#page-theory .theory-white-row{position:relative;height:132px;width:max-content;display:flex;}
+#page-theory .theory-white-key{width:42px;height:128px;background:var(--key-white);border:1px solid rgba(0,0,0,.28);border-radius:0 0 7px 7px;display:flex;align-items:flex-end;justify-content:center;padding:0 2px 7px;position:relative;flex-shrink:0;color:#1C1A17;font-family:'DM Mono',monospace;font-size:.58rem;font-weight:900;}
+#page-theory .theory-white-key.lit{background:linear-gradient(180deg,var(--gold-light),var(--gold));border-color:var(--gold-dark);color:white;box-shadow:inset 0 -8px 18px rgba(0,0,0,.16);}
+#page-theory .theory-black-key{position:absolute;top:0;width:26px;height:78px;background:var(--key-black);border:1px solid rgba(255,255,255,.16);border-radius:0 0 6px 6px;z-index:2;display:flex;align-items:flex-end;justify-content:center;padding-bottom:5px;color:rgba(255,255,255,.62);font-family:'DM Mono',monospace;font-size:.5rem;font-weight:900;}
+#page-theory .theory-black-key.lit{background:linear-gradient(180deg,#2ABFBF,#1A9090);color:white;box-shadow:0 0 10px rgba(42,191,191,.45);}
+#page-theory .theory-map-notes{display:flex;flex-wrap:wrap;gap:.36rem;margin:.55rem 0;}
+#page-theory .theory-map-chip{display:inline-flex;gap:.28rem;align-items:center;padding:.28rem .55rem;border:1px solid var(--border);border-radius:999px;background:var(--bg2);font-family:'DM Mono',monospace;font-size:.73rem;font-weight:900;color:var(--ink2);}
+#page-theory .theory-map-chip strong{color:var(--gold);font-weight:900;}
+#page-theory .theory-map-degree-guide{font-size:.78rem;line-height:1.45;color:var(--ink3);padding:.55rem .65rem;border:1px solid var(--border);border-radius:10px;background:var(--bg2);}
+#page-theory .theory-roman-builder{display:flex;flex-direction:column;gap:.65rem;}
+#page-theory .theory-roman-palette,#page-theory .theory-roman-actions,#page-theory .theory-roman-current{display:flex;flex-wrap:wrap;gap:.38rem;}
+#page-theory .theory-roman-btn{padding:.34rem .62rem;border-radius:999px;border:1px solid var(--border);background:var(--bg2);color:var(--ink2);font-family:'DM Mono',monospace;font-size:.76rem;font-weight:900;cursor:pointer;transition:all .15s;}
+#page-theory .theory-roman-btn:hover{border-color:var(--gold);color:var(--gold);transform:translateY(-1px);}
+#page-theory .theory-roman-btn.action{font-family:'DM Sans',sans-serif;font-size:.72rem;color:var(--ink3);}
+#page-theory .theory-roman-token{display:inline-flex;align-items:center;gap:.35rem;padding:.34rem .55rem;border-radius:999px;border:1px solid rgba(160,96,122,.32);background:rgba(160,96,122,.1);color:var(--accent-theory);font-family:'DM Mono',monospace;font-size:.75rem;font-weight:900;}
+#page-theory .theory-roman-x{border:0;background:transparent;color:inherit;cursor:pointer;font-size:.8rem;line-height:1;}
+#page-theory .theory-roman-output{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:.45rem;}
+#page-theory .theory-roman-cardlet{padding:.55rem .65rem;border:1px solid var(--border);border-radius:10px;background:var(--bg2);}
+#page-theory .theory-roman-label{font-family:'DM Mono',monospace;font-size:.78rem;font-weight:900;color:var(--gold);margin-bottom:.14rem;}
+#page-theory .theory-roman-chord{font-family:'DM Mono',monospace;font-size:.86rem;font-weight:900;color:var(--ink2);}
+#page-theory .theory-roman-empty{padding:.75rem;border:1px dashed var(--border);border-radius:10px;color:var(--ink3);font-size:.8rem;background:var(--bg2);}
+@media(max-width:720px){#page-theory .theory-map-controls{grid-template-columns:1fr;}#page-theory .theory-white-key{width:36px;}#page-theory .theory-black-key{width:22px;}}
+
+@media(max-width:720px){#page-theory .theory-trainer-top{grid-template-columns:1fr;}#page-theory .theory-answer-grid{grid-template-columns:1fr;}#page-theory .theory-trainer-stats{grid-template-columns:repeat(2,minmax(0,1fr));}}
+@media(max-width:940px){#page-theory .theory-main-grid{grid-template-columns:1fr;}#page-theory .theory-controls{grid-template-columns:repeat(2,minmax(0,1fr));}#page-theory .theory-side-col{display:grid;grid-template-columns:1fr 1fr;}.theory-side-col .p-card:last-child{grid-column:1/-1;}}
 @media(max-width:640px){#page-theory .theory-wrap{padding:1rem .75rem 2rem;}#page-theory .theory-controls{grid-template-columns:1fr;}#page-theory .theory-side-col{display:flex;}#page-theory .theory-key-detail,#page-theory .theory-formula-result{grid-template-columns:1fr;}#page-theory .theory-header{display:block;}#page-theory .theory-page-accent{margin:0 0 .75rem;}}
 
 /* ============================================================
@@ -5677,9 +5732,69 @@ body {
               <div id="th-formulaResult" class="theory-formula-result"></div>
             </div>
 
+            <div class="p-card theory-map-card">
+              <div class="p-card-title">Piano Map</div>
+              <div class="theory-map-controls">
+                <div class="p-control-group">
+                  <label for="th-mapModeSelect">Map View</label>
+                  <select id="th-mapModeSelect" onchange="th_setMapMode(this.value)">
+                    <option value="formula">Selected Formula</option>
+                    <option value="major">Major Scale</option>
+                    <option value="minor">Natural Minor</option>
+                    <option value="primary">Primary Chords</option>
+                    <option value="diatonic">Diatonic Triads</option>
+                  </select>
+                </div>
+                <div id="th-mapSummary" class="theory-map-summary"></div>
+              </div>
+              <div id="th-pianoMapKeyboard" class="theory-keyboard"></div>
+              <div id="th-mapNotes" class="theory-map-notes"></div>
+              <div id="th-mapDegreeGuide" class="theory-map-degree-guide"></div>
+            </div>
+
+            <div class="p-card theory-trainer-card">
+              <div class="p-card-title">Theory Trainer</div>
+              <div class="theory-trainer-panel">
+                <div class="theory-trainer-top">
+                  <div class="p-control-group">
+                    <label for="th-drillModeSelect">Drill Focus</label>
+                    <select id="th-drillModeSelect" onchange="th_setDrillMode(this.value)">
+                      <option value="mixed">Mixed Review</option>
+                      <option value="keys">Key Signatures</option>
+                      <option value="formulas">Formula Notes</option>
+                      <option value="chords">Chord Formulas</option>
+                      <option value="progressions">Progressions</option>
+                      <option value="glossary">Glossary Terms</option>
+                    </select>
+                  </div>
+                  <button class="p-btn p-btn-primary" onclick="th_startDrill()">Start Drill</button>
+                  <button class="p-btn p-btn-sec" onclick="th_nextDrill()">Next</button>
+                </div>
+                <div id="th-drillQuestion" class="theory-trainer-question">Choose a drill focus, then press Start Drill.</div>
+                <div id="th-drillAnswers" class="theory-answer-grid"></div>
+                <div id="th-drillFeedback" class="theory-trainer-feedback">Session only. This is for quick theory recall, not global scoring yet.</div>
+                <div class="theory-trainer-stats">
+                  <div class="theory-stat-box"><span>Correct</span><strong id="th-drillCorrect">0</strong></div>
+                  <div class="theory-stat-box"><span>Asked</span><strong id="th-drillAsked">0</strong></div>
+                  <div class="theory-stat-box"><span>Streak</span><strong id="th-drillStreak">0</strong></div>
+                  <div class="theory-stat-box"><span>Accuracy</span><strong id="th-drillAccuracy">0%</strong></div>
+                </div>
+              </div>
+            </div>
+
             <div class="p-card theory-progression-card">
               <div class="p-card-title">Progression Guide</div>
               <div id="th-progressionGuide" class="theory-progression-list"></div>
+            </div>
+
+            <div class="p-card theory-roman-card">
+              <div class="p-card-title">Roman Numeral Builder</div>
+              <div class="theory-roman-builder">
+                <div class="theory-roman-palette" id="th-romanPalette"></div>
+                <div class="theory-roman-actions" id="th-romanActions"></div>
+                <div class="theory-roman-current" id="th-romanCurrent"></div>
+                <div class="theory-roman-output" id="th-romanOutput"></div>
+              </div>
             </div>
           </div>
 
@@ -5691,6 +5806,15 @@ body {
             <div class="p-card">
               <div class="p-card-title">Chord Formula Guide</div>
               <div id="th-chordGuide" class="theory-chord-guide"></div>
+            </div>
+            <div class="p-card">
+              <div class="p-card-title">Theory Path</div>
+              <div id="th-pathSteps" class="theory-path-list"></div>
+              <div class="theory-trainer-note" style="margin-top:.55rem">Session only. Steps light up after correct answers in each focus area.</div>
+            </div>
+            <div class="p-card">
+              <div class="p-card-title">Missed Review</div>
+              <div id="th-missedReview" class="theory-mistake-list"></div>
             </div>
             <div class="p-card">
               <div class="p-card-title">Glossary</div>
@@ -6234,7 +6358,7 @@ function switchPage(page) {
 
 /* ============================================================
    THEORY REFERENCE PAGE
-   Stage 1: reference foundation, formula lab, circle, glossary
+   Stage 3: reference foundation, interactive trainer, piano map, Roman builder
    ============================================================ */
 const th_keys=['C','G','D','A','E','B','F#','C#','F','Bb','Eb','Ab','Db','Gb','Cb'];
 const th_keyData={
@@ -6299,7 +6423,18 @@ const th_glossary=[
 const th_pc={'C':0,'B#':0,'C#':1,'Db':1,'D':2,'D#':3,'Eb':3,'E':4,'Fb':4,'E#':5,'F':5,'F#':6,'Gb':6,'G':7,'G#':8,'Ab':8,'A':9,'A#':10,'Bb':10,'B':11,'Cb':11};
 const th_sharpNames=['C','C#','D','D#','E','F','F#','G','G#','A','A#','B'];
 const th_flatNames=['C','Db','D','Eb','E','F','Gb','G','Ab','A','Bb','B'];
-let th_state={topic:'overview',level:'beginner',key:'C',formula:'majorScale',search:''};
+let th_state={topic:'overview',level:'beginner',key:'C',formula:'majorScale',mapMode:'formula',search:''};
+const th_drillLabels={mixed:'Mixed Review',keys:'Key Signatures',formulas:'Formula Notes',chords:'Chord Formulas',progressions:'Progressions',glossary:'Glossary Terms'};
+const th_pathFocus=[
+  {type:'keys',label:'Read a key signature'},
+  {type:'formulas',label:'Build notes from a formula'},
+  {type:'chords',label:'Recall chord formulas'},
+  {type:'progressions',label:'Translate Roman numerals'},
+  {type:'glossary',label:'Define theory vocabulary'}
+];
+let th_drillState={mode:'mixed',active:false,current:null,answered:false,asked:0,correct:0,streak:0,best:0,history:[]};
+const th_romanPalette=['I','ii','iii','IV','V','vi','vii°','iiø'];
+let th_builderState=['I','IV','V'];
 function th_initTheory(){
   th_syncControls();
   th_renderTheory();
@@ -6309,22 +6444,31 @@ function th_syncControls(){
   const level=document.getElementById('th-levelSelect'); if(level)level.value=th_state.level;
   const key=document.getElementById('th-keySelect'); if(key)key.value=th_state.key;
   const formula=document.getElementById('th-formulaSelect'); if(formula)formula.value=th_state.formula;
+  const mapMode=document.getElementById('th-mapModeSelect'); if(mapMode)mapMode.value=th_state.mapMode;
   const search=document.getElementById('th-searchInput'); if(search)search.value=th_state.search;
+  const drill=document.getElementById('th-drillModeSelect'); if(drill)drill.value=th_drillState.mode;
 }
 function th_setTopic(v){th_state.topic=v;th_renderTheory();}
 function th_setLevel(v){th_state.level=v;th_renderTheory();}
 function th_setKey(v){th_state.key=v;th_renderTheory();}
-function th_setFormula(v){th_state.formula=v;th_renderFormulaLab();}
+function th_setFormula(v){th_state.formula=v;th_renderFormulaLab();th_renderPianoMap();if(th_drillState.mode==='formulas'&&th_drillState.current&&!th_drillState.answered)th_nextDrill();}
+function th_setMapMode(v){th_state.mapMode=v||'formula';th_renderPianoMap();}
 function th_setSearch(v){th_state.search=(v||'').trim().toLowerCase();th_renderTopicCard();th_renderGlossary();}
+function th_setDrillMode(v){th_drillState.mode=v||'mixed';th_drillState.current=null;th_drillState.answered=false;th_drillState.active=false;th_renderTrainer();th_renderTheoryPath();th_renderMissedReview();}
 function th_renderTheory(){
   th_syncControls();
   th_renderTopicCard();
   th_renderCircle();
   th_renderKeyGuide();
   th_renderFormulaLab();
+  th_renderPianoMap();
   th_renderChordGuide();
   th_renderProgressions();
+  th_renderRomanBuilder();
   th_renderGlossary();
+  th_renderTrainer();
+  th_renderTheoryPath();
+  th_renderMissedReview();
 }
 function th_escape(str){return String(str??'').replace(/[&<>"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));}
 function th_renderTopicCard(){
@@ -6379,6 +6523,113 @@ function th_renderFormulaLab(){
     ${th_dataBox('Root Key',th_state.key)}
     <div class="theory-formula-explain"><strong>${th_escape(f.name)}:</strong> ${th_escape(f.explain)}</div>`;
 }
+
+function th_renderPianoMap(){
+  const summary=document.getElementById('th-mapSummary');
+  const keyboard=document.getElementById('th-pianoMapKeyboard');
+  const noteBox=document.getElementById('th-mapNotes');
+  const guide=document.getElementById('th-mapDegreeGuide');
+  const modeSel=document.getElementById('th-mapModeSelect');
+  if(modeSel)modeSel.value=th_state.mapMode;
+  if(!keyboard||!noteBox||!guide)return;
+  const map=th_getPianoMapItems();
+  if(summary)summary.innerHTML=`<strong>${th_escape(map.title)}</strong><br>${th_escape(map.summary)}`;
+  keyboard.innerHTML=th_renderTheoryKeyboard(map.items);
+  noteBox.innerHTML=map.items.map(item=>`<span class="theory-map-chip"><strong>${th_escape(item.label)}</strong>${th_escape(item.note)}</span>`).join('');
+  guide.innerHTML=th_escape(map.guide);
+}
+function th_getPianoMapItems(){
+  const data=th_keyData[th_state.key]||th_keyData.C;
+  if(th_state.mapMode==='major'){
+    return {title:`${th_state.key} major scale`,summary:'Major scale degrees across the keyboard.',items:data.scale.map((n,i)=>({note:n,label:String(i+1)})),guide:'Read scale degrees as functions. 1 is home, 4 moves away, 5 pulls back home, and 7 wants to resolve up.'};
+  }
+  if(th_state.mapMode==='minor'){
+    return {title:`${data.relative} natural minor`,summary:`The relative minor notes inside ${th_state.key} major.`,items:data.minor.map((n,i)=>({note:n,label:String(i+1)})),guide:'Natural minor uses the same key signature as its relative major, but the tonal home changes to the minor tonic.'};
+  }
+  if(th_state.mapMode==='primary'){
+    const romans=['I','IV','V'];
+    const chords=th_chordsForRomanList(th_state.key,romans);
+    return {title:`${th_state.key} primary chords`,summary:`${romans.join('  ')} becomes ${chords.join('  ')}.`,items:romans.map((r,i)=>({note:(th_keyData[th_state.key]||th_keyData.C).scale[[0,3,4][i]],label:r})),guide:'Primary chords are the backbone of many songs. I feels like home, IV opens the sound, and V creates pull back to I.'};
+  }
+  if(th_state.mapMode==='diatonic'){
+    const romans=['I','ii','iii','IV','V','vi','vii°'];
+    return {title:`${th_state.key} diatonic triads`,summary:'Every scale degree can become a chord root.',items:data.scale.map((n,i)=>({note:n,label:romans[i]})),guide:'Diatonic triads are chords built from notes inside the key. This is the bridge between scale practice and progression playing.'};
+  }
+  const f=th_formulas[th_state.formula]||th_formulas.majorScale;
+  const notes=th_formulaNotes(th_state.key,f.formula,th_state.formula);
+  return {title:`${th_state.key} ${f.name}`,summary:`Formula ${f.formula.join('  ')} gives ${notes.join('  ')}.`,items:notes.map((n,i)=>({note:n,label:f.formula[i]})),guide:'Use this view to connect formula numbers to keyboard geography. The same formula shape changes note names in each key.'};
+}
+function th_renderTheoryKeyboard(items){
+  const activeByPc={};
+  items.forEach(item=>{const pc=th_pc[item.note];if(pc!==undefined&&!activeByPc[pc])activeByPc[pc]=item;});
+  const whiteNames=['C','D','E','F','G','A','B'];
+  const blackAfter={C:'C#',D:'D#',F:'F#',G:'G#',A:'A#'};
+  const whiteWidth=42;
+  let whiteIndex=0;
+  let whiteHtml='';
+  let blackHtml='';
+  for(let octave=3;octave<=4;octave++){
+    whiteNames.forEach(name=>{
+      const pc=th_pc[name];
+      const active=activeByPc[pc];
+      const label=active?`${active.label} ${active.note}`:`${name}${octave}`;
+      whiteHtml+=`<div class="theory-white-key ${active?'lit':''}"><span>${th_escape(label)}</span></div>`;
+      if(blackAfter[name]){
+        const bName=blackAfter[name];
+        const bPc=th_pc[bName];
+        const bActive=activeByPc[bPc];
+        const bLabel=bActive?`${bActive.label} ${bActive.note}`:bName;
+        const left=(whiteIndex+1)*whiteWidth-13;
+        blackHtml+=`<div class="theory-black-key ${bActive?'lit':''}" style="left:${left}px"><span>${th_escape(bLabel)}</span></div>`;
+      }
+      whiteIndex+=1;
+    });
+  }
+  return `<div class="theory-white-row">${whiteHtml}${blackHtml}</div>`;
+}
+function th_chordForRoman(key,roman){
+  const scale=(th_keyData[key]||th_keyData.C).scale;
+  const idxMap={'I':0,'i':0,'ii':1,'iiø':1,'iii':2,'III':2,'IV':3,'iv':3,'V':4,'v':4,'vi':5,'VI':5,'vii°':6,'vii':6,'VII':6};
+  const root=scale[idxMap[roman]??0];
+  if(roman==='iiø')return root+'m7b5';
+  if(roman==='vii°')return root+'dim';
+  if(roman===roman.toLowerCase())return root+'m';
+  return root;
+}
+function th_chordsForRomanList(key,romanList){
+  return romanList.map(r=>th_chordForRoman(key,r));
+}
+function th_setBuilderPreset(idx){
+  const preset=th_progressions[idx];
+  th_builderState=preset?preset.roman.slice():['I','IV','V'];
+  th_renderRomanBuilder();
+}
+function th_addRoman(roman){
+  if(th_builderState.length>=16)return;
+  th_builderState.push(roman);
+  th_renderRomanBuilder();
+}
+function th_removeRoman(idx){
+  th_builderState.splice(idx,1);
+  th_renderRomanBuilder();
+}
+function th_clearRoman(){
+  th_builderState=[];
+  th_renderRomanBuilder();
+}
+function th_renderRomanBuilder(){
+  const pal=document.getElementById('th-romanPalette');
+  const actions=document.getElementById('th-romanActions');
+  const current=document.getElementById('th-romanCurrent');
+  const output=document.getElementById('th-romanOutput');
+  if(!pal||!actions||!current||!output)return;
+  pal.innerHTML=th_romanPalette.map(r=>`<button class="theory-roman-btn" onclick="th_addRoman('${r}')">${th_escape(r)}</button>`).join('');
+  actions.innerHTML=th_progressions.slice(0,4).map((p,i)=>`<button class="theory-roman-btn action" onclick="th_setBuilderPreset(${i})">Load ${th_escape(p.roman.join(' '))}</button>`).join('')+`<button class="theory-roman-btn action" onclick="th_clearRoman()">Clear</button>`;
+  current.innerHTML=th_builderState.length?th_builderState.map((r,i)=>`<span class="theory-roman-token">${th_escape(r)} <button class="theory-roman-x" onclick="th_removeRoman(${i})" aria-label="Remove ${th_escape(r)}">×</button></span>`).join(''):`<div class="theory-roman-empty">Add Roman numerals to build a progression in ${th_escape(th_state.key)}.</div>`;
+  if(!th_builderState.length){output.innerHTML='';return;}
+  const chords=th_chordsForRomanList(th_state.key,th_builderState);
+  output.innerHTML=th_builderState.map((r,i)=>`<div class="theory-roman-cardlet"><div class="theory-roman-label">${th_escape(r)}</div><div class="theory-roman-chord">${th_escape(chords[i])}</div></div>`).join('');
+}
 function th_renderChordGuide(){
   const el=document.getElementById('th-chordGuide'); if(!el)return;
   el.innerHTML=th_chordGuide.map(([name,formula])=>`<div class="theory-chord-row"><span class="theory-chord-name">${th_escape(name)}</span><span class="theory-chord-formula">${th_escape(formula)}</span></div>`).join('');
@@ -6432,6 +6683,167 @@ function th_progressionChords(key,romanList){
     if(r.includes('ø'))return root+'m7b5';
     return root;
   });
+}
+function th_startDrill(){
+  th_drillState.active=true;
+  th_drillState.asked=0;
+  th_drillState.correct=0;
+  th_drillState.streak=0;
+  th_drillState.best=0;
+  th_drillState.history=[];
+  th_nextDrill();
+}
+function th_nextDrill(){
+  th_drillState.active=true;
+  th_drillState.answered=false;
+  th_drillState.current=th_makeQuestion();
+  th_renderTrainer();
+  th_renderTheoryPath();
+  th_renderMissedReview();
+}
+function th_answerDrill(idx){
+  const q=th_drillState.current;
+  if(!q||th_drillState.answered)return;
+  th_drillState.answered=true;
+  th_drillState.asked+=1;
+  const ok=idx===q.correct;
+  if(ok){
+    th_drillState.correct+=1;
+    th_drillState.streak+=1;
+    th_drillState.best=Math.max(th_drillState.best,th_drillState.streak);
+  }else{
+    th_drillState.streak=0;
+  }
+  th_drillState.history.unshift({type:q.type,prompt:q.prompt,chosen:q.choices[idx],answer:q.choices[q.correct],ok,explain:q.explain});
+  th_drillState.history=th_drillState.history.slice(0,12);
+  th_renderTrainer();
+  th_renderTheoryPath();
+  th_renderMissedReview();
+}
+function th_renderTrainer(){
+  const modeSel=document.getElementById('th-drillModeSelect'); if(modeSel)modeSel.value=th_drillState.mode;
+  const qEl=document.getElementById('th-drillQuestion');
+  const aEl=document.getElementById('th-drillAnswers');
+  const fEl=document.getElementById('th-drillFeedback');
+  const q=th_drillState.current;
+  if(qEl)qEl.textContent=q?q.prompt:'Choose a drill focus, then press Start Drill.';
+  if(aEl){
+    if(!q){
+      aEl.innerHTML='<div class="theory-empty" style="grid-column:1/-1">No question loaded yet.</div>';
+    }else{
+      aEl.innerHTML=q.choices.map((choice,i)=>{
+        let cls='theory-answer-btn';
+        if(th_drillState.answered){
+          cls+=' locked';
+          if(i===q.correct)cls+=' correct';
+          else{
+            const last=th_drillState.history[0];
+            if(last&&!last.ok&&last.chosen===choice)cls+=' wrong';
+          }
+        }
+        return `<button class="${cls}" onclick="th_answerDrill(${i})" ${th_drillState.answered?'disabled':''}>${th_escape(choice)}</button>`;
+      }).join('');
+    }
+  }
+  if(fEl){
+    fEl.className='theory-trainer-feedback';
+    if(!q){
+      fEl.textContent='Session only. This is for quick theory recall, not global scoring yet.';
+    }else if(!th_drillState.answered){
+      fEl.textContent=`Focus: ${th_drillLabels[th_drillState.mode]||'Mixed Review'}. Answer the prompt, then press Next for another question.`;
+    }else{
+      const last=th_drillState.history[0];
+      fEl.classList.add(last.ok?'correct':'wrong');
+      fEl.innerHTML=`<strong>${last.ok?'Correct.':'Review this.'}</strong> ${th_escape(q.explain)}`;
+    }
+  }
+  const asked=th_drillState.asked;
+  const acc=asked?Math.round((th_drillState.correct/asked)*100):0;
+  th_setText('th-drillCorrect',th_drillState.correct);
+  th_setText('th-drillAsked',asked);
+  th_setText('th-drillStreak',th_drillState.streak);
+  th_setText('th-drillAccuracy',acc+'%');
+}
+function th_setText(id,value){const el=document.getElementById(id);if(el)el.textContent=value;}
+function th_makeQuestion(){
+  let type=th_drillState.mode;
+  if(type==='mixed')type=th_randomFrom(['keys','formulas','chords','progressions','glossary']);
+  if(type==='keys')return th_makeKeyQuestion();
+  if(type==='formulas')return th_makeFormulaQuestion();
+  if(type==='chords')return th_makeChordQuestion();
+  if(type==='progressions')return th_makeProgressionQuestion();
+  return th_makeGlossaryQuestion();
+}
+function th_makeKeyQuestion(){
+  const key=th_state.key;
+  const d=th_keyData[key]||th_keyData.C;
+  const correct=th_signatureText(key);
+  const otherKeys=th_shuffle(th_keys.filter(k=>k!==key)).slice(0,8);
+  const choices=th_buildChoices(correct,otherKeys.map(th_signatureText),4);
+  return {type:'keys',prompt:`What is the key signature for ${key} major?`,choices,correct:choices.indexOf(correct),explain:`${key} major uses ${correct}. Its relative minor is ${d.relative}.`};
+}
+function th_makeFormulaQuestion(){
+  const key=th_state.key;
+  const f=th_formulas[th_state.formula]||th_formulas.majorScale;
+  const correct=th_formulaNotes(key,f.formula,th_state.formula).join('  ');
+  const formulaKeys=Object.keys(th_formulas).filter(k=>k!==th_state.formula);
+  const wrongs=formulaKeys.slice(0).sort(()=>Math.random()-.5).map(k=>th_formulaNotes(key,th_formulas[k].formula,k).join('  '));
+  const altKeys=th_shuffle(th_keys.filter(k=>k!==key)).slice(0,3).map(k=>th_formulaNotes(k,f.formula,th_state.formula).join('  '));
+  const choices=th_buildChoices(correct,wrongs.concat(altKeys),4);
+  return {type:'formulas',prompt:`In ${key}, what notes match ${f.name}?`,choices,correct:choices.indexOf(correct),explain:`${f.name} uses ${f.formula.join(' ')}. In ${key}, that gives ${correct}.`};
+}
+function th_makeChordQuestion(){
+  const row=th_randomFrom(th_chordGuide);
+  const correct=row[1];
+  const choices=th_buildChoices(correct,th_chordGuide.filter(x=>x[1]!==correct).map(x=>x[1]),4);
+  return {type:'chords',prompt:`What formula builds a ${row[0]}?`,choices,correct:choices.indexOf(correct),explain:`${row[0]} is built with ${correct}.`};
+}
+function th_makeProgressionQuestion(){
+  const key=th_state.key;
+  const p=th_randomFrom(th_progressions);
+  const correct=th_progressionChords(key,p.roman).join('  ');
+  const wrongs=th_progressions.filter(x=>x!==p).map(x=>th_progressionChords(key,x.roman).join('  '));
+  const choices=th_buildChoices(correct,wrongs,4);
+  return {type:'progressions',prompt:`In ${key}, what chords match ${p.roman.join(' ')}?`,choices,correct:choices.indexOf(correct),explain:`${p.roman.join(' ')} in ${key} gives ${correct}. Use case: ${p.use}`};
+}
+function th_makeGlossaryQuestion(){
+  const row=th_randomFrom(th_glossary);
+  const correct=row[0];
+  const choices=th_buildChoices(correct,th_glossary.filter(x=>x[0]!==correct).map(x=>x[0]),4);
+  return {type:'glossary',prompt:`Which term means: ${row[1]}`,choices,correct:choices.indexOf(correct),explain:`The term is ${correct}. ${row[1]}`};
+}
+function th_signatureText(key){
+  const d=th_keyData[key]||th_keyData.C;
+  if(d.count===0)return 'No sharps or flats';
+  const label=d.count>0?`${d.count} sharp${d.count===1?'':'s'}`:`${Math.abs(d.count)} flat${Math.abs(d.count)===1?'':'s'}`;
+  return `${label}: ${d.accidentals}`;
+}
+function th_buildChoices(correct,wrongs,count){
+  const unique=[correct];
+  (wrongs||[]).forEach(w=>{if(w&&unique.indexOf(w)===-1)unique.push(w);});
+  while(unique.length<count)unique.push('Review the reference first');
+  return th_shuffle(unique.slice(0,count));
+}
+function th_randomFrom(arr){return arr[Math.floor(Math.random()*arr.length)];}
+function th_shuffle(arr){
+  const copy=(arr||[]).slice();
+  for(let i=copy.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[copy[i],copy[j]]=[copy[j],copy[i]];}
+  return copy;
+}
+function th_renderTheoryPath(){
+  const el=document.getElementById('th-pathSteps'); if(!el)return;
+  const correctTypes=new Set(th_drillState.history.filter(h=>h.ok).map(h=>h.type));
+  el.innerHTML=th_pathFocus.map((step,i)=>{
+    const done=correctTypes.has(step.type);
+    const active=th_drillState.mode===step.type||(!done&&th_drillState.mode==='mixed');
+    return `<div class="theory-path-step ${done?'done':''} ${active?'active':''}"><span class="theory-path-dot">${done?'✓':i+1}</span><span>${th_escape(step.label)}</span></div>`;
+  }).join('');
+}
+function th_renderMissedReview(){
+  const el=document.getElementById('th-missedReview'); if(!el)return;
+  const missed=th_drillState.history.filter(h=>!h.ok).slice(0,5);
+  if(!missed.length){el.innerHTML='<div class="theory-empty">No missed answers yet.</div>';return;}
+  el.innerHTML=missed.map(h=>`<div class="theory-mistake-item"><strong>${th_escape(h.type)}</strong>${th_escape(h.prompt)}<br>Answer: ${th_escape(h.answer)}</div>`).join('');
 }
 
 /* ============================================================
