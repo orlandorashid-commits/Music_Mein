@@ -2497,31 +2497,267 @@ body {
 @media(max-width:700px){#page-intervals .interval-keyboard-help{font-size:.6rem;}}
 
 
-/* Global Stage 18: All Notes Off button for stuck notes and MIDI panic. */
+/* Global Stage 19: compact stuck-note button. */
 .nav-panic-btn{
+  width:32px;
   height:32px;
-  padding:0 .7rem;
-  border-radius:999px;
+  padding:0;
+  border-radius:9px;
   border:1px solid rgba(192,97,74,.45);
   background:rgba(192,97,74,.08);
-  color:#C0614A;
+  color:var(--ink2);
   display:inline-flex;
   align-items:center;
   justify-content:center;
-  gap:.35rem;
-  font-family:'DM Sans',sans-serif;
-  font-size:.7rem;
-  font-weight:900;
-  text-transform:uppercase;
-  letter-spacing:.06em;
+  position:relative;
+  font-family:'DM Mono',monospace;
   cursor:pointer;
   transition:all .15s;
-  white-space:nowrap;
+  flex-shrink:0;
 }
-.nav-panic-btn:hover{border-color:#C0614A;background:rgba(192,97,74,.16);color:#C0614A;}
-.nav-panic-btn:active{transform:scale(.96);background:#C0614A;color:white;}
-.nav-panic-btn .panic-icon{font-family:'DM Mono',monospace;font-size:.8rem;font-weight:900;line-height:1;}
-@media(max-width:980px){.nav-panic-btn{width:32px;padding:0;border-radius:9px;}.nav-panic-btn .panic-text{display:none;}}
+.nav-panic-btn:hover{border-color:#C0614A;background:rgba(192,97,74,.16);color:var(--gold);}
+.nav-panic-btn:active,.nav-panic-btn.active{transform:scale(.96);background:rgba(192,97,74,.22);border-color:#C0614A;}
+.nav-panic-btn .panic-note{font-size:1.05rem;font-weight:900;line-height:1;color:currentColor;transform:translate(-1px,1px);}
+.nav-panic-btn .panic-bang{position:absolute;right:6px;top:3px;font-size:.82rem;font-weight:900;line-height:1;color:#C0614A;}
+.nav-panic-btn:hover .panic-bang{color:#E06A5A;}
+
+
+/* Rhythm Stage 7B: bottom timing controls, inline Metro, and Count In cleanup. */
+#page-rhythm .rhythm-bpm-row{
+  margin:.75rem 0 .5rem;
+  flex-wrap:wrap;
+  justify-content:center;
+}
+#page-rhythm .rhythm-vol-row{
+  margin:.5rem 0 .65rem;
+}
+#page-rhythm .r-metro-inline-btn{
+  padding:.3rem .8rem;
+  border-radius:8px;
+  border:1px solid var(--border);
+  background:var(--surface);
+  color:var(--ink2);
+  font-family:'DM Sans',sans-serif;
+  font-size:.72rem;
+  font-weight:800;
+  cursor:pointer;
+  white-space:nowrap;
+  flex-shrink:0;
+  transition:all .15s;
+}
+#page-rhythm .r-metro-inline-btn:hover{border-color:var(--gold);color:var(--gold);}
+#page-rhythm .r-metro-inline-btn.active{background:var(--gold);border-color:var(--gold-dark);color:#000;}
+#page-rhythm .rhythm-countin-label{white-space:nowrap;}
+#page-rhythm .rhythm-countin-select{
+  padding:.32rem .55rem;
+  border-radius:8px;
+  border:1px solid var(--border);
+  background:var(--surface);
+  color:var(--ink2);
+  font-family:'DM Sans',sans-serif;
+  font-size:.72rem;
+  font-weight:800;
+  cursor:pointer;
+  white-space:nowrap;
+  flex-shrink:0;
+}
+#page-rhythm .rhythm-countin-select:focus{outline:none;border-color:var(--gold);}
+@media(max-width:700px){
+  #page-rhythm .rhythm-bpm-row{align-items:center;gap:.5rem;}
+  #page-rhythm .rhythm-countin-select{min-width:92px;}
+}
+
+
+
+/* Improv Stage 1: chord reaction trainer based on the no-hint keyboard prototype. */
+#page-improv .improv-wrap{max-width:1320px;width:100%;margin:0 auto;padding:1.5rem 1rem 2rem;}
+#page-improv .improv-header{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:1.1rem 1.4rem;margin-bottom:1rem;}
+#page-improv .improv-header h2{font-size:1.35rem;font-weight:800;color:var(--ink);margin:0 0 .2rem;}
+#page-improv .improv-header p{font-size:.82rem;color:var(--ink2);margin:0;line-height:1.45;}
+#page-improv .improv-controls{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:.75rem;background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:.9rem 1rem;margin-bottom:.9rem;}
+#page-improv .improv-controls select{width:100%;padding:.45rem .7rem;background:var(--bg2);border:1px solid var(--border);border-radius:8px;color:var(--ink);font-family:'DM Sans',sans-serif;font-size:.84rem;font-weight:600;}
+#page-improv .improv-main-grid{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:1rem;align-items:start;}
+#page-improv .improv-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:1.15rem;min-width:0;}
+#page-improv .improv-side{display:flex;flex-direction:column;gap:.9rem;min-width:0;}
+#page-improv .improv-mode-label{font-size:.66rem;font-weight:900;text-transform:uppercase;letter-spacing:.1em;color:var(--ink3);text-align:center;margin-bottom:.45rem;}
+#page-improv .improv-question{font-family:'Playfair Display',serif;font-size:2rem;font-weight:800;line-height:1.1;text-align:center;color:var(--gold);margin-bottom:.25rem;}
+#page-improv .improv-step{font-family:'DM Mono',monospace;font-size:.78rem;font-weight:800;color:var(--ink2);text-align:center;min-height:1.2rem;margin-bottom:.65rem;}
+#page-improv .improv-feedback{min-height:46px;padding:.55rem .75rem;border-radius:10px;border:1px solid var(--border);background:var(--bg2);font-size:.84rem;font-weight:700;text-align:center;color:var(--ink3);line-height:1.35;display:flex;align-items:center;justify-content:center;margin-bottom:.75rem;}
+#page-improv .improv-feedback.correct{background:rgba(58,158,111,.14);border-color:rgba(58,158,111,.35);color:#3A9E6F;}
+#page-improv .improv-feedback.wrong{background:rgba(192,97,74,.14);border-color:rgba(192,97,74,.35);color:#C0614A;}
+#page-improv .improv-feedback.info{background:rgba(74,127,192,.12);border-color:rgba(74,127,192,.32);color:var(--accent-improv);}
+#page-improv .improv-detected-title{font-size:.62rem;font-weight:900;text-transform:uppercase;letter-spacing:.1em;color:var(--ink3);text-align:center;margin:.2rem 0 .4rem;}
+#page-improv .improv-note-box{display:flex;justify-content:center;flex-wrap:wrap;gap:.35rem;min-height:32px;margin-bottom:.5rem;}
+#page-improv .improv-note-chip{padding:.25rem .6rem;border-radius:999px;border:1px solid var(--border);background:var(--bg2);color:var(--ink2);font-family:'DM Mono',monospace;font-size:.78rem;font-weight:900;}
+#page-improv .improv-note-chip.bass{border-color:rgba(201,168,76,.55);color:var(--gold);}
+#page-improv .improv-help{font-size:.74rem;color:var(--ink3);text-align:center;line-height:1.35;margin-bottom:.75rem;}
+#page-improv .improv-answer-box{display:none;margin:.55rem 0 .75rem;padding:.75rem;border:1px solid rgba(201,168,76,.35);border-radius:12px;background:rgba(201,168,76,.075);text-align:center;}
+#page-improv .improv-answer-box.show{display:block;}
+#page-improv .improv-answer-label{font-size:.6rem;font-weight:900;text-transform:uppercase;letter-spacing:.1em;color:var(--ink3);margin-bottom:.28rem;}
+#page-improv .improv-answer-notes{font-family:'DM Mono',monospace;font-size:.94rem;font-weight:900;color:var(--gold);line-height:1.35;}
+#page-improv .improv-keyboard-wrap{border:1px solid var(--border);border-radius:12px;background:var(--bg2);padding:.7rem .55rem .45rem;margin:.7rem 0 .8rem;overflow-x:auto;}
+#page-improv .improv-keyboard{position:relative;height:126px;width:588px;min-width:588px;margin:0 auto;user-select:none;-webkit-user-select:none;}
+#page-improv .im-wk{position:absolute;top:0;width:42px;height:118px;background:var(--key-white);border:1.5px solid #AAA;border-radius:0 0 5px 5px;display:flex;align-items:flex-end;justify-content:center;padding-bottom:5px;color:var(--ink3);font-family:'DM Mono',monospace;font-size:.58rem;font-weight:900;cursor:pointer;transition:all .12s;touch-action:manipulation;}
+#page-improv .im-bk{position:absolute;top:0;width:26px;height:74px;background:var(--key-black);border-radius:0 0 4px 4px;z-index:2;display:flex;align-items:flex-end;justify-content:center;padding-bottom:4px;color:#ddd;font-family:'DM Mono',monospace;font-size:.48rem;font-weight:900;cursor:pointer;transition:all .12s;touch-action:manipulation;}
+#page-improv .im-key:hover{box-shadow:0 0 0 2px rgba(201,168,76,.18);}
+#page-improv .im-key.active{background:var(--gold)!important;border-color:var(--gold-dark)!important;color:#111;box-shadow:0 0 0 2px rgba(201,168,76,.24);}
+#page-improv .im-key.answer{box-shadow:inset 0 -4px 0 rgba(74,127,192,.72);}
+#page-improv .im-key.answer.active{box-shadow:0 0 0 2px rgba(201,168,76,.24),inset 0 -4px 0 rgba(74,127,192,.72);}
+#page-improv .improv-audio-row{margin-top:.65rem;}
+#page-improv .improv-audio-row .p-vol-group{min-width:150px;}
+#page-improv .improv-synth-toggle{display:flex;align-items:center;gap:.38rem;margin-left:auto;font-size:.72rem;font-weight:700;color:var(--ink3);cursor:pointer;white-space:nowrap;}
+#page-improv .improv-synth-toggle input{accent-color:var(--gold);width:13px;height:13px;}
+#page-improv .improv-history-item{padding:.42rem .6rem;border-radius:8px;border:1px solid var(--border);background:var(--bg2);font-size:.76rem;margin-bottom:.35rem;font-family:'DM Mono',monospace;display:flex;justify-content:space-between;gap:.6rem;align-items:center;}
+#page-improv .improv-history-item.good{color:#3A9E6F;border-color:rgba(58,158,111,.3);}
+#page-improv .improv-history-item.bad{color:#C0614A;border-color:rgba(192,97,74,.3);}
+#page-improv .improv-score{font-family:'DM Mono',monospace;font-size:1.3rem;font-weight:900;color:var(--ink);text-align:center;margin:.15rem 0 .25rem;}
+@media(max-width:860px){#page-improv .improv-main-grid{grid-template-columns:1fr;}#page-improv .improv-side{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));}}
+@media(max-width:700px){#page-improv .improv-wrap{padding:.75rem .65rem 1.5rem;}#page-improv .improv-header{padding:.85rem;margin-bottom:.6rem;}#page-improv .improv-header h2{font-size:1.12rem;}#page-improv .improv-controls{grid-template-columns:1fr 1fr;padding:.75rem;gap:.55rem;}#page-improv .improv-card{padding:.82rem;}#page-improv .improv-question{font-size:1.55rem;}#page-improv .improv-keyboard{width:588px;min-width:588px;}#page-improv .improv-side{grid-template-columns:1fr;gap:.75rem;}#page-improv .p-btn-row .p-btn{flex:1 1 calc(50% - .55rem);}}
+@media(max-width:420px){#page-improv .improv-controls{grid-template-columns:1fr;}#page-improv .p-btn-row .p-btn{flex:1 1 100%;}}
+
+
+/* Improv Stage 2: voicing targets, inversion rule, and formula coach. */
+#page-improv .improv-coach-panel{
+  display:none;
+  margin:.1rem 0 .75rem;
+  padding:.65rem .75rem;
+  border-radius:12px;
+  border:1px solid rgba(74,127,192,.32);
+  background:rgba(74,127,192,.075);
+  text-align:center;
+}
+#page-improv .improv-coach-panel.show{display:block;}
+#page-improv .improv-coach-label{
+  font-size:.58rem;
+  font-weight:900;
+  text-transform:uppercase;
+  letter-spacing:.1em;
+  color:var(--ink3);
+  margin-bottom:.25rem;
+}
+#page-improv .improv-coach-text{
+  font-family:'DM Mono',monospace;
+  font-size:.78rem;
+  font-weight:900;
+  color:var(--accent-improv);
+  line-height:1.35;
+}
+#page-improv .improv-answer-meta{
+  font-family:'DM Mono',monospace;
+  font-size:.72rem;
+  font-weight:800;
+  color:var(--ink3);
+  margin-top:.35rem;
+  line-height:1.35;
+}
+#page-improv .improv-note-chip.missing{border-color:rgba(192,97,74,.55);color:#C0614A;background:rgba(192,97,74,.08);}
+#page-improv .improv-note-chip.extra{border-color:rgba(201,168,76,.55);color:var(--gold);background:rgba(201,168,76,.08);}
+#page-improv .improv-control-note{
+  font-size:.66rem;
+  font-weight:700;
+  color:var(--ink3);
+  line-height:1.3;
+  margin-top:.35rem;
+}
+@media(max-width:700px){
+  #page-improv .improv-coach-text{font-size:.7rem;}
+  #page-improv .improv-controls{grid-template-columns:1fr 1fr;}
+}
+@media(max-width:420px){
+  #page-improv .improv-controls{grid-template-columns:1fr;}
+}
+
+
+/* Improv Stage 3: full-width keyboard and live metronome controls. */
+#page-improv .improv-main-grid{
+  grid-template-columns:minmax(0,1fr);
+  gap:1rem;
+  width:100%;
+}
+#page-improv .improv-side{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:1rem;
+  width:100%;
+}
+#page-improv .improv-side .p-card{min-width:0;height:100%;}
+#page-improv .improv-keyboard-wrap{
+  width:100%;
+  padding:.8rem .65rem .55rem;
+  overflow-x:auto;
+  overflow-y:hidden;
+}
+#page-improv .improv-keyboard{
+  width:1102px;
+  min-width:1102px;
+  height:142px;
+  margin:0 auto;
+}
+#page-improv .im-wk{
+  width:38px;
+  height:134px;
+  font-size:.54rem;
+}
+#page-improv .im-bk{
+  width:24px;
+  height:84px;
+  font-size:.45rem;
+}
+#page-improv .improv-keyboard-help{
+  margin-top:.35rem;
+  text-align:center;
+  font-family:'DM Mono',monospace;
+  font-size:.66rem;
+  font-weight:800;
+  color:var(--ink3);
+}
+#page-improv .improv-bpm-row{
+  margin:.8rem 0 .55rem;
+  flex-wrap:wrap;
+  justify-content:center;
+}
+#page-improv .improv-bpm-row .p-metro-btn{
+  white-space:nowrap;
+  font-weight:800;
+}
+#page-improv .improv-bpm-row .p-metro-btn.active{
+  background:var(--gold);
+  border-color:var(--gold-dark);
+  color:#000;
+}
+#page-improv .improv-bpm-row .p-metro-dot.downbeat{
+  transform:scale(1.85);
+  background:var(--gold);
+  box-shadow:0 0 8px rgba(201,168,76,.7);
+}
+#page-improv .improv-bpm-row .p-metro-dot.beat{
+  transform:scale(1.55);
+  background:var(--amber);
+  box-shadow:0 0 6px rgba(42,191,191,.55);
+}
+#page-improv .improv-audio-row{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr)) auto;
+  gap:.55rem .75rem;
+  align-items:center;
+}
+#page-improv .improv-audio-row .p-vol-group{
+  min-width:0;
+  display:grid;
+  grid-template-columns:auto minmax(90px,1fr) 34px;
+  align-items:center;
+  gap:.42rem;
+}
+#page-improv .improv-audio-row .p-bpm-slider{width:100%;min-width:0;}
+#page-improv .improv-audio-row .p-vol-val{text-align:right;min-width:34px;}
+@media(max-width:700px){
+  #page-improv .improv-main-grid{grid-template-columns:minmax(0,1fr);gap:.75rem;}
+  #page-improv .improv-keyboard{width:1102px;min-width:1102px;}
+  #page-improv .improv-keyboard-help{font-size:.6rem;}
+  #page-improv .improv-bpm-row{align-items:center;gap:.5rem;}
+  #page-improv .improv-audio-row{grid-template-columns:1fr;}
+  #page-improv .improv-synth-toggle{margin-left:0;}
+}
 
 </style>
 </head>
@@ -2682,10 +2918,10 @@ body {
     </div>
 
     <div class="nav-right">
-      <!-- Global All Notes Off -->
+      <!-- Global stuck-note stop -->
       <button class="nav-panic-btn" onclick="p_allNotesOff()" id="globalAllNotesOffBtn" title="All Notes Off" aria-label="All Notes Off">
-        <span class="panic-icon" aria-hidden="true">♪!</span>
-        <span class="panic-text">All Notes Off</span>
+        <span class="panic-note" aria-hidden="true">♪</span>
+        <span class="panic-bang" aria-hidden="true">!</span>
       </button>
       <!-- Language -->
       <div class="pill-toggle">
@@ -3244,7 +3480,7 @@ body {
         <!-- Mobile settings toggle (hidden on desktop) -->
         <div class="r-mobile-settings-toggle" id="r-mobileSettingsToggle">
           <button class="r-mobile-settings-btn" id="r-mobileSettingsBtn" onclick="r_toggleMobileSettings()">Rhythm Settings</button>
-          <span class="r-mobile-settings-summary" id="r-mobileSettingsSummary">4/4 &middot; Medium &middot; 2 Bars &middot; 84 BPM</span>
+          <span class="r-mobile-settings-summary" id="r-mobileSettingsSummary">4/4 &middot; Easy &middot; 2 Bars &middot; 84 BPM</span>
         </div>
         <div id="r-mobileSettingsPanel" class="r-mobile-settings-panel">
         <div class="rhythm-controls">
@@ -3278,8 +3514,8 @@ body {
           <div class="p-control-group">
             <label>Difficulty</label>
             <select id="r-diffSelect" onchange="r_onSettingsChange()">
-              <option value="easy">Easy</option>
-              <option value="medium" selected>Medium</option>
+              <option value="easy" selected>Easy</option>
+              <option value="medium">Medium</option>
               <option value="hard">Hard</option>
               <option value="expert">Expert</option>
             </select>
@@ -3294,30 +3530,6 @@ body {
               <option value="16">16 Bars</option>
               <option value="32">32 Bars</option>
               <option value="64">64 Bars</option>
-            </select>
-          </div>
-          <div class="p-control-group">
-            <label>Count-In</label>
-            <select id="r-countInBarsSelect" onchange="r_onSettingsChange()">
-              <option value="0">Off</option>
-              <option value="1">1 Bar</option>
-              <option value="2" selected>2 Bars</option>
-              <option value="3">3 Bars</option>
-              <option value="4">4 Bars</option>
-            </select>
-          </div>
-          <div class="p-control-group">
-            <label>Metronome</label>
-            <select id="r-metronomeSelect" onchange="r_onSettingsChange()">
-              <option value="on" selected>On</option>
-              <option value="off">Off</option>
-            </select>
-          </div>
-          <div class="p-control-group">
-            <label>Rhythm Guide</label>
-            <select id="r-rhythmGuideSelect" onchange="r_onSettingsChange()">
-              <option value="on" selected>On</option>
-              <option value="off">Off</option>
             </select>
           </div>
           <div class="p-control-group">
@@ -3353,37 +3565,7 @@ body {
             </select>
           </div>
           <!-- Play Flow removed: use Audition / Practice buttons instead -->
-        </div>
-
-        <div class="p-bpm-row">
-          <span class="p-bpm-label">BPM</span>
-          <input type="range" class="p-bpm-slider" id="r-bpmSlider" min="40" max="200" value="84" oninput="r_updateBPM(this.value)">
-          <span class="p-bpm-val" id="r-bpmVal">84</span>
-        </div>
-
-        <div class="p-vol-row">
-          <div class="p-vol-group">
-            <span class="p-bpm-label">MASTER</span>
-            <input type="range" class="p-bpm-slider" id="r-masterSlider" min="0" max="100" value="80" oninput="r_updateMasterVol(this.value)">
-            <span class="p-bpm-val p-vol-val" id="r-masterVal">80</span>
-          </div>
-          <div class="p-vol-group">
-            <span class="p-bpm-label">METRO</span>
-            <input type="range" class="p-bpm-slider" id="r-metroSlider" min="0" max="100" value="65" oninput="r_updateMetroVol(this.value)">
-            <span class="p-bpm-val p-vol-val" id="r-metroVal">65</span>
-          </div>
-          <div class="p-vol-group">
-            <span class="p-bpm-label">GUIDE</span>
-            <input type="range" class="p-bpm-slider" id="r-guideSlider" min="0" max="100" value="75" oninput="r_updateGuideVol(this.value)">
-            <span class="p-bpm-val p-vol-val" id="r-guideVal">75</span>
-          </div>
-          <div class="p-vol-group">
-            <span class="p-bpm-label">LIVE KB</span>
-            <input type="range" class="p-bpm-slider" id="r-liveSlider" min="0" max="100" value="75" oninput="r_updateLiveVol(this.value)">
-            <span class="p-bpm-val p-vol-val" id="r-liveVal">75</span>
-          </div>
-        </div>
-        </div><!-- /r-mobileSettingsPanel -->
+        </div>        </div><!-- /r-mobileSettingsPanel -->
 
         <div class="rhythm-main-grid">
           <div class="rhythm-card">
@@ -3418,6 +3600,45 @@ body {
               <button class="p-btn p-btn-primary" id="r-tapBtn" onclick="r_handleTapPadPress()">Tap</button>
               <button class="p-btn p-btn-sec" id="r-nextBtn" onclick="r_nextPattern()">Next &#8594;</button>
               <button class="p-btn p-btn-sec" onclick="r_reset()">&#8634; Reset</button>
+            </div>
+
+
+            <div class="p-bpm-row rhythm-bpm-row">
+              <span class="p-bpm-label">BPM</span>
+              <input type="range" class="p-bpm-slider" id="r-bpmSlider" min="40" max="200" value="84" oninput="r_updateBPM(this.value)">
+              <span class="p-bpm-val" id="r-bpmVal">84</span>
+              <button id="r-metroBtn" class="r-metro-inline-btn" onclick="r_toggleMetronome()">Metro On</button>
+              <span class="p-bpm-label rhythm-countin-label">COUNT IN</span>
+              <select id="r-countInBarsSelect" class="rhythm-countin-select" onchange="r_updateCountInBars(this.value)">
+                <option value="0">Off</option>
+                <option value="1" selected>1 Bar</option>
+                <option value="2">2 Bars</option>
+                <option value="3">3 Bars</option>
+                <option value="4">4 Bars</option>
+              </select>
+            </div>
+
+            <div class="p-vol-row rhythm-vol-row">
+              <div class="p-vol-group">
+                <span class="p-bpm-label">MASTER</span>
+                <input type="range" class="p-bpm-slider" id="r-masterSlider" min="0" max="100" value="80" oninput="r_updateMasterVol(this.value)">
+                <span class="p-bpm-val p-vol-val" id="r-masterVal">80</span>
+              </div>
+              <div class="p-vol-group">
+                <span class="p-bpm-label">METRO</span>
+                <input type="range" class="p-bpm-slider" id="r-metroSlider" min="0" max="100" value="65" oninput="r_updateMetroVol(this.value)">
+                <span class="p-bpm-val p-vol-val" id="r-metroVal">65</span>
+              </div>
+              <div class="p-vol-group">
+                <span class="p-bpm-label">GUIDE</span>
+                <input type="range" class="p-bpm-slider" id="r-guideSlider" min="0" max="100" value="75" oninput="r_updateGuideVol(this.value)">
+                <span class="p-bpm-val p-vol-val" id="r-guideVal">75</span>
+              </div>
+              <div class="p-vol-group">
+                <span class="p-bpm-label">LIVE KB</span>
+                <input type="range" class="p-bpm-slider" id="r-liveSlider" min="0" max="100" value="75" oninput="r_updateLiveVol(this.value)">
+                <span class="p-bpm-val p-vol-val" id="r-liveVal">75</span>
+              </div>
             </div>
 
             <div class="rhythm-help" id="r-helpText">
@@ -3468,8 +3689,8 @@ body {
           <div class="p-control-group">
             <label>Difficulty</label>
             <select id="s-diffSelect" onchange="s_onSettingsChange()">
-              <option value="easy">Easy</option>
-              <option value="medium" selected>Medium</option>
+              <option value="easy" selected>Easy</option>
+              <option value="medium">Medium</option>
               <option value="hard">Hard</option>
               <option value="expert">Expert</option>
             </select>
@@ -3506,8 +3727,8 @@ body {
           <div class="p-control-group">
             <label>Bars</label>
             <select id="s-lengthSelect" onchange="s_onSettingsChange()">
-              <option value="1" selected>1 Bar</option>
-              <option value="2">2 Bars</option>
+              <option value="1">1 Bar</option>
+              <option value="2" selected>2 Bars</option>
               <option value="4">4 Bars</option>
               <option value="8">8 Bars</option>
               <option value="16">16 Bars</option>
@@ -4132,11 +4353,178 @@ body {
 
     <!-- IMPROV -->
     <div class="page" id="page-improv">
-      <div class="coming-soon">
-        <div class="coming-soon-icon">🎹</div>
-        <div class="accent-bar" style="background:var(--accent-improv)"></div>
-        <h2 data-i18n="improv_title">Improv Trainer</h2>
-        <p data-i18n="improv_desc">Backing tracks, scale guidance, color tone heat map, call &amp; response licks, AI coaching, recording + MIDI export. Coming in Phase 4.</p>
+      <div class="improv-wrap">
+        <div class="improv-header">
+          <h2>Improv Trainer</h2>
+          <p>Read the chord symbol, play the chord tones from memory, and move forward only when the answer is correct. This starts with chord reaction training. Backing grooves and solo prompts can come next.</p>
+        </div>
+
+        <div class="improv-controls">
+          <div class="p-control-group">
+            <label>Mode</label>
+            <select id="im-modeSelect" onchange="im_onSettingsChange()">
+              <option value="chord" selected>Random 7th Chord</option>
+              <option value="iiVI">ii V I Chord Flow</option>
+            </select>
+          </div>
+          <div class="p-control-group">
+            <label>Difficulty</label>
+            <select id="im-diffSelect" onchange="im_onSettingsChange()">
+              <option value="easy" selected>Easy</option>
+              <option value="medium">Medium</option>
+              <option value="hard">Hard</option>
+              <option value="expert">Expert</option>
+            </select>
+          </div>
+          <div class="p-control-group">
+            <label>ii V I Type</label>
+            <select id="im-iiVITypeSelect" onchange="im_onSettingsChange()">
+              <option value="mixed" selected>Mixed Major and Minor</option>
+              <option value="major">Major Only</option>
+              <option value="minor">Minor Only</option>
+            </select>
+          </div>
+          <div class="p-control-group">
+            <label>Chord Type</label>
+            <select id="im-chordTypeSelect" onchange="im_onSettingsChange()">
+              <option value="all" selected>All 7th Chords</option>
+              <option value="maj7">Major 7</option>
+              <option value="min7">Minor 7</option>
+              <option value="dom7">Dominant 7</option>
+              <option value="m7b5">Half Diminished</option>
+              <option value="dim7">Diminished 7</option>
+            </select>
+          </div>
+          <div class="p-control-group">
+            <label>Root</label>
+            <select id="im-rootSelect" onchange="im_onSettingsChange()">
+              <option value="random" selected>Random Root</option>
+              <option value="0">C</option><option value="1">Db</option><option value="2">D</option><option value="3">Eb</option>
+              <option value="4">E</option><option value="5">F</option><option value="6">Gb</option><option value="7">G</option>
+              <option value="8">Ab</option><option value="9">A</option><option value="10">Bb</option><option value="11">B</option>
+            </select>
+          </div>
+          <div class="p-control-group">
+            <label>Voicing Target</label>
+            <select id="im-voicingSelect" onchange="im_onSettingsChange()">
+              <option value="full7" selected>Full 7th Chord</option>
+              <option value="shell">Shell: Root 3rd 7th</option>
+              <option value="rootless9">Rootless 9th</option>
+            </select>
+            <div class="improv-control-note">Changes how many notes the answer requires.</div>
+          </div>
+          <div class="p-control-group">
+            <label>Inversion Rule</label>
+            <select id="im-inversionRuleSelect" onchange="im_onSettingsChange()">
+              <option value="exact" selected>Exact Lowest Note</option>
+              <option value="any">Any Inversion</option>
+            </select>
+            <div class="improv-control-note">Exact lowest note is used for random chord drills.</div>
+          </div>
+          <div class="p-control-group">
+            <label>Guidance</label>
+            <select id="im-guidanceSelect" onchange="im_onSettingsChange()">
+              <option value="noHint" selected>No Hint</option>
+              <option value="formula">Formula Only</option>
+              <option value="coach">Mistake Coach</option>
+            </select>
+            <div class="improv-control-note">Formula mode never shows note names.</div>
+          </div>
+        </div>
+
+        <div class="improv-main-grid">
+          <div class="improv-card">
+            <div class="improv-mode-label">Current Question</div>
+            <div class="improv-question" id="im-questionDisplay">Choose a mode and start</div>
+            <div class="improv-step" id="im-stepDisplay"></div>
+            <div class="improv-coach-panel" id="im-coachPanel">
+              <div class="improv-coach-label">Guide</div>
+              <div class="improv-coach-text" id="im-coachText">—</div>
+            </div>
+            <div class="improv-feedback info" id="im-feedback">Waiting for your chord.</div>
+
+            <div class="improv-detected-title">Detected Notes</div>
+            <div class="improv-note-box" id="im-detectedBox"></div>
+            <div class="improv-help">No target notes are shown until you choose Show Answer.</div>
+
+            <div class="p-btn-row" style="justify-content:center">
+              <button class="p-btn p-btn-primary" onclick="im_newQuestion()">New Question</button>
+              <button class="p-btn p-btn-sec" onclick="im_clearInput()">Clear</button>
+              <button class="p-btn p-btn-sec" id="im-latchBtn" onclick="im_toggleLatch()">Latch Keys: On</button>
+              <button class="p-btn p-btn-sec" id="im-answerBtn" onclick="im_toggleAnswer()">Show Answer</button>
+            </div>
+
+            <div class="improv-answer-box" id="im-answerBox">
+              <div class="improv-answer-label">Correct Answer</div>
+              <div class="improv-answer-notes" id="im-answerNotes">—</div>
+              <div class="improv-answer-meta" id="im-answerMeta">—</div>
+            </div>
+
+            <div class="improv-keyboard-wrap">
+              <div class="improv-keyboard" id="im-keyboard"></div>
+              <div class="improv-keyboard-help">C2 to C6. Click keys or use MIDI. The keyboard is wider so chord shapes can be practiced across the range.</div>
+            </div>
+
+            <div class="p-bpm-row improv-bpm-row">
+              <span class="p-bpm-label">BPM</span>
+              <input type="range" min="40" max="220" value="100" class="p-bpm-slider" id="im-bpmSlider" oninput="im_updateBPM(this.value)">
+              <span class="p-bpm-val" id="im-bpmVal">100</span>
+              <button class="p-metro-btn" id="im-metroBtn" onclick="im_toggleMetronome()"><span class="p-metro-dot" id="im-metroDot"></span>Metro Off</button>
+            </div>
+
+            <div class="p-vol-row improv-audio-row">
+              <div class="p-vol-group">
+                <span class="p-bpm-label">Master</span>
+                <input type="range" min="0" max="100" value="80" class="p-bpm-slider" id="im-masterSlider" oninput="p_updateMasterVol(this.value);document.getElementById('im-masterVal').textContent=this.value">
+                <span class="p-vol-val" id="im-masterVal">80</span>
+              </div>
+              <div class="p-vol-group">
+                <span class="p-bpm-label">Live KB</span>
+                <input type="range" min="0" max="100" value="80" class="p-bpm-slider" id="im-liveSlider" oninput="p_updateLiveVol(this.value);document.getElementById('im-liveVal').textContent=this.value">
+                <span class="p-vol-val" id="im-liveVal">80</span>
+              </div>
+              <div class="p-vol-group">
+                <span class="p-bpm-label">Metro</span>
+                <input type="range" min="0" max="100" value="25" class="p-bpm-slider" id="im-metroVolSlider" oninput="im_updateMetroVol(this.value)">
+                <span class="p-vol-val" id="im-metroVolVal">25</span>
+              </div>
+              <label class="improv-synth-toggle">
+                <input type="checkbox" id="im-synthToggle" checked onchange="im_toggleBrowserSynth(this.checked)">
+                Browser Synth
+              </label>
+            </div>
+
+            <div class="p-midi-bar">
+              <div class="p-midi-dot" id="im-midiDot"></div>
+              <span class="p-midi-text" id="im-midiText">MIDI ready. Play the chord on your keyboard.</span>
+              <span class="p-midi-last" id="im-lastMidi">—</span>
+            </div>
+          </div>
+
+          <div class="improv-side">
+            <div class="p-card">
+              <div class="p-card-title">Score</div>
+              <div class="improv-score" id="im-score">0 / 0 · 0%</div>
+              <div class="p-score-label">Chord accuracy</div>
+              <div class="e-streak-row" style="display:flex;justify-content:space-between;margin-top:.4rem;">
+                <span>Streak</span>
+                <strong id="im-streak">0</strong>
+              </div>
+              <div class="e-streak-row" style="display:flex;justify-content:space-between;margin-top:.4rem;">
+                <span>Attempts</span>
+                <strong id="im-attempts">0</strong>
+              </div>
+            </div>
+            <div class="p-card">
+              <div class="p-card-title">How To Use</div>
+              <div class="rhythm-info">Look at the chord symbol and play the required tones from memory. Use Voicing Target for full 7th chords, shell voicings, or rootless 9th voicings. The full-width keyboard gives more room for real chord shapes. Turn Metro On to practice reaction time at a steady tempo.</div>
+            </div>
+            <div class="p-card">
+              <div class="p-card-title">Recent Chords</div>
+              <div id="im-history"><div class="p-history-empty">No attempts yet</div></div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -4445,6 +4833,58 @@ function saveProfiles() {
   try { localStorage.setItem('km_profiles', JSON.stringify(profiles)); } catch(e) {}
 }
 
+/* ============================================================
+   PROFILE MODULE SETTINGS
+   Remembers each player's last-used training controls per page.
+   ============================================================ */
+function mm_currentProfileSettingsRoot(){
+  if(!activeProfile)return null;
+  if(!activeProfile.moduleSettings)activeProfile.moduleSettings={};
+  return activeProfile.moduleSettings;
+}
+
+function mm_getModuleSettings(moduleName){
+  const root=mm_currentProfileSettingsRoot();
+  if(!root||!moduleName)return null;
+  return root[moduleName]||null;
+}
+
+function mm_saveModuleSettings(moduleName,settings){
+  if(!activeProfile||!moduleName||!settings)return;
+  if(!activeProfile.moduleSettings)activeProfile.moduleSettings={};
+  const prev=activeProfile.moduleSettings[moduleName]||{};
+  activeProfile.moduleSettings[moduleName]=Object.assign({},prev,settings,{updatedAt:Date.now()});
+  const idx=profiles.findIndex(p=>p.id===activeProfile.id);
+  if(idx>=0)profiles[idx]=activeProfile;
+  saveProfiles();
+}
+
+function mm_setControlValue(id,value){
+  if(value===undefined||value===null)return false;
+  const el=document.getElementById(id);
+  if(!el)return false;
+  if(el.type==='checkbox'){el.checked=!!value;return true;}
+  const v=String(value);
+  if(el.tagName==='SELECT'&&el.options){
+    const ok=Array.from(el.options).some(o=>o.value===v);
+    if(!ok)return false;
+  }
+  el.value=v;
+  return true;
+}
+
+function mm_saveCurrentModuleSettings(){
+  try{
+    if(currentPage==='ear'&&typeof e_saveSettings==='function')e_saveSettings();
+    if(currentPage==='rhythm'&&typeof r_saveSettings==='function')r_saveSettings();
+    if(currentPage==='sight'&&typeof s_saveSettings==='function')s_saveSettings();
+    if(currentPage==='intervals'&&typeof i_saveSettings==='function')i_saveSettings();
+    if(currentPage==='improv'&&typeof im_saveSettings==='function')im_saveSettings();
+  }catch(e){console.warn('module settings save skipped',e);}
+}
+
+try{window.addEventListener('beforeunload',()=>mm_saveCurrentModuleSettings());}catch(e){}
+
 function renderProfiles() {
   const S = STRINGS[currentLang];
   const grid = document.getElementById('profilesGrid');
@@ -4556,6 +4996,10 @@ function enterApp() {
 
   // Set language per profile if stored
   if (activeProfile.lang) setLang(activeProfile.lang);
+  // Reset lazy module init flags so profile-based settings restore when changing profiles.
+  window.__musicMeinSightInit = false;
+  window.__musicMeinIntervalsInit = false;
+  window.__musicMeinImprovInit = false;
 
   // Update nav profile chip
   const i = profiles.findIndex(p => p.id === selectedProfileId);
@@ -4568,7 +5012,9 @@ function enterApp() {
   // Show app
   document.getElementById('welcomeScreen').style.display = 'none';
   document.getElementById('mainApp').classList.add('visible');
+  window.__mmSuppressPageSave = true;
   switchPage('practice');
+  window.__mmSuppressPageSave = false;
   p_init();
   e_init();
   r_init();
@@ -4576,6 +5022,7 @@ function enterApp() {
 }
 
 function goToProfiles() {
+  if(typeof mm_saveCurrentModuleSettings==='function')mm_saveCurrentModuleSettings();
   document.getElementById('mainApp').classList.remove('visible');
   document.getElementById('welcomeScreen').style.display = '';
 }
@@ -4584,6 +5031,7 @@ function goToProfiles() {
    PAGE SWITCHING
    ============================================================ */
 function switchPage(page) {
+  if(!window.__mmSuppressPageSave&&page!==currentPage&&typeof mm_saveCurrentModuleSettings==='function')mm_saveCurrentModuleSettings();
   if(currentPage==='ear'&&page!=='ear'&&typeof e_clearEarTimers==='function')e_clearEarTimers();
   if(currentPage==='rhythm'&&page!=='rhythm'&&typeof r_stopPlayback==='function')r_stopPlayback();
   if(currentPage==='sight'&&page!=='sight'){
@@ -4591,6 +5039,7 @@ function switchPage(page) {
     if(typeof s_stopMetronome==='function')s_stopMetronome();
   }
   if(currentPage==='intervals'&&page!=='intervals'&&typeof i_stopPlayback==='function')i_stopPlayback();
+  if(currentPage==='improv'&&page!=='improv'&&typeof im_stopAllNotes==='function')im_stopAllNotes(true);
   currentPage = page;
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
@@ -4607,7 +5056,12 @@ function switchPage(page) {
     window.__musicMeinIntervalsInit=true;
   }
   if(page==='intervals'&&window.__musicMeinIntervalsInit&&typeof i_syncAudioControls==='function')i_syncAudioControls();
+  if(page==='improv'&&typeof im_init==='function'&&!window.__musicMeinImprovInit){
+    im_init();
+    window.__musicMeinImprovInit=true;
+  }
 }
+
 
 /* ============================================================
    DECORATIVE LOGO KEYS
@@ -7296,7 +7750,7 @@ function p_isActiveAudioTab() {
 
 function p_setBrowserSynthEnabled(enabled, reason) {
   p_browserSynthEnabled = enabled;
-  ['p-synthToggle','e-synthToggle','i-synthToggle'].forEach(id=>{
+  ['p-synthToggle','e-synthToggle','i-synthToggle','im-synthToggle'].forEach(id=>{
     const cb=document.getElementById(id);
     if(cb) cb.checked=enabled;
   });
@@ -7399,13 +7853,14 @@ function p_allNotesOff(silent=false){
     if(typeof i_stopPlayback==='function')i_stopPlayback();
     if(typeof i_clearAutoTimer==='function')i_clearAutoTimer();
     if(typeof r_stopPlayback==='function')r_stopPlayback();
+    if(typeof im_stopAllNotes==='function')im_stopAllNotes(true);
     if(typeof e_heldMidiNotes!=='undefined'&&e_heldMidiNotes&&e_heldMidiNotes.clear)e_heldMidiNotes.clear();
     if(typeof i_hearingNotes!=='undefined')i_hearingNotes=[];
     if(typeof i_playTimers!=='undefined')i_playTimers=[];
     const sent=p_sendAllNotesOffToMidiOutputs();
     p_forceStopAllBrowserVoices();
     p_clearHeldNoteVisuals();
-    if(!silent&&typeof p_showFlash==='function')p_showFlash('All Notes Off','complete');
+    if(!silent&&typeof p_showFlash==='function')p_showFlash('Notes Off','complete');
     const btn=document.getElementById('globalAllNotesOffBtn');
     if(btn&&!silent){
       btn.classList.add('active');
@@ -7425,10 +7880,12 @@ async function p_initMIDI(){
   const dot=document.getElementById('p-midiDot'), txt=document.getElementById('p-midiText');
   const eDot=document.getElementById('e-midiDeviceDot'), eTxt=document.getElementById('e-midiText');
   const iDot=document.getElementById('i-midiDot');
+  const imDot=document.getElementById('im-midiDot'), imTxt=document.getElementById('im-midiText');
   const setDeviceStatus=(message,state)=>{
     if(txt) txt.textContent=message;
     if(eTxt) eTxt.textContent=message;
-    [dot,eDot,iDot].forEach(d=>{
+    if(imTxt) imTxt.textContent=message;
+    [dot,eDot,iDot,imDot].forEach(d=>{
       if(!d)return;
       d.classList.remove('connected','error');
       if(state)d.classList.add(state);
@@ -8241,6 +8698,7 @@ function e_getModeHelpText(){
 function e_setAnswerMode(mode){
   e_answerMode = mode==='notes' ? 'notes' : 'keyboard';
   try{localStorage.setItem('mm_ear_answer_mode',e_answerMode);}catch(e){}
+  e_saveSettings();
   if(e_answerMode==='keyboard') e_renderAnswerKeyboard();
   else e_renderManualNotes();
   e_updateAnswerMethodUI();
@@ -8266,6 +8724,7 @@ function e_getLengthTarget(){
 }
 function e_onLengthChange(){
   e_lengthTarget=e_getLengthTarget();
+  e_saveSettings();
   e_sessionComplete=false;
   e_clearEarTimers();
   e_scoreCorrect=0; e_scoreTotal=0; e_streak=0; e_lastNotes=[];
@@ -8678,6 +9137,7 @@ function e_updateModeUI() {
 function e_onModeChange() {
   e_clearEarTimers();
   e_mode = document.getElementById('e-modeSelect').value;
+  e_saveSettings();
   e_resetEarTraining();
   e_updateModeUI();
 }
@@ -8685,6 +9145,7 @@ function e_onModeChange() {
 function e_onRangeChange() {
   e_clearEarTimers();
   e_range = document.getElementById('e-rangeSelect').value;
+  e_saveSettings();
   e_pickPrompt();
   e_setFeedback(e_mode==='note'?'Range changed. Choose Start.':'Range changed. Choose Audition or Start.', 'neutral');
 }
@@ -8704,6 +9165,7 @@ function e_onDiffChange() {
       if (dirSel) dirSel.value = 'mixed';
     }
   }
+  e_saveSettings();
   e_pickPrompt();
   e_setFeedback(e_mode==='note'?'Difficulty changed. Choose Start.':'Difficulty changed. Choose Audition or Start.', 'neutral');
   e_updateUI();
@@ -8713,6 +9175,7 @@ function e_onIntervalSettingsChange() {
   e_clearEarTimers();
   e_intervalDirection = document.getElementById('e-intervalDirection').value;
   e_intervalSet       = document.getElementById('e-intervalSet').value;
+  e_saveSettings();
   e_pickInterval();
   if(e_mode==='interval_name') e_resetIntervalNameAnswerState();
   e_setFeedback(e_mode==='note'?'Settings changed. Choose Start.':'Settings changed. Choose Audition or Start.', 'neutral');
@@ -8753,8 +9216,40 @@ function e_resetEarTraining() {
   e_updateUI();
 }
 
+// ── Profile settings memory ─────────────────────────────────────
+function e_settingsSnapshot(){
+  const len=document.getElementById('e-lengthSelect');
+  return {
+    mode:e_mode,
+    difficulty:e_diff,
+    range:e_range,
+    length:len?len.value:'10',
+    intervalDirection:e_intervalDirection,
+    intervalSet:e_intervalSet,
+    answerMode:e_answerMode
+  };
+}
+function e_saveSettings(){mm_saveModuleSettings('ear',e_settingsSnapshot());}
+function e_applySavedSettings(){
+  const st=mm_getModuleSettings('ear');
+  if(!st)return;
+  mm_setControlValue('e-modeSelect',st.mode);
+  mm_setControlValue('e-diffSelect',st.difficulty);
+  mm_setControlValue('e-rangeSelect',st.range);
+  mm_setControlValue('e-lengthSelect',st.length);
+  mm_setControlValue('e-intervalDirection',st.intervalDirection);
+  mm_setControlValue('e-intervalSet',st.intervalSet);
+  e_mode=(document.getElementById('e-modeSelect')||{}).value||e_mode;
+  e_diff=(document.getElementById('e-diffSelect')||{}).value||e_diff;
+  e_range=(document.getElementById('e-rangeSelect')||{}).value||e_range;
+  e_intervalDirection=(document.getElementById('e-intervalDirection')||{}).value||e_intervalDirection;
+  e_intervalSet=(document.getElementById('e-intervalSet')||{}).value||e_intervalSet;
+  if(st.answerMode==='keyboard'||st.answerMode==='notes')e_answerMode=st.answerMode;
+}
+
 // ── Init ───────────────────────────────────────────────────────
 function e_init() {
+  e_applySavedSettings();
   e_lengthTarget = e_getLengthTarget();
   e_sessionComplete = false;
   e_pickPrompt();
@@ -9157,13 +9652,13 @@ let s_wrongAttempts=0;
 let s_totalWrong=0;
 let s_history=[];
 let s_showNoteNames=true;
-let s_diff='medium';
+let s_diff='easy';
 let s_readingFocus='mixed';
 let s_range='core';
 let s_accidentalMode='key';
-let s_bars=1;
+let s_bars=2;
 let s_meter='4/4';
-let s_length=4;
+let s_length=8;
 let s_key='C';
 let s_keySet='intermediate';
 let s_keyMode='fixed';
@@ -9363,12 +9858,14 @@ function s_keyDrillClefLabel(clef){
 function s_onKeyDrillStaffChange(){
   const sel=document.getElementById('s-keyDrillStaffSelect');
   if(sel)s_keyDrillStaffMode=sel.value||'follow';
+  s_saveSettings();
   s_renderKeyDrill();
 }
 
 function s_onKeyDrillLevelChange(){
   const sel=document.getElementById('s-keyDrillLevelSelect');
   if(sel)s_keyDrillLevel=sel.value||'beginner';
+  s_saveSettings();
   const keys=s_keyDrillKeysForLevel();
   if(!keys.includes(s_keyDrillKey)){
     s_keyDrillKey=keys[0]||'C';
@@ -9526,7 +10023,57 @@ function s_pitchKey(note){
   return s_octaveMatch==='any'?playable.replace(/\d+$/,''):playable;
 }
 
+function s_settingsSnapshot(){
+  return {
+    difficulty:s_diff,
+    readingFocus:s_readingFocus,
+    range:s_range,
+    accidentals:s_accidentalMode,
+    bars:s_bars,
+    meter:s_meter,
+    noteValue:s_noteValueMode,
+    key:s_key,
+    keySet:s_keySet,
+    keyMode:s_keyMode,
+    clef:s_clef,
+    noteNames:s_showNoteNames?'on':'off',
+    octaveMatch:s_octaveMatch,
+    bpm:s_bpm,
+    metronomeOn:s_metronomeOn,
+    countoffBars:s_countoffBars,
+    keyDrillStaff:s_keyDrillStaffMode,
+    keyDrillLevel:s_keyDrillLevel
+  };
+}
+function s_saveSettings(){mm_saveModuleSettings('sight',s_settingsSnapshot());}
+function s_applySavedSettings(){
+  const st=mm_getModuleSettings('sight');
+  if(!st)return;
+  mm_setControlValue('s-diffSelect',st.difficulty);
+  mm_setControlValue('s-readingFocusSelect',st.readingFocus);
+  mm_setControlValue('s-rangeSelect',st.range);
+  mm_setControlValue('s-accidentalSelect',st.accidentals);
+  mm_setControlValue('s-lengthSelect',st.bars);
+  mm_setControlValue('s-meterSelect',st.meter);
+  mm_setControlValue('s-noteValueSelect',st.noteValue);
+  mm_setControlValue('s-keySelect',st.key);
+  mm_setControlValue('s-keySetSelect',st.keySet);
+  mm_setControlValue('s-keyModeSelect',st.keyMode);
+  mm_setControlValue('s-clefSelect',st.clef);
+  mm_setControlValue('s-noteNamesSelect',st.noteNames);
+  mm_setControlValue('s-octaveSelect',st.octaveMatch);
+  mm_setControlValue('s-countOffSelect',st.countoffBars);
+  mm_setControlValue('s-keyDrillStaffSelect',st.keyDrillStaff);
+  mm_setControlValue('s-keyDrillLevelSelect',st.keyDrillLevel);
+  if(st.bpm!==undefined&&st.bpm!==null){s_bpm=parseInt(st.bpm,10)||84;mm_setControlValue('s-bpmSlider',s_bpm);const bv=document.getElementById('s-bpmVal');if(bv)bv.textContent=s_bpm;}
+  if(typeof st.metronomeOn==='boolean')s_metronomeOn=st.metronomeOn;
+  if(st.noteNames==='on'||st.noteNames==='off')s_showNoteNames=st.noteNames==='on';
+  if(st.keyDrillStaff)s_keyDrillStaffMode=st.keyDrillStaff;
+  if(st.keyDrillLevel)s_keyDrillLevel=st.keyDrillLevel;
+}
+
 function s_init(){
+  s_applySavedSettings();
   s_readControls();
   s_createNewExercise(false);
   s_keyDrillNew(false);
@@ -9537,7 +10084,7 @@ function s_init(){
   s_renderKeyDrill();
   s_updateTransportUI();
   s_setFeedback('Press Start to begin.','neutral');
-  const co=document.getElementById('s-countOffSelect');if(co)co.value=String(s_countoffBars||1);
+  const co=document.getElementById('s-countOffSelect');if(co)co.value=String(s_countoffBars);
   s_updateMetroVol(65);
   s_setMetroButtonUI();
 }
@@ -9731,6 +10278,7 @@ function s_onSettingsChange(){
   if(wasRunning)s_interruptPlaybackForChange();
   s_active=false;
   s_readControls();
+  s_saveSettings();
   s_createNewExercise(false);
   s_renderStaff();
   s_renderNoteRow();
@@ -9860,6 +10408,7 @@ function s_createNewExercise(active){
 function s_onNoteNamesChange(){
   const sel=document.getElementById('s-noteNamesSelect');
   if(sel)s_showNoteNames=sel.value==='on';
+  s_saveSettings();
   s_renderNoteRow();
 }
 
@@ -9868,6 +10417,7 @@ function s_onOctaveMatchChange(){
   if(wasRunning)s_interruptPlaybackForChange();
   const sel=document.getElementById('s-octaveSelect');
   if(sel)s_octaveMatch=sel.value;
+  s_saveSettings();
   s_active=false;
   s_updateTransportUI();
   if(wasRunning)s_setFeedback('Playback stopped. Octave behavior updated.','neutral');
@@ -10351,11 +10901,13 @@ function s_scheduleTempoPlaybackUpdate(){
 
 function s_updateCountoffBars(value){
   s_countoffBars=Math.max(0,parseInt(value,10)||0);
+  s_saveSettings();
   if(s_countoffActive)s_applyTempoChangeToPlayback();
 }
 
 function s_updateBPM(value){
   s_bpm=parseInt(value,10);
+  s_saveSettings();
   const el=document.getElementById('s-bpmVal');if(el)el.textContent=s_bpm;
   if(s_countoffActive||s_auditionActive||s_active||s_hearItIndex>=0||(s_hearItTimers&&s_hearItTimers.length)){
     s_scheduleTempoPlaybackUpdate();
@@ -10384,6 +10936,7 @@ function s_updateLiveVol(val){
 
 function s_toggleMetronome(){
   s_metronomeOn=!s_metronomeOn;
+  s_saveSettings();
   s_stopMetronomeTimer();
   s_setMetroButtonUI();
   if(s_metronomeOn&&!s_active&&!s_auditionActive&&!s_countoffActive){
@@ -10819,6 +11372,12 @@ function p_handleMIDI(event){
       return;
     }
 
+    // Route to Improv Trainer when on that page
+    if (currentPage === 'improv') {
+      if (typeof im_handleMidiNote === 'function') im_handleMidiNote(noteStr, velocity);
+      return;
+    }
+
     const isOwner = p_isActiveAudioTab();
     if(isOwner){
       // Only active tab plays sound and grades
@@ -10842,6 +11401,11 @@ function p_handleMIDI(event){
     }
     if (currentPage === 'intervals') {
       if (typeof i_handleMidiNoteOff === 'function') i_handleMidiNoteOff(noteStr);
+      else p_noteOff(noteStr);
+      return;
+    }
+    if (currentPage === 'improv') {
+      if (typeof im_handleMidiNoteOff === 'function') im_handleMidiNoteOff(noteStr);
       else p_noteOff(noteStr);
       return;
     }
@@ -10929,7 +11493,50 @@ let i_playTimers=[], i_hearingNotes=[];
 let i_previewKeyTimers=new Map();
 let i_autoNext=false, i_autoStart=false, i_autoTimer=null;
 
+function i_settingsSnapshot(){
+  return {
+    path:i_pathMode,
+    mode:i_mode,
+    level:i_level,
+    focus:i_focus,
+    direction:i_direction,
+    root:i_rootSetting,
+    studyInterval:i_studyInterval,
+    staff:i_staff,
+    anchors:i_anchorMode,
+    rounds:i_roundLimit,
+    visualReveal:i_visualReveal,
+    staffVisible:i_staffVisible,
+    guideVisible:i_guideVisible,
+    anchorPanelVisible:i_anchorPanelVisible,
+    autoNext:i_autoNext,
+    autoStart:i_autoStart
+  };
+}
+function i_saveSettings(){mm_saveModuleSettings('intervals',i_settingsSnapshot());}
+function i_applySavedSettings(){
+  const st=mm_getModuleSettings('intervals');
+  if(!st)return;
+  mm_setControlValue('i-pathSelect',st.path);
+  mm_setControlValue('i-modeSelect',st.mode);
+  mm_setControlValue('i-levelSelect',st.level);
+  mm_setControlValue('i-focusSelect',st.focus);
+  mm_setControlValue('i-directionSelect',st.direction);
+  mm_setControlValue('i-rootSelect',st.root);
+  mm_setControlValue('i-studyIntervalSelect',st.studyInterval);
+  mm_setControlValue('i-staffSelect',st.staff);
+  mm_setControlValue('i-anchorSelect',st.anchors);
+  mm_setControlValue('i-roundsSelect',st.rounds);
+  if(['full','root','after','off'].includes(st.visualReveal))i_visualReveal=st.visualReveal;
+  if(typeof st.staffVisible==='boolean')i_staffVisible=st.staffVisible;
+  if(typeof st.guideVisible==='boolean')i_guideVisible=st.guideVisible;
+  if(typeof st.anchorPanelVisible==='boolean')i_anchorPanelVisible=st.anchorPanelVisible;
+  if(typeof st.autoNext==='boolean')i_autoNext=st.autoNext;
+  if(typeof st.autoStart==='boolean')i_autoStart=st.autoStart&&i_autoNext;
+}
+
 function i_init(){
+  i_applySavedSettings();
   i_readSettings();
   i_buildKeyboard();
   i_pick(false);
@@ -11197,6 +11804,7 @@ function i_revealHelp(mode){
 function i_setVisualReveal(mode){
   if(!['full','root','after','off'].includes(mode))mode='root';
   i_visualReveal=mode;
+  i_saveSettings();
   i_stopPlayback();
   i_renderAll();
 }
@@ -11223,14 +11831,17 @@ function i_renderRevealControls(){
 }
 function i_toggleStaffVisibility(){
   i_staffVisible=!i_staffVisible;
+  i_saveSettings();
   i_renderStaff();
 }
 function i_toggleGuideVisibility(){
   i_guideVisible=!i_guideVisible;
+  i_saveSettings();
   i_renderPrompt();
 }
 function i_toggleAnchorPanelVisibility(){
   i_anchorPanelVisible=!i_anchorPanelVisible;
+  i_saveSettings();
   i_renderAnchors();
 }
 function i_volumePercent(vol,maxGain){
@@ -11292,11 +11903,13 @@ function i_updateAutoFlowButtons(){
 function i_toggleAutoNext(){
   i_autoNext=!i_autoNext;
   if(!i_autoNext){i_autoStart=false;i_clearAutoTimer();}
+  i_saveSettings();
   i_updateAutoFlowButtons();
 }
 function i_toggleAutoStart(){
   if(!i_autoNext)return;
   i_autoStart=!i_autoStart;
+  i_saveSettings();
   i_updateAutoFlowButtons();
 }
 function i_autoAdvanceAfterAttempt(){
@@ -11316,6 +11929,7 @@ function i_onSettingsChange(){
   const priorRoundLimit=i_roundLimit;
   const priorPathMode=i_pathMode;
   i_readSettings();
+  i_saveSettings();
   if(priorRoundLimit!==i_roundLimit||priorPathMode!==i_pathMode){
     i_reviewMissesActive=false;
     i_reviewMissIntervals=[];
@@ -11967,7 +12581,7 @@ function i_handleMidiNoteOff(noteStr){
 /* ============================================================
    RHYTHM TRAINING v1
    ============================================================ */
-let r_mode='replay', r_diff='medium', r_bpm=84, r_lengthBars=2;
+let r_mode='replay', r_diff='easy', r_bpm=84, r_lengthBars=2;
 let r_currentPattern=null, r_isPlaying=false, r_isListening=false;
 let r_playTimers=[], r_listenTimer=null, r_startTime=0, r_userTaps=[];
 let r_total=0, r_correct=0, r_streak=0, r_history=[];
@@ -11978,7 +12592,7 @@ let r_meter='4/4'; // current time signature
 let r_beatsPerBar=4; // derived from r_meter
 let r_timingOffsetMs=0; // future latency calibration offset; 0 = disabled
 let r_mobileSettingsOpen=false; // mobile settings panel open/closed state
-let r_countInBars=2;
+let r_countInBars=1;
 let r_focus='random';
 let r_displayMode='blocks'; // blocks | staff | both
 let r_staffClef='percussion'; // percussion | treble | bass, fixed rhythm-note lane only
@@ -11989,6 +12603,7 @@ let r_isAuditioning=false;
 let r_auditionLoop=null;
 let r_lastMidiTapTime=0; // debounce for MIDI taps
 let r_pulseDotTimer=null; // for flashing the visual pulse dot
+let r_tempoRestartTimer=null; // debounce live tempo changes during playback
 
 // One-bar rhythm vocabulary organized by unit type.
 // Each entry is an array of localBeats (0-indexed within a 4/4 bar, range [0,4)).
@@ -12611,13 +13226,43 @@ function r_pickPattern(){
   });
 }
 
+function r_settingsSnapshot(){
+  return {
+    mode:r_mode,
+    difficulty:r_diff,
+    bpm:r_bpm,
+    bars:r_lengthBars,
+    countInBars:r_countInBars,
+    metronomeOn:r_guideClick,
+    focus:r_focus,
+    display:r_displayMode,
+    staffClef:r_staffClef,
+    meter:r_meter,
+    oddFeel:r_oddFeel
+  };
+}
+function r_saveSettings(){mm_saveModuleSettings('rhythm',r_settingsSnapshot());}
+function r_applySavedSettings(){
+  const st=mm_getModuleSettings('rhythm');
+  if(!st)return;
+  mm_setControlValue('r-diffSelect',st.difficulty);
+  mm_setControlValue('r-lengthSelect',st.bars);
+  mm_setControlValue('r-countInBarsSelect',st.countInBars);
+  mm_setControlValue('r-focusSelect',st.focus);
+  mm_setControlValue('r-meterSelect',st.meter);
+  if(typeof r_updateOddFeelOptions==='function')r_updateOddFeelOptions();
+  mm_setControlValue('r-oddFeelSelect',st.oddFeel);
+  mm_setControlValue('r-displaySelect',st.display);
+  mm_setControlValue('r-staffClefSelect',st.staffClef);
+  if(st.bpm!==undefined&&st.bpm!==null){r_bpm=parseInt(st.bpm,10)||84;mm_setControlValue('r-bpmSlider',r_bpm);const bv=document.getElementById('r-bpmVal');if(bv)bv.textContent=r_bpm;}
+  if(typeof st.metronomeOn==='boolean')r_guideClick=st.metronomeOn;
+}
+
 function r_onSettingsChange(){
   if(r_transportState!=='stopped') r_stopPlayback();
   const d=document.getElementById('r-diffSelect');
   const l=document.getElementById('r-lengthSelect');
   const ci=document.getElementById('r-countInBarsSelect');
-  const mt=document.getElementById('r-metronomeSelect');
-  const rg=document.getElementById('r-rhythmGuideSelect');
   const fc=document.getElementById('r-focusSelect');
   const me=document.getElementById('r-meterSelect');
   const of=document.getElementById('r-oddFeelSelect');
@@ -12625,9 +13270,9 @@ function r_onSettingsChange(){
   const sc=document.getElementById('r-staffClefSelect');
   r_diff=d?d.value:'easy';
   r_lengthBars=l?parseInt(l.value,10):2;
-  r_countInBars=ci?parseInt(ci.value,10):2;
-  r_guideClick=mt?mt.value==='on':true;
-  r_rhythmGuide=rg?rg.value==='on':true;
+  r_countInBars=ci?parseInt(ci.value,10):(r_countInBars||1);
+  r_guideClick=typeof r_guideClick==='boolean'?r_guideClick:true;
+  r_rhythmGuide=true;
   r_focus=fc?fc.value:'random';
   r_displayMode=ds?ds.value:'blocks';
   r_staffClef=sc?sc.value:'percussion';
@@ -12637,6 +13282,8 @@ function r_onSettingsChange(){
   r_oddFeel=of?of.value:'auto';
   r_updateMeterLabel();
   r_updateStaffDisplayControls();
+  r_updateMetronomeButton();
+  r_saveSettings();
   r_pickPattern();
   r_updateMobileSettingsSummary();
 }
@@ -13326,8 +13973,63 @@ function r_handleTapPadPress(){
 // BPM slider -- updates r_bpm and display; does not restart playback mid-session.
 function r_updateBPM(value){
   r_bpm=parseInt(value,10);
+  r_saveSettings();
   const el=document.getElementById('r-bpmVal');
   if(el) el.textContent=r_bpm;
+  r_updateMobileSettingsSummary();
+  if(r_transportState!=='stopped'){
+    r_scheduleTempoPlaybackUpdate();
+  }
+}
+
+function r_scheduleTempoPlaybackUpdate(){
+  if(r_tempoRestartTimer)clearTimeout(r_tempoRestartTimer);
+  r_tempoRestartTimer=setTimeout(r_applyTempoChangeToPlayback,90);
+}
+
+function r_applyTempoChangeToPlayback(){
+  r_tempoRestartTimer=null;
+  if(r_transportState==='auditioning'){
+    const pattern=r_currentPattern;
+    r_stopPlayback();
+    r_currentPattern=pattern;
+    r_setFeedback('Tempo updated to '+r_bpm+' BPM. Audition restarting.','neutral');
+    r_startAudition();
+    return;
+  }
+  if(r_transportState==='counting'||r_transportState==='listening'){
+    const pattern=r_currentPattern;
+    r_stopPlayback();
+    r_currentPattern=pattern;
+    r_setFeedback('Tempo updated to '+r_bpm+' BPM. Practice restarting.','neutral');
+    r_startPractice();
+  }
+}
+
+function r_updateCountInBars(value){
+  r_countInBars=Math.max(0,parseInt(value,10)||0);
+  r_saveSettings();
+  r_updateMobileSettingsSummary();
+  if(r_transportState==='counting'||r_transportState==='listening'){
+    const pattern=r_currentPattern;
+    r_stopPlayback();
+    r_currentPattern=pattern;
+    r_setFeedback('Count in updated. Practice restarting.','neutral');
+    r_startPractice();
+  }
+}
+
+function r_updateMetronomeButton(){
+  const btn=document.getElementById('r-metroBtn');
+  if(!btn)return;
+  btn.textContent=r_guideClick?'Metro On':'Metro Off';
+  btn.classList.toggle('active',!!r_guideClick);
+}
+
+function r_toggleMetronome(){
+  r_guideClick=!r_guideClick;
+  r_saveSettings();
+  r_updateMetronomeButton();
   r_updateMobileSettingsSummary();
 }
 
@@ -13452,6 +14154,7 @@ function r_stopGuideClick(){
 }
 
 function r_stopPlayback(){
+  if(r_tempoRestartTimer){clearTimeout(r_tempoRestartTimer);r_tempoRestartTimer=null;}
   r_playTimers.forEach(t=>clearTimeout(t));r_playTimers=[];
   r_stopGuideClick();
   if(r_listenTimer){clearTimeout(r_listenTimer);r_listenTimer=null;}
@@ -13581,7 +14284,7 @@ function r_playCountIn(done){
     const t=setTimeout(()=>{
       if(r_transportState==='stopped')return;
       const strong=r_isStrongBeat(beatNum-1);
-      r_playClick(strong);
+      if(r_guideClick) r_playClick(strong);
       r_pulseDot(strong);
       r_setStatus('Count-in: bar '+barNum+' of '+r_countInBars);
       // Show beat number near the pulse dot -- do NOT touch the pattern visual
@@ -13796,11 +14499,13 @@ function r_renderHistory(){
 }
 
 function r_init(){
+  r_applySavedSettings();
   r_onSettingsChange();
   r_updateScore();
   r_renderHistory();
   // Apply METRO slider default (metronome starts quieter than Practice default)
   r_updateMetroVol(65);
+  r_updateMetronomeButton();
   r_updateMobileSettingsSummary();
   if(!window.__musicMeinRhythmResizeBound){
     window.__musicMeinRhythmResizeBound=true;
@@ -14079,9 +14784,364 @@ function pg_render() {
   }
 }
 
+
+
+/* ============================================================
+   IMPROV TRAINING Stage 1: no-hint chord reaction trainer
+   ============================================================ */
+const IM_NOTE_NAMES_FLAT=['C','Db','D','Eb','E','F','Gb','G','Ab','A','Bb','B'];
+const IM_NOTE_NAMES_SHARP=['C','C#','D','D#','E','F','F#','G','G#','A','A#','B'];
+const IM_ROOTS=[
+  {name:'C',pc:0},{name:'Db',pc:1},{name:'D',pc:2},{name:'Eb',pc:3},{name:'E',pc:4},{name:'F',pc:5},
+  {name:'Gb',pc:6},{name:'G',pc:7},{name:'Ab',pc:8},{name:'A',pc:9},{name:'Bb',pc:10},{name:'B',pc:11}
+];
+const IM_CHORD_TYPES={
+  maj7:{label:'maj7',intervals:[0,4,7,11],roles:['1','3','5','7'],name:'Major 7'},
+  min7:{label:'m7',intervals:[0,3,7,10],roles:['1','b3','5','b7'],name:'Minor 7'},
+  dom7:{label:'7',intervals:[0,4,7,10],roles:['1','3','5','b7'],name:'Dominant 7'},
+  m7b5:{label:'m7b5',intervals:[0,3,6,10],roles:['1','b3','b5','b7'],name:'Half Diminished'},
+  dim7:{label:'dim7',intervals:[0,3,6,9],roles:['1','b3','b5','bb7'],name:'Diminished 7'}
+};
+const IM_INV_NAMES=['Root Position','1st Inversion','2nd Inversion','3rd Inversion'];
+const IM_NATURAL_ROOTS=[0,2,4,5,7,9,11];
+const IM_VOICING_LABELS={full7:'Full 7th Chord',shell:'Shell Voicing',rootless9:'Rootless 9th'};
+let im_mode='chord', im_diff='easy', im_iiVIType='mixed', im_chordType='all', im_rootSetting='random', im_voicing='full7', im_inversionRule='exact', im_guidance='noHint';
+let im_targetPCs=[], im_targetEntries=[], im_requiredBassPc=null, im_progression=[], im_currentStep=0, im_currentKeyName='', im_waiting=false, im_lastChecked='', im_currentFormula='';
+let im_heldNotes=new Set(), im_latchedVirtualNotes=new Set(), im_latchMode=true, im_answerShown=false;
+let im_correct=0, im_attempts=0, im_streak=0, im_history=[];
+let im_bpm=100, im_metroOn=false, im_metroTimer=null, im_metroBeat=0;
+
+function im_pcName(pc){return IM_NOTE_NAMES_FLAT[((pc%12)+12)%12];}
+function im_pcSharp(pc){return ['C','C#','D','D#','E','F','F#','G','G#','A','A#','B'][((pc%12)+12)%12];}
+function im_noteStrToMidi(noteStr){
+  const m=String(noteStr||'').match(/^([A-G])(#?)(-?\d+)$/);if(!m)return null;
+  const base={C:0,D:2,E:4,F:5,G:7,A:9,B:11}[m[1]]+(m[2]==='#'?1:0);
+  return (parseInt(m[3],10)+1)*12+base;
+}
+function im_midiToNoteStr(midi){const pc=((midi%12)+12)%12;const oct=Math.floor(midi/12)-1;return im_pcSharp(pc)+oct;}
+function im_noteStrToPc(noteStr){const m=im_noteStrToMidi(noteStr);return m===null?null:((m%12)+12)%12;}
+function im_uniqueSorted(arr){return Array.from(new Set(arr)).sort((a,b)=>a-b);}
+function im_arraysEqual(a,b){if(a.length!==b.length)return false;for(let x=0;x<a.length;x++){if(a[x]!==b[x])return false;}return true;}
+function im_buildChord(rootPc,type){return IM_CHORD_TYPES[type].intervals.map(i=>(rootPc+i)%12);}
+function im_targetSpec(rootPc,type,voicing=im_voicing){
+  const base=IM_CHORD_TYPES[type]||IM_CHORD_TYPES.maj7;
+  let intervals=base.intervals.slice();
+  let roles=base.roles.slice();
+  if(voicing==='shell'){
+    intervals=[base.intervals[0],base.intervals[1],base.intervals[3]];
+    roles=[base.roles[0],base.roles[1],base.roles[3]];
+  }else if(voicing==='rootless9'){
+    intervals=[base.intervals[1],base.intervals[2],base.intervals[3],14];
+    roles=[base.roles[1],base.roles[2],base.roles[3],'9'];
+  }
+  const entries=intervals.map((interval,idx)=>({pc:(rootPc+interval)%12,role:roles[idx],interval}));
+  return {pcs:entries.map(e=>e.pc),entries,formula:roles.join('  •  '),label:IM_VOICING_LABELS[voicing]||'Full 7th Chord'};
+}
+function im_positionName(index){
+  if(im_voicing==='full7')return IM_INV_NAMES[index]||('Position '+(index+1));
+  return 'Lowest tone: '+((im_targetEntries[index]||{}).role||('Position '+(index+1)));
+}
+function im_updateCoachPanel(extraText=''){
+  const panel=document.getElementById('im-coachPanel');const txt=document.getElementById('im-coachText');
+  if(!panel||!txt)return;
+  if(im_guidance==='noHint'){
+    panel.classList.remove('show');txt.textContent='—';return;
+  }
+  let base=(IM_VOICING_LABELS[im_voicing]||'Voicing')+': '+(im_currentFormula||'—');
+  if(im_guidance==='formula')base+=' | No note names shown.';
+  if(extraText)base+=' | '+extraText;
+  txt.textContent=base;
+  panel.classList.add('show');
+}
+function im_roleFeedback(pcs,bass){
+  const missing=im_targetEntries.filter(e=>!pcs.includes(e.pc)).map(e=>e.role);
+  const extra=pcs.filter(pc=>!im_targetPCs.includes(pc)).map(im_pcName);
+  let parts=[];
+  if(missing.length)parts.push('Missing roles: '+missing.join(', '));
+  if(extra.length)parts.push('Extra notes: '+extra.join(', '));
+  if(im_requiredBassPc!==null&&bass!==im_requiredBassPc)parts.push('Lowest note should be '+im_pcName(im_requiredBassPc));
+  return parts.join(' | ');
+}
+function im_isBlackPc(pc){return [1,3,6,8,10].includes(pc);}
+function im_effectiveRootPool(){
+  if(im_rootSetting!=='random')return [parseInt(im_rootSetting,10)||0];
+  if(im_diff==='easy')return [0,5,7,2,9,10];
+  if(im_diff==='medium')return IM_NATURAL_ROOTS.slice();
+  return IM_ROOTS.map(r=>r.pc);
+}
+function im_effectiveChordPool(){
+  if(im_chordType!=='all')return [im_chordType];
+  if(im_diff==='easy')return ['maj7','min7','dom7'];
+  if(im_diff==='medium')return ['maj7','min7','dom7','m7b5'];
+  return ['maj7','min7','dom7','m7b5','dim7'];
+}
+function im_pickRoot(){const pool=im_effectiveRootPool();const pc=pool[Math.floor(Math.random()*pool.length)];return IM_ROOTS.find(r=>r.pc===pc)||IM_ROOTS[0];}
+function im_setFeedback(text,type='info'){const el=document.getElementById('im-feedback');if(!el)return;el.textContent=text;el.className='improv-feedback '+type;}
+function im_showDetected(){
+  const box=document.getElementById('im-detectedBox');if(!box)return;
+  const notes=Array.from(im_heldNotes).map(n=>({note:n,midi:im_noteStrToMidi(n),pc:im_noteStrToPc(n)})).filter(n=>n.pc!==null).sort((a,b)=>(a.midi||0)-(b.midi||0));
+  box.innerHTML='';
+  if(!notes.length){box.innerHTML='<div class="p-history-empty" style="padding:.25rem 0">No notes detected</div>';return;}
+  notes.forEach((n,idx)=>{const d=document.createElement('div');d.className='improv-note-chip'+(idx===0?' bass':'');d.textContent=im_pcName(n.pc);box.appendChild(d);});
+}
+function im_answerText(){
+  if(!im_targetEntries.length&&im_targetPCs.length)return im_targetPCs.map(im_pcName).join('  •  ');
+  if(!im_targetEntries.length)return '—';
+  let txt=im_targetEntries.map(e=>e.role+': '+im_pcName(e.pc)).join('  •  ');
+  if(im_requiredBassPc!==null)txt+='   Bass: '+im_pcName(im_requiredBassPc);
+  return txt;
+}
+function im_updateAnswerBox(){
+  const el=document.getElementById('im-answerNotes');if(el)el.textContent=im_answerText();
+  const meta=document.getElementById('im-answerMeta');if(meta)meta.textContent=(IM_VOICING_LABELS[im_voicing]||'Voicing')+' | Formula: '+(im_currentFormula||'—')+(im_requiredBassPc!==null?' | Exact lowest note required':' | Any inversion accepted');
+  im_refreshKeyboardActive();im_updateCoachPanel();
+}
+function im_toggleAnswer(){im_answerShown=!im_answerShown;const box=document.getElementById('im-answerBox');const btn=document.getElementById('im-answerBtn');if(box)box.classList.toggle('show',im_answerShown);if(btn)btn.textContent=im_answerShown?'Hide Answer':'Show Answer';im_refreshKeyboardActive();}
+function im_hideAnswer(){im_answerShown=false;const box=document.getElementById('im-answerBox');const btn=document.getElementById('im-answerBtn');if(box)box.classList.remove('show');if(btn)btn.textContent='Show Answer';im_refreshKeyboardActive();}
+function im_buildKeyboard(){
+  const wrap=document.getElementById('im-keyboard');if(!wrap)return;
+  wrap.innerHTML='';
+  let whiteIndex=0;const whiteW=38;const blackOffset=12;
+  for(let midi=36;midi<=84;midi++){
+    const pc=((midi%12)+12)%12;const noteStr=im_midiToNoteStr(midi);const label=im_pcName(pc);
+    const key=document.createElement('div');key.dataset.note=noteStr;key.dataset.pc=pc;key.textContent=label;
+    if(!im_isBlackPc(pc)){
+      key.className='im-key im-wk';key.style.left=(whiteIndex*whiteW)+'px';whiteIndex++;
+    }else{
+      key.className='im-key im-bk';key.style.left=((whiteIndex*whiteW)-blackOffset)+'px';
+    }
+    key.addEventListener('pointerdown',ev=>{ev.preventDefault();ev.stopPropagation();im_virtualDown(noteStr);});
+    key.addEventListener('pointerup',ev=>{if(!im_latchMode)im_virtualUp(noteStr);});
+    key.addEventListener('pointerleave',ev=>{if(!im_latchMode)im_virtualUp(noteStr);});
+    wrap.appendChild(key);
+  }
+  im_refreshKeyboardActive();
+}
+function im_refreshKeyboardActive(){
+  document.querySelectorAll('#page-improv .im-key').forEach(k=>{
+    const note=k.dataset.note;const pc=parseInt(k.dataset.pc,10);
+    k.classList.toggle('active',im_heldNotes.has(note));
+    k.classList.toggle('answer',!!im_answerShown&&im_targetPCs.includes(pc));
+  });
+}
+function im_virtualDown(noteStr){
+  p_claimAudioOwnership();
+  if(im_latchMode){
+    if(im_latchedVirtualNotes.has(noteStr)){
+      im_latchedVirtualNotes.delete(noteStr);im_heldNotes.delete(noteStr);p_noteOff(noteStr);
+    }else{
+      im_latchedVirtualNotes.add(noteStr);im_heldNotes.add(noteStr);p_noteOn(noteStr,86,'live');
+    }
+  }else{
+    im_heldNotes.add(noteStr);p_noteOn(noteStr,86,'live');
+  }
+  im_lastChecked='';im_showDetected();im_refreshKeyboardActive();im_checkChord();
+}
+function im_virtualUp(noteStr){if(im_latchMode)return;im_heldNotes.delete(noteStr);p_noteOff(noteStr);im_lastChecked='';im_showDetected();im_refreshKeyboardActive();}
+function im_toggleLatch(){im_latchMode=!im_latchMode;const btn=document.getElementById('im-latchBtn');if(btn)btn.textContent='Latch Keys: '+(im_latchMode?'On':'Off');im_clearInput();}
+function im_clearInput(silent=false){
+  Array.from(im_heldNotes).forEach(n=>{try{p_noteOff(n);}catch(e){}});
+  im_heldNotes.clear();im_latchedVirtualNotes.clear();im_lastChecked='';im_waiting=false;
+  im_showDetected();im_refreshKeyboardActive();
+  if(!silent)im_setFeedback('Waiting for your chord.','info');
+}
+function im_stopAllNotes(silent=false){im_stopMetronome(false);im_clearInput(true);if(!silent)im_setFeedback('Stopped.','info');}
+function im_msPerBeat(){return Math.max(120,60000/(parseInt(im_bpm,10)||100));}
+function im_flashMetroDot(accent=false){
+  const dot=document.getElementById('im-metroDot');if(!dot)return;
+  dot.classList.remove('beat','downbeat');
+  void dot.offsetWidth;
+  dot.classList.add(accent?'downbeat':'beat');
+  setTimeout(()=>{const d=document.getElementById('im-metroDot');if(d)d.classList.remove('beat','downbeat');},115);
+}
+function im_metronomeTick(){
+  const accent=(im_metroBeat%4)===0;
+  if(typeof r_playClick==='function')r_playClick(accent);
+  im_flashMetroDot(accent);
+  im_metroBeat++;
+}
+function im_setMetroUI(){
+  const btn=document.getElementById('im-metroBtn');
+  if(btn){
+    btn.classList.toggle('active',!!im_metroOn);
+    btn.innerHTML='<span class="p-metro-dot" id="im-metroDot"></span>'+(im_metroOn?'Metro On':'Metro Off');
+  }
+  const val=document.getElementById('im-bpmVal');if(val)val.textContent=im_bpm;
+  const slider=document.getElementById('im-bpmSlider');if(slider)slider.value=im_bpm;
+}
+function im_startMetronome(){
+  p_claimAudioOwnership();
+  if(im_metroTimer){clearInterval(im_metroTimer);im_metroTimer=null;}
+  im_metroOn=true;im_metroBeat=0;im_setMetroUI();
+  im_metronomeTick();
+  im_metroTimer=setInterval(im_metronomeTick,im_msPerBeat());
+}
+function im_stopMetronome(update=true){
+  if(im_metroTimer){clearInterval(im_metroTimer);im_metroTimer=null;}
+  im_metroOn=false;
+  if(update)im_setMetroUI();
+}
+function im_toggleMetronome(){
+  if(im_metroOn)im_stopMetronome(true);
+  else im_startMetronome();
+  im_saveSettings();
+}
+function im_updateBPM(value){
+  im_bpm=Math.max(40,Math.min(220,parseInt(value,10)||100));
+  const val=document.getElementById('im-bpmVal');if(val)val.textContent=im_bpm;
+  const slider=document.getElementById('im-bpmSlider');if(slider)slider.value=im_bpm;
+  if(im_metroOn&&im_metroTimer){clearInterval(im_metroTimer);im_metroTimer=setInterval(im_metronomeTick,im_msPerBeat());}
+  im_saveSettings();
+}
+function im_updateMetroVol(value){
+  const v=Math.max(0,Math.min(100,parseInt(value,10)||0));
+  p_updateMetroVol(v);
+  const val=document.getElementById('im-metroVolVal');if(val)val.textContent=v;
+  const slider=document.getElementById('im-metroVolSlider');if(slider)slider.value=v;
+  im_saveSettings();
+}
+function im_readSettings(){
+  const mode=document.getElementById('im-modeSelect');if(mode)im_mode=mode.value;
+  const diff=document.getElementById('im-diffSelect');if(diff)im_diff=diff.value;
+  const ii=document.getElementById('im-iiVITypeSelect');if(ii)im_iiVIType=ii.value;
+  const ct=document.getElementById('im-chordTypeSelect');if(ct)im_chordType=ct.value;
+  const rt=document.getElementById('im-rootSelect');if(rt)im_rootSetting=rt.value;
+  const vo=document.getElementById('im-voicingSelect');if(vo)im_voicing=vo.value;
+  const inv=document.getElementById('im-inversionRuleSelect');if(inv)im_inversionRule=inv.value;
+  const gd=document.getElementById('im-guidanceSelect');if(gd)im_guidance=gd.value;
+  const bpm=document.getElementById('im-bpmSlider');if(bpm)im_bpm=Math.max(40,Math.min(220,parseInt(bpm.value,10)||100));
+}
+function im_settingsSnapshot(){return {mode:im_mode,difficulty:im_diff,iiVIType:im_iiVIType,chordType:im_chordType,root:im_rootSetting,voicing:im_voicing,inversionRule:im_inversionRule,guidance:im_guidance,latch:im_latchMode,bpm:im_bpm,metroVol:Math.round((p_metroVol/P_METRO_MAX_GAIN)*100)||0};}
+function im_saveSettings(){mm_saveModuleSettings('improv',im_settingsSnapshot());}
+function im_applySavedSettings(){
+  const st=mm_getModuleSettings('improv');if(!st)return;
+  mm_setControlValue('im-modeSelect',st.mode);mm_setControlValue('im-diffSelect',st.difficulty);mm_setControlValue('im-iiVITypeSelect',st.iiVIType);mm_setControlValue('im-chordTypeSelect',st.chordType);mm_setControlValue('im-rootSelect',st.root);mm_setControlValue('im-voicingSelect',st.voicing);mm_setControlValue('im-inversionRuleSelect',st.inversionRule);mm_setControlValue('im-guidanceSelect',st.guidance);mm_setControlValue('im-bpmSlider',st.bpm);mm_setControlValue('im-metroVolSlider',st.metroVol);
+  if(typeof st.bpm==='number')im_bpm=Math.max(40,Math.min(220,parseInt(st.bpm,10)||100));
+  if(typeof st.metroVol==='number')im_updateMetroVol(st.metroVol);
+  if(typeof st.latch==='boolean')im_latchMode=st.latch;
+  im_metroOn=false;
+}
+function im_onSettingsChange(){im_readSettings();im_saveSettings();im_newQuestion();}
+function im_makeIiVIQuestion(){
+  const root=im_pickRoot();
+  let isMinor=false;
+  if(im_iiVIType==='minor')isMinor=true;else if(im_iiVIType==='major')isMinor=false;else isMinor=Math.random()<0.5;
+  im_currentKeyName=root.name+(isMinor?' minor':' major');
+  if(!isMinor){
+    im_progression=[
+      {name:im_pcName(root.pc+2)+'m7',rootPc:(root.pc+2)%12,type:'min7'},
+      {name:im_pcName(root.pc+7)+'7',rootPc:(root.pc+7)%12,type:'dom7'},
+      {name:root.name+'maj7',rootPc:root.pc,type:'maj7'}
+    ];
+  }else{
+    im_progression=[
+      {name:im_pcName(root.pc+2)+'m7b5',rootPc:(root.pc+2)%12,type:'m7b5'},
+      {name:im_pcName(root.pc+7)+'7',rootPc:(root.pc+7)%12,type:'dom7'},
+      {name:root.name+'m7',rootPc:root.pc,type:'min7'}
+    ];
+  }
+  im_currentStep=0;im_loadProgressionStep();
+}
+function im_loadProgressionStep(){
+  im_clearInput(true);im_hideAnswer();im_waiting=false;
+  const chord=im_progression[im_currentStep];const spec=im_targetSpec(chord.rootPc,chord.type,im_voicing);
+  im_targetEntries=spec.entries;im_targetPCs=im_uniqueSorted(spec.pcs);im_requiredBassPc=null;im_currentFormula=spec.formula;
+  const q=document.getElementById('im-questionDisplay');if(q)q.textContent='Play: '+chord.name;
+  const st=document.getElementById('im-stepDisplay');if(st)st.textContent=im_currentKeyName+' ii V I | Step '+(im_currentStep+1)+' of 3 | '+spec.label;
+  im_updateAnswerBox();im_setFeedback('Waiting for your chord.','info');
+}
+function im_makeChordQuestion(){
+  im_clearInput(true);im_hideAnswer();im_waiting=false;
+  const root=im_pickRoot();const pool=im_effectiveChordPool();const type=pool[Math.floor(Math.random()*pool.length)];
+  const spec=im_targetSpec(root.pc,type,im_voicing);const inversion=Math.floor(Math.random()*spec.entries.length);
+  im_targetEntries=spec.entries;im_targetPCs=im_uniqueSorted(spec.pcs);im_requiredBassPc=(im_inversionRule==='exact'?spec.entries[inversion].pc:null);im_currentFormula=spec.formula;
+  const chordName=root.name+IM_CHORD_TYPES[type].label;
+  const q=document.getElementById('im-questionDisplay');if(q)q.textContent='Play: '+chordName;
+  const st=document.getElementById('im-stepDisplay');if(st)st.textContent=(im_requiredBassPc!==null?im_positionName(inversion):'Any inversion')+' | '+spec.label;
+  im_updateAnswerBox();im_setFeedback('Waiting for your chord.','info');
+}
+function im_newQuestion(){im_readSettings();if(im_mode==='iiVI')im_makeIiVIQuestion();else im_makeChordQuestion();im_saveSettings();}
+function im_completeCorrect(){
+  im_correct++;im_attempts++;im_streak++;im_updateScore();im_addHistory(true);im_waiting=true;im_setFeedback('Correct.','correct');
+  setTimeout(()=>{
+    if(im_mode==='iiVI'){
+      im_currentStep++;
+      if(im_currentStep<im_progression.length)im_loadProgressionStep();
+      else{im_setFeedback('Progression complete. New ii V I coming.','correct');setTimeout(()=>im_newQuestion(),520);}
+    }else{im_newQuestion();}
+  },650);
+}
+function im_markWrong(msg){im_attempts++;im_streak=0;im_updateScore();im_addHistory(false,msg);im_setFeedback(msg,'wrong');}
+function im_checkChord(){
+  if(!im_targetPCs.length||im_waiting)return;
+  const notes=Array.from(im_heldNotes).map(n=>({note:n,midi:im_noteStrToMidi(n),pc:im_noteStrToPc(n)})).filter(n=>n.pc!==null).sort((a,b)=>(a.midi||0)-(b.midi||0));
+  const pcs=im_uniqueSorted(notes.map(n=>n.pc));
+  if(notes.length<4&&pcs.length<4)return;
+  const bass=notes.length?notes[0].pc:null;const code=notes.map(n=>n.note).sort().join(',')+'|'+pcs.join(',')+'|'+bass;
+  if(code===im_lastChecked)return;im_lastChecked=code;
+  const targetLen=im_targetPCs.length||4;
+  if(notes.length>targetLen||pcs.length>targetLen){im_markWrong('Wrong: too many notes. Try again.');return;}
+  if(pcs.length!==targetLen){im_markWrong('Wrong: use '+targetLen+' different target tones.');return;}
+  if(!im_arraysEqual(pcs,im_targetPCs)){
+    const detail=im_guidance==='coach'?im_roleFeedback(pcs,bass):'';
+    im_updateCoachPanel(detail);
+    im_markWrong(detail?('Wrong. '+detail):'Wrong. Stay on this question and try again.');return;
+  }
+  if(im_requiredBassPc!==null&&bass!==im_requiredBassPc){
+    const detail=im_guidance==='coach'?im_roleFeedback(pcs,bass):'';
+    im_updateCoachPanel(detail);
+    im_markWrong('Chord tones are right, but the lowest note is wrong. Lowest note should be '+im_pcName(im_requiredBassPc)+'.');return;
+  }
+  im_completeCorrect();
+}
+function im_updateScore(){
+  const pct=im_attempts?Math.round((im_correct/im_attempts)*100):0;
+  const sc=document.getElementById('im-score');if(sc)sc.textContent=im_correct+' / '+im_attempts+' · '+pct+'%';
+  const st=document.getElementById('im-streak');if(st)st.textContent=im_streak;
+  const at=document.getElementById('im-attempts');if(at)at.textContent=im_attempts;
+}
+function im_addHistory(good,msg=''){
+  const q=(document.getElementById('im-questionDisplay')||{}).textContent||'Chord';
+  im_history.unshift({q:q.replace(/^Play:\s*/,''),good,msg,ts:Date.now()});
+  im_history=im_history.slice(0,12);im_renderHistory();
+}
+function im_renderHistory(){
+  const el=document.getElementById('im-history');if(!el)return;
+  if(!im_history.length){el.innerHTML='<div class="p-history-empty">No attempts yet</div>';return;}
+  el.innerHTML='';
+  im_history.forEach(h=>{const d=document.createElement('div');d.className='improv-history-item '+(h.good?'good':'bad');d.innerHTML='<span>'+h.q+'</span><span>'+(h.good?'Correct':'Try again')+'</span>';el.appendChild(d);});
+}
+function im_handleMidiNote(noteStr,velocity=80){
+  p_claimAudioOwnership();
+  const last=document.getElementById('im-lastMidi');if(last)last.textContent=noteStr+' vel '+velocity;
+  im_heldNotes.add(noteStr);p_noteOn(noteStr,velocity,'live');im_showDetected();im_refreshKeyboardActive();im_checkChord();
+}
+function im_handleMidiNoteOff(noteStr){im_heldNotes.delete(noteStr);im_latchedVirtualNotes.delete(noteStr);p_noteOff(noteStr);im_lastChecked='';im_showDetected();im_refreshKeyboardActive();}
+function im_toggleBrowserSynth(enabled){p_toggleBrowserSynth(enabled);}
+function im_syncAudioControls(){
+  const masterPct=Math.round((p_masterVol/P_MASTER_MAX_GAIN)*100)||0;
+  const livePct=Math.round((p_liveVol/P_LIVE_MAX_GAIN)*100)||0;
+  const metroPct=Math.round((p_metroVol/P_METRO_MAX_GAIN)*100)||0;
+  const ms=document.getElementById('im-masterSlider');if(ms)ms.value=masterPct;
+  const ls=document.getElementById('im-liveSlider');if(ls)ls.value=livePct;
+  const mts=document.getElementById('im-metroVolSlider');if(mts)mts.value=metroPct;
+  const m=document.getElementById('im-masterVal');if(m)m.textContent=masterPct;
+  const l=document.getElementById('im-liveVal');if(l)l.textContent=livePct;
+  const mv=document.getElementById('im-metroVolVal');if(mv)mv.textContent=metroPct;
+  const bpm=document.getElementById('im-bpmVal');if(bpm)bpm.textContent=im_bpm;
+  const bpmSlider=document.getElementById('im-bpmSlider');if(bpmSlider)bpmSlider.value=im_bpm;
+  const btn=document.getElementById('im-latchBtn');if(btn)btn.textContent='Latch Keys: '+(im_latchMode?'On':'Off');
+  im_setMetroUI();
+  if(p_midiAccess&&p_midiAccess.inputs&&Array.from(p_midiAccess.inputs.values()).length){const d=document.getElementById('im-midiDot');if(d)d.classList.add('connected');const t=document.getElementById('im-midiText');if(t)t.textContent='MIDI: '+Array.from(p_midiAccess.inputs.values())[0].name;}
+}
+function im_init(){
+  im_applySavedSettings();im_readSettings();im_buildKeyboard();im_updateScore();im_renderHistory();im_newQuestion();im_syncAudioControls();im_showDetected();
+}
+
 /* ── Hook switchPage to render progress on demand ─────────────────── */
 const _orig_switchPage = switchPage;
 switchPage = function(page) {
+  if(page!=='improv'&&typeof im_stopMetronome==='function')im_stopMetronome(true);
   _orig_switchPage(page);
   if (page === 'progress') pg_render();
 };
