@@ -2264,6 +2264,187 @@ body {
 #page-intervals .interval-bottom-controls .interval-audio-panel{margin:.65rem 0 .65rem;}
 #page-intervals .interval-bottom-controls .interval-midi-row{margin-top:.35rem;}
 
+
+/* Intervals Stage 13: guided Level Path progression. */
+#page-intervals .interval-path-card{border-color:rgba(201,168,76,.22);}
+#page-intervals .interval-path-level{font-family:'Playfair Display',serif;font-size:1.08rem;font-weight:800;color:var(--gold);line-height:1.15;margin-bottom:.35rem;}
+#page-intervals .interval-path-desc{font-size:.78rem;font-weight:700;color:var(--ink2);line-height:1.42;margin-bottom:.55rem;}
+#page-intervals .interval-path-goal{font-family:'DM Mono',monospace;font-size:.68rem;font-weight:800;color:var(--ink3);line-height:1.35;margin-bottom:.5rem;}
+#page-intervals .interval-path-meter{height:7px;border:1px solid var(--border);background:var(--bg2);border-radius:999px;overflow:hidden;margin:.45rem 0 .55rem;}
+#page-intervals .interval-path-fill{height:100%;width:0%;background:linear-gradient(90deg,var(--gold-dark),var(--gold));border-radius:999px;transition:width .25s ease;}
+#page-intervals .interval-path-fill.complete{background:#3A9E6F;}
+#page-intervals .interval-path-stats{font-family:'DM Mono',monospace;font-size:.68rem;font-weight:800;color:var(--ink3);line-height:1.35;margin-bottom:.65rem;}
+#page-intervals .interval-path-btn-row{display:flex;flex-wrap:wrap;gap:.42rem;}
+#page-intervals .interval-path-btn-row .p-btn{flex:1 1 88px;padding:.42rem .55rem;font-size:.74rem;}
+#page-intervals .interval-path-badge{display:inline-flex;align-items:center;gap:.25rem;padding:.18rem .48rem;border-radius:999px;border:1px solid rgba(201,168,76,.32);background:rgba(201,168,76,.07);color:var(--gold);font-family:'DM Mono',monospace;font-size:.63rem;font-weight:900;margin-left:.25rem;}
+#page-intervals .interval-path-note{margin-top:.45rem;padding:.45rem .55rem;border-radius:9px;border:1px dashed var(--border);background:rgba(201,168,76,.035);font-size:.68rem;font-weight:700;color:var(--ink3);line-height:1.35;}
+
+
+
+/* Intervals Stage 14: mobile polish with collapsible settings and tighter phone layout. */
+#page-intervals .i-mobile-settings-toggle{display:none;}
+@media(max-width:700px){
+  #page-intervals .interval-wrap{padding:.7rem .6rem 1.5rem;max-width:100%;}
+  #page-intervals .interval-header{padding:.8rem .9rem;margin-bottom:.6rem;border-radius:14px;}
+  #page-intervals .interval-header h2{font-size:1.12rem;}
+  #page-intervals .interval-header p{font-size:.74rem;line-height:1.35;}
+  #page-intervals .i-mobile-settings-toggle{display:flex;align-items:center;gap:.55rem;margin-bottom:.6rem;flex-wrap:wrap;}
+  #page-intervals .i-mobile-settings-btn{padding:.45rem .8rem;border-radius:10px;border:1px solid var(--border);background:var(--bg2);color:var(--ink2);font-family:'DM Sans',sans-serif;font-size:.78rem;font-weight:800;cursor:pointer;white-space:nowrap;}
+  #page-intervals .i-mobile-settings-btn:hover{border-color:var(--gold);color:var(--gold);}
+  #page-intervals .i-mobile-settings-summary{font-family:'DM Mono',monospace;font-size:.68rem;font-weight:800;color:var(--ink3);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0;flex:1;}
+  #page-intervals .i-mobile-settings-panel{max-height:0;overflow:hidden;opacity:0;pointer-events:none;transition:max-height .28s ease,opacity .2s ease;margin-bottom:.6rem!important;padding-top:0!important;padding-bottom:0!important;border-width:0!important;}
+  #page-intervals .i-mobile-settings-panel.open{max-height:1200px;opacity:1;pointer-events:auto;padding:.75rem!important;border-width:1px!important;}
+  #page-intervals .interval-main-grid{grid-template-columns:minmax(0,1fr);gap:.75rem;}
+  #page-intervals .interval-card{padding:.78rem;border-radius:14px;min-width:0;}
+  #page-intervals .interval-top-staff{margin:0 0 .55rem 0;}
+  #page-intervals .interval-staff-wrap{padding:.55rem .55rem;margin:.5rem 0 .6rem;border-radius:12px;}
+  #page-intervals .interval-staff-title-row{font-size:.58rem;gap:.35rem;margin-bottom:.35rem;}
+  #page-intervals .interval-staff-title-actions{width:100%;margin-left:0;justify-content:space-between;}
+  #page-intervals .interval-prompt{grid-template-columns:1fr;gap:.55rem;margin-bottom:.55rem;}
+  #page-intervals .interval-now{padding:.72rem;border-radius:12px;gap:.28rem;}
+  #page-intervals .interval-mode-label{font-size:.58rem;}
+  #page-intervals .interval-name{font-size:1.34rem;line-height:1.08;}
+  #page-intervals .interval-sub{font-size:.68rem;line-height:1.3;}
+  #page-intervals .interval-steps{gap:.32rem;margin-top:.1rem;}
+  #page-intervals .interval-step{padding:.25rem .55rem;font-size:.66rem;}
+  #page-intervals .interval-study-panel{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:.4rem;padding:.55rem;border-radius:12px;}
+  #page-intervals .interval-fact{min-height:48px;padding:.42rem .38rem;border-radius:9px;}
+  #page-intervals .interval-fact-label{font-size:.48rem;margin-bottom:.16rem;}
+  #page-intervals .interval-fact-value{font-size:.68rem;line-height:1.18;}
+  #page-intervals .interval-primary-flow{margin:.5rem 0 .55rem;}
+  #page-intervals .interval-reveal-row{margin:.05rem 0 .45rem;padding:.45rem .5rem;gap:.35rem;border-radius:11px;}
+  #page-intervals .interval-reveal-label{font-size:.55rem;flex-basis:100%;}
+  #page-intervals .interval-reveal-pills{gap:.24rem;}
+  #page-intervals .interval-reveal-pill{font-size:.61rem;padding:.22rem .48rem;}
+  #page-intervals .interval-reveal-help{font-size:.6rem;flex-basis:100%;margin-left:0;}
+  #page-intervals .interval-keyboard-wrap{margin:.45rem 0 .55rem;padding-left:0;padding-right:0;border-radius:11px;}
+  #page-intervals .interval-progress-chips{margin:.38rem 0 .18rem;gap:.25rem;min-height:24px;}
+  #page-intervals .interval-progress-chip{font-size:.64rem;padding:.22rem .48rem;}
+  #page-intervals .interval-feedback{min-height:2.2rem;font-size:.76rem;padding:.5rem .6rem;margin:.42rem 0!important;}
+  #page-intervals .interval-answer-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:.38rem;margin:.55rem 0 .55rem;}
+  #page-intervals .interval-answer-btn{font-size:.72rem;padding:.46rem .46rem;min-height:40px;}
+  #page-intervals .interval-primary-flow .interval-bottom-controls{margin-top:.25rem;padding-top:.5rem;}
+  #page-intervals .interval-bottom-controls .interval-playback-row{gap:.38rem;margin:.2rem 0 .48rem;}
+  #page-intervals .interval-bottom-controls .interval-playback-row .p-btn{flex:1 1 calc(50% - .38rem);min-height:40px;padding:.5rem .5rem;font-size:.76rem;}
+  #page-intervals .interval-bottom-controls .interval-playback-row .p-auto-flow-btn{flex:0 0 64px;font-size:.58rem;padding:.2rem .26rem;}
+  #page-intervals .interval-bottom-controls .interval-reference-stack{gap:.5rem;margin:.45rem 0 .55rem;}
+  #page-intervals .interval-guide-panel,
+  #page-intervals .interval-anchor-panel{padding:.62rem .62rem;border-radius:12px;}
+  #page-intervals .interval-guide-title-row,
+  #page-intervals .interval-anchor-title-row{font-size:.58rem;margin-bottom:.38rem;gap:.3rem;}
+  #page-intervals .interval-guide-title-actions,
+  #page-intervals .interval-anchor-title-actions{width:100%;margin-left:0;justify-content:space-between;}
+  #page-intervals .interval-guide-grid,
+  #page-intervals .interval-anchor-grid{grid-template-columns:1fr!important;gap:.4rem;}
+  #page-intervals .interval-guide-item,
+  #page-intervals .interval-anchor-item{min-height:0;padding:.5rem .55rem;}
+  #page-intervals .interval-guide-item.wide,
+  #page-intervals .interval-anchor-item.wide{grid-column:span 1;}
+  #page-intervals .interval-guide-label,
+  #page-intervals .interval-anchor-label{font-size:.5rem;}
+  #page-intervals .interval-guide-value,
+  #page-intervals .interval-anchor-value{font-size:.74rem;line-height:1.3;}
+  #page-intervals .interval-audio-panel{margin:.55rem 0 .55rem!important;}
+  #page-intervals .interval-volume-row{grid-template-columns:1fr;gap:.45rem;margin-bottom:.45rem;}
+  #page-intervals .interval-synth-row{align-items:flex-start;gap:.4rem;}
+  #page-intervals .interval-synth-row .p-midi-text{flex-basis:100%;font-size:.66rem;line-height:1.3;}
+  #page-intervals .interval-synth-toggle{margin-left:0;font-size:.68rem;}
+  #page-intervals .interval-midi-row{font-size:.68rem;align-items:flex-start;}
+  #page-intervals .interval-midi-row .p-midi-last{margin-left:0;flex-basis:100%;}
+  #page-intervals .interval-side{display:grid;grid-template-columns:1fr!important;gap:.7rem;}
+  #page-intervals .interval-side .p-card{padding:.78rem;border-radius:13px;}
+  #page-intervals .interval-side .p-card-title{font-size:.86rem;margin-bottom:.55rem;padding-bottom:.36rem;}
+  #page-intervals .sight-score{font-size:1.05rem;}
+  #page-intervals .interval-round-status{font-size:.68rem;padding:.42rem .52rem;}
+  #page-intervals .interval-path-level{font-size:.96rem;}
+  #page-intervals .interval-path-desc{font-size:.72rem;}
+  #page-intervals .interval-path-goal,
+  #page-intervals .interval-path-stats,
+  #page-intervals .interval-path-note{font-size:.64rem;}
+  #page-intervals .interval-path-btn-row .p-btn{flex:1 1 100%;font-size:.72rem;}
+}
+@media(max-width:390px){
+  #page-intervals .interval-answer-grid{grid-template-columns:1fr!important;}
+  #page-intervals .interval-bottom-controls .interval-playback-row .p-btn{flex:1 1 100%;}
+  #page-intervals .interval-bottom-controls .interval-playback-row .p-auto-flow-btn{flex:1 1 calc(50% - .38rem);}
+}
+
+
+/* Intervals Stage 15: session insights and weakest interval tracking. */
+#page-intervals .interval-insight-card{border-color:rgba(192,97,74,.24);}
+#page-intervals .interval-insight-main{display:grid;grid-template-columns:1fr 1fr;gap:.45rem;margin-bottom:.55rem;}
+#page-intervals .interval-insight-box{border:1px solid var(--border);border-radius:10px;background:var(--bg2);padding:.52rem .58rem;min-width:0;}
+#page-intervals .interval-insight-box span{display:block;font-size:.54rem;font-weight:900;text-transform:uppercase;letter-spacing:.09em;color:var(--ink3);margin-bottom:.22rem;}
+#page-intervals .interval-insight-box strong{display:block;font-family:'DM Mono',monospace;font-size:.74rem;font-weight:900;color:var(--gold);line-height:1.25;overflow:hidden;text-overflow:ellipsis;}
+#page-intervals .interval-insight-list{display:flex;flex-direction:column;gap:.35rem;}
+#page-intervals .interval-insight-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:.5rem;align-items:center;border:1px solid var(--border);border-radius:9px;background:var(--bg2);padding:.42rem .52rem;}
+#page-intervals .interval-insight-name{font-family:'DM Mono',monospace;font-size:.7rem;font-weight:900;color:var(--ink2);min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+#page-intervals .interval-insight-meta{font-family:'DM Mono',monospace;font-size:.66rem;font-weight:900;color:var(--ink3);white-space:nowrap;}
+#page-intervals .interval-insight-row.good .interval-insight-meta{color:#3A9E6F;}
+#page-intervals .interval-insight-row.warn .interval-insight-meta{color:var(--gold);}
+#page-intervals .interval-insight-row.bad .interval-insight-meta{color:#C0614A;}
+#page-intervals .interval-insight-empty{border:1px dashed var(--border);border-radius:10px;background:rgba(201,168,76,.035);padding:.55rem .6rem;font-size:.7rem;font-weight:700;color:var(--ink3);line-height:1.35;text-align:center;}
+@media(max-width:700px){
+  #page-intervals .interval-insight-main{grid-template-columns:1fr;}
+  #page-intervals .interval-insight-row{grid-template-columns:1fr;gap:.18rem;}
+  #page-intervals .interval-insight-meta{white-space:normal;}
+}
+
+
+
+/* Intervals Stage 16: session summary and Review Misses flow. */
+#page-intervals .interval-summary-card{border-color:rgba(58,158,111,.24);}
+#page-intervals .interval-summary-card.inactive{display:none;}
+#page-intervals .interval-summary-grid{display:grid;grid-template-columns:1fr 1fr;gap:.45rem;margin-bottom:.55rem;}
+#page-intervals .interval-summary-box{border:1px solid var(--border);border-radius:10px;background:var(--bg2);padding:.52rem .58rem;min-width:0;}
+#page-intervals .interval-summary-box span{display:block;font-size:.54rem;font-weight:900;text-transform:uppercase;letter-spacing:.09em;color:var(--ink3);margin-bottom:.22rem;}
+#page-intervals .interval-summary-box strong{display:block;font-family:'DM Mono',monospace;font-size:.74rem;font-weight:900;color:var(--gold);line-height:1.25;overflow:hidden;text-overflow:ellipsis;}
+#page-intervals .interval-summary-note{border:1px dashed var(--border);border-radius:10px;background:rgba(201,168,76,.035);padding:.5rem .6rem;font-size:.7rem;font-weight:700;color:var(--ink3);line-height:1.35;text-align:center;margin-bottom:.6rem;}
+#page-intervals .interval-summary-actions{display:flex;flex-wrap:wrap;gap:.42rem;}
+#page-intervals .interval-summary-actions .p-btn{flex:1 1 110px;padding:.44rem .55rem;font-size:.74rem;}
+#page-intervals .interval-summary-actions .p-btn:disabled{opacity:.38;cursor:not-allowed;}
+#page-intervals .interval-review-badge{display:inline-flex;align-items:center;gap:.25rem;padding:.18rem .48rem;border-radius:999px;border:1px solid rgba(58,158,111,.32);background:rgba(58,158,111,.08);color:#3A9E6F;font-family:'DM Mono',monospace;font-size:.63rem;font-weight:900;margin-left:.25rem;}
+@media(max-width:700px){
+  #page-intervals .interval-summary-grid{grid-template-columns:1fr;}
+  #page-intervals .interval-summary-actions .p-btn{flex:1 1 100%;}
+}
+
+
+/* Intervals Stage 17: clickable keyboard preview sound. */
+#page-intervals .i-key{cursor:pointer;user-select:none;-webkit-user-select:none;touch-action:manipulation;}
+#page-intervals .i-key.previewing{transform:translateY(-4px);box-shadow:0 0 16px rgba(201,168,76,.50),0 0 0 3px rgba(201,168,76,.22);}
+#page-intervals .i-wk.previewing{border-color:var(--gold)!important;}
+#page-intervals .i-bk.previewing{border-color:var(--amber)!important;box-shadow:0 0 16px rgba(42,191,191,.42),0 0 0 3px rgba(42,191,191,.18);}
+#page-intervals .interval-keyboard-help{margin-top:.32rem;text-align:center;font-family:'DM Mono',monospace;font-size:.66rem;font-weight:800;color:var(--ink3);}
+@media(max-width:700px){#page-intervals .interval-keyboard-help{font-size:.6rem;}}
+
+
+/* Global Stage 18: All Notes Off button for stuck notes and MIDI panic. */
+.nav-panic-btn{
+  height:32px;
+  padding:0 .7rem;
+  border-radius:999px;
+  border:1px solid rgba(192,97,74,.45);
+  background:rgba(192,97,74,.08);
+  color:#C0614A;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:.35rem;
+  font-family:'DM Sans',sans-serif;
+  font-size:.7rem;
+  font-weight:900;
+  text-transform:uppercase;
+  letter-spacing:.06em;
+  cursor:pointer;
+  transition:all .15s;
+  white-space:nowrap;
+}
+.nav-panic-btn:hover{border-color:#C0614A;background:rgba(192,97,74,.16);color:#C0614A;}
+.nav-panic-btn:active{transform:scale(.96);background:#C0614A;color:white;}
+.nav-panic-btn .panic-icon{font-family:'DM Mono',monospace;font-size:.8rem;font-weight:900;line-height:1;}
+@media(max-width:980px){.nav-panic-btn{width:32px;padding:0;border-radius:9px;}.nav-panic-btn .panic-text{display:none;}}
+
 </style>
 </head>
 <body>
@@ -2423,6 +2604,11 @@ body {
     </div>
 
     <div class="nav-right">
+      <!-- Global All Notes Off -->
+      <button class="nav-panic-btn" onclick="p_allNotesOff()" id="globalAllNotesOffBtn" title="All Notes Off" aria-label="All Notes Off">
+        <span class="panic-icon" aria-hidden="true">♪!</span>
+        <span class="panic-text">All Notes Off</span>
+      </button>
       <!-- Language -->
       <div class="pill-toggle">
         <button onclick="setLang('en')" id="app-btn-lang-en" class="active">EN</button>
@@ -3483,7 +3669,19 @@ body {
           <p>Hear, identify, and play melodic and harmonic intervals.</p>
         </div>
 
-        <div class="p-controls-bar" style="margin-bottom:.9rem;">
+        <div class="i-mobile-settings-toggle" id="i-mobileSettingsToggle">
+          <button class="i-mobile-settings-btn" id="i-mobileSettingsBtn" onclick="i_toggleMobileSettings()">Settings</button>
+          <span class="i-mobile-settings-summary" id="i-mobileSettingsSummary">Free Practice · Listen and Name · 10 Rounds</span>
+        </div>
+
+        <div class="p-controls-bar interval-controls i-mobile-settings-panel" id="i-controlsPanel" style="margin-bottom:.9rem;">
+          <div class="p-control-group">
+            <label>Training Path</label>
+            <select id="i-pathSelect" onchange="i_onSettingsChange()">
+              <option value="free" selected>Free Practice</option>
+              <option value="levels">Level Path</option>
+            </select>
+          </div>
           <div class="p-control-group">
             <label>Mode</label>
             <select id="i-modeSelect" onchange="i_onSettingsChange()">
@@ -3638,7 +3836,7 @@ body {
             </div>
 
             <div class="interval-keyboard-wrap" id="i-keyboardWrap">
-              <div class="interval-keyboard" id="i-keyboard"></div>
+              <div class="interval-keyboard" id="i-keyboard"></div><div class="interval-keyboard-help">Tap any key to preview its sound.</div>
             </div>
 
             <div class="interval-progress-chips" id="i-progressChips"></div>
@@ -3786,6 +3984,52 @@ body {
                 <strong class="interval-round-progress" id="i-roundProgress">0 / 10</strong>
               </div>
               <div class="interval-round-status" id="i-roundStatus">10 round session</div>
+            </div>
+            <div class="p-card interval-summary-card inactive" id="i-summaryCard">
+              <div class="p-card-title">Session Summary</div>
+              <div class="interval-summary-grid">
+                <div class="interval-summary-box"><span>Score</span><strong id="i-summaryScore">Pending</strong></div>
+                <div class="interval-summary-box"><span>Accuracy</span><strong id="i-summaryAccuracy">Pending</strong></div>
+                <div class="interval-summary-box"><span>Best</span><strong id="i-summaryBest">Pending</strong></div>
+                <div class="interval-summary-box"><span>Needs Work</span><strong id="i-summaryNeedsWork">Pending</strong></div>
+                <div class="interval-summary-box"><span>Streak</span><strong id="i-summaryStreak">Pending</strong></div>
+                <div class="interval-summary-box"><span>Path Result</span><strong id="i-summaryPath">Pending</strong></div>
+              </div>
+              <div class="interval-summary-note" id="i-summaryNote">Finish a scored session to review your results.</div>
+              <div class="interval-summary-actions">
+                <button class="p-btn p-btn-sec" id="i-reviewMissesBtn" onclick="i_reviewMisses()">Review Misses</button>
+                <button class="p-btn p-btn-primary" id="i-newSessionBtn" onclick="i_newSession()">New Session</button>
+              </div>
+            </div>
+            <div class="p-card interval-insight-card" id="i-insightCard">
+              <div class="p-card-title">Interval Insights</div>
+              <div class="interval-insight-main">
+                <div class="interval-insight-box">
+                  <span>Needs Work</span>
+                  <strong id="i-needsWork">—</strong>
+                </div>
+                <div class="interval-insight-box">
+                  <span>Strongest</span>
+                  <strong id="i-strongestInterval">—</strong>
+                </div>
+              </div>
+              <div class="interval-insight-list" id="i-insightList">
+                <div class="interval-insight-empty">Play a few scored rounds to see your strongest and weakest intervals.</div>
+              </div>
+            </div>
+            <div class="p-card interval-path-card" id="i-pathCard">
+              <div class="p-card-title">Level Path</div>
+              <div class="interval-path-level" id="i-pathLevel">Free Practice</div>
+              <div class="interval-path-desc" id="i-pathDesc">Use selected controls for open interval practice.</div>
+              <div class="interval-path-goal" id="i-pathGoal">Choose Level Path to train in order.</div>
+              <div class="interval-path-meter"><div class="interval-path-fill" id="i-pathFill"></div></div>
+              <div class="interval-path-stats" id="i-pathStats">Best level: 1</div>
+              <div class="interval-path-btn-row">
+                <button class="p-btn p-btn-sec" id="i-pathPrevBtn" onclick="i_pathPrev()">Previous</button>
+                <button class="p-btn p-btn-sec" id="i-pathNextBtn" onclick="i_pathNext()">Next</button>
+                <button class="p-btn p-btn-danger" id="i-pathResetBtn" onclick="i_pathReset()">Reset Path</button>
+              </div>
+              <div class="interval-path-note" id="i-pathNote">Free Practice uses your selected level, focus, direction, interval, and rounds.</div>
             </div>
             <div class="p-card">
               <div class="p-card-title">How To Use</div>
@@ -7007,6 +7251,89 @@ function p_toggleBrowserSynth(enabled) {
   console.log('[Audio] Browser synth user intent:', enabled);
 }
 
+
+function p_sendAllNotesOffToMidiOutputs(){
+  let sent=0;
+  try{
+    if(!p_midiAccess || !p_midiAccess.outputs) return 0;
+    const outputs=Array.from(p_midiAccess.outputs.values());
+    outputs.forEach(out=>{
+      for(let ch=0;ch<16;ch++){
+        const status=0xB0+ch;
+        out.send([status,64,0]);   // Sustain pedal off
+        out.send([status,123,0]);  // All notes off
+        out.send([status,120,0]);  // All sound off
+        sent+=3;
+      }
+    });
+  }catch(e){console.warn('p_sendAllNotesOffToMidiOutputs:',e);}
+  return sent;
+}
+
+function p_forceStopAllBrowserVoices(){
+  try{
+    const entries=Array.from(p_activeVoices.entries());
+    entries.forEach(([note,voice])=>{
+      try{
+        const ctx=voice&&voice.ctx?voice.ctx:p_audioCtx;
+        const now=ctx?ctx.currentTime:0;
+        if(voice&&voice.env&&voice.env.gain){
+          voice.env.gain.cancelScheduledValues(now);
+          voice.env.gain.setValueAtTime(0.0001,now);
+        }
+        if(voice&&voice.o1)voice.o1.stop(now+0.01);
+        if(voice&&voice.o2)voice.o2.stop(now+0.01);
+      }catch(e){try{p_noteOff(note);}catch(err){}}
+    });
+    p_activeVoices.clear();
+  }catch(e){console.warn('p_forceStopAllBrowserVoices:',e);}
+}
+
+function p_clearHeldNoteVisuals(){
+  try{
+    document.querySelectorAll('.midi-held,.pressed,.played,.hearing,.previewing').forEach(el=>{
+      el.classList.remove('midi-held','pressed','played','hearing','previewing');
+    });
+  }catch(e){}
+}
+
+function p_allNotesOff(){
+  try{
+    // Stop scheduled demo or training playback without resetting scores.
+    if(typeof p_stopDemo==='function')p_stopDemo();
+    if(typeof p_stopHintAnim==='function')p_stopHintAnim();
+    if(p_metroInterval){
+      clearInterval(p_metroInterval);p_metroInterval=null;
+      const btn=document.getElementById('p-metroBtn');
+      if(btn){btn.classList.remove('active');btn.textContent='♩ Metro';}
+    }
+    if(typeof e_stopPlayback==='function')e_stopPlayback();
+    if(typeof s_stopPlayback==='function')s_stopPlayback();
+    if(typeof s_stopMetronome==='function')s_stopMetronome();
+    if(typeof i_stopPlayback==='function')i_stopPlayback();
+    if(typeof i_clearAutoTimer==='function')i_clearAutoTimer();
+    if(typeof r_stopPlayback==='function')r_stopPlayback();
+    if(typeof e_heldMidiNotes!=='undefined'&&e_heldMidiNotes&&e_heldMidiNotes.clear)e_heldMidiNotes.clear();
+    if(typeof i_hearingNotes!=='undefined')i_hearingNotes=[];
+    if(typeof i_playTimers!=='undefined')i_playTimers=[];
+    const sent=p_sendAllNotesOffToMidiOutputs();
+    p_forceStopAllBrowserVoices();
+    p_clearHeldNoteVisuals();
+    if(typeof p_showFlash==='function')p_showFlash('All Notes Off','complete');
+    const btn=document.getElementById('globalAllNotesOffBtn');
+    if(btn){
+      btn.classList.add('active');
+      setTimeout(()=>{const b=document.getElementById('globalAllNotesOffBtn');if(b)b.classList.remove('active');},260);
+    }
+    console.log('[All Notes Off] Browser voices stopped. MIDI messages sent:',sent);
+  }catch(e){
+    console.warn('p_allNotesOff:',e);
+    p_forceStopAllBrowserVoices();
+    p_clearHeldNoteVisuals();
+  }
+}
+
+
 /* --- MIDI --- */
 async function p_initMIDI(){
   const dot=document.getElementById('p-midiDot'), txt=document.getElementById('p-midiText');
@@ -10227,11 +10554,27 @@ const I_LEVELS = {
   hard:['Minor 2nd','Major 2nd','Minor 3rd','Major 3rd','Perfect 4th','Tritone','Perfect 5th','Minor 6th','Major 6th','Minor 7th','Major 7th','Octave'],
   expert:['Minor 2nd','Major 2nd','Minor 3rd','Major 3rd','Perfect 4th','Tritone','Perfect 5th','Minor 6th','Major 6th','Minor 7th','Major 7th','Octave','Minor 9th','Major 9th','Minor 10th','Major 10th']
 };
+const I_PATH_LEVELS = [
+  {level:1,name:'Core Ascending',direction:'ascending',intervals:['Major 2nd','Major 3rd','Perfect 5th','Octave'],goal:5,minPct:80,desc:'Start with the cleanest interval shapes: step, third, fifth, and octave.'},
+  {level:2,name:'Minor Color',direction:'ascending',intervals:['Minor 3rd','Major 3rd','Perfect 4th','Perfect 5th'],goal:5,minPct:80,desc:'Compare minor and major third color against stable perfect intervals.'},
+  {level:3,name:'Seconds',direction:'mixed',intervals:['Minor 2nd','Major 2nd','Minor 3rd','Major 3rd'],goal:5,minPct:80,desc:'Train the difference between half-step and whole-step motion.'},
+  {level:4,name:'Sixths',direction:'ascending',intervals:['Minor 6th','Major 6th','Perfect 5th','Octave'],goal:5,minPct:80,desc:'Hear wider leaps and compare them to the stable fifth and octave.'},
+  {level:5,name:'Sevenths',direction:'ascending',intervals:['Minor 7th','Major 7th','Octave'],goal:5,minPct:80,desc:'Separate the two seventh sounds from the octave.'},
+  {level:6,name:'Tritone Center',direction:'mixed',intervals:['Perfect 4th','Tritone','Perfect 5th'],goal:5,minPct:80,desc:'Find the unstable middle point between fourth and fifth.'},
+  {level:7,name:'Descending Review',direction:'descending',intervals:['Major 2nd','Minor 3rd','Major 3rd','Perfect 4th','Perfect 5th','Octave'],goal:6,minPct:80,desc:'Recognize familiar intervals when the melody moves downward.'},
+  {level:8,name:'Harmonic Intervals',direction:'harmonic',intervals:['Minor 2nd','Major 2nd','Minor 3rd','Major 3rd','Perfect 4th','Tritone','Perfect 5th','Octave'],goal:6,minPct:80,desc:'Hear both notes together and identify the distance by color.'},
+  {level:9,name:'Compound Intervals',direction:'ascending',intervals:['Octave','Minor 9th','Major 9th','Minor 10th','Major 10th'],goal:5,minPct:80,desc:'Hear the octave plus a second or third above it.'},
+  {level:10,name:'Full Mixed Review',direction:'full',intervals:['Minor 2nd','Major 2nd','Minor 3rd','Major 3rd','Perfect 4th','Tritone','Perfect 5th','Minor 6th','Major 6th','Minor 7th','Major 7th','Octave','Minor 9th','Major 9th','Minor 10th','Major 10th'],goal:8,minPct:80,desc:'Final review with simple, compound, ascending, descending, and harmonic intervals.'}
+];
 const I_ROOTS = ['C3','D3','E3','F3','G3','A3','B3','C4','D4','E4','F4','G4','A4','B4','C5'];
-let i_mode='identify', i_level='easy', i_focus='mixed', i_direction='ascending', i_rootSetting='random', i_studyInterval='random', i_staff='auto', i_anchorMode='after', i_visualReveal='root', i_roundLimit='10';
+let i_mode='identify', i_level='easy', i_focus='mixed', i_direction='ascending', i_rootSetting='random', i_studyInterval='random', i_staff='auto', i_anchorMode='after', i_visualReveal='root', i_roundLimit='10', i_pathMode='free';
+let i_pathLevel=1, i_bestPathLevel=1, i_pathAttempts=0, i_pathCorrect=0;
+let i_mobileSettingsOpen=false;
 let i_staffVisible=false, i_guideVisible=false, i_anchorPanelVisible=false, i_sessionComplete=false;
-let i_current=null, i_waiting=false, i_revealed=false, i_answerSeq=[], i_scoreCorrect=0, i_scoreTotal=0, i_streak=0, i_history=[];
+let i_current=null, i_waiting=false, i_revealed=false, i_answerSeq=[], i_scoreCorrect=0, i_scoreTotal=0, i_streak=0, i_history=[], i_intervalStats={}, i_lastSessionSummary=null;
+let i_reviewMissesActive=false, i_reviewMissIntervals=[];
 let i_playTimers=[], i_hearingNotes=[];
+let i_previewKeyTimers=new Map();
 let i_autoNext=false, i_autoStart=false, i_autoTimer=null;
 
 function i_init(){
@@ -10243,6 +10586,7 @@ function i_init(){
   i_updateAutoFlowButtons();
 }
 function i_readSettings(){
+  const path=document.getElementById('i-pathSelect');if(path)i_pathMode=path.value;
   const mode=document.getElementById('i-modeSelect');if(mode)i_mode=mode.value;
   const level=document.getElementById('i-levelSelect');if(level)i_level=level.value;
   const focus=document.getElementById('i-focusSelect');if(focus)i_focus=focus.value;
@@ -10254,12 +10598,43 @@ function i_readSettings(){
   const rounds=document.getElementById('i-roundsSelect');if(rounds)i_roundLimit=rounds.value;
 }
 
+function i_toggleMobileSettings(){
+  i_mobileSettingsOpen=!i_mobileSettingsOpen;
+  i_updateMobileSettingsPanel();
+}
+function i_selectText(id){
+  const el=document.getElementById(id);
+  if(!el)return '';
+  const opt=el.options&&el.selectedIndex>=0?el.options[el.selectedIndex]:null;
+  return opt?opt.textContent.trim():'';
+}
+function i_updateMobileSettingsPanel(){
+  const panel=document.getElementById('i-controlsPanel');
+  const btn=document.getElementById('i-mobileSettingsBtn');
+  const summary=document.getElementById('i-mobileSettingsSummary');
+  if(panel)panel.classList.toggle('open',i_mobileSettingsOpen);
+  if(btn)btn.textContent=i_mobileSettingsOpen?'Hide Settings':'Settings';
+  if(summary){
+    const path=i_reviewMissesActive?'Review Misses':(i_pathActive()?'Level Path':'Free Practice');
+    const mode=i_modeLabel?i_modeLabel():i_selectText('i-modeSelect');
+    const rounds=i_mode==='study'?'Study Mode':i_roundLimitLabel();
+    const detail=i_reviewMissesActive?(i_reviewMissIntervals.length+' intervals'):(i_pathActive()?('Level '+i_currentPath().level):i_focusLabel(i_focus));
+    summary.textContent=path+' · '+mode+' · '+detail+' · '+rounds;
+  }
+}
+
+function i_reviewRoundLimit(){
+  const count=(i_reviewMissIntervals&&i_reviewMissIntervals.length)?i_reviewMissIntervals.length:1;
+  return Math.max(5,Math.min(10,count*2));
+}
 function i_roundLimitNumber(){
+  if(i_reviewMissesActive)return i_reviewRoundLimit();
   if(i_roundLimit==='free')return Infinity;
   const n=parseInt(i_roundLimit,10);
   return Number.isFinite(n)&&n>0?n:10;
 }
 function i_roundLimitLabel(){
+  if(i_reviewMissesActive)return i_reviewRoundLimit()+' Review Rounds';
   if(i_roundLimit==='free')return 'Free Run';
   return i_roundLimitNumber()+' Rounds';
 }
@@ -10284,8 +10659,10 @@ function i_updateRoundDisplay(){
   if(status){
     status.classList.toggle('complete',complete);
     if(i_mode==='study')status.textContent='Rounds do not score in Interval Builder.';
+    else if(i_reviewMissesActive&&complete)status.textContent='Review complete. Use New Session to return to the regular set.';
+    else if(i_reviewMissesActive)status.textContent='Review Misses set. Only missed intervals are being used.';
     else if(i_roundLimit==='free')status.textContent='Free Run. Keep going until you stop or reset.';
-    else if(complete)status.textContent='Session complete. Press Reset to start over.';
+    else if(complete)status.textContent='Session complete. Use Review Misses or New Session.';
     else status.textContent=i_roundLimitLabel()+' session.';
   }
 }
@@ -10295,9 +10672,12 @@ function i_handleRoundCompletion(){
   i_autoNext=false;
   i_autoStart=false;
   i_clearAutoTimer();
+  i_lastSessionSummary=i_buildSessionSummary();
   const pct=i_scoreTotal?Math.round((i_scoreCorrect/i_scoreTotal)*100):0;
-  i_setFeedback('Session complete. '+i_scoreCorrect+' / '+i_scoreTotal+' correct, '+pct+'%. Press Reset to start over or choose Free Run.','');
+  const doneLabel=i_reviewMissesActive?'Review complete. ':'Session complete. ';
+  i_setFeedback(doneLabel+i_scoreCorrect+' / '+i_scoreTotal+' correct, '+pct+'%. Use Review Misses or New Session.','');
   i_updateRoundDisplay();
+  i_renderSummary();
   i_updateAutoFlowButtons();
   return true;
 }
@@ -10308,16 +10688,148 @@ function i_guardRoundStart(){
   }
   return true;
 }
-function i_resetSessionStats(){
+function i_resetSessionStats(keepSummary){
   i_clearAutoTimer();
   i_sessionComplete=false;
   i_scoreCorrect=0;
   i_scoreTotal=0;
   i_streak=0;
   i_history=[];
+  i_intervalStats={};
+  if(!keepSummary)i_lastSessionSummary=null;
   i_waiting=false;
   i_answerSeq=[];
 }
+function i_pathActive(){
+  return i_pathMode==='levels';
+}
+function i_currentPath(){
+  const idx=Math.max(0,Math.min(I_PATH_LEVELS.length-1,i_pathLevel-1));
+  return I_PATH_LEVELS[idx];
+}
+function i_pathDirectionFor(path){
+  const dir=(path&&path.direction)||'ascending';
+  if(dir==='mixed')return Math.random()>.5?'ascending':'descending';
+  if(dir==='full'){
+    const choices=['ascending','descending','harmonic'];
+    return choices[Math.floor(Math.random()*choices.length)];
+  }
+  return dir;
+}
+function i_pathAccuracy(){
+  return i_pathAttempts?Math.round((i_pathCorrect/i_pathAttempts)*100):0;
+}
+function i_pathGoalMet(){
+  const path=i_currentPath();
+  return i_pathActive()&&i_mode!=='study'&&i_pathAttempts>=path.goal&&i_pathAccuracy()>=path.minPct;
+}
+function i_resetPathAttemptProgress(){
+  i_pathAttempts=0;
+  i_pathCorrect=0;
+}
+function i_recordPathAttempt(correct){
+  if(i_reviewMissesActive||!i_pathActive()||i_mode==='study')return '';
+  i_pathAttempts++;
+  if(correct)i_pathCorrect++;
+  const path=i_currentPath();
+  const pct=i_pathAccuracy();
+  if(i_pathAttempts>=path.goal&&pct>=path.minPct){
+    const doneLevel=i_pathLevel;
+    if(i_pathLevel<I_PATH_LEVELS.length){
+      i_pathLevel++;
+      i_bestPathLevel=Math.max(i_bestPathLevel,i_pathLevel);
+      i_resetPathAttemptProgress();
+      const next=i_currentPath();
+      return ' Level '+doneLevel+' complete. Moving to Level '+i_pathLevel+': '+next.name+'.';
+    }
+    return ' Level Path complete. You cleared the full mixed review.';
+  }
+  return '';
+}
+function i_pathPrev(){
+  if(!i_pathActive()){
+    i_pathMode='levels';
+    const sel=document.getElementById('i-pathSelect');if(sel)sel.value='levels';
+  }
+  i_pathLevel=Math.max(1,i_pathLevel-1);
+  i_resetPathAttemptProgress();
+  i_resetSessionStats();
+  i_clearAutoTimer();
+  i_stopPlayback();
+  i_pick(false);
+  i_setFeedback('Level '+i_pathLevel+' loaded: '+i_currentPath().name+'.','neutral');
+  i_renderAll();
+}
+function i_pathNext(){
+  if(!i_pathActive()){
+    i_pathMode='levels';
+    const sel=document.getElementById('i-pathSelect');if(sel)sel.value='levels';
+    i_pathLevel=1;
+  } else {
+    i_pathLevel=Math.min(I_PATH_LEVELS.length,i_pathLevel+1);
+  }
+  i_bestPathLevel=Math.max(i_bestPathLevel,i_pathLevel);
+  i_resetPathAttemptProgress();
+  i_resetSessionStats();
+  i_clearAutoTimer();
+  i_stopPlayback();
+  i_pick(false);
+  i_setFeedback('Level '+i_pathLevel+' loaded: '+i_currentPath().name+'.','neutral');
+  i_renderAll();
+}
+function i_pathReset(){
+  i_pathMode='levels';
+  const sel=document.getElementById('i-pathSelect');if(sel)sel.value='levels';
+  i_pathLevel=1;
+  i_bestPathLevel=1;
+  i_resetPathAttemptProgress();
+  i_resetSessionStats();
+  i_clearAutoTimer();
+  i_stopPlayback();
+  i_pick(false);
+  i_setFeedback('Level Path reset to Level 1.','neutral');
+  i_renderAll();
+}
+function i_renderPath(){
+  const levelEl=document.getElementById('i-pathLevel');
+  const descEl=document.getElementById('i-pathDesc');
+  const goalEl=document.getElementById('i-pathGoal');
+  const fillEl=document.getElementById('i-pathFill');
+  const statsEl=document.getElementById('i-pathStats');
+  const noteEl=document.getElementById('i-pathNote');
+  const prevBtn=document.getElementById('i-pathPrevBtn');
+  const nextBtn=document.getElementById('i-pathNextBtn');
+  const resetBtn=document.getElementById('i-pathResetBtn');
+  if(!levelEl||!descEl||!goalEl||!fillEl||!statsEl)return;
+  if(!i_pathActive()){
+    levelEl.textContent='Free Practice';
+    descEl.textContent='Use selected controls for open interval practice.';
+    goalEl.textContent='Your Level, Focus, Direction, Root, Interval, Visual Reveal, and Rounds settings are active.';
+    fillEl.style.width='0%';
+    fillEl.classList.remove('complete');
+    statsEl.textContent='Switch to Level Path when you want a guided progression.';
+    if(noteEl)noteEl.textContent='Free Practice uses your selected controls and keeps the current Intervals behavior.';
+    if(prevBtn)prevBtn.disabled=true;
+    if(nextBtn)nextBtn.disabled=false;
+    if(resetBtn)resetBtn.disabled=false;
+    return;
+  }
+  const path=i_currentPath();
+  const pct=i_pathAccuracy();
+  const progress=Math.min(100,Math.round((i_pathAttempts/Math.max(1,path.goal))*100));
+  const complete=i_pathGoalMet();
+  levelEl.innerHTML='Level '+path.level+' of '+I_PATH_LEVELS.length+': '+path.name+' <span class="interval-path-badge">'+(path.direction==='full'?'mixed':path.direction)+'</span>';
+  descEl.textContent=path.desc;
+  goalEl.textContent='Goal: '+path.goal+' attempts at '+path.minPct+'% or better.';
+  fillEl.style.width=progress+'%';
+  fillEl.classList.toggle('complete',complete);
+  statsEl.textContent='Progress: '+i_pathCorrect+' correct / '+i_pathAttempts+' attempts · '+pct+'% · Best level: '+i_bestPathLevel;
+  if(noteEl)noteEl.textContent='Level Path overrides Level, Focus, Direction, and Interval. Root, Staff, Visual Reveal, Ear Anchors, and Rounds still apply.';
+  if(prevBtn)prevBtn.disabled=i_pathLevel<=1;
+  if(nextBtn)nextBtn.disabled=i_pathLevel>=I_PATH_LEVELS.length;
+  if(resetBtn)resetBtn.disabled=false;
+}
+
 
 function i_revealLabel(mode){
   return ({full:'Full visual',root:'Root only',after:'After answer',off:'Ear only'}[mode||i_visualReveal]||'Root only');
@@ -10450,15 +10962,21 @@ function i_autoAdvanceAfterAttempt(){
 
 function i_onSettingsChange(){
   const priorRoundLimit=i_roundLimit;
+  const priorPathMode=i_pathMode;
   i_readSettings();
-  if(priorRoundLimit!==i_roundLimit)i_resetSessionStats();
+  if(priorRoundLimit!==i_roundLimit||priorPathMode!==i_pathMode){
+    i_reviewMissesActive=false;
+    i_reviewMissIntervals=[];
+    i_resetSessionStats();
+    i_resetPathAttemptProgress();
+  }
   if(i_roundLimit==='free')i_sessionComplete=false;
   i_clearAutoTimer();
   i_stopPlayback();
   i_pick(false);
   i_renderAll();
   i_updateAutoFlowButtons();
-  i_setFeedback(i_mode==='study'?'Builder mode is for studying interval shapes without scoring.':'New interval ready. Choose Audition or Start.','neutral');
+  i_setFeedback(i_mode==='study'?'Builder mode is for studying interval shapes without scoring.':(i_pathActive()?'Level Path ready. Choose Audition or Start.':'New interval ready. Choose Audition or Start.'),'neutral');
 }
 function i_focusLabel(focus){
   return ({mixed:'Mixed intervals',seconds:'Seconds',thirds:'Thirds',fourths_fifths:'Fourths and fifths',sixths:'Sixths',sevenths:'Sevenths',compound:'Compound intervals'}[focus||i_focus]||'Mixed intervals');
@@ -10547,6 +11065,15 @@ function i_focusMatches(iv,focus){
   return true;
 }
 function i_intervalSet(){
+  if(i_reviewMissesActive&&i_reviewMissIntervals.length){
+    const reviewSet=i_reviewMissIntervals.map(name=>i_findInterval(name)).filter(Boolean);
+    if(reviewSet.length)return reviewSet;
+  }
+  if(i_pathActive()){
+    const path=i_currentPath();
+    const set=I_INTERVALS.filter(iv=>path.intervals.includes(iv.name));
+    return set.length?set:I_INTERVALS.filter(iv=>I_LEVELS.easy.includes(iv.name));
+  }
   const names=I_LEVELS[i_level]||I_LEVELS.easy;
   let set=I_INTERVALS.filter(iv=>names.includes(iv.name));
   if(i_focus&&i_focus!=='mixed')set=set.filter(iv=>i_focusMatches(iv,i_focus));
@@ -10559,9 +11086,11 @@ function i_pick(autoPlay){
   const intervals=i_intervalSet();
   let tries=0, picked=null;
   while(tries++<150){
-    const interval=i_studyInterval&&i_studyInterval!=='random'?i_findInterval(i_studyInterval):intervals[Math.floor(Math.random()*intervals.length)];
+    let interval;
+    if(i_reviewMissesActive&&i_reviewMissIntervals.length)interval=intervals[Math.floor(Math.random()*intervals.length)];
+    else interval=i_pathActive()?intervals[Math.floor(Math.random()*intervals.length)]:(i_studyInterval&&i_studyInterval!=='random'?i_findInterval(i_studyInterval):intervals[Math.floor(Math.random()*intervals.length)]);
     const root=i_rootSetting&&i_rootSetting!=='random'?i_rootSetting:I_ROOTS[Math.floor(Math.random()*I_ROOTS.length)];
-    let dir=i_direction==='mixed'?(Math.random()>.5?'ascending':'descending'):i_direction;
+    let dir=(!i_reviewMissesActive&&i_pathActive())?i_pathDirectionFor(i_currentPath()):(i_direction==='mixed'?(Math.random()>.5?'ascending':'descending'):i_direction);
     if(dir==='harmonic')dir='harmonic';
     const rootMidi=p_noteToMidi(root);
     const targetMidi=(dir==='descending')?rootMidi-interval.semitones:rootMidi+interval.semitones;
@@ -10606,10 +11135,12 @@ function i_buildKeyboard(){
     if(whiteNames.includes(name)){
       const key=document.createElement('div');
       key.className='i-key i-wk';key.dataset.note=note;key.style.left=(whiteIndex*whiteW)+'px';key.style.width=whiteW+'px';key.style.height=whiteH+'px';key.textContent=name+oct;
+      i_wirePreviewKey(key,note);
       el.appendChild(key);
       if(blackAfter[name]&&midi+1<=end){
         const bnote=blackAfter[name]+oct;
         const b=document.createElement('div');b.className='i-key i-bk';b.dataset.note=bnote;b.style.left=(whiteIndex*whiteW+whiteW-Math.round(blackW/2))+'px';b.style.width=blackW+'px';b.style.height=blackH+'px';b.textContent=blackAfter[name].replace('#','♯');
+        i_wirePreviewKey(b,bnote);
         el.appendChild(b);
       }
       whiteIndex++;
@@ -10619,6 +11150,37 @@ function i_buildKeyboard(){
   el.style.height=(whiteH+8)+'px';
 }
 function i_getKey(note){return document.querySelector('#page-intervals .i-key[data-note="'+note+'"]');}
+function i_previewKeyboardNote(note,el){
+  if(!note)return;
+  try{
+    if(typeof p_claimAudioOwnership==='function')p_claimAudioOwnership();
+    if(p_audioCtx&&p_audioCtx.state==='suspended')p_audioCtx.resume();
+    p_playPreviewNote(note,92,.62,'live');
+    if(el){
+      el.classList.add('previewing');
+      const oldTimer=i_previewKeyTimers.get(note);
+      if(oldTimer)clearTimeout(oldTimer);
+      const timer=setTimeout(()=>{
+        const key=i_getKey(note);
+        if(key)key.classList.remove('previewing');
+        i_previewKeyTimers.delete(note);
+      },220);
+      i_previewKeyTimers.set(note,timer);
+    }
+  }catch(e){console.warn('i_previewKeyboardNote',e);}
+}
+function i_wirePreviewKey(el,note){
+  if(!el||!note)return;
+  el.setAttribute('role','button');
+  el.setAttribute('tabindex','0');
+  el.setAttribute('aria-label','Preview '+i_noteShort(note));
+  el.title='Preview '+i_noteShort(note);
+  el.addEventListener('pointerdown',e=>{e.preventDefault();i_previewKeyboardNote(note,el);});
+  el.addEventListener('keydown',e=>{
+    if(e.key==='Enter'||e.key===' '){e.preventDefault();i_previewKeyboardNote(note,el);}
+  });
+  el.addEventListener('contextmenu',e=>e.preventDefault());
+}
 function i_noteShort(note){return String(note||'').replace('#','♯');}
 
 function i_svgEsc(v){return String(v==null?'':v).replace(/[&<>]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[m]));}
@@ -10755,13 +11317,13 @@ function i_renderPrompt(){
   const guide=i_intervalGuide(i_current.interval);
   if(modeEl)modeEl.textContent=i_modeLabel();
   if(nameEl)nameEl.textContent=showTarget?i_current.interval.name:'Listen first';
-  if(subEl)subEl.textContent=showTarget?i_directionLabel(i_current.direction)+' · '+i_current.interval.short+' · '+i_current.interval.semitones+' semitones · '+i_focusLabel(i_focus):i_directionLabel(i_current.direction)+' · listen by ear · '+i_focusLabel(i_focus);
+  if(subEl){const focusText=i_pathActive()?('Level '+i_currentPath().level+' · '+i_currentPath().name):i_focusLabel(i_focus);subEl.textContent=showTarget?i_directionLabel(i_current.direction)+' · '+i_current.interval.short+' · '+i_current.interval.semitones+' semitones · '+focusText:i_directionLabel(i_current.direction)+' · listen by ear · '+focusText;}
   if(rootEl)rootEl.textContent='Root '+(showRootChip?i_noteShort(i_current.root):'?');
   if(targetEl)targetEl.textContent='Target '+(showTarget?i_noteShort(i_current.target):'?');
   const semi=document.getElementById('i-semitoneFact');if(semi)semi.textContent=showTarget?i_current.interval.semitones:'?';
   const qual=document.getElementById('i-qualityFact');if(qual)qual.textContent=showTarget?i_current.interval.quality:'Hidden';
   const shape=document.getElementById('i-shapeFact');if(shape)shape.textContent=showTarget?i_current.interval.shape:'Listen';
-  const focus=document.getElementById('i-focusFact');if(focus)focus.textContent=i_focusLabel(i_focus);
+  const focus=document.getElementById('i-focusFact');if(focus)focus.textContent=i_pathActive()?('Level '+i_currentPath().level):i_focusLabel(i_focus);
   const panel=document.getElementById('i-guidePanel');if(panel)panel.className='interval-guide-panel '+(showTarget?'revealed':'hidden-guide')+(i_guideVisible?'':' collapsed');
   const guideBtn=document.getElementById('i-guideToggleBtn');if(guideBtn)guideBtn.textContent=i_guideVisible?'Hide':'Show';
   const status=document.getElementById('i-guideStatus');if(status)status.textContent=i_guideVisible?(showTarget?'Guide visible':'Hidden until answer'):'Guide hidden';
@@ -10830,17 +11392,124 @@ function i_renderHistory(){
     el.appendChild(div);
   });
 }
+function i_recordIntervalStat(name,correct){
+  if(!name)return;
+  const stat=i_intervalStats[name]||{name:name,attempts:0,correct:0,misses:0};
+  stat.attempts++;
+  if(correct)stat.correct++;else stat.misses++;
+  i_intervalStats[name]=stat;
+}
+function i_intervalStatRows(){
+  return Object.keys(i_intervalStats).map(k=>{
+    const s=i_intervalStats[k];
+    const pct=s.attempts?Math.round((s.correct/s.attempts)*100):0;
+    return {name:s.name,attempts:s.attempts,correct:s.correct,misses:s.misses,pct:pct};
+  });
+}
+function i_renderInsights(){
+  const needs=document.getElementById('i-needsWork');
+  const strong=document.getElementById('i-strongestInterval');
+  const list=document.getElementById('i-insightList');
+  if(!needs||!strong||!list)return;
+  const rows=i_intervalStatRows();
+  if(!rows.length){
+    needs.textContent='—';
+    strong.textContent='—';
+    list.innerHTML='<div class="interval-insight-empty">Play a few scored rounds to see your strongest and weakest intervals.</div>';
+    return;
+  }
+  const weakRows=rows.slice().sort((a,b)=>(a.pct-b.pct)||(b.misses-a.misses)||(b.attempts-a.attempts)||a.name.localeCompare(b.name));
+  const strongRows=rows.slice().sort((a,b)=>(b.pct-a.pct)||(b.attempts-a.attempts)||a.name.localeCompare(b.name));
+  const miss=weakRows.find(r=>r.misses>0);
+  const best=strongRows[0];
+  needs.textContent=miss?miss.name+' · '+miss.pct+'%':'No misses yet';
+  strong.textContent=best?best.name+' · '+best.pct+'%':'—';
+  const display=weakRows.slice(0,6);
+  list.innerHTML='';
+  display.forEach(r=>{
+    const div=document.createElement('div');
+    const tone=r.pct>=85?'good':(r.pct>=60?'warn':'bad');
+    div.className='interval-insight-row '+tone;
+    div.innerHTML='<span class="interval-insight-name">'+i_svgEsc(r.name)+'</span><span class="interval-insight-meta">'+r.correct+'/'+r.attempts+' · '+r.pct+'% · '+r.misses+' miss'+(r.misses===1?'':'es')+'</span>';
+    list.appendChild(div);
+  });
+}
+
+function i_missedIntervalNames(){
+  return i_intervalStatRows().filter(r=>r.misses>0).sort((a,b)=>(b.misses-a.misses)||(a.pct-b.pct)||a.name.localeCompare(b.name)).map(r=>r.name);
+}
+function i_buildSessionSummary(){
+  const rows=i_intervalStatRows();
+  const pct=i_scoreTotal?Math.round((i_scoreCorrect/i_scoreTotal)*100):0;
+  const weakRows=rows.slice().sort((a,b)=>(a.pct-b.pct)||(b.misses-a.misses)||(b.attempts-a.attempts)||a.name.localeCompare(b.name));
+  const strongRows=rows.slice().sort((a,b)=>(b.pct-a.pct)||(b.attempts-a.attempts)||a.name.localeCompare(b.name));
+  const miss=weakRows.find(r=>r.misses>0);
+  const best=strongRows[0];
+  const pathResult=i_reviewMissesActive?'Review Misses':(i_pathActive()?('Level '+i_currentPath().level+' · '+i_currentPath().name):'Free Practice');
+  return {score:i_scoreCorrect+' / '+i_scoreTotal,accuracy:pct+'%',best:best?best.name+' · '+best.pct+'%':'Pending',needsWork:miss?miss.name+' · '+miss.pct+'%':'No misses',streak:String(i_streak),path:pathResult,misses:i_missedIntervalNames(),review:i_reviewMissesActive};
+}
+function i_renderSummary(){
+  const card=document.getElementById('i-summaryCard');
+  if(!card)return;
+  const summary=i_lastSessionSummary||((i_sessionComplete||i_reviewMissesActive)?i_buildSessionSummary():null);
+  card.classList.toggle('inactive',!summary);
+  if(!summary)return;
+  const score=document.getElementById('i-summaryScore');if(score)score.textContent=summary.score;
+  const acc=document.getElementById('i-summaryAccuracy');if(acc)acc.textContent=summary.accuracy;
+  const best=document.getElementById('i-summaryBest');if(best)best.textContent=summary.best;
+  const need=document.getElementById('i-summaryNeedsWork');if(need)need.textContent=summary.needsWork;
+  const streak=document.getElementById('i-summaryStreak');if(streak)streak.textContent=summary.streak;
+  const path=document.getElementById('i-summaryPath');if(path)path.innerHTML=i_svgEsc(summary.path)+(i_reviewMissesActive?' <span class="interval-review-badge">Active</span>':'');
+  const note=document.getElementById('i-summaryNote');
+  if(note){
+    if(i_reviewMissesActive)note.textContent='Review Misses is active. This set uses only the intervals missed in the last finished session.';
+    else if(summary.misses&&summary.misses.length)note.textContent='Review Misses will make a short practice set from: '+summary.misses.join(', ')+'.';
+    else note.textContent='No misses in this session. Start a new session or continue with Free Run.';
+  }
+  const reviewBtn=document.getElementById('i-reviewMissesBtn');
+  if(reviewBtn){
+    const canReview=!!(summary.misses&&summary.misses.length)&&!i_reviewMissesActive;
+    reviewBtn.disabled=!canReview;
+    reviewBtn.textContent=i_reviewMissesActive?'Review Active':'Review Misses';
+  }
+}
+function i_reviewMisses(){
+  const source=i_lastSessionSummary&&i_lastSessionSummary.misses?i_lastSessionSummary.misses:i_missedIntervalNames();
+  const names=source.filter(name=>I_INTERVALS.some(iv=>iv.name===name));
+  if(!names.length){i_setFeedback('No missed intervals to review yet.','neutral');return;}
+  i_reviewMissesActive=true;
+  i_reviewMissIntervals=names.slice();
+  i_resetSessionStats(true);
+  i_clearAutoTimer();
+  i_stopPlayback();
+  i_pick(false);
+  i_setFeedback('Review Misses ready. This short set uses only the intervals you missed.','neutral');
+  i_renderAll();
+}
+function i_newSession(){
+  i_reviewMissesActive=false;
+  i_reviewMissIntervals=[];
+  i_resetSessionStats();
+  i_resetPathAttemptProgress();
+  i_clearAutoTimer();
+  i_stopPlayback();
+  i_pick(false);
+  i_setFeedback(i_pathActive()?'New session ready. Current level progress reset.':'New session ready. Choose Audition or Start.','neutral');
+  i_renderAll();
+}
+
 function i_updateHelp(){
   const el=document.getElementById('i-helpText');if(!el)return;
-  const focusText=i_focus&&i_focus!=='mixed'?' Current focus: '+i_focusLabel(i_focus)+'.':'';
+  const pathText=i_reviewMissesActive?' Review Misses is using only intervals missed in the last finished session.':(i_pathActive()?' Level Path: Level '+i_currentPath().level+' '+i_currentPath().name+'.':' Free Practice is using your selected controls.');
+  const focusText=(!i_pathActive()&&i_focus&&i_focus!=='mixed')?' Current focus: '+i_focusLabel(i_focus)+'.':'';
   const anchorText=i_anchorMode==='off'?' Ear anchors are hidden.':(' Ear anchors: '+i_anchorLabel(i_anchorMode)+'.');
   const revealText=' Visual Reveal: '+i_revealLabel(i_visualReveal)+'.';
   const roundText=i_mode==='study'?' Rounds: study mode.':(i_roundLimit==='free'?' Rounds: Free Run.':' Rounds: '+i_roundProgressText()+'.');
-  if(i_mode==='identify')el.textContent='Listen to the two notes, then choose the interval name. Visual Reveal controls whether the keyboard and staff show the answer while you listen.'+focusText+anchorText+revealText+roundText;
-  else if(i_mode==='playback')el.textContent='Listen first, then play the root and target note on MIDI in order. The chips show your progress.'+focusText+anchorText+revealText+roundText;
-  else el.textContent='Use Interval Builder to study the shape, semitone count, staff notation, inversion, ear cue, and anchors without scoring.'+focusText+anchorText+revealText+roundText;
+  if(i_mode==='identify')el.textContent='Listen to the two notes, then choose the interval name. Visual Reveal controls whether the keyboard and staff show the answer while you listen.'+pathText+focusText+anchorText+revealText+roundText;
+  else if(i_mode==='playback')el.textContent='Listen first, then play the root and target note on MIDI in order. The chips show your progress.'+pathText+focusText+anchorText+revealText+roundText;
+  else el.textContent='Use Interval Builder to study the shape, semitone count, staff notation, inversion, ear cue, and anchors without scoring.'+pathText+focusText+anchorText+revealText+roundText;
 }
-function i_renderAll(){i_renderPrompt();i_renderAnchors();i_renderStaff();i_renderKeyboard();i_renderRevealControls();i_renderAnswers();i_renderProgress();i_renderScore();i_renderHistory();i_updateHelp();i_updateAutoFlowButtons();}
+function i_renderAll(){i_renderPrompt();i_renderAnchors();i_renderStaff();i_renderKeyboard();i_renderRevealControls();i_renderAnswers();i_renderProgress();i_renderScore();i_renderPath();i_renderHistory();i_renderInsights();i_renderSummary();i_updateHelp();i_updateMobileSettingsPanel();i_updateAutoFlowButtons();}
 function i_setFeedback(msg,type){const el=document.getElementById('i-feedback');if(!el)return;el.textContent=msg;el.className='interval-feedback '+(type||'');}
 function i_stopPlayback(){
   i_playTimers.forEach(t=>clearTimeout(t));i_playTimers=[];
@@ -10878,25 +11547,28 @@ function i_audition(){
 function i_start(){i_clearAutoTimer();if(!i_guardRoundStart())return;i_pick(false);i_audition();}
 function i_next(){i_clearAutoTimer();if(!i_guardRoundStart())return;i_pick(false);i_setFeedback('Next interval ready. Choose Audition or Start.','neutral');i_updateAutoFlowButtons();}
 function i_reset(){
-  i_clearAutoTimer();i_stopPlayback();i_resetSessionStats();i_pick(false);i_setFeedback('Score reset. Start a new interval.','neutral');i_renderAll();i_updateAutoFlowButtons();
+  i_clearAutoTimer();i_stopPlayback();i_resetSessionStats();i_resetPathAttemptProgress();i_pick(false);i_setFeedback(i_pathActive()?'Score reset. Current level progress reset.':'Score reset. Start a new interval.','neutral');i_renderAll();i_updateAutoFlowButtons();
 }
 function i_answer(name){
   if(!i_current)return;
   if(i_mode==='study'){i_setFeedback('Builder mode does not score answers. Change Mode to Listen and Name for scoring.','neutral');return;}
   if(!i_waiting){i_setFeedback('Choose Audition or Start first.','neutral');return;}
   const correct=name===i_current.interval.name;
+  i_recordIntervalStat(i_current.interval.name,correct);
+  const historyFocus=i_pathActive()?('Level '+i_currentPath().level):i_focusLabel(i_focus);
   i_revealed=true;
   i_scoreTotal++;
-  if(correct){i_scoreCorrect++;i_streak++;i_setFeedback('Correct. '+i_current.interval.name+' from '+i_noteShort(i_current.root)+' to '+i_noteShort(i_current.target)+'.','correct');}
-  else {i_streak=0;i_setFeedback('Not quite. It was '+i_current.interval.name+' from '+i_noteShort(i_current.root)+' to '+i_noteShort(i_current.target)+'.','wrong');}
+  let pathMsg='';
+  if(correct){i_scoreCorrect++;i_streak++;pathMsg=i_recordPathAttempt(true);i_setFeedback('Correct. '+i_current.interval.name+' from '+i_noteShort(i_current.root)+' to '+i_noteShort(i_current.target)+'.'+pathMsg,'correct');}
+  else {i_streak=0;pathMsg=i_recordPathAttempt(false);i_setFeedback('Not quite. It was '+i_current.interval.name+' from '+i_noteShort(i_current.root)+' to '+i_noteShort(i_current.target)+'.'+pathMsg,'wrong');}
   i_waiting=false;
-  i_history.unshift({name:i_current.interval.name,mode:'Name',focus:i_focusLabel(i_focus),correct});i_history=i_history.slice(0,8);
+  i_history.unshift({name:i_current.interval.name,mode:'Name',focus:historyFocus,correct});i_history=i_history.slice(0,8);
   document.querySelectorAll('#page-intervals .interval-answer-btn').forEach(b=>{if(b.textContent===i_current.interval.name)b.classList.add('correct');else if(b.textContent===name)b.classList.add('wrong');});
   const nameEl=document.getElementById('i-currentName');if(nameEl)nameEl.textContent=i_current.interval.name;
   const targetEl=document.getElementById('i-targetChip');if(targetEl)targetEl.textContent='Target '+i_noteShort(i_current.target);
   const target=i_getKey(i_current.target);if(target)target.classList.add('target');
   if(typeof pg_recordEarAnswer==='function')pg_recordEarAnswer(correct);
-  i_renderStaff();i_renderKeyboard();i_renderScore();i_renderHistory();i_renderProgress();i_renderAnchors();i_updateHelp();
+  i_renderStaff();i_renderKeyboard();i_renderScore();i_renderHistory();i_renderInsights();i_renderProgress();i_renderAnchors();i_updateHelp();
   if(i_handleRoundCompletion())return;
   i_autoAdvanceAfterAttempt();
 }
@@ -10913,20 +11585,27 @@ function i_handleMidiNote(noteStr,velocity){
     i_setFeedback(i_answerSeq.length<2?'Good. Now play the target note.':'Correct. You played '+i_current.interval.name+'.','correct');
     if(i_answerSeq.length>=i_current.notes.length){
       i_scoreTotal++;i_scoreCorrect++;i_streak++;i_waiting=false;
-      i_history.unshift({name:i_current.interval.name,mode:'Play',focus:i_focusLabel(i_focus),correct:true});i_history=i_history.slice(0,8);
+      i_recordIntervalStat(i_current.interval.name,true);
+      const historyFocus=i_pathActive()?('Level '+i_currentPath().level):i_focusLabel(i_focus);
+      const pathMsg=i_recordPathAttempt(true);
+      if(pathMsg)i_setFeedback('Correct. You played '+i_current.interval.name+'.'+pathMsg,'correct');
+      i_history.unshift({name:i_current.interval.name,mode:'Play',focus:historyFocus,correct:true});i_history=i_history.slice(0,8);
       if(typeof pg_recordEarAnswer==='function')pg_recordEarAnswer(true);
       completedAttempt=true;
     }
   } else {
     i_scoreTotal++;i_streak=0;i_waiting=false;
+    i_recordIntervalStat(i_current.interval.name,false);
     if(key)key.classList.add('wrong');
-    i_setFeedback('Not quite. Expected '+i_noteShort(expected)+'. It was '+i_current.interval.name+'.','wrong');
-    i_history.unshift({name:i_current.interval.name,mode:'Play',focus:i_focusLabel(i_focus),correct:false});i_history=i_history.slice(0,8);
+    const historyFocus=i_pathActive()?('Level '+i_currentPath().level):i_focusLabel(i_focus);
+    const pathMsg=i_recordPathAttempt(false);
+    i_setFeedback('Not quite. Expected '+i_noteShort(expected)+'. It was '+i_current.interval.name+'.'+pathMsg,'wrong');
+    i_history.unshift({name:i_current.interval.name,mode:'Play',focus:historyFocus,correct:false});i_history=i_history.slice(0,8);
     if(typeof pg_recordEarAnswer==='function')pg_recordEarAnswer(false);
     completedAttempt=true;
   }
   i_renderAll();
-  if(completedAttempt)i_autoAdvanceAfterAttempt();
+  if(completedAttempt){if(i_handleRoundCompletion())return;i_autoAdvanceAfterAttempt();}
 }
 function i_handleMidiNoteOff(noteStr){
   p_noteOff(noteStr);
