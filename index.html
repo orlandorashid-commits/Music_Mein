@@ -2410,6 +2410,84 @@ body {
 }
 
 
+/* Sight Reading Stage 25: playback safety and Stop during audition. */
+
+/* Sight Reading Stage 26: synced metronome and count off. */
+#page-sight .sight-feedback.countoff{
+  background:rgba(201,168,76,.16);
+  border:1px solid rgba(201,168,76,.38);
+  color:var(--gold);
+  font-family:'DM Mono',monospace;
+  font-size:1.05rem;
+  font-weight:900;
+  letter-spacing:.04em;
+}
+
+
+/* Sight Reading Stage 27: live tempo updates and count off length control. */
+#page-sight .sight-countoff-select{
+  padding:.32rem .55rem;
+  border-radius:8px;
+  border:1px solid var(--border);
+  background:var(--surface);
+  color:var(--ink2);
+  font-family:'DM Sans',sans-serif;
+  font-size:.72rem;
+  font-weight:800;
+  cursor:pointer;
+  white-space:nowrap;
+  flex-shrink:0;
+}
+#page-sight .sight-countoff-select:focus{outline:none;border-color:var(--gold);}
+#page-sight .sight-countoff-label{white-space:nowrap;}
+@media(max-width:700px){
+  #page-sight .p-bpm-row{align-items:center;gap:.5rem;}
+  #page-sight .sight-countoff-label{flex-basis:auto;}
+  #page-sight .sight-countoff-select{min-width:92px;}
+}
+
+
+
+/* Sight Reading Stage 28: compact stable count off feedback area. */
+#page-sight .sight-feedback{
+  min-height:46px;
+  height:46px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  line-height:1.2;
+  margin:.38rem 0 .35rem;
+  padding:.42rem .75rem;
+  overflow:hidden;
+}
+#page-sight .sight-feedback.countoff{
+  font-size:.88rem;
+  letter-spacing:.025em;
+  padding:.36rem .75rem;
+}
+#page-sight .sight-bar-note-hint{
+  margin-top:0;
+  margin-bottom:.55rem;
+  min-height:1.1rem;
+  line-height:1.25;
+}
+@media(max-width:700px){
+  #page-sight .sight-feedback{
+    min-height:50px;
+    height:50px;
+    font-size:.78rem;
+    padding:.38rem .55rem;
+  }
+  #page-sight .sight-feedback.countoff{
+    font-size:.82rem;
+  }
+  #page-sight .sight-bar-note-hint{
+    font-size:.62rem;
+    line-height:1.25;
+  }
+}
+
+
 /* Intervals Stage 17: clickable keyboard preview sound. */
 #page-intervals .i-key{cursor:pointer;user-select:none;-webkit-user-select:none;touch-action:manipulation;}
 #page-intervals .i-key.previewing{transform:translateY(-4px);box-shadow:0 0 16px rgba(201,168,76,.50),0 0 0 3px rgba(201,168,76,.22);}
@@ -3570,7 +3648,15 @@ body {
           <span class="p-bpm-label">BPM</span>
           <input type="range" class="p-bpm-slider" id="s-bpmSlider" min="40" max="200" value="84" oninput="s_updateBPM(this.value)">
           <span class="p-bpm-val" id="s-bpmVal">84</span>
-          <button id="s-metroBtn" onclick="s_toggleMetronome()" style="padding:.3rem .8rem;border-radius:8px;border:1px solid var(--border);background:var(--surface);font-size:.72rem;font-weight:700;cursor:pointer;color:var(--ink2);white-space:nowrap;flex-shrink:0;">Metro Off</button>
+          <button id="s-metroBtn" onclick="s_toggleMetronome()" style="padding:.3rem .8rem;border-radius:8px;border:1px solid var(--border);background:var(--surface);font-size:.72rem;font-weight:700;cursor:pointer;color:var(--ink2);white-space:nowrap;flex-shrink:0;">Metro On</button>
+          <span class="p-bpm-label sight-countoff-label">COUNT OFF</span>
+          <select id="s-countOffSelect" class="sight-countoff-select" onchange="s_updateCountoffBars(this.value)">
+            <option value="0">Off</option>
+            <option value="1" selected>1 Bar</option>
+            <option value="2">2 Bars</option>
+            <option value="3">3 Bars</option>
+            <option value="4">4 Bars</option>
+          </select>
         </div>
 
         <div class="p-vol-row" style="margin-top:.5rem;">
@@ -7297,7 +7383,7 @@ function p_clearHeldNoteVisuals(){
   }catch(e){}
 }
 
-function p_allNotesOff(){
+function p_allNotesOff(silent=false){
   try{
     // Stop scheduled demo or training playback without resetting scores.
     if(typeof p_stopDemo==='function')p_stopDemo();
@@ -7319,13 +7405,13 @@ function p_allNotesOff(){
     const sent=p_sendAllNotesOffToMidiOutputs();
     p_forceStopAllBrowserVoices();
     p_clearHeldNoteVisuals();
-    if(typeof p_showFlash==='function')p_showFlash('All Notes Off','complete');
+    if(!silent&&typeof p_showFlash==='function')p_showFlash('All Notes Off','complete');
     const btn=document.getElementById('globalAllNotesOffBtn');
-    if(btn){
+    if(btn&&!silent){
       btn.classList.add('active');
       setTimeout(()=>{const b=document.getElementById('globalAllNotesOffBtn');if(b)b.classList.remove('active');},260);
     }
-    console.log('[All Notes Off] Browser voices stopped. MIDI messages sent:',sent);
+    if(!silent)console.log('[All Notes Off] Browser voices stopped. MIDI messages sent:',sent);
   }catch(e){
     console.warn('p_allNotesOff:',e);
     p_forceStopAllBrowserVoices();
@@ -9086,12 +9172,19 @@ let s_clef='treble';
 let s_noteValueMode='quarter';
 let s_octaveMatch='exact';
 let s_hearItIndex=-1;
+let s_auditionActive=false;
 let s_hearItTimers=[];
 let s_browserSynthOn=true;
 let s_bpm=84;
-let s_metronomeOn=false;
+let s_metronomeOn=true;
 let s_metroTimer=null;
 let s_metroBeat=0;
+let s_countoffTimers=[];
+let s_countoffActive=false;
+let s_countoffMode='';
+let s_countoffAfter=null;
+let s_countoffBars=1;
+let s_tempoRestartTimer=null;
 let s_autoNext=false;
 let s_autoStart=false;
 let s_autoTimer=null;
@@ -9444,7 +9537,9 @@ function s_init(){
   s_renderKeyDrill();
   s_updateTransportUI();
   s_setFeedback('Press Start to begin.','neutral');
+  const co=document.getElementById('s-countOffSelect');if(co)co.value=String(s_countoffBars||1);
   s_updateMetroVol(65);
+  s_setMetroButtonUI();
 }
 
 function s_readControls(){
@@ -9460,6 +9555,7 @@ function s_readControls(){
   const km=document.getElementById('s-keyModeSelect');
   const c=document.getElementById('s-clefSelect');
   const om=document.getElementById('s-octaveSelect');
+  const co=document.getElementById('s-countOffSelect');
   if(d)s_diff=d.value;
   if(rf)s_readingFocus=rf.value||'mixed';
   if(rg)s_range=rg.value||'core';
@@ -9474,22 +9570,175 @@ function s_readControls(){
   if(!s_sightKeysForSet().includes(s_key))s_key=s_sightKeysForSet()[0]||'C';
   if(c)s_clef=c.value;
   if(om)s_octaveMatch=om.value;
+  if(co)s_countoffBars=parseInt(co.value,10)||0;
   s_syncSightControls();
   s_updateBarNoteHint();
 }
 
+function s_hasActivePlayback(){
+  return !!(s_active||s_auditionActive||s_countoffActive||s_metroTimer||s_hearItIndex>=0||(s_hearItTimers&&s_hearItTimers.length)||(s_countoffTimers&&s_countoffTimers.length));
+}
+
+function s_metronomeClickPattern(){
+  const groups=s_meterGroupPattern(s_meter);
+  if(groups&&groups.length)return groups.slice();
+  const bar=Math.max(1,s_barBeats());
+  const count=Math.max(1,Math.round(bar));
+  return Array.from({length:count},()=>bar/count);
+}
+
+function s_setMetroButtonUI(){
+  const btn=document.getElementById('s-metroBtn');
+  if(!btn)return;
+  btn.textContent=s_metronomeOn?'Metro On':'Metro Off';
+  btn.style.background=s_metronomeOn?'var(--gold)':'';
+  btn.style.color=s_metronomeOn?'#000':'';
+}
+
+function s_stopMetronomeTimer(){
+  if(s_metroTimer){clearTimeout(s_metroTimer);s_metroTimer=null;}
+}
+
+function s_clearCountoff(update){
+  s_countoffTimers.forEach(t=>clearTimeout(t));
+  s_countoffTimers=[];
+  s_countoffActive=false;
+  s_countoffMode='';
+  s_countoffAfter=null;
+  if(update!==false)s_updateTransportUI();
+}
+
+function s_scheduleSightClick(delayMs,accent,timerList){
+  const t=setTimeout(()=>{
+    if(s_metronomeOn&&typeof r_playClick==='function')r_playClick(!!accent);
+  },Math.max(0,Math.round(delayMs)));
+  if(timerList)timerList.push(t);
+  return t;
+}
+
+function s_scheduleMetronomeClicksForDuration(totalBeats,offsetMs,timerList){
+  if(!s_metronomeOn)return;
+  const beatMs=60000/s_bpm;
+  const pattern=s_metronomeClickPattern();
+  const bar=s_barBeats();
+  let cursor=0;
+  let pos=0;
+  let idx=0;
+  while(cursor<totalBeats-0.0001){
+    s_scheduleSightClick((offsetMs||0)+(cursor*beatMs),pos<0.0001,timerList);
+    const dur=pattern[idx]||1;
+    cursor+=dur;
+    pos+=dur;
+    idx++;
+    if(pos>=bar-0.0001){pos=0;idx=0;}
+    if(idx>=pattern.length)idx=0;
+  }
+}
+
+function s_startSyncedMetronome(){
+  s_stopMetronomeTimer();
+  s_setMetroButtonUI();
+  if(!s_metronomeOn)return;
+  const pattern=s_metronomeClickPattern();
+  const bar=s_barBeats();
+  let pos=0;
+  let idx=0;
+  const tick=()=>{
+    if(!s_metronomeOn||(!s_active&&!s_auditionActive&&!s_countoffActive)){s_stopMetronomeTimer();return;}
+    if(typeof r_playClick==='function')r_playClick(pos<0.0001);
+    const dur=pattern[idx]||1;
+    pos+=dur;
+    idx++;
+    if(pos>=bar-0.0001){pos=0;idx=0;}
+    if(idx>=pattern.length)idx=0;
+    s_metroTimer=setTimeout(tick,Math.max(80,Math.round((60000/s_bpm)*dur)));
+  };
+  tick();
+}
+
+function s_withCountoff(mode,after){
+  if(!s_sequence.length){s_setFeedback('Press Start first.','neutral');return;}
+  if(s_hasActivePlayback())s_interruptPlaybackForChange();
+  s_clearCountoff(false);
+  s_stopMetronomeTimer();
+  const countBars=Math.max(0,parseInt(s_countoffBars,10)||0);
+  s_countoffAfter=after;
+  if(countBars<=0){
+    const cb=s_countoffAfter;
+    s_clearCountoff(false);
+    if(typeof cb==='function')cb();
+    return;
+  }
+  const pattern=s_metronomeClickPattern();
+  const beatMs=60000/s_bpm;
+  const barBeats=s_barBeats();
+  const total=barBeats*countBars;
+  let cursor=0;
+  let idx=0;
+  s_countoffActive=true;
+  s_countoffMode=mode||'start';
+  s_updateTransportUI();
+  s_setFeedback('Count off ready: '+countBars+' bar'+(countBars===1?'':'s')+'.','countoff');
+  while(cursor<total-0.0001){
+    const posInBar=cursor%barBeats;
+    const barNum=Math.floor(cursor/barBeats)+1;
+    const beatLabel=Math.max(1,Math.round(posInBar+1));
+    const delay=cursor*beatMs;
+    const accent=posInBar<0.0001;
+    const t=setTimeout(()=>{
+      if(!s_countoffActive)return;
+      const prefix=countBars>1?('Count off '+barNum+'/'+countBars+': '):'Count off: ';
+      s_setFeedback(prefix+beatLabel,'countoff');
+      if(s_metronomeOn&&typeof r_playClick==='function')r_playClick(!!accent);
+    },Math.max(0,Math.round(delay)));
+    s_countoffTimers.push(t);
+    const dur=pattern[idx]||1;
+    cursor+=dur;
+    idx++;
+    if(posInBar+dur>=barBeats-0.0001)idx=0;
+    if(idx>=pattern.length)idx=0;
+  }
+  const tStart=setTimeout(()=>{
+    if(!s_countoffActive)return;
+    const cb=s_countoffAfter;
+    s_clearCountoff(false);
+    if(typeof cb==='function')cb();
+  },Math.max(0,Math.round(total*beatMs)));
+  s_countoffTimers.push(tStart);
+}
+
+function s_interruptPlaybackForChange(){
+  s_clearCountoff(false);
+  s_stopMetronomeTimer();
+  try{
+    if(typeof p_allNotesOff==='function')p_allNotesOff(true);
+    else{
+      s_stopPlayback();
+      if(typeof p_sendAllNotesOffToMidiOutputs==='function')p_sendAllNotesOffToMidiOutputs();
+      if(typeof p_forceStopAllBrowserVoices==='function')p_forceStopAllBrowserVoices();
+      if(typeof p_clearHeldNoteVisuals==='function')p_clearHeldNoteVisuals();
+    }
+  }catch(e){
+    try{s_stopPlayback();}catch(err){}
+    try{if(typeof p_forceStopAllBrowserVoices==='function')p_forceStopAllBrowserVoices();}catch(err){}
+  }
+  s_auditionActive=false;
+  s_hearItIndex=-1;
+}
+
 function s_onSettingsChange(){
-  const wasActive=s_active;
+  const wasRunning=s_hasActivePlayback();
+  if(wasRunning)s_interruptPlaybackForChange();
+  s_active=false;
   s_readControls();
-  s_createNewExercise(wasActive);
+  s_createNewExercise(false);
   s_renderStaff();
   s_renderNoteRow();
   s_renderScore();
   s_renderKeyDrill();
   s_updateTransportUI();
-  if(wasActive&&s_sequence.length){
-    const cur=s_itemPromptText(s_sequence[0]);
-    s_setFeedback('Settings updated. Play '+cur+'.','neutral');
+  if(wasRunning){
+    s_setFeedback('Playback stopped. Settings updated. Press Start or Audition.','neutral');
   } else {
     s_setFeedback('Settings updated. Press Start to begin.','neutral');
   }
@@ -9531,7 +9780,8 @@ function s_updateTransportUI(){
   const autoStartBtn=document.getElementById('s-autoStartBtn');
   if(start)start.innerHTML=s_active?'&#9654; Restart':'&#9654; Start';
   if(prev)prev.disabled=s_exercisePos<=0;
-  if(stop)stop.disabled=!s_active&&s_hearItIndex<0;
+  const canStop=!!(s_active||s_auditionActive||s_countoffActive||s_metroTimer||s_hearItIndex>=0||(s_hearItTimers&&s_hearItTimers.length)||(s_countoffTimers&&s_countoffTimers.length));
+  if(stop)stop.disabled=!canStop;
   if(autoNextBtn)autoNextBtn.classList.toggle('latched',s_autoNext);
   if(autoStartBtn){
     autoStartBtn.classList.toggle('latched',s_autoStart);
@@ -9614,14 +9864,20 @@ function s_onNoteNamesChange(){
 }
 
 function s_onOctaveMatchChange(){
+  const wasRunning=s_hasActivePlayback();
+  if(wasRunning)s_interruptPlaybackForChange();
   const sel=document.getElementById('s-octaveSelect');
   if(sel)s_octaveMatch=sel.value;
+  s_active=false;
+  s_updateTransportUI();
+  if(wasRunning)s_setFeedback('Playback stopped. Octave behavior updated.','neutral');
 }
 
 function s_generateExercise(active){
   s_clearRestTimer();
   s_hearItTimers.forEach(t=>clearTimeout(t));s_hearItTimers=[];
   s_hearItIndex=-1;
+  s_auditionActive=false;
   s_index=0;s_active=!!active;
   s_scoreCorrect=0;s_wrongAttempts=0;s_totalWrong=0;
   s_sequence=s_generateSequence();
@@ -9743,8 +9999,11 @@ function s_generateSequence(){
 }
 
 function s_beginCurrentExercise(){
+  if(s_auditionActive||s_hearItIndex>=0||(s_hearItTimers&&s_hearItTimers.length))s_interruptPlaybackForChange();
+  s_clearCountoff(false);
   s_clearRestTimer();
   s_hearItTimers.forEach(t=>clearTimeout(t));s_hearItTimers=[];
+  s_auditionActive=false;
   s_hearItIndex=-1;
   s_index=0;
   s_active=true;
@@ -9753,6 +10012,7 @@ function s_beginCurrentExercise(){
   s_totalWrong=0;
   s_scoreTotal=s_sequence.length;
   s_renderStaff();s_renderNoteRow();s_renderScore();s_updateTransportUI();
+  s_startSyncedMetronome();
   s_processCurrentItem();
 }
 
@@ -9762,11 +10022,12 @@ function s_start(){
   const hideNames=(s_diff==='hard'||s_diff==='expert');
   if(ns){ns.value=hideNames?'off':'on';s_showNoteNames=!hideNames;}
   if(!s_sequence.length){s_createNewExercise(false);}
-  s_beginCurrentExercise();
+  s_withCountoff('start',()=>s_beginCurrentExercise());
 }
 
 function s_completeExercise(){
   s_clearRestTimer();
+  s_stopMetronomeTimer();
   s_active=false;
   const pct=s_scoreTotal?Math.round((s_scoreCorrect/s_scoreTotal)*100):0;
   s_history.unshift({diff:s_diff,focus:s_readingFocus,range:s_range,accidental:s_accidentalMode,clef:s_clef,key:s_key,keyMode:s_keyMode,keySet:s_keySet,bars:s_bars,meter:s_meter,length:s_length,notes:s_sequence.filter(item=>!s_itemIsRest(item)&&!s_itemIsHold(item)).length,rests:s_sequence.filter(s_itemIsRest).length,ties:s_sequence.filter(s_itemIsHold).length,accidentals:s_sequence.filter(s_itemHasAddedAccidental).length,values:s_noteValueMode,correct:s_scoreCorrect,total:s_scoreTotal,pct});
@@ -9866,10 +10127,21 @@ function s_audition(){s_hearIt();}
 
 function s_hearIt(){
   if(!s_sequence.length){s_setFeedback('Press Start first.','neutral');return;}
+  s_withCountoff('audition',()=>s_playAuditionNow());
+}
+
+function s_playAuditionNow(){
+  s_clearCountoff(false);
+  s_stopMetronomeTimer();
+  s_auditionActive=true;
+  s_hearItIndex=-1;
   s_hearItTimers.forEach(t=>clearTimeout(t));s_hearItTimers=[];
+  s_updateTransportUI();
   s_setFeedback('Auditioning sequence…','neutral');
   const beatMs=Math.round(60000/s_bpm);
   let beatCursor=0;
+  const totalBeats=s_totalSequenceBeats();
+  s_scheduleMetronomeClicksForDuration(totalBeats,0,s_hearItTimers);
   s_sequence.forEach((item,i)=>{
     const note=s_itemNote(item);
     const beats=s_itemBeats(item);
@@ -9895,18 +10167,28 @@ function s_hearIt(){
     beatCursor+=beats;
   });
   const doneT=setTimeout(()=>{
+    s_auditionActive=false;
     s_hearItIndex=-1;s_renderStaff();s_renderNoteRow();
     s_setFeedback('Now you try.','neutral');
+    s_updateTransportUI();
   },beatCursor*beatMs+280);
   s_hearItTimers.push(doneT);
+  s_updateTransportUI();
 }
 
 
 function s_stopPlayback(){
+  if(s_tempoRestartTimer){clearTimeout(s_tempoRestartTimer);s_tempoRestartTimer=null;}
+  s_clearCountoff(false);
+  s_stopMetronomeTimer();
   s_clearRestTimer();
   s_hearItTimers.forEach(t=>clearTimeout(t));s_hearItTimers=[];
+  s_auditionActive=false;
   s_hearItIndex=-1;
   if(s_sequence&&s_sequence.length)s_sequence.forEach(n=>{if(!s_itemIsRest(n))p_noteOff(s_toPlayableNote(s_itemNote(n)));});
+  if(typeof p_sendAllNotesOffToMidiOutputs==='function')p_sendAllNotesOffToMidiOutputs();
+  if(typeof p_forceStopAllBrowserVoices==='function')p_forceStopAllBrowserVoices();
+  if(typeof p_clearHeldNoteVisuals==='function')p_clearHeldNoteVisuals();
   s_renderStaff();
   s_renderNoteRow();
   s_updateTransportUI();
@@ -9961,17 +10243,22 @@ function s_redoExercise(){
 }
 
 function s_stopTransport(){
+  const wasCountoff=s_countoffActive;
+  const wasAudition=s_auditionActive||s_hearItIndex>=0||(s_hearItTimers&&s_hearItTimers.length);
+  const wasActive=s_active;
   s_stopPlayback();
   s_active=false;
   s_updateTransportUI();
-  s_setFeedback('Stopped. Press Start to continue from the beginning.','neutral');
+  s_setFeedback(wasCountoff?'Count off stopped.':(wasAudition&&!wasActive?'Audition stopped.':'Stopped. Press Start to continue from the beginning.'),'neutral');
 }
 
 function s_reset(){
   if(!s_sequence.length)return;
+  s_interruptPlaybackForChange();
   s_clearAutoTimer();
   s_clearRestTimer();
   s_hearItTimers.forEach(t=>clearTimeout(t));s_hearItTimers=[];
+  s_auditionActive=false;
   s_hearItIndex=-1;
   s_index=0;s_active=false;s_scoreCorrect=0;s_wrongAttempts=0;s_totalWrong=0;
   s_renderStaff();s_renderNoteRow();s_renderScore();s_updateTransportUI();
@@ -9998,7 +10285,7 @@ function s_scheduleAutoNext(){
     s_createNewExercise(false);
     s_renderStaff();s_renderNoteRow();s_renderScore();s_updateTransportUI();
     if(s_autoStart){
-      s_beginCurrentExercise();
+      s_withCountoff('start',()=>s_beginCurrentExercise());
     } else {
       s_setFeedback('Next exercise loaded. Press Start when ready.','neutral');
     }
@@ -10007,9 +10294,74 @@ function s_scheduleAutoNext(){
 
 function s_toggleBrowserSynth(checked){s_browserSynthOn=!!checked;}
 
+function s_silenceSightAudioOnly(){
+  try{
+    if(s_sequence&&s_sequence.length){
+      s_sequence.forEach(n=>{
+        if(!s_itemIsRest(n)&&!s_itemIsHold(n))p_noteOff(s_toPlayableNote(s_itemNote(n)));
+      });
+    }
+  }catch(e){}
+  try{if(typeof p_sendAllNotesOffToMidiOutputs==='function')p_sendAllNotesOffToMidiOutputs();}catch(e){}
+  try{if(typeof p_forceStopAllBrowserVoices==='function')p_forceStopAllBrowserVoices();}catch(e){}
+  try{if(typeof p_clearHeldNoteVisuals==='function')p_clearHeldNoteVisuals();}catch(e){}
+}
+
+function s_applyTempoChangeToPlayback(){
+  s_tempoRestartTimer=null;
+  if(s_countoffActive){
+    const mode=s_countoffMode||'start';
+    const cb=s_countoffAfter;
+    s_clearCountoff(false);
+    s_stopMetronomeTimer();
+    s_withCountoff(mode,cb||(()=>{mode==='audition'?s_playAuditionNow():s_beginCurrentExercise();}));
+    return;
+  }
+  if(s_auditionActive||s_hearItIndex>=0||(s_hearItTimers&&s_hearItTimers.length)){
+    s_hearItTimers.forEach(t=>clearTimeout(t));
+    s_hearItTimers=[];
+    s_stopMetronomeTimer();
+    s_silenceSightAudioOnly();
+    s_auditionActive=false;
+    s_hearItIndex=-1;
+    s_renderStaff();
+    s_renderNoteRow();
+    s_setFeedback('Tempo updated to '+s_bpm+' BPM. Audition restarting.','neutral');
+    s_playAuditionNow();
+    return;
+  }
+  if(s_active){
+    s_stopMetronomeTimer();
+    s_startSyncedMetronome();
+    const item=s_sequence&&s_sequence[s_index];
+    if(item&&(s_itemIsRest(item)||s_itemIsHold(item))){
+      s_clearRestTimer();
+      s_processCurrentItem();
+    }else{
+      s_updateTransportUI();
+      s_setFeedback('Tempo updated to '+s_bpm+' BPM. Continue playing.','neutral');
+    }
+  }
+}
+
+function s_scheduleTempoPlaybackUpdate(){
+  if(s_tempoRestartTimer)clearTimeout(s_tempoRestartTimer);
+  s_tempoRestartTimer=setTimeout(s_applyTempoChangeToPlayback,90);
+}
+
+function s_updateCountoffBars(value){
+  s_countoffBars=Math.max(0,parseInt(value,10)||0);
+  if(s_countoffActive)s_applyTempoChangeToPlayback();
+}
+
 function s_updateBPM(value){
   s_bpm=parseInt(value,10);
   const el=document.getElementById('s-bpmVal');if(el)el.textContent=s_bpm;
+  if(s_countoffActive||s_auditionActive||s_active||s_hearItIndex>=0||(s_hearItTimers&&s_hearItTimers.length)){
+    s_scheduleTempoPlaybackUpdate();
+    return;
+  }
+  if(s_metroTimer&&!s_active&&!s_auditionActive&&!s_countoffActive){s_stopMetronomeTimer();s_metroBeat=0;s_runMetronome();}
 }
 
 function s_updateMasterVol(val){
@@ -10032,28 +10384,28 @@ function s_updateLiveVol(val){
 
 function s_toggleMetronome(){
   s_metronomeOn=!s_metronomeOn;
-  const btn=document.getElementById('s-metroBtn');
-  if(s_metronomeOn){
-    if(btn){btn.textContent='Metro On';btn.style.background='var(--gold)';btn.style.color='#000';}
-    s_metroBeat=0;s_runMetronome();
-  } else {
-    s_stopMetronome();
+  s_stopMetronomeTimer();
+  s_setMetroButtonUI();
+  if(s_metronomeOn&&!s_active&&!s_auditionActive&&!s_countoffActive){
+    s_metroBeat=0;
+    s_runMetronome();
   }
 }
 
 function s_stopMetronome(){
-  s_metronomeOn=false;
-  if(s_metroTimer){clearTimeout(s_metroTimer);s_metroTimer=null;}
-  const btn=document.getElementById('s-metroBtn');
-  if(btn){btn.textContent='Metro Off';btn.style.background='';btn.style.color='';}
+  s_stopMetronomeTimer();
+  s_metroBeat=0;
+  s_setMetroButtonUI();
 }
 
 function s_runMetronome(){
   if(!s_metronomeOn)return;
-  const beatMs=Math.round(60000/s_bpm);
-  if(typeof r_playClick==='function')r_playClick(s_metroBeat%4===0);
+  const pattern=s_metronomeClickPattern();
+  const idx=s_metroBeat%pattern.length;
+  const dur=pattern[idx]||1;
+  if(typeof r_playClick==='function')r_playClick(idx===0);
   s_metroBeat++;
-  s_metroTimer=setTimeout(s_runMetronome,beatMs);
+  s_metroTimer=setTimeout(s_runMetronome,Math.max(80,Math.round((60000/s_bpm)*dur)));
 }
 
 function s_setFeedback(msg,type){
