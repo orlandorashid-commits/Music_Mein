@@ -2025,6 +2025,245 @@ body {
 #page-sight .sight-chip.ledger{box-shadow:inset 0 2px 0 rgba(201,168,76,.38);}
 #page-sight .sight-ledger-focus{stroke:var(--gold);stroke-width:1.1;opacity:.32;stroke-dasharray:2 4;}
 
+/* Sight Reading Stage 20: accidentals and chromatic-note reading. */
+#page-sight .sight-chip.accidental{box-shadow:inset 0 -2px 0 rgba(201,168,76,.48);}
+#page-sight .sight-chip.accidental .sight-chip-value{color:var(--gold);}
+#page-sight .sight-chip.flat .sight-chip-value{color:var(--accent-ear);}
+#page-sight .sight-accidental-symbol{font-family:serif;font-weight:800;}
+#page-sight .sight-accidental-note{fill:var(--gold);font-family:'DM Mono',monospace;font-size:7px;font-weight:900;opacity:.72;text-anchor:middle;}
+
+/* Sight Reading Stage 21: natural signs inside key signatures. */
+#page-sight .sight-chip.natural{box-shadow:inset 0 -2px 0 rgba(232,213,160,.55);}
+#page-sight .sight-chip.natural .sight-chip-value{color:var(--gold-light);}
+#page-sight .sight-natural-symbol{font-family:serif;font-weight:900;}
+#page-sight .sight-natural-note{fill:var(--gold-light);font-family:'DM Mono',monospace;font-size:7px;font-weight:900;opacity:.72;text-anchor:middle;}
+
+/* Sight Reading Stage 22: expanded bar length option. */
+
+/* Sight Reading Stage 23: long-form paging and read-ahead staff. */
+#page-sight .sight-read-ahead-label{fill:var(--gold);font-family:'DM Mono',monospace;font-size:8px;font-weight:900;letter-spacing:.08em;opacity:.92;text-anchor:end;}
+#page-sight .sight-read-ahead-shade{fill:rgba(201,168,76,.045);stroke:rgba(201,168,76,.18);stroke-width:1;}
+#page-sight .sight-window-label{fill:var(--ink3);font-family:'DM Mono',monospace;font-size:7px;font-weight:800;opacity:.68;text-anchor:end;}
+
+/* Sight Reading Stage 24: 64-bar long-form reading uses the same 16-bar active page plus 4-bar read ahead window. */
+
+
+
+/* Intervals Stage 1: interval training foundation. */
+#page-intervals .interval-wrap{max-width:1320px;width:100%;margin:0 auto;padding:1.5rem 1rem 2rem;}
+#page-intervals .interval-header{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:1.1rem 1.4rem;margin-bottom:1rem;}
+#page-intervals .interval-header h2{font-size:1.35rem;font-weight:800;color:var(--ink);margin:0 0 .2rem;}
+#page-intervals .interval-header p{font-size:.82rem;color:var(--ink2);margin:0;}
+#page-intervals .interval-main-grid{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:1rem;align-items:start;}
+#page-intervals .interval-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:1.15rem;min-width:0;}
+#page-intervals .interval-side{display:flex;flex-direction:column;gap:.9rem;min-width:0;}
+#page-intervals .interval-prompt{display:grid;grid-template-columns:minmax(0,.75fr) minmax(0,1.25fr);gap:.9rem;align-items:stretch;margin-bottom:.9rem;}
+#page-intervals .interval-now{border:1px solid var(--border);border-radius:14px;background:linear-gradient(135deg,rgba(192,97,74,.12),rgba(201,168,76,.05));padding:1rem;text-align:center;display:flex;flex-direction:column;justify-content:center;gap:.45rem;}
+#page-intervals .interval-mode-label{font-size:.66rem;font-weight:900;text-transform:uppercase;letter-spacing:.1em;color:var(--ink3);}
+#page-intervals .interval-name{font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:800;color:var(--gold);line-height:1.05;}
+#page-intervals .interval-sub{font-family:'DM Mono',monospace;font-size:.78rem;font-weight:800;color:var(--ink2);}
+#page-intervals .interval-steps{display:flex;justify-content:center;gap:.5rem;flex-wrap:wrap;margin-top:.2rem;}
+#page-intervals .interval-step{padding:.34rem .7rem;border-radius:999px;border:1px solid var(--border);background:var(--bg2);font-family:'DM Mono',monospace;font-size:.78rem;font-weight:900;color:var(--ink2);}
+#page-intervals .interval-step.root{border-color:rgba(201,168,76,.55);color:var(--gold);}
+#page-intervals .interval-step.target{border-color:rgba(192,97,74,.55);color:var(--accent-intervals);}
+#page-intervals .interval-study-panel{border:1px solid var(--border);border-radius:14px;background:var(--bg2);padding:.85rem;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.55rem;align-items:center;}
+#page-intervals .interval-fact{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:.65rem;text-align:center;min-height:68px;display:flex;flex-direction:column;justify-content:center;}
+#page-intervals .interval-fact-label{font-size:.58rem;font-weight:900;text-transform:uppercase;letter-spacing:.09em;color:var(--ink3);margin-bottom:.25rem;}
+#page-intervals .interval-fact-value{font-family:'DM Mono',monospace;font-size:.82rem;font-weight:900;color:var(--ink);line-height:1.25;}
+#page-intervals .interval-keyboard-wrap{border:1px solid var(--border);border-radius:12px;background:var(--bg2);padding:.7rem .55rem .45rem;margin:.7rem 0 .8rem;overflow-x:auto;}
+#page-intervals .interval-keyboard{position:relative;height:104px;width:max-content;min-width:100%;margin:0 auto;}
+#page-intervals .i-wk{position:absolute;top:0;width:32px;height:96px;background:var(--key-white);border:1.5px solid #AAA;border-radius:0 0 5px 5px;display:flex;align-items:flex-end;justify-content:center;padding-bottom:4px;color:var(--ink3);font-family:'DM Mono',monospace;font-size:.52rem;font-weight:800;transition:all .12s;}
+#page-intervals .i-bk{position:absolute;top:0;width:20px;height:60px;background:var(--key-black);border-radius:0 0 4px 4px;z-index:2;display:flex;align-items:flex-end;justify-content:center;padding-bottom:3px;color:#ddd;font-family:'DM Mono',monospace;font-size:.44rem;font-weight:800;transition:all .12s;}
+#page-intervals .i-key.root{background:var(--gold)!important;border-color:var(--gold-dark)!important;color:#111;box-shadow:0 0 0 2px rgba(201,168,76,.22);}
+#page-intervals .i-key.target{background:var(--accent-intervals)!important;border-color:rgba(192,97,74,.9)!important;color:white;box-shadow:0 0 0 2px rgba(192,97,74,.2);}
+#page-intervals .i-key.hearing{transform:translateY(-4px);box-shadow:0 0 14px rgba(201,168,76,.45);}
+#page-intervals .i-key.played{box-shadow:0 0 0 3px rgba(58,158,111,.35);}
+#page-intervals .i-key.wrong{box-shadow:0 0 0 3px rgba(192,97,74,.45);}
+#page-intervals .interval-answer-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:.45rem;margin:.75rem 0 .8rem;}
+#page-intervals .interval-answer-btn{padding:.52rem .65rem;border-radius:10px;border:1px solid var(--border);background:var(--bg2);color:var(--ink2);font-family:'DM Sans',sans-serif;font-size:.78rem;font-weight:800;cursor:pointer;transition:all .15s;}
+#page-intervals .interval-answer-btn:hover{border-color:var(--gold);color:var(--gold);transform:translateY(-1px);}
+#page-intervals .interval-answer-btn.correct{background:rgba(58,158,111,.18);border-color:rgba(58,158,111,.55);color:#3A9E6F;}
+#page-intervals .interval-answer-btn.wrong{background:rgba(192,97,74,.16);border-color:rgba(192,97,74,.55);color:#C0614A;}
+#page-intervals .interval-playback-row{display:flex;justify-content:center;gap:.5rem;flex-wrap:wrap;margin-top:.75rem;}
+#page-intervals .interval-feedback{padding:.62rem .8rem;border-radius:10px;border:1px solid var(--border);background:var(--bg2);font-size:.82rem;font-weight:700;text-align:center;color:var(--ink3);line-height:1.35;min-height:2.6rem;display:flex;align-items:center;justify-content:center;}
+#page-intervals .interval-feedback.correct{background:rgba(58,158,111,.14);border-color:rgba(58,158,111,.35);color:#3A9E6F;}
+#page-intervals .interval-feedback.wrong{background:rgba(192,97,74,.14);border-color:rgba(192,97,74,.35);color:#C0614A;}
+#page-intervals .interval-progress-chips{display:flex;justify-content:center;gap:.35rem;flex-wrap:wrap;margin:.55rem 0 .2rem;min-height:30px;}
+#page-intervals .interval-progress-chip{padding:.25rem .6rem;border-radius:999px;border:1px solid var(--border);background:var(--bg2);color:var(--ink3);font-family:'DM Mono',monospace;font-size:.72rem;font-weight:900;}
+#page-intervals .interval-progress-chip.done{background:rgba(58,158,111,.18);border-color:rgba(58,158,111,.45);color:#3A9E6F;}
+#page-intervals .interval-progress-chip.current{border-color:rgba(201,168,76,.55);color:var(--gold);}
+#page-intervals .interval-history-item{padding:.42rem .6rem;border-radius:8px;border:1px solid var(--border);background:var(--bg2);font-size:.76rem;margin-bottom:.35rem;font-family:'DM Mono',monospace;display:flex;justify-content:space-between;gap:.6rem;align-items:center;}
+#page-intervals .interval-history-item.good{color:#3A9E6F;border-color:rgba(58,158,111,.3);}
+#page-intervals .interval-history-item.bad{color:#C0614A;border-color:rgba(192,97,74,.3);}
+#page-intervals .interval-midi-row{margin-top:.7rem;}
+@media(max-width:860px){#page-intervals .interval-main-grid{grid-template-columns:1fr;}#page-intervals .interval-side{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));}#page-intervals .interval-prompt{grid-template-columns:1fr;}#page-intervals .interval-study-panel{grid-template-columns:1fr 1fr;}}
+@media(max-width:560px){#page-intervals .interval-wrap{padding:.75rem .65rem;}#page-intervals .interval-study-panel{grid-template-columns:1fr;}#page-intervals .interval-answer-grid{grid-template-columns:1fr 1fr;}#page-intervals .interval-name{font-size:1.45rem;}}
+
+
+
+/* Intervals Stage 2: staff notation visualizer. */
+#page-intervals .interval-staff-wrap{border:1px solid var(--border);border-radius:14px;background:var(--bg2);padding:.7rem .65rem;margin:.75rem 0 .8rem;overflow:hidden;}
+#page-intervals .interval-staff-title-row{display:flex;align-items:center;justify-content:space-between;gap:.75rem;margin-bottom:.45rem;font-family:'DM Mono',monospace;font-size:.66rem;font-weight:900;text-transform:uppercase;letter-spacing:.08em;color:var(--ink3);}
+#page-intervals .interval-staff-title-row span:first-child{color:var(--gold);}
+#page-intervals .interval-staff{width:100%;overflow-x:auto;border:1px solid rgba(255,255,255,.045);border-radius:10px;background:rgba(255,255,255,.028);}
+#page-intervals .interval-staff svg{display:block;width:100%;min-width:700px;height:auto;}
+#page-intervals .i-staff-line{stroke:var(--ink3);stroke-width:1.25;opacity:.62;}
+#page-intervals .i-staff-clef{fill:var(--ink2);font-family:serif;font-weight:700;opacity:.88;}
+#page-intervals .i-staff-brace{fill:var(--gold);font-family:'Playfair Display',serif;font-weight:700;opacity:.7;}
+#page-intervals .i-staff-ledger{stroke:var(--ink2);stroke-width:1.2;opacity:.64;}
+#page-intervals .i-staff-note.root{fill:var(--gold);stroke:var(--gold-dark);stroke-width:1;}
+#page-intervals .i-staff-note.target{fill:var(--accent-intervals);stroke:rgba(192,97,74,.9);stroke-width:1;}
+#page-intervals .i-staff-note.hidden{fill:transparent;stroke:var(--ink3);stroke-width:1.2;stroke-dasharray:3 4;opacity:.72;}
+#page-intervals .i-staff-stem{stroke:currentColor;stroke-width:1.45;stroke-linecap:round;}
+#page-intervals .i-staff-root-stem{color:var(--gold);}
+#page-intervals .i-staff-target-stem{color:var(--accent-intervals);}
+#page-intervals .i-staff-acc{fill:var(--ink2);font-family:serif;font-size:18px;font-weight:900;opacity:.9;}
+#page-intervals .i-staff-label{fill:var(--ink3);font-family:'DM Mono',monospace;font-size:9px;font-weight:900;letter-spacing:.05em;opacity:.82;text-anchor:middle;}
+#page-intervals .i-staff-interval-arc{stroke:var(--gold);stroke-width:1.15;fill:none;stroke-linecap:round;opacity:.82;}
+#page-intervals .i-staff-interval-text{fill:var(--gold);font-family:'DM Mono',monospace;font-size:11px;font-weight:900;text-anchor:middle;}
+#page-intervals .i-staff-hidden-text{fill:var(--ink3);font-family:'DM Mono',monospace;font-size:14px;font-weight:900;text-anchor:middle;opacity:.9;}
+#page-intervals .i-staff-system-name{fill:var(--ink3);font-family:'DM Mono',monospace;font-size:8px;font-weight:900;letter-spacing:.06em;opacity:.62;text-anchor:end;}
+@media(max-width:700px){#page-intervals .interval-staff svg{min-width:620px;}#page-intervals .interval-staff-title-row{font-size:.6rem;}}
+
+
+/* Intervals Stage 3: focus filters and guided interval reference. */
+#page-intervals .interval-study-panel{grid-template-columns:repeat(auto-fit,minmax(118px,1fr));}
+#page-intervals .interval-guide-panel{border:1px solid var(--border);border-radius:14px;background:linear-gradient(135deg,rgba(192,97,74,.10),rgba(201,168,76,.045));padding:.78rem .8rem;margin:.2rem 0 .8rem;}
+#page-intervals .interval-guide-title-row{display:flex;align-items:center;justify-content:space-between;gap:.75rem;margin-bottom:.58rem;font-family:'DM Mono',monospace;font-size:.66rem;font-weight:900;text-transform:uppercase;letter-spacing:.08em;color:var(--ink3);}
+#page-intervals .interval-guide-title-row span:first-child{color:var(--gold);}
+#page-intervals .interval-guide-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.55rem;}
+#page-intervals .interval-guide-item{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:.6rem .65rem;min-height:66px;}
+#page-intervals .interval-guide-item.wide{grid-column:span 2;}
+#page-intervals .interval-guide-label{font-size:.56rem;font-weight:900;text-transform:uppercase;letter-spacing:.09em;color:var(--ink3);margin-bottom:.25rem;}
+#page-intervals .interval-guide-value{font-family:'DM Sans',sans-serif;font-size:.8rem;font-weight:700;color:var(--ink2);line-height:1.35;}
+#page-intervals .interval-guide-panel.revealed .interval-guide-value{color:var(--ink);}
+#page-intervals .interval-guide-panel.hidden-guide{opacity:.86;}
+#page-intervals .interval-answer-btn.focused-answer{border-color:rgba(201,168,76,.34);}
+@media(max-width:700px){#page-intervals .interval-guide-grid{grid-template-columns:1fr;}#page-intervals .interval-guide-item.wide{grid-column:span 1;}#page-intervals .interval-guide-title-row{font-size:.6rem;align-items:flex-start;flex-direction:column;gap:.25rem;}}
+
+/* Intervals Stage 4: ear anchor cards for solfege, scale degree, keyboard shape, and singing practice. */
+#page-intervals .interval-anchor-panel{border:1px solid var(--border);border-radius:14px;background:linear-gradient(135deg,rgba(201,168,76,.08),rgba(192,97,74,.055));padding:.78rem .8rem;margin:.2rem 0 .8rem;}
+#page-intervals .interval-anchor-title-row{display:flex;align-items:center;justify-content:space-between;gap:.75rem;margin-bottom:.58rem;font-family:'DM Mono',monospace;font-size:.66rem;font-weight:900;text-transform:uppercase;letter-spacing:.08em;color:var(--ink3);}
+#page-intervals .interval-anchor-title-row span:first-child{color:var(--gold);}
+#page-intervals .interval-anchor-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.55rem;}
+#page-intervals .interval-anchor-item{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:.6rem .65rem;min-height:66px;}
+#page-intervals .interval-anchor-item.wide{grid-column:span 3;}
+#page-intervals .interval-anchor-label{font-size:.56rem;font-weight:900;text-transform:uppercase;letter-spacing:.09em;color:var(--ink3);margin-bottom:.25rem;}
+#page-intervals .interval-anchor-value{font-family:'DM Sans',sans-serif;font-size:.8rem;font-weight:700;color:var(--ink2);line-height:1.35;}
+#page-intervals .interval-anchor-panel.revealed .interval-anchor-value{color:var(--ink);}
+#page-intervals .interval-anchor-panel.hidden-anchor{opacity:.86;}
+#page-intervals .interval-anchor-panel.off{display:none;}
+@media(max-width:860px){#page-intervals .interval-anchor-grid{grid-template-columns:repeat(2,minmax(0,1fr));}#page-intervals .interval-anchor-item.wide{grid-column:span 2;}}
+@media(max-width:700px){#page-intervals .interval-anchor-grid{grid-template-columns:1fr;}#page-intervals .interval-anchor-item.wide{grid-column:span 1;}#page-intervals .interval-anchor-title-row{font-size:.6rem;align-items:flex-start;flex-direction:column;gap:.25rem;}}
+
+
+/* Intervals Stage 5: browser synth toggle and interval audio volume controls. */
+#page-intervals .interval-audio-panel{margin:.75rem 0 .65rem;}
+#page-intervals .interval-volume-row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.55rem;margin-bottom:.55rem;}
+#page-intervals .interval-volume-row .p-vol-group{min-width:0;display:grid;grid-template-columns:auto minmax(90px,1fr) 34px;align-items:center;gap:.42rem;}
+#page-intervals .interval-volume-row .p-bpm-label{white-space:nowrap;}
+#page-intervals .interval-volume-row .p-bpm-slider{width:100%;min-width:0;}
+#page-intervals .interval-volume-row .p-vol-val{text-align:right;min-width:34px;}
+#page-intervals .interval-synth-row{display:flex;align-items:center;gap:.55rem;flex-wrap:wrap;}
+#page-intervals .interval-synth-toggle{display:flex;align-items:center;gap:.38rem;margin-left:auto;font-size:.72rem;font-weight:700;color:var(--ink3);cursor:pointer;white-space:nowrap;}
+#page-intervals .interval-synth-toggle input{accent-color:var(--gold);width:13px;height:13px;}
+#page-intervals .interval-audio-status{font-family:'DM Mono',monospace;font-size:.7rem;color:var(--gold);}
+@media(max-width:760px){#page-intervals .interval-volume-row{grid-template-columns:1fr;}#page-intervals .interval-synth-toggle{margin-left:0;}}
+
+
+/* Intervals Stage 6: Auto Next and Auto Start flow. */
+#page-intervals .interval-playback-row .p-auto-flow-btn{width:64px;min-width:64px;height:40px;}
+#page-intervals .interval-playback-row .p-btn.latched{background:var(--gold);border-color:var(--gold-dark);color:white;}
+#page-intervals .interval-flow-note{font-family:'DM Mono',monospace;font-size:.68rem;color:var(--ink3);text-align:center;margin-top:-.25rem;margin-bottom:.55rem;min-height:1em;}
+@media(max-width:700px){#page-intervals .interval-playback-row .p-btn{flex:1 1 calc(50% - .5rem);padding:.55rem .65rem;}#page-intervals .interval-playback-row .p-auto-flow-btn{flex:0 0 64px;}}
+
+
+
+/* Intervals Stage 7: keyboard width, staff show hide, and anchor placement cleanup. */
+#page-intervals .interval-keyboard-wrap{padding-left:0;padding-right:0;}
+#page-intervals .interval-keyboard{margin:0;width:100%;min-width:100%;}
+#page-intervals .interval-staff-title-row{flex-wrap:wrap;}
+#page-intervals .interval-staff-title-actions{display:flex;align-items:center;gap:.45rem;margin-left:auto;}
+#page-intervals .interval-staff-toggle{white-space:nowrap;}
+#page-intervals .interval-staff.hidden{display:none;}
+#page-intervals .interval-anchor-panel.after-staff{margin:.2rem 0 .8rem;}
+@media(max-width:700px){#page-intervals .interval-staff-title-actions{width:100%;margin-left:0;justify-content:space-between;}#page-intervals .interval-keyboard-wrap{overflow-x:auto;}}
+
+
+/* Intervals Stage 8: move the playable flow up and make reference panels collapsible. */
+#page-intervals .interval-primary-flow{margin:.75rem 0 .85rem;}
+#page-intervals .interval-primary-flow .interval-keyboard-wrap{margin:.7rem 0 .7rem;}
+#page-intervals .interval-primary-flow .interval-playback-row{margin-top:.7rem;margin-bottom:.2rem;}
+#page-intervals .interval-primary-flow .interval-audio-panel{margin:.75rem 0 .65rem;}
+#page-intervals .interval-primary-flow .interval-midi-row{margin-top:.35rem;}
+#page-intervals .interval-reference-stack{display:flex;flex-direction:column;gap:.8rem;margin-top:.85rem;}
+#page-intervals .interval-reference-stack .interval-staff-wrap,
+#page-intervals .interval-reference-stack .interval-guide-panel,
+#page-intervals .interval-reference-stack .interval-anchor-panel{margin:0;}
+#page-intervals .interval-guide-title-row,
+#page-intervals .interval-anchor-title-row{flex-wrap:wrap;}
+#page-intervals .interval-guide-title-actions,
+#page-intervals .interval-anchor-title-actions{display:flex;align-items:center;gap:.45rem;margin-left:auto;}
+#page-intervals .interval-guide-toggle,
+#page-intervals .interval-anchor-toggle{white-space:nowrap;}
+#page-intervals .interval-guide-panel.collapsed .interval-guide-grid,
+#page-intervals .interval-anchor-panel.collapsed .interval-anchor-grid{display:none;}
+#page-intervals .interval-guide-panel.collapsed,
+#page-intervals .interval-anchor-panel.collapsed{padding:.65rem .8rem;}
+#page-intervals .interval-guide-panel.collapsed .interval-guide-title-row,
+#page-intervals .interval-anchor-panel.collapsed .interval-anchor-title-row{margin-bottom:0;}
+#page-intervals .interval-guide-panel.off,
+#page-intervals .interval-anchor-panel.off{display:none;}
+@media(max-width:700px){
+  #page-intervals .interval-guide-title-actions,
+  #page-intervals .interval-anchor-title-actions{width:100%;margin-left:0;justify-content:space-between;}
+}
+
+
+/* Intervals Stage 9: staff moves above the prompt, while playback, volume, synth, and MIDI controls stay at the bottom. */
+#page-intervals .interval-card{display:flex;flex-direction:column;}
+#page-intervals .interval-top-staff{margin:0 0 .85rem 0;}
+#page-intervals .interval-primary-flow{margin:.65rem 0 .75rem;}
+#page-intervals .interval-primary-flow .interval-keyboard-wrap{margin:.65rem 0 .7rem;}
+#page-intervals .interval-bottom-controls{margin-top:.9rem;padding-top:.85rem;border-top:1px solid var(--border);}
+#page-intervals .interval-bottom-controls .interval-flow-note{margin:.05rem 0 .55rem;}
+#page-intervals .interval-bottom-controls .interval-playback-row{margin-top:.45rem;margin-bottom:.6rem;}
+#page-intervals .interval-bottom-controls .interval-audio-panel{margin:.55rem 0 .65rem;}
+#page-intervals .interval-bottom-controls .interval-midi-row{margin-top:.35rem;}
+#page-intervals .interval-reference-stack{margin-top:.8rem;}
+
+
+/* Intervals Stage 10: Visual Reveal controls for keyboard and staff ear-training modes. */
+#page-intervals .interval-reveal-row{display:flex;align-items:center;gap:.45rem;flex-wrap:wrap;margin:.15rem 0 .55rem;padding:.5rem .65rem;border:1px solid var(--border);border-radius:12px;background:var(--bg2);}
+#page-intervals .interval-reveal-label{font-size:.62rem;font-weight:900;text-transform:uppercase;letter-spacing:.1em;color:var(--ink3);margin-right:.1rem;}
+#page-intervals .interval-reveal-pills{display:flex;align-items:center;gap:.28rem;flex-wrap:wrap;}
+#page-intervals .interval-reveal-pill{padding:.24rem .6rem;border-radius:999px;border:1px solid var(--border);background:var(--surface);color:var(--ink3);font-family:'DM Sans',sans-serif;font-size:.68rem;font-weight:900;cursor:pointer;transition:all .15s;}
+#page-intervals .interval-reveal-pill:hover{border-color:var(--gold);color:var(--gold);}
+#page-intervals .interval-reveal-pill.active{background:var(--gold);border-color:var(--gold-dark);color:white;}
+#page-intervals .interval-reveal-help{margin-left:auto;font-family:'DM Mono',monospace;font-size:.66rem;font-weight:800;color:var(--ink3);}
+#page-intervals .interval-keyboard-wrap.reveal-ear-only .i-key.root,
+#page-intervals .interval-keyboard-wrap.reveal-ear-only .i-key.target,
+#page-intervals .interval-keyboard-wrap.reveal-ear-only .i-key.hearing{background:var(--key-white)!important;border-color:#AAA!important;color:var(--ink3)!important;box-shadow:none!important;transform:none!important;}
+@media(max-width:700px){#page-intervals .interval-reveal-help{margin-left:0;flex-basis:100%;}#page-intervals .interval-reveal-pill{font-size:.64rem;padding:.23rem .52rem;}}
+
+
+
+/* Intervals Stage 11: session rounds and Free Run control. */
+#page-intervals .interval-round-card{border-color:rgba(201,168,76,.22);}
+#page-intervals .interval-round-progress{font-family:'DM Mono',monospace;font-size:.95rem;font-weight:900;color:var(--gold);}
+#page-intervals .interval-round-progress.complete{color:#3A9E6F;}
+#page-intervals .interval-round-status{margin-top:.55rem;padding:.48rem .65rem;border:1px solid var(--border);border-radius:9px;background:var(--bg2);font-size:.74rem;font-weight:700;color:var(--ink3);line-height:1.35;text-align:center;}
+#page-intervals .interval-round-status.complete{background:rgba(58,158,111,.12);border-color:rgba(58,158,111,.35);color:#3A9E6F;}
+
+/* Intervals Stage 12: transport moves under answer options, reference panels sit between transport and volume controls. */
+#page-intervals .interval-primary-flow .interval-feedback{margin:.55rem 0 .55rem;}
+#page-intervals .interval-primary-flow .interval-bottom-controls{margin-top:.35rem;padding-top:.6rem;border-top:1px solid var(--border);}
+#page-intervals .interval-bottom-controls .interval-playback-row{margin:.25rem 0 .6rem;}
+#page-intervals .interval-bottom-controls .interval-flow-note{margin:.05rem 0 .5rem;}
+#page-intervals .interval-bottom-controls .interval-reference-stack{margin:.55rem 0 .65rem;gap:.65rem;}
+#page-intervals .interval-bottom-controls .interval-audio-panel{margin:.65rem 0 .65rem;}
+#page-intervals .interval-bottom-controls .interval-midi-row{margin-top:.35rem;}
+
 </style>
 </head>
 <body>
@@ -2990,12 +3229,25 @@ body {
             </select>
           </div>
           <div class="p-control-group">
+            <label>Accidentals</label>
+            <select id="s-accidentalSelect" onchange="s_onSettingsChange()">
+              <option value="key" selected>Key Signature Only</option>
+              <option value="sharps">Add Sharps</option>
+              <option value="flats">Add Flats</option>
+              <option value="chromatic">Chromatic Mix</option>
+              <option value="naturals">Add Naturals</option>
+              <option value="chromatic_naturals">Chromatic Mix + Naturals</option>
+            </select>
+          </div>
+          <div class="p-control-group">
             <label>Bars</label>
             <select id="s-lengthSelect" onchange="s_onSettingsChange()">
               <option value="1" selected>1 Bar</option>
               <option value="2">2 Bars</option>
               <option value="4">4 Bars</option>
               <option value="8">8 Bars</option>
+              <option value="16">16 Bars</option>
+              <option value="32">32 Bars</option>
             </select>
           </div>
           <div class="p-control-group">
@@ -3225,11 +3477,326 @@ body {
 
     <!-- INTERVALS -->
     <div class="page" id="page-intervals">
-      <div class="coming-soon">
-        <div class="coming-soon-icon">🎵</div>
-        <div class="accent-bar" style="background:var(--accent-intervals)"></div>
-        <h2 data-i18n="intervals_title">Interval Training</h2>
-        <p data-i18n="intervals_desc">Recognize and play 2nds, 3rds, 5ths, octaves and more. Also embedded in Ear Training. Coming in Phase 3.</p>
+      <div class="interval-wrap">
+        <div class="interval-header">
+          <h2>Interval Training</h2>
+          <p>Hear, identify, and play melodic and harmonic intervals.</p>
+        </div>
+
+        <div class="p-controls-bar" style="margin-bottom:.9rem;">
+          <div class="p-control-group">
+            <label>Mode</label>
+            <select id="i-modeSelect" onchange="i_onSettingsChange()">
+              <option value="identify" selected>Listen and Name</option>
+              <option value="playback">Play It Back</option>
+              <option value="study">Interval Builder</option>
+            </select>
+          </div>
+          <div class="p-control-group">
+            <label>Level</label>
+            <select id="i-levelSelect" onchange="i_onSettingsChange()">
+              <option value="easy" selected>Easy</option>
+              <option value="medium">Medium</option>
+              <option value="hard">Hard</option>
+              <option value="expert">Expert</option>
+            </select>
+          </div>
+          <div class="p-control-group">
+            <label>Focus</label>
+            <select id="i-focusSelect" onchange="i_onSettingsChange()">
+              <option value="mixed" selected>Mixed Intervals</option>
+              <option value="seconds">Seconds</option>
+              <option value="thirds">Thirds</option>
+              <option value="fourths_fifths">Fourths + Fifths</option>
+              <option value="sixths">Sixths</option>
+              <option value="sevenths">Sevenths</option>
+              <option value="compound">Compound Intervals</option>
+            </select>
+          </div>
+          <div class="p-control-group">
+            <label>Direction</label>
+            <select id="i-directionSelect" onchange="i_onSettingsChange()">
+              <option value="ascending" selected>Ascending</option>
+              <option value="descending">Descending</option>
+              <option value="mixed">Mixed</option>
+              <option value="harmonic">Harmonic</option>
+            </select>
+          </div>
+          <div class="p-control-group">
+            <label>Root</label>
+            <select id="i-rootSelect" onchange="i_onSettingsChange()">
+              <option value="random" selected>Random Root</option>
+              <option value="C3">C3</option><option value="D3">D3</option><option value="E3">E3</option><option value="F3">F3</option><option value="G3">G3</option><option value="A3">A3</option><option value="B3">B3</option>
+              <option value="C4">C4</option><option value="D4">D4</option><option value="E4">E4</option><option value="F4">F4</option><option value="G4">G4</option><option value="A4">A4</option><option value="B4">B4</option><option value="C5">C5</option>
+            </select>
+          </div>
+          <div class="p-control-group">
+            <label>Interval</label>
+            <select id="i-studyIntervalSelect" onchange="i_onSettingsChange()">
+              <option value="random" selected>Random Interval</option>
+              <option value="Minor 2nd">Minor 2nd</option>
+              <option value="Major 2nd">Major 2nd</option>
+              <option value="Minor 3rd">Minor 3rd</option>
+              <option value="Major 3rd">Major 3rd</option>
+              <option value="Perfect 4th">Perfect 4th</option>
+              <option value="Tritone">Tritone</option>
+              <option value="Perfect 5th">Perfect 5th</option>
+              <option value="Minor 6th">Minor 6th</option>
+              <option value="Major 6th">Major 6th</option>
+              <option value="Minor 7th">Minor 7th</option>
+              <option value="Major 7th">Major 7th</option>
+              <option value="Octave">Octave</option>
+              <option value="Minor 9th">Minor 9th</option>
+              <option value="Major 9th">Major 9th</option>
+              <option value="Minor 10th">Minor 10th</option>
+              <option value="Major 10th">Major 10th</option>
+            </select>
+          </div>
+          <div class="p-control-group">
+            <label>Staff</label>
+            <select id="i-staffSelect" onchange="i_onSettingsChange()">
+              <option value="auto" selected>Auto Staff</option>
+              <option value="treble">Treble</option>
+              <option value="bass">Bass</option>
+              <option value="grand">Grand Staff</option>
+            </select>
+          </div>
+          <div class="p-control-group">
+            <label>Ear Anchors</label>
+            <select id="i-anchorSelect" onchange="i_onSettingsChange()">
+              <option value="after" selected>Reveal After Answer</option>
+              <option value="always">Always Show</option>
+              <option value="off">Hidden</option>
+            </select>
+          </div>
+          <div class="p-control-group">
+            <label>Rounds</label>
+            <select id="i-roundsSelect" onchange="i_onSettingsChange()">
+              <option value="5">5 Rounds</option>
+              <option value="10" selected>10 Rounds</option>
+              <option value="20">20 Rounds</option>
+              <option value="30">30 Rounds</option>
+              <option value="free">Free Run</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="interval-main-grid">
+          <div class="interval-card">
+            <div class="interval-staff-wrap interval-top-staff">
+              <div class="interval-staff-title-row">
+                <span>Staff View</span>
+                <span class="interval-staff-title-actions">
+                  <span id="i-staffMeta">Auto Staff</span>
+                  <button class="p-hint-toggle interval-staff-toggle" id="i-staffToggleBtn" onclick="i_toggleStaffVisibility()">Show</button>
+                </span>
+              </div>
+              <div class="interval-staff hidden" id="i-staff"></div>
+            </div>
+
+            <div class="interval-prompt">
+              <div class="interval-now">
+                <div class="interval-mode-label" id="i-modeLabel">Listen and Name</div>
+                <div class="interval-name" id="i-currentName">Ready</div>
+                <div class="interval-sub" id="i-currentSub">Choose Start to begin.</div>
+                <div class="interval-steps">
+                  <span class="interval-step root" id="i-rootChip">Root</span>
+                  <span class="interval-step target" id="i-targetChip">Target</span>
+                </div>
+              </div>
+
+              <div class="interval-study-panel">
+                <div class="interval-fact">
+                  <div class="interval-fact-label">Semitones</div>
+                  <div class="interval-fact-value" id="i-semitoneFact">—</div>
+                </div>
+                <div class="interval-fact">
+                  <div class="interval-fact-label">Quality</div>
+                  <div class="interval-fact-value" id="i-qualityFact">—</div>
+                </div>
+                <div class="interval-fact">
+                  <div class="interval-fact-label">Shape</div>
+                  <div class="interval-fact-value" id="i-shapeFact">—</div>
+                </div>
+                <div class="interval-fact">
+                  <div class="interval-fact-label">Focus</div>
+                  <div class="interval-fact-value" id="i-focusFact">—</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="interval-primary-flow">
+            <div class="interval-reveal-row" id="i-revealRow">
+              <span class="interval-reveal-label">Visual Reveal</span>
+              <div class="interval-reveal-pills" id="i-revealPills">
+                <button type="button" class="interval-reveal-pill" data-reveal="full" onclick="i_setVisualReveal('full')">Full</button>
+                <button type="button" class="interval-reveal-pill" data-reveal="root" onclick="i_setVisualReveal('root')">Root Only</button>
+                <button type="button" class="interval-reveal-pill" data-reveal="after" onclick="i_setVisualReveal('after')">After Answer</button>
+                <button type="button" class="interval-reveal-pill" data-reveal="off" onclick="i_setVisualReveal('off')">Ear Only</button>
+              </div>
+              <span class="interval-reveal-help" id="i-revealHelp">Root shown while listening.</span>
+            </div>
+
+            <div class="interval-keyboard-wrap" id="i-keyboardWrap">
+              <div class="interval-keyboard" id="i-keyboard"></div>
+            </div>
+
+            <div class="interval-progress-chips" id="i-progressChips"></div>
+
+            <div class="interval-feedback" id="i-feedback">No attempt yet.</div>
+
+            <div class="interval-answer-grid" id="i-answerButtons"></div>
+
+<div class="interval-bottom-controls">
+              <div class="interval-flow-note" id="i-flowNote"></div>
+
+              <div class="interval-playback-row">
+              <button class="p-btn p-btn-sec" id="i-auditionBtn" onclick="i_audition()">&#9834; Audition</button>
+              <button class="p-btn p-btn-primary" id="i-startBtn" onclick="i_start()">&#9654; Start</button>
+              <button class="p-btn p-btn-sec" id="i-repeatBtn" onclick="i_audition()">&#8635; Repeat</button>
+              <button class="p-btn p-btn-sec" id="i-nextBtn" onclick="i_next()">Next &#8594;</button>
+              <button class="p-btn p-btn-sec p-auto-flow-btn" id="i-autoNextBtn" onclick="i_toggleAutoNext()"><span>Auto</span><span>Next</span></button>
+              <button class="p-btn p-btn-sec p-auto-flow-btn" id="i-autoStartBtn" onclick="i_toggleAutoStart()" disabled><span>Auto</span><span>Start</span></button>
+              <button class="p-btn p-btn-danger" id="i-resetBtn" onclick="i_reset()">&#8634; Reset</button>
+            </div>
+
+            <div class="interval-reference-stack">
+            
+
+            <div class="interval-guide-panel" id="i-guidePanel">
+              <div class="interval-guide-title-row">
+                <span>Interval Guide</span>
+                <span class="interval-guide-title-actions">
+                  <span id="i-guideStatus">Hidden until answer</span>
+                  <button class="p-hint-toggle interval-guide-toggle" id="i-guideToggleBtn" onclick="i_toggleGuideVisibility()">Show</button>
+                </span>
+              </div>
+              <div class="interval-guide-grid">
+                <div class="interval-guide-item">
+                  <div class="interval-guide-label">Family</div>
+                  <div class="interval-guide-value" id="i-guideFamily">—</div>
+                </div>
+                <div class="interval-guide-item">
+                  <div class="interval-guide-label">Inversion</div>
+                  <div class="interval-guide-value" id="i-guideInversion">—</div>
+                </div>
+                <div class="interval-guide-item wide">
+                  <div class="interval-guide-label">Ear Cue</div>
+                  <div class="interval-guide-value" id="i-guideCue">—</div>
+                </div>
+                <div class="interval-guide-item wide">
+                  <div class="interval-guide-label">Practice Tip</div>
+                  <div class="interval-guide-value" id="i-guideTip">—</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="interval-anchor-panel after-staff" id="i-anchorPanel">
+              <div class="interval-anchor-title-row">
+                <span>Ear Anchors</span>
+                <span class="interval-anchor-title-actions">
+                  <span id="i-anchorStatus">Reveal after answer</span>
+                  <button class="p-hint-toggle interval-anchor-toggle" id="i-anchorToggleBtn" onclick="i_toggleAnchorPanelVisibility()">Show</button>
+                </span>
+              </div>
+              <div class="interval-anchor-grid">
+                <div class="interval-anchor-item">
+                  <div class="interval-anchor-label">Solfege</div>
+                  <div class="interval-anchor-value" id="i-anchorSolfege">—</div>
+                </div>
+                <div class="interval-anchor-item">
+                  <div class="interval-anchor-label">Scale Degree</div>
+                  <div class="interval-anchor-value" id="i-anchorDegrees">—</div>
+                </div>
+                <div class="interval-anchor-item">
+                  <div class="interval-anchor-label">Keyboard Shape</div>
+                  <div class="interval-anchor-value" id="i-anchorKeyboard">—</div>
+                </div>
+                <div class="interval-anchor-item">
+                  <div class="interval-anchor-label">Sing It</div>
+                  <div class="interval-anchor-value" id="i-anchorSing">—</div>
+                </div>
+                <div class="interval-anchor-item">
+                  <div class="interval-anchor-label">Color</div>
+                  <div class="interval-anchor-value" id="i-anchorColor">—</div>
+                </div>
+                <div class="interval-anchor-item">
+                  <div class="interval-anchor-label">Memory Hook</div>
+                  <div class="interval-anchor-value" id="i-anchorMemory">—</div>
+                </div>
+                <div class="interval-anchor-item wide">
+                  <div class="interval-anchor-label">Practice Cue</div>
+                  <div class="interval-anchor-value" id="i-anchorPractice">—</div>
+                </div>
+              </div>
+            </div>
+
+            </div>
+
+              <div class="interval-audio-panel">
+              <div class="p-vol-row interval-volume-row">
+                <div class="p-vol-group">
+                  <span class="p-bpm-label">MASTER</span>
+                  <input type="range" class="p-bpm-slider" id="i-masterSlider" min="0" max="100" value="80" oninput="i_updateMasterVol(this.value)">
+                  <span class="p-bpm-val p-vol-val" id="i-masterVal">80</span>
+                </div>
+                <div class="p-vol-group">
+                  <span class="p-bpm-label">GUIDE</span>
+                  <input type="range" class="p-bpm-slider" id="i-guideSlider" min="0" max="100" value="75" oninput="i_updateGuideVol(this.value)">
+                  <span class="p-bpm-val p-vol-val" id="i-guideVal">75</span>
+                </div>
+                <div class="p-vol-group">
+                  <span class="p-bpm-label">LIVE KB</span>
+                  <input type="range" class="p-bpm-slider" id="i-liveSlider" min="0" max="100" value="75" oninput="i_updateLiveVol(this.value)">
+                  <span class="p-bpm-val p-vol-val" id="i-liveVal">75</span>
+                </div>
+              </div>
+              <div class="p-midi-bar interval-synth-row">
+                <span class="interval-audio-status" id="i-audioOwnerStatus">Initializing...</span>
+                <span class="p-midi-text">Guide controls Audition and Repeat. Live KB controls MIDI keyboard sound.</span>
+                <label class="interval-synth-toggle">
+                  <input type="checkbox" id="i-synthToggle" checked onchange="i_toggleBrowserSynth(this.checked)">
+                  Browser Synth
+                </label>
+              </div>
+            </div>
+
+              <div class="p-midi-bar interval-midi-row">
+              <div class="p-midi-dot" id="i-midiDot"></div>
+              <span class="p-midi-text" id="i-midiText">MIDI ready. In Play It Back mode, play both notes in order.</span>
+              <span class="p-midi-last" id="i-lastMidi">—</span>
+            </div>
+            </div>
+
+            </div>
+
+          </div>
+
+          <div class="interval-side">
+            <div class="p-card">
+              <div class="p-card-title">Score</div>
+              <div class="sight-score" id="i-score">0 / 0 · 0%</div>
+              <div class="p-score-label">Interval accuracy</div>
+              <div class="e-streak-row" style="display:flex;justify-content:space-between;margin-top:.4rem;">
+                <span>Streak</span>
+                <strong id="i-streak">0</strong>
+              </div>
+              <div class="e-streak-row interval-round-card" style="display:flex;justify-content:space-between;margin-top:.4rem;">
+                <span>Rounds</span>
+                <strong class="interval-round-progress" id="i-roundProgress">0 / 10</strong>
+              </div>
+              <div class="interval-round-status" id="i-roundStatus">10 round session</div>
+            </div>
+            <div class="p-card">
+              <div class="p-card-title">How To Use</div>
+              <div class="rhythm-info" id="i-helpText">Listen and Name grades interval recognition. Play It Back grades the two-note MIDI response. Interval Builder lets you study shapes without scoring.</div>
+            </div>
+            <div class="p-card">
+              <div class="p-card-title">Recent Intervals</div>
+              <div id="i-history"><div class="p-history-empty">No attempts yet</div></div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -3693,6 +4260,7 @@ function switchPage(page) {
     if(typeof s_stopPlayback==='function')s_stopPlayback();
     if(typeof s_stopMetronome==='function')s_stopMetronome();
   }
+  if(currentPage==='intervals'&&page!=='intervals'&&typeof i_stopPlayback==='function')i_stopPlayback();
   currentPage = page;
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
@@ -3704,6 +4272,11 @@ function switchPage(page) {
     s_init();
     window.__musicMeinSightInit=true;
   }
+  if(page==='intervals'&&typeof i_init==='function'&&!window.__musicMeinIntervalsInit){
+    i_init();
+    window.__musicMeinIntervalsInit=true;
+  }
+  if(page==='intervals'&&window.__musicMeinIntervalsInit&&typeof i_syncAudioControls==='function')i_syncAudioControls();
 }
 
 /* ============================================================
@@ -6393,24 +6966,31 @@ function p_isActiveAudioTab() {
 
 function p_setBrowserSynthEnabled(enabled, reason) {
   p_browserSynthEnabled = enabled;
-  const cb = document.getElementById('p-synthToggle');
-  if (cb) cb.checked = enabled;
+  ['p-synthToggle','e-synthToggle','i-synthToggle'].forEach(id=>{
+    const cb=document.getElementById(id);
+    if(cb) cb.checked=enabled;
+  });
   if (!enabled) {
     p_activeVoices.forEach((_, note) => p_noteOff(note));
     p_activeVoices.clear();
   }
-  const status = document.getElementById('p-audioOwnerStatus');
-  if (status && reason) status.textContent = reason;
+  ['p-audioOwnerStatus','i-audioOwnerStatus'].forEach(id=>{
+    const status=document.getElementById(id);
+    if(status && reason) status.textContent=reason;
+  });
 }
 
 function p_updateAudioOwnerStatus() {
   const isOwner = p_isActiveAudioTab();
-  const cb = document.getElementById('p-synthToggle');
-  if (cb) cb.checked = isOwner && p_userWantsBrowserSynth;
+  const desired = isOwner && p_userWantsBrowserSynth;
+  ['p-synthToggle','e-synthToggle','i-synthToggle'].forEach(id=>{
+    const cb=document.getElementById(id);
+    if(cb) cb.checked=desired;
+  });
   if (isOwner && p_userWantsBrowserSynth) {
     p_setBrowserSynthEnabled(true, '● Active');
   } else if (!isOwner) {
-    p_setBrowserSynthEnabled(false, '○ Standby — another tab is active');
+    p_setBrowserSynthEnabled(false, '○ Standby: another tab is active');
   } else {
     p_setBrowserSynthEnabled(false, '○ Synth off');
   }
@@ -6431,10 +7011,11 @@ function p_toggleBrowserSynth(enabled) {
 async function p_initMIDI(){
   const dot=document.getElementById('p-midiDot'), txt=document.getElementById('p-midiText');
   const eDot=document.getElementById('e-midiDeviceDot'), eTxt=document.getElementById('e-midiText');
+  const iDot=document.getElementById('i-midiDot');
   const setDeviceStatus=(message,state)=>{
     if(txt) txt.textContent=message;
     if(eTxt) eTxt.textContent=message;
-    [dot,eDot].forEach(d=>{
+    [dot,eDot,iDot].forEach(d=>{
       if(!d)return;
       d.classList.remove('connected','error');
       if(state)d.classList.add(state);
@@ -8074,14 +8655,14 @@ function s_itemDisplayText(item){
     return label+' <span class="sight-chip-value">'+s_valueSymbol(item)+'</span>';
   }
   const note=s_itemNote(item)||'?';
-  const main=s_showNoteNames?note:'●';
+  const main=s_showNoteNames?s_noteDisplayName(note):'●';
   return main+' <span class="sight-chip-value">'+s_valueSymbol(item)+'</span>';
 }
 function s_itemPromptText(item){
   if(s_itemIsRest(item))return s_valueArticle(item)+' '+s_valueReadable(item)+' rest';
-  if(s_itemIsHold(item))return s_showNoteNames?('hold '+(s_itemNote(item)||'the tied note')):'the tied hold';
+  if(s_itemIsHold(item))return s_showNoteNames?('hold '+(s_noteDisplayName(s_itemNote(item))||'the tied note')):'the tied hold';
   const note=s_itemNote(item)||'?';
-  return s_showNoteNames?note:'the note';
+  return s_showNoteNames?s_noteDisplayName(note):'the note';
 }
 function s_sequenceBeatStart(index){
   let beat=0;
@@ -8166,6 +8747,7 @@ let s_showNoteNames=true;
 let s_diff='medium';
 let s_readingFocus='mixed';
 let s_range='core';
+let s_accidentalMode='key';
 let s_bars=1;
 let s_meter='4/4';
 let s_length=4;
@@ -8232,6 +8814,69 @@ function s_readingFocusLabel(mode){
 }
 function s_sightRangeLabel(mode){
   return ({core:'Core range',expanded:'Expanded range',ledger:'Ledger lines'}[mode||s_range]||'Core range');
+}
+function s_accidentalModeLabel(mode){
+  return ({
+    key:'Key signature only',
+    sharps:'Added sharps',
+    flats:'Added flats',
+    chromatic:'Chromatic mix',
+    naturals:'Added naturals',
+    chromatic_naturals:'Chromatic mix and naturals'
+  }[mode||s_accidentalMode]||'Key signature only');
+}
+function s_displayAccidentalForNote(note){
+  const p=s_noteParts(note);
+  if(!p)return '';
+  const keyAcc=s_keyAccidentalForLetter(p.letter,s_key);
+  if(p.acc)return s_keyAccidentalCovered(note)?'':p.acc;
+  return keyAcc?'natural':'';
+}
+function s_addedAccidentalForNote(note){
+  return s_displayAccidentalForNote(note);
+}
+function s_itemHasAddedAccidental(item){
+  if(s_itemIsRest(item)||s_itemIsHold(item))return false;
+  return !!s_addedAccidentalForNote(s_itemNote(item));
+}
+function s_noteDisplayName(note){
+  const p=s_noteParts(note);
+  if(!p)return note||'';
+  const mark=s_displayAccidentalForNote(note);
+  const natural=mark==='natural'?'♮':'';
+  return p.letter+(natural||p.acc)+p.oct;
+}
+function s_noteWithAccidental(note,acc){
+  const p=s_noteParts(note);
+  if(!p)return note;
+  return p.letter+acc+p.oct;
+}
+function s_noteWithNatural(note){
+  const p=s_noteParts(note);
+  if(!p)return note;
+  return p.letter+p.oct;
+}
+function s_applyAccidentalFocus(note){
+  if(!note||s_accidentalMode==='key')return note;
+  const p=s_noteParts(note);
+  if(!p)return note;
+  const choices=[];
+  const pushUnique=cand=>{
+    if(cand&&cand!==note&&!choices.includes(cand))choices.push(cand);
+  };
+  const pushCandidate=acc=>{
+    const cand=s_noteWithAccidental(note,acc);
+    if(cand!==note&&!s_keyAccidentalCovered(cand))pushUnique(cand);
+  };
+  const keyAcc=s_keyAccidentalForLetter(p.letter,s_key);
+  if((s_accidentalMode==='naturals'||s_accidentalMode==='chromatic_naturals')&&keyAcc&&p.acc===keyAcc){
+    pushUnique(s_noteWithNatural(note));
+  }
+  if((s_accidentalMode==='sharps'||s_accidentalMode==='chromatic'||s_accidentalMode==='chromatic_naturals')&&['C','D','F','G','A'].includes(p.letter))pushCandidate('#');
+  if((s_accidentalMode==='flats'||s_accidentalMode==='chromatic'||s_accidentalMode==='chromatic_naturals')&&['D','E','G','A','B'].includes(p.letter))pushCandidate('b');
+  if(!choices.length)return note;
+  const chance=(s_accidentalMode==='chromatic'||s_accidentalMode==='chromatic_naturals')?0.58:0.68;
+  return Math.random()<chance?choices[Math.floor(Math.random()*choices.length)]:note;
 }
 const S_KEY_ROOT_LETTERS={C:'C',G:'G',D:'D',A:'A',E:'E',B:'B','F#':'F','C#':'C',F:'F',Bb:'B',Eb:'E',Ab:'A',Db:'D',Gb:'G',Cb:'C'};
 function s_keyChordLetters(key){
@@ -8479,6 +9124,7 @@ function s_readControls(){
   const d=document.getElementById('s-diffSelect');
   const rf=document.getElementById('s-readingFocusSelect');
   const rg=document.getElementById('s-rangeSelect');
+  const ac=document.getElementById('s-accidentalSelect');
   const l=document.getElementById('s-lengthSelect');
   const m=document.getElementById('s-meterSelect');
   const nv=document.getElementById('s-noteValueSelect');
@@ -8490,6 +9136,7 @@ function s_readControls(){
   if(d)s_diff=d.value;
   if(rf)s_readingFocus=rf.value||'mixed';
   if(rg)s_range=rg.value||'core';
+  if(ac)s_accidentalMode=ac.value||'key';
   if(l)s_bars=parseInt(l.value,10)||1;
   if(m)s_meter=m.value||'4/4';
   s_length=s_bars*s_barBeats();
@@ -8534,7 +9181,18 @@ function s_updateBarNoteHint(){
   const keyText=' · '+s_keyLabel(s_key)+' · '+s_sightKeyModeLabel();
   const focusText=' · '+s_readingFocusLabel();
   const rangeText=' · '+s_sightRangeLabel();
-  el.textContent=s_bars+' bar'+(s_bars===1?'':'s')+' · '+s_meterDisplay(s_meter)+' · '+s_meterDurationText()+groupText+keyText+focusText+rangeText+itemText+restText+holdText+' · '+s_valueModeLabel(s_noteValueMode);
+  const accidentalText=' · '+s_accidentalModeLabel();
+  const win=s_visibleBarWindow();
+  let windowText='';
+  if(win.totalBars>16){
+    const activeFrom=win.startBar+1;
+    const activeTo=Math.min(win.activeEndBar,win.totalBars);
+    windowText=' · showing bars '+activeFrom+'-'+activeTo;
+    if(win.hasReadAhead){
+      windowText+=' · read ahead '+(win.readAheadStartBar+1)+'-'+Math.min(win.startBar+win.visibleBars,win.totalBars);
+    }
+  }
+  el.textContent=s_bars+' bar'+(s_bars===1?'':'s')+' · '+s_meterDisplay(s_meter)+' · '+s_meterDurationText()+groupText+windowText+keyText+focusText+rangeText+accidentalText+itemText+restText+holdText+' · '+s_valueModeLabel(s_noteValueMode);
 }
 
 function s_updateTransportUI(){
@@ -8565,7 +9223,7 @@ function s_clearRestTimer(){
 }
 
 function s_storeCurrentExercise(){
-  const snap={seq:s_sequence.map(item=>item&&typeof item==='object'?Object.assign({},item):item),diff:s_diff,focus:s_readingFocus,range:s_range,clef:s_clef,key:s_key,keySet:s_keySet,keyMode:s_keyMode,bars:s_bars,meter:s_meter,length:s_length,values:s_noteValueMode};
+  const snap={seq:s_sequence.map(item=>item&&typeof item==='object'?Object.assign({},item):item),diff:s_diff,focus:s_readingFocus,range:s_range,accidental:s_accidentalMode,clef:s_clef,key:s_key,keySet:s_keySet,keyMode:s_keyMode,bars:s_bars,meter:s_meter,length:s_length,values:s_noteValueMode};
   s_exercises=s_exercises.slice(0,s_exercisePos+1);
   s_exercises.push(snap);
   s_exercises=s_exercises.slice(-24);
@@ -8578,6 +9236,7 @@ function s_loadExerciseSnapshot(snap,active){
   s_diff=snap.diff||s_diff;
   s_readingFocus=snap.focus||s_readingFocus||'mixed';
   s_range=snap.range||s_range||'core';
+  s_accidentalMode=snap.accidental||s_accidentalMode||'key';
   s_clef=snap.clef||s_clef;
   s_key=snap.key||s_key;
   s_keySet=snap.keySet||s_keySet||'intermediate';
@@ -8602,6 +9261,7 @@ function s_syncSightControls(){
   setVal('s-diffSelect',s_diff);
   setVal('s-readingFocusSelect',s_readingFocus);
   setVal('s-rangeSelect',s_range);
+  setVal('s-accidentalSelect',s_accidentalMode);
   setVal('s-lengthSelect',String(s_bars));
   setVal('s-meterSelect',s_meter);
   setVal('s-noteValueSelect',s_noteValueMode);
@@ -8695,7 +9355,7 @@ function s_generateSequence(){
       tries++;
     }while(tries<12&&note===prev&&pool.length>1);
     prev=note;
-    return note;
+    return s_applyAccidentalFocus(note);
   }
   function pushSyncopatedTie(){
     const note=chooseNote();
@@ -8782,7 +9442,7 @@ function s_completeExercise(){
   s_clearRestTimer();
   s_active=false;
   const pct=s_scoreTotal?Math.round((s_scoreCorrect/s_scoreTotal)*100):0;
-  s_history.unshift({diff:s_diff,focus:s_readingFocus,range:s_range,clef:s_clef,key:s_key,keyMode:s_keyMode,keySet:s_keySet,bars:s_bars,meter:s_meter,length:s_length,notes:s_sequence.filter(item=>!s_itemIsRest(item)&&!s_itemIsHold(item)).length,rests:s_sequence.filter(s_itemIsRest).length,ties:s_sequence.filter(s_itemIsHold).length,values:s_noteValueMode,correct:s_scoreCorrect,total:s_scoreTotal,pct});
+  s_history.unshift({diff:s_diff,focus:s_readingFocus,range:s_range,accidental:s_accidentalMode,clef:s_clef,key:s_key,keyMode:s_keyMode,keySet:s_keySet,bars:s_bars,meter:s_meter,length:s_length,notes:s_sequence.filter(item=>!s_itemIsRest(item)&&!s_itemIsHold(item)).length,rests:s_sequence.filter(s_itemIsRest).length,ties:s_sequence.filter(s_itemIsHold).length,accidentals:s_sequence.filter(s_itemHasAddedAccidental).length,values:s_noteValueMode,correct:s_scoreCorrect,total:s_scoreTotal,pct});
   s_history=s_history.slice(0,6);
   s_setFeedback('Exercise complete. Score: '+pct+'%',pct>=80?'correct':'wrong');
   s_renderHistory();
@@ -8863,9 +9523,9 @@ function s_handleMidiNote(noteName,velocity){
     let msg='Try again.';
     if(s_showNoteNames){
       if(s_toPlayableNote(noteName).replace(/\d+$/,'')===s_toPlayableNote(expected).replace(/\d+$/,'')&&s_octaveMatch==='exact'){
-        msg='Correct pitch, wrong octave. Expected '+expected+'.';
+        msg='Correct pitch, wrong octave. Expected '+s_noteDisplayName(expected)+'.';
       } else {
-        msg='Expected '+expected+', played '+noteName+'.';
+        msg='Expected '+s_noteDisplayName(expected)+', played '+noteName+'.';
       }
     }
     s_setFeedback(msg,'wrong');
@@ -9090,19 +9750,57 @@ function s_renderHistory(){
   if(!s_history.length){el.innerHTML='<div class="p-history-empty">No attempts yet</div>';return;}
   el.innerHTML=s_history.map(h=>
     '<div class="p-history-item">'+
-    '<span>'+(h.diff||'?')+' · '+s_readingFocusLabel(h.focus||'mixed')+' · '+s_sightRangeLabel(h.range||'core')+' · '+(h.clef||'treble')+' · '+(h.key||'C')+' · '+(h.keyMode?({fixed:'fixed',random:'random',fifths:'fifths',fourths:'fourths'}[h.keyMode]||h.keyMode):'fixed')+' · '+(h.meter||'4/4')+' · '+(h.bars||Math.max(1,Math.round((h.length||4)/s_barBeatsForMeter(h.meter||'4/4'))))+' bars · '+s_valueModeLabel(h.values||'quarter')+'</span>'+
+    '<span>'+(h.diff||'?')+' · '+s_readingFocusLabel(h.focus||'mixed')+' · '+s_sightRangeLabel(h.range||'core')+' · '+s_accidentalModeLabel(h.accidental||'key')+' · '+(h.clef||'treble')+' · '+(h.key||'C')+' · '+(h.keyMode?({fixed:'fixed',random:'random',fifths:'fifths',fourths:'fourths'}[h.keyMode]||h.keyMode):'fixed')+' · '+(h.meter||'4/4')+' · '+(h.bars||Math.max(1,Math.round((h.length||4)/s_barBeatsForMeter(h.meter||'4/4'))))+' bars · '+s_valueModeLabel(h.values||'quarter')+'</span>'+
     '<span class="p-history-grade" style="color:'+(h.pct>=80?'var(--accent-practice)':'var(--accent-ear)')+'">'+h.pct+'%</span>'+
     '</div>'
   ).join('');
 }
 
 
+function s_currentDisplayBeat(){
+  if(s_hearItIndex>=0&&s_hearItIndex<s_sequence.length)return s_sequenceBeatStart(s_hearItIndex);
+  if(s_active&&s_index>=0&&s_index<s_sequence.length)return s_sequenceBeatStart(s_index);
+  if(s_active&&s_index>=s_sequence.length)return s_totalSequenceBeats();
+  return 0;
+}
+
+function s_visibleBarWindow(){
+  const barBeats=s_barBeats();
+  const totalBars=Math.max(1,s_bars||Math.ceil((s_totalSequenceBeats()||barBeats)/barBeats));
+  const barsPerSystem=4;
+  const activePageBars=16;
+  const readAheadBars=4;
+  if(totalBars<=activePageBars){
+    return {totalBars,barsPerSystem,startBar:0,visibleBars:totalBars,activeEndBar:totalBars,readAheadStartBar:totalBars,hasReadAhead:false};
+  }
+  const currentBeat=s_currentDisplayBeat();
+  const currentBar=Math.max(0,Math.min(totalBars-1,Math.floor(currentBeat/barBeats)));
+  const maxPageStart=Math.max(0,totalBars-activePageBars);
+  let startBar=Math.floor(currentBar/activePageBars)*activePageBars;
+  startBar=Math.max(0,Math.min(startBar,maxPageStart));
+  const readAheadStartBar=Math.min(totalBars,startBar+activePageBars);
+  const visibleBars=Math.min(activePageBars+readAheadBars,totalBars-startBar);
+  const activeEndBar=Math.min(totalBars,startBar+activePageBars);
+  return {totalBars,barsPerSystem,startBar,visibleBars,activeEndBar,readAheadStartBar,hasReadAhead:visibleBars>activePageBars&&readAheadStartBar<startBar+visibleBars};
+}
+
 function s_renderNoteRow(){
   const el=document.getElementById('s-noteRow');if(!el)return;
   if(!s_sequence.length){el.innerHTML='';return;}
+  const barBeats=s_barBeats();
+  const win=s_visibleBarWindow();
+  const useWindow=win.totalBars>16;
+  const startBeat=win.startBar*barBeats;
+  const endBeat=(win.startBar+win.visibleBars)*barBeats;
   let html='';let beat=0;
+  let lastVisibleBar=-1;
   s_sequence.forEach((item,i)=>{
-    if(i>0&&s_isBarBoundary(beat))html+='<span class="sight-chip-bar-sep" aria-hidden="true"></span>';
+    const itemStart=beat;
+    const itemEnd=beat+s_itemBeats(item);
+    if(useWindow&&(itemEnd<=startBeat+0.0001||itemStart>=endBeat-0.0001)){beat=itemEnd;return;}
+    const currentBar=Math.floor(itemStart/barBeats);
+    if(html&&currentBar!==lastVisibleBar)html+='<span class="sight-chip-bar-sep" aria-hidden="true"></span>';
+    lastVisibleBar=currentBar;
     let cls='sight-chip';
     if(s_itemValue(item)==='eighth')cls+=' eighth';
     if(s_itemValue(item)==='triplet_eighth')cls+=' triplet';
@@ -9111,6 +9809,7 @@ function s_renderNoteRow(){
     if(s_itemIsHold(item))cls+=' tie-hold';
     if(item&&typeof item==='object'&&item.syncopation)cls+=' syncopated';
     if(!s_itemIsRest(item)&&!s_itemIsHold(item)&&s_range==='ledger')cls+=' ledger';
+    if(s_itemHasAddedAccidental(item)){cls+=' accidental';const acc=s_addedAccidentalForNote(s_itemNote(item));if(acc==='#')cls+=' sharp';if(acc==='b')cls+=' flat';if(acc==='natural')cls+=' natural';}
     if(s_itemIsRest(item))cls+=' rest';
     if(i<s_index)cls+=' done';
     else if(i===s_hearItIndex)cls+=' hearing';
@@ -9128,9 +9827,13 @@ function s_renderStaff(flashWrong){
   const W=760;
   const barBeats=s_barBeats();
   const meterParts=s_meterParts(s_meter);
-  const bars=Math.max(1,s_bars||Math.ceil((s_totalSequenceBeats()||barBeats)/barBeats));
-  const barsPerSystem=Math.min(4,bars);
-  const systemCount=Math.max(1,Math.ceil(bars/barsPerSystem));
+  const win=s_visibleBarWindow();
+  const bars=win.totalBars;
+  const barsPerSystem=win.barsPerSystem;
+  const visibleBars=win.visibleBars;
+  const visibleStartBar=win.startBar;
+  const visibleEndBar=visibleStartBar+visibleBars;
+  const systemCount=Math.max(1,Math.ceil(visibleBars/barsPerSystem));
   const systemH=isGrand?214:122;
   const H=systemCount*systemH+10;
   const n=s_sequence.length;
@@ -9197,9 +9900,7 @@ function s_renderStaff(flashWrong){
 
   function drawTimeSignature(systemTop){
     const x=timeX;
-    let out='<text class="sight-time" x="'+x+'" y="'+(systemTop+48)+'">'+meterParts.top+'</text><text class="sight-time" x="'+x+'" y="'+(systemTop+70)+'">'+meterParts.bottom+'</text>';
-    out+='<text class="sight-key-flow-note" x="'+(W-padR)+'" y="'+(systemTop+15)+'">'+s_keyLabel(s_key)+' · '+s_sightKeyModeLabel()+' · '+s_readingFocusLabel()+' · '+s_sightRangeLabel()+'</text>';
-    return out;
+    return '<text class="sight-time" x="'+x+'" y="'+(systemTop+48)+'">'+meterParts.top+'</text><text class="sight-time" x="'+x+'" y="'+(systemTop+70)+'">'+meterParts.bottom+'</text>';
   }
 
   function drawMeterGroups(systemTop,topLines,bassLines,barsHere){
@@ -9228,13 +9929,21 @@ function s_renderStaff(flashWrong){
 
   function drawSystem(systemIndex){
     const systemTop=5+systemIndex*systemH;
-    const firstBar=systemIndex*barsPerSystem;
-    const barsHere=Math.min(barsPerSystem,bars-firstBar);
+    const firstBar=visibleStartBar+systemIndex*barsPerSystem;
+    const barsHere=Math.min(barsPerSystem,visibleEndBar-firstBar);
     const topLines=linesForSystem(systemTop,false);
     const bassLines=isGrand?linesForSystem(systemTop,true):topLines;
+    const isReadAhead=firstBar>=win.readAheadStartBar&&win.hasReadAhead;
     let out='';
     if(systemIndex>0){
       out+='<line class="sight-system-gap-line" x1="14" y1="'+(systemTop-10)+'" x2="'+(W-8)+'" y2="'+(systemTop-10)+'"/>';
+    }
+    if(isReadAhead){
+      const shadeBottom=isGrand?bassLines[4]:topLines[4];
+      out+='<rect class="sight-read-ahead-shade" x="10" y="'+(topLines[0]-18)+'" width="'+(W-18)+'" height="'+(shadeBottom-topLines[0]+42)+'" rx="8"/>';
+      out+='<text class="sight-read-ahead-label" x="'+(W-padR)+'" y="'+(systemTop+15)+'">READ AHEAD · BARS '+(firstBar+1)+'-'+Math.min(firstBar+barsHere,bars)+'</text>';
+    } else if(win.totalBars>16&&systemIndex===0){
+      out+='<text class="sight-window-label" x="'+(W-padR)+'" y="'+(systemTop+15)+'">BARS '+(visibleStartBar+1)+'-'+Math.min(win.readAheadStartBar,bars)+' OF '+bars+'</text>';
     }
     if(isGrand){
       out+=lineSet(topLines)+lineSet(bassLines);
@@ -9277,9 +9986,14 @@ function s_renderStaff(flashWrong){
       const beats=s_itemBeats(item);
       const value=s_itemValue(item);
       const barIndex=Math.floor(beatCursor/barBeats);
+      if(barIndex<visibleStartBar||barIndex>=visibleEndBar){
+        beatCursor+=beats;
+        return;
+      }
       const beatInBar=beatCursor%barBeats;
-      const systemIndex=Math.floor(barIndex/barsPerSystem);
-      const localBar=barIndex%barsPerSystem;
+      const visibleBarIndex=barIndex-visibleStartBar;
+      const systemIndex=Math.floor(visibleBarIndex/barsPerSystem);
+      const localBar=visibleBarIndex%barsPerSystem;
       const systemTop=5+systemIndex*systemH;
       const restStaff=isGrand?'treble':(s_clef==='bass'?'bass':'treble');
       const staff=s_itemIsRest(item)?restStaff:s_staffForNote(note);
@@ -9292,16 +10006,19 @@ function s_renderStaff(flashWrong){
       let tieTarget=null;
       if(item&&typeof item==='object'&&item.tieStart&&s_sequence[i+1]&&s_sequence[i+1].tieHold&&s_sequence[i+1].tieGroup===item.tieGroup){
         const next=s_sequence[i+1];
-        const nextBeat=roundBeat(beatCursor+beats);
+        const nextBeat=Math.round((beatCursor+beats)*1000000)/1000000;
         const nextBarIndex=Math.floor(nextBeat/barBeats);
         const nextBeatInBar=nextBeat%barBeats;
-        const nextSystemIndex=Math.floor(nextBarIndex/barsPerSystem);
-        if(nextSystemIndex===systemIndex){
-          const nextLocalBar=nextBarIndex%barsPerSystem;
-          tieTarget={
-            x:clefW+nextLocalBar*barW+((nextBeatInBar+(s_itemBeats(next)/2))/barBeats)*barW,
-            beats:s_itemBeats(next)
-          };
+        if(nextBarIndex>=visibleStartBar&&nextBarIndex<visibleEndBar){
+          const nextVisibleBarIndex=nextBarIndex-visibleStartBar;
+          const nextSystemIndex=Math.floor(nextVisibleBarIndex/barsPerSystem);
+          if(nextSystemIndex===systemIndex){
+            const nextLocalBar=nextVisibleBarIndex%barsPerSystem;
+            tieTarget={
+              x:clefW+nextLocalBar*barW+((nextBeatInBar+(s_itemBeats(next)/2))/barBeats)*barW,
+              beats:s_itemBeats(next)
+            };
+          }
         }
       }
       if(value==='triplet_eighth'&&item.tripletPos===0){
@@ -9331,13 +10048,17 @@ function s_renderStaff(flashWrong){
       const rx=value==='whole'?7.4:baseRx;
       const ry=value==='whole'?4.5:baseRy;
       const isOpen=value==='half'||value==='whole';
-      const isSharp=note.includes('#')&&!s_keyAccidentalCovered(note)&&!s_itemIsHold(item);
-      const isFlat=note.length>=3&&note[1]==='b'&&!s_keyAccidentalCovered(note)&&!s_itemIsHold(item);
+      const accidentalMark=s_addedAccidentalForNote(note);
+      const isSharp=accidentalMark==='#'&&!s_itemIsHold(item);
+      const isFlat=accidentalMark==='b'&&!s_itemIsHold(item);
+      const isNatural=accidentalMark==='natural'&&!s_itemIsHold(item);
       svg+=ledgerLines(x,y,lines,rx);
       if(isSharp){
-        svg+='<text x="'+(x-rx-4)+'" y="'+(y+ry)+'" font-size="11" font-weight="700" fill="'+fill+'" text-anchor="end" font-family="serif">♯</text>';
+        svg+='<text class="sight-accidental-symbol" x="'+(x-rx-4)+'" y="'+(y+ry)+'" font-size="11" fill="'+fill+'" text-anchor="end">♯</text>';
       } else if(isFlat){
-        svg+='<text x="'+(x-rx-4)+'" y="'+(y+5)+'" font-size="13" font-weight="700" fill="'+fill+'" text-anchor="end" font-family="serif">♭</text>';
+        svg+='<text class="sight-accidental-symbol" x="'+(x-rx-4)+'" y="'+(y+5)+'" font-size="13" fill="'+fill+'" text-anchor="end">♭</text>';
+      } else if(isNatural){
+        svg+='<text class="sight-accidental-symbol sight-natural-symbol" x="'+(x-rx-4)+'" y="'+(y+5)+'" font-size="13" fill="'+fill+'" text-anchor="end">♮</text>';
       }
       if(isOpen){
         svg+='<ellipse class="sight-note-open" cx="'+x+'" cy="'+y+'" rx="'+rx+'" ry="'+ry+'" stroke="'+fill+'" transform="rotate(-12 '+x+' '+y+')"/>';
@@ -9413,6 +10134,12 @@ function p_handleMIDI(event){
       return;
     }
 
+    // Route to Interval Training when on that page
+    if (currentPage === 'intervals') {
+      if (typeof i_handleMidiNote === 'function') i_handleMidiNote(noteStr, velocity);
+      return;
+    }
+
     const isOwner = p_isActiveAudioTab();
     if(isOwner){
       // Only active tab plays sound and grades
@@ -9431,6 +10158,11 @@ function p_handleMIDI(event){
     }
     if (currentPage === 'sight') {
       if (typeof s_handleMidiNoteOff === 'function') s_handleMidiNoteOff(noteStr);
+      else p_noteOff(noteStr);
+      return;
+    }
+    if (currentPage === 'intervals') {
+      if (typeof i_handleMidiNoteOff === 'function') i_handleMidiNoteOff(noteStr);
       else p_noteOff(noteStr);
       return;
     }
@@ -9466,6 +10198,741 @@ function p_showFlash(msg,type){
 
 /* --- COMPUTER KEYBOARD INPUT --- */
 const P_KEY_MAP={a:'C4',w:'C#4',s:'D4',e:'D#4',d:'E4',f:'F4',t:'F#4',g:'G4',y:'G#4',h:'A4',u:'A#4',j:'B4',k:'C5',o:'C#5',l:'D5',p:'D#5'};
+
+
+/* ============================================================
+   INTERVAL TRAINING Stage 1: identify, play back, and build
+   ============================================================ */
+const I_INTERVALS = [
+  {name:'Minor 2nd',short:'m2',semitones:1,quality:'Minor',shape:'1 half step'},
+  {name:'Major 2nd',short:'M2',semitones:2,quality:'Major',shape:'2 half steps'},
+  {name:'Minor 3rd',short:'m3',semitones:3,quality:'Minor',shape:'3 half steps'},
+  {name:'Major 3rd',short:'M3',semitones:4,quality:'Major',shape:'4 half steps'},
+  {name:'Perfect 4th',short:'P4',semitones:5,quality:'Perfect',shape:'5 half steps'},
+  {name:'Tritone',short:'TT',semitones:6,quality:'Aug 4 / dim 5',shape:'6 half steps'},
+  {name:'Perfect 5th',short:'P5',semitones:7,quality:'Perfect',shape:'7 half steps'},
+  {name:'Minor 6th',short:'m6',semitones:8,quality:'Minor',shape:'8 half steps'},
+  {name:'Major 6th',short:'M6',semitones:9,quality:'Major',shape:'9 half steps'},
+  {name:'Minor 7th',short:'m7',semitones:10,quality:'Minor',shape:'10 half steps'},
+  {name:'Major 7th',short:'M7',semitones:11,quality:'Major',shape:'11 half steps'},
+  {name:'Octave',short:'P8',semitones:12,quality:'Perfect',shape:'12 half steps'},
+  {name:'Minor 9th',short:'m9',semitones:13,quality:'Minor',shape:'Octave + m2'},
+  {name:'Major 9th',short:'M9',semitones:14,quality:'Major',shape:'Octave + M2'},
+  {name:'Minor 10th',short:'m10',semitones:15,quality:'Minor',shape:'Octave + m3'},
+  {name:'Major 10th',short:'M10',semitones:16,quality:'Major',shape:'Octave + M3'}
+];
+const I_LEVELS = {
+  easy:['Major 2nd','Major 3rd','Perfect 5th','Octave'],
+  medium:['Minor 2nd','Major 2nd','Minor 3rd','Major 3rd','Perfect 4th','Perfect 5th','Octave'],
+  hard:['Minor 2nd','Major 2nd','Minor 3rd','Major 3rd','Perfect 4th','Tritone','Perfect 5th','Minor 6th','Major 6th','Minor 7th','Major 7th','Octave'],
+  expert:['Minor 2nd','Major 2nd','Minor 3rd','Major 3rd','Perfect 4th','Tritone','Perfect 5th','Minor 6th','Major 6th','Minor 7th','Major 7th','Octave','Minor 9th','Major 9th','Minor 10th','Major 10th']
+};
+const I_ROOTS = ['C3','D3','E3','F3','G3','A3','B3','C4','D4','E4','F4','G4','A4','B4','C5'];
+let i_mode='identify', i_level='easy', i_focus='mixed', i_direction='ascending', i_rootSetting='random', i_studyInterval='random', i_staff='auto', i_anchorMode='after', i_visualReveal='root', i_roundLimit='10';
+let i_staffVisible=false, i_guideVisible=false, i_anchorPanelVisible=false, i_sessionComplete=false;
+let i_current=null, i_waiting=false, i_revealed=false, i_answerSeq=[], i_scoreCorrect=0, i_scoreTotal=0, i_streak=0, i_history=[];
+let i_playTimers=[], i_hearingNotes=[];
+let i_autoNext=false, i_autoStart=false, i_autoTimer=null;
+
+function i_init(){
+  i_readSettings();
+  i_buildKeyboard();
+  i_pick(false);
+  i_renderAll();
+  i_syncAudioControls();
+  i_updateAutoFlowButtons();
+}
+function i_readSettings(){
+  const mode=document.getElementById('i-modeSelect');if(mode)i_mode=mode.value;
+  const level=document.getElementById('i-levelSelect');if(level)i_level=level.value;
+  const focus=document.getElementById('i-focusSelect');if(focus)i_focus=focus.value;
+  const direction=document.getElementById('i-directionSelect');if(direction)i_direction=direction.value;
+  const root=document.getElementById('i-rootSelect');if(root)i_rootSetting=root.value;
+  const study=document.getElementById('i-studyIntervalSelect');if(study)i_studyInterval=study.value;
+  const staff=document.getElementById('i-staffSelect');if(staff)i_staff=staff.value;
+  const anchor=document.getElementById('i-anchorSelect');if(anchor)i_anchorMode=anchor.value;
+  const rounds=document.getElementById('i-roundsSelect');if(rounds)i_roundLimit=rounds.value;
+}
+
+function i_roundLimitNumber(){
+  if(i_roundLimit==='free')return Infinity;
+  const n=parseInt(i_roundLimit,10);
+  return Number.isFinite(n)&&n>0?n:10;
+}
+function i_roundLimitLabel(){
+  if(i_roundLimit==='free')return 'Free Run';
+  return i_roundLimitNumber()+' Rounds';
+}
+function i_roundsComplete(){
+  const limit=i_roundLimitNumber();
+  return i_mode!=='study'&&Number.isFinite(limit)&&i_scoreTotal>=limit;
+}
+function i_roundProgressText(){
+  if(i_mode==='study')return 'Study mode';
+  if(i_roundLimit==='free')return i_scoreTotal+' done';
+  const limit=i_roundLimitNumber();
+  return Math.min(i_scoreTotal,limit)+' / '+limit;
+}
+function i_updateRoundDisplay(){
+  const progress=document.getElementById('i-roundProgress');
+  const status=document.getElementById('i-roundStatus');
+  const complete=i_roundsComplete();
+  if(progress){
+    progress.textContent=i_roundProgressText();
+    progress.classList.toggle('complete',complete);
+  }
+  if(status){
+    status.classList.toggle('complete',complete);
+    if(i_mode==='study')status.textContent='Rounds do not score in Interval Builder.';
+    else if(i_roundLimit==='free')status.textContent='Free Run. Keep going until you stop or reset.';
+    else if(complete)status.textContent='Session complete. Press Reset to start over.';
+    else status.textContent=i_roundLimitLabel()+' session.';
+  }
+}
+function i_handleRoundCompletion(){
+  if(!i_roundsComplete())return false;
+  i_sessionComplete=true;
+  i_autoNext=false;
+  i_autoStart=false;
+  i_clearAutoTimer();
+  const pct=i_scoreTotal?Math.round((i_scoreCorrect/i_scoreTotal)*100):0;
+  i_setFeedback('Session complete. '+i_scoreCorrect+' / '+i_scoreTotal+' correct, '+pct+'%. Press Reset to start over or choose Free Run.','');
+  i_updateRoundDisplay();
+  i_updateAutoFlowButtons();
+  return true;
+}
+function i_guardRoundStart(){
+  if(i_roundsComplete()){
+    i_handleRoundCompletion();
+    return false;
+  }
+  return true;
+}
+function i_resetSessionStats(){
+  i_clearAutoTimer();
+  i_sessionComplete=false;
+  i_scoreCorrect=0;
+  i_scoreTotal=0;
+  i_streak=0;
+  i_history=[];
+  i_waiting=false;
+  i_answerSeq=[];
+}
+
+function i_revealLabel(mode){
+  return ({full:'Full visual',root:'Root only',after:'After answer',off:'Ear only'}[mode||i_visualReveal]||'Root only');
+}
+function i_revealHelp(mode){
+  return ({
+    full:'Root and target flash while listening.',
+    root:'Root is shown. Target stays hidden until answer.',
+    after:'No keys show while listening. Notes reveal after answer.',
+    off:'Pure ear training. Keyboard and staff hints stay hidden.'
+  }[mode||i_visualReveal]||'Root is shown. Target stays hidden until answer.');
+}
+function i_setVisualReveal(mode){
+  if(!['full','root','after','off'].includes(mode))mode='root';
+  i_visualReveal=mode;
+  i_stopPlayback();
+  i_renderAll();
+}
+function i_visualRootVisible(){
+  if(!i_current||i_visualReveal==='off')return false;
+  if(i_visualReveal==='after')return !!i_revealed;
+  return true;
+}
+function i_visualTargetVisible(){
+  if(!i_current||i_visualReveal==='off')return false;
+  if(i_mode==='identify'&&!i_revealed)return false;
+  if(i_visualReveal==='after')return !!i_revealed;
+  return true;
+}
+function i_visualHearingNotes(notes){
+  if(!i_current||i_visualReveal==='off'||i_visualReveal==='after')return [];
+  if(i_visualReveal==='root')return notes.filter(n=>n===i_current.root);
+  return notes.slice();
+}
+function i_renderRevealControls(){
+  document.querySelectorAll('#page-intervals .interval-reveal-pill').forEach(btn=>btn.classList.toggle('active',btn.dataset.reveal===i_visualReveal));
+  const help=document.getElementById('i-revealHelp');if(help)help.textContent=i_revealHelp(i_visualReveal);
+  const wrap=document.getElementById('i-keyboardWrap');if(wrap){wrap.classList.toggle('reveal-ear-only',i_visualReveal==='off');}
+}
+function i_toggleStaffVisibility(){
+  i_staffVisible=!i_staffVisible;
+  i_renderStaff();
+}
+function i_toggleGuideVisibility(){
+  i_guideVisible=!i_guideVisible;
+  i_renderPrompt();
+}
+function i_toggleAnchorPanelVisibility(){
+  i_anchorPanelVisible=!i_anchorPanelVisible;
+  i_renderAnchors();
+}
+function i_volumePercent(vol,maxGain){
+  if(!maxGain)return 0;
+  return Math.max(0,Math.min(100,Math.round((vol/maxGain)*100)));
+}
+function i_setAudioControl(id,val){
+  const el=document.getElementById(id);
+  if(!el)return;
+  if(el.tagName==='INPUT')el.value=String(val);
+  else el.textContent=String(val);
+}
+function i_syncAudioControls(){
+  try{
+    const master=i_volumePercent(p_masterVol,P_MASTER_MAX_GAIN);
+    const guide=i_volumePercent(p_demoVol,P_DEMO_MAX_GAIN);
+    const live=i_volumePercent(p_liveVol,P_LIVE_MAX_GAIN);
+    i_setAudioControl('i-masterSlider',master);i_setAudioControl('i-masterVal',master);
+    i_setAudioControl('i-guideSlider',guide);i_setAudioControl('i-guideVal',guide);
+    i_setAudioControl('i-liveSlider',live);i_setAudioControl('i-liveVal',live);
+    if(typeof p_updateAudioOwnerStatus==='function')p_updateAudioOwnerStatus();
+  }catch(e){console.warn('i_syncAudioControls:',e);}
+}
+function i_updateMasterVol(val){
+  if(typeof p_updateMasterVol==='function')p_updateMasterVol(val);
+  i_setAudioControl('i-masterSlider',val);i_setAudioControl('i-masterVal',val);
+}
+function i_updateGuideVol(val){
+  if(typeof p_updateDemoVol==='function')p_updateDemoVol(val);
+  i_setAudioControl('i-guideSlider',val);i_setAudioControl('i-guideVal',val);
+}
+function i_updateLiveVol(val){
+  if(typeof p_updateLiveVol==='function')p_updateLiveVol(val);
+  i_setAudioControl('i-liveSlider',val);i_setAudioControl('i-liveVal',val);
+}
+function i_toggleBrowserSynth(checked){
+  if(typeof p_toggleBrowserSynth==='function')p_toggleBrowserSynth(!!checked);
+  i_syncAudioControls();
+}
+function i_clearAutoTimer(){
+  if(i_autoTimer){clearTimeout(i_autoTimer);i_autoTimer=null;}
+}
+function i_updateAutoFlowButtons(){
+  const next=document.getElementById('i-autoNextBtn');
+  const start=document.getElementById('i-autoStartBtn');
+  const note=document.getElementById('i-flowNote');
+  if(next)next.classList.toggle('latched',!!i_autoNext);
+  if(start){
+    start.classList.toggle('latched',!!i_autoStart);
+    start.disabled=!i_autoNext;
+  }
+  if(note){
+    if(i_roundsComplete())note.textContent='Round limit reached. Press Reset to start over or choose Free Run.';
+    else if(i_autoNext&&i_autoStart)note.textContent='Auto flow on: after an answer, the next interval starts automatically.';
+    else if(i_autoNext)note.textContent='Auto Next on: after an answer, the next interval loads and waits.';
+    else note.textContent='';
+  }
+}
+function i_toggleAutoNext(){
+  i_autoNext=!i_autoNext;
+  if(!i_autoNext){i_autoStart=false;i_clearAutoTimer();}
+  i_updateAutoFlowButtons();
+}
+function i_toggleAutoStart(){
+  if(!i_autoNext)return;
+  i_autoStart=!i_autoStart;
+  i_updateAutoFlowButtons();
+}
+function i_autoAdvanceAfterAttempt(){
+  i_clearAutoTimer();
+  if(i_handleRoundCompletion())return;
+  if(!i_autoNext||i_mode==='study')return;
+  i_updateAutoFlowButtons();
+  i_autoTimer=setTimeout(()=>{
+    i_autoTimer=null;
+    i_pick(!!i_autoStart);
+    if(!i_autoStart)i_setFeedback('Next interval ready. Choose Audition or Start.','neutral');
+    i_updateAutoFlowButtons();
+  },1150);
+}
+
+function i_onSettingsChange(){
+  const priorRoundLimit=i_roundLimit;
+  i_readSettings();
+  if(priorRoundLimit!==i_roundLimit)i_resetSessionStats();
+  if(i_roundLimit==='free')i_sessionComplete=false;
+  i_clearAutoTimer();
+  i_stopPlayback();
+  i_pick(false);
+  i_renderAll();
+  i_updateAutoFlowButtons();
+  i_setFeedback(i_mode==='study'?'Builder mode is for studying interval shapes without scoring.':'New interval ready. Choose Audition or Start.','neutral');
+}
+function i_focusLabel(focus){
+  return ({mixed:'Mixed intervals',seconds:'Seconds',thirds:'Thirds',fourths_fifths:'Fourths and fifths',sixths:'Sixths',sevenths:'Sevenths',compound:'Compound intervals'}[focus||i_focus]||'Mixed intervals');
+}
+function i_intervalGuide(iv){
+  const map={
+    'Minor 2nd':{family:'Second',inversion:'Major 7th',cue:'The smallest step. Think tight, tense, and close.',tip:'Compare it against a Major 2nd so the half-step pull becomes obvious.'},
+    'Major 2nd':{family:'Second',inversion:'Minor 7th',cue:'A whole step. It feels like the first two notes of a major scale.',tip:'Sing do to re, then check that it is wider than a minor 2nd.'},
+    'Minor 3rd':{family:'Third',inversion:'Major 6th',cue:'Small third. Often sounds darker or bluesy.',tip:'Hear it as the basic minor shape, then compare to the brighter major 3rd.'},
+    'Major 3rd':{family:'Third',inversion:'Minor 6th',cue:'Bright third. The sound of a major chord root to third.',tip:'Sing do to mi, then notice the stable major-chord color.'},
+    'Perfect 4th':{family:'Perfect interval',inversion:'Perfect 5th',cue:'Open and strong. It wants to resolve like a suspended sound.',tip:'Compare it with the Perfect 5th. The fourth feels closer and more suspended.'},
+    'Tritone':{family:'Augmented or diminished',inversion:'Tritone',cue:'Very tense and unstable. It divides the octave in half.',tip:'Use it as the danger interval. It should sound more unstable than 4ths or 5ths.'},
+    'Perfect 5th':{family:'Perfect interval',inversion:'Perfect 4th',cue:'Open, stable, and strong. The root-to-fifth sound.',tip:'Hear it as the backbone of a power chord.'},
+    'Minor 6th':{family:'Sixth',inversion:'Major 3rd',cue:'Wide interval with a darker pull.',tip:'Invert it mentally to a Major 3rd if the wide leap is hard to name.'},
+    'Major 6th':{family:'Sixth',inversion:'Minor 3rd',cue:'Wide interval with a warmer, brighter lift.',tip:'Invert it mentally to a Minor 3rd to confirm the quality.'},
+    'Minor 7th':{family:'Seventh',inversion:'Major 2nd',cue:'Very wide and unresolved. It reaches near the octave but falls short.',tip:'Compare it to the octave first, then listen for the whole-step gap below the octave.'},
+    'Major 7th':{family:'Seventh',inversion:'Minor 2nd',cue:'Extremely wide and tense. It sits one half step below the octave.',tip:'Compare it to the octave, then hear the half-step tension underneath.'},
+    'Octave':{family:'Perfect interval',inversion:'Octave',cue:'Same note name, higher or lower.',tip:'Listen for sameness of letter name rather than distance alone.'},
+    'Minor 9th':{family:'Compound second',inversion:'Major 7th',cue:'An octave plus a minor 2nd. Wide and tense.',tip:'Hear the octave first, then identify the half-step extension.'},
+    'Major 9th':{family:'Compound second',inversion:'Minor 7th',cue:'An octave plus a Major 2nd. Wide but more open than the minor 9th.',tip:'Hear the octave first, then identify the whole-step extension.'},
+    'Minor 10th':{family:'Compound third',inversion:'Major 6th',cue:'An octave plus a minor 3rd. Wide with a minor color.',tip:'Hear the octave first, then reduce it to a minor 3rd.'},
+    'Major 10th':{family:'Compound third',inversion:'Minor 6th',cue:'An octave plus a major 3rd. Wide with a major color.',tip:'Hear the octave first, then reduce it to a major 3rd.'}
+  };
+  return map[iv&&iv.name]||{family:'Mixed',inversion:'—',cue:'Listen for distance, quality, and stability.',tip:'Compare the interval against nearby choices.'};
+}
+function i_anchorLabel(mode){
+  return ({after:'Reveal after answer',always:'Always show',off:'Hidden'}[mode||i_anchorMode]||'Reveal after answer');
+}
+function i_anchorVisible(){
+  if(i_anchorMode==='off')return false;
+  if(i_anchorMode==='always')return true;
+  if(i_mode!=='identify')return true;
+  return !!i_revealed;
+}
+function i_intervalAnchor(iv){
+  const map={
+    'Minor 2nd':{solfege:'Ti to Do, or Mi to Fa',degrees:'7 to 1, or 3 to 4',keyboard:'Adjacent keys with no key between them.',sing:'Sing the root, then move one half step.',color:'Tight, tense, and close.',memory:'The smallest interval distance.',practice:'Alternate minor 2nd and major 2nd until the half-step pull is obvious.'},
+    'Major 2nd':{solfege:'Do to Re',degrees:'1 to 2',keyboard:'Two semitones. One piano key is skipped.',sing:'Sing the first two notes of a major scale.',color:'Open step, not as tight as a minor 2nd.',memory:'The sound of a normal scale step.',practice:'Sing do re do, then compare it with the smaller minor 2nd.'},
+    'Minor 3rd':{solfege:'Do to Me',degrees:'1 to flat 3',keyboard:'Three semitones. A small skip.',sing:'Sing the root to the minor third of a minor chord.',color:'Darker third sound.',memory:'The minor chord color.',practice:'Sing do me sol, then return to do and name the third.'},
+    'Major 3rd':{solfege:'Do to Mi',degrees:'1 to 3',keyboard:'Four semitones. A bright skip.',sing:'Sing the root to the third of a major chord.',color:'Bright and stable.',memory:'The major chord color.',practice:'Sing do mi sol, then isolate do to mi.'},
+    'Perfect 4th':{solfege:'Do to Fa',degrees:'1 to 4',keyboard:'Five semitones. Wider than a third.',sing:'Sing do to fa, then hear the suspended feeling.',color:'Open but wants resolution.',memory:'The suspended sound.',practice:'Compare it directly against the Perfect 5th.'},
+    'Tritone':{solfege:'Do to Fi, or Do to Se',degrees:'1 to sharp 4, or 1 to flat 5',keyboard:'Six semitones. Half of the octave.',sing:'Sing do, then aim for the most unstable midpoint.',color:'Very tense and unstable.',memory:'The danger interval.',practice:'Resolve it inward or outward after naming it to feel the tension.'},
+    'Perfect 5th':{solfege:'Do to Sol',degrees:'1 to 5',keyboard:'Seven semitones. A strong wide skip.',sing:'Sing root to fifth like a power chord.',color:'Open, stable, and strong.',memory:'The power chord sound.',practice:'Compare it with the Perfect 4th. The fifth feels more settled.'},
+    'Minor 6th':{solfege:'Do to Le',degrees:'1 to flat 6',keyboard:'Eight semitones. Wide with a dark color.',sing:'Sing an octave, then come down a major third.',color:'Wide and darker.',memory:'A wide minor color.',practice:'Invert it to a Major 3rd to check the answer.'},
+    'Major 6th':{solfege:'Do to La',degrees:'1 to 6',keyboard:'Nine semitones. Wide with a warm lift.',sing:'Sing do to la inside the major scale.',color:'Warm, open, and bright.',memory:'A wide major color.',practice:'Invert it to a Minor 3rd to confirm the quality.'},
+    'Minor 7th':{solfege:'Do to Te',degrees:'1 to flat 7',keyboard:'Ten semitones. Near the octave.',sing:'Sing toward the octave, then stop a whole step below.',color:'Wide and unresolved.',memory:'Almost octave, whole step short.',practice:'Compare it to Octave first, then Major 7th.'},
+    'Major 7th':{solfege:'Do to Ti',degrees:'1 to 7',keyboard:'Eleven semitones. One half step below octave.',sing:'Sing toward the octave, then stop just under it.',color:'Very wide and tense.',memory:'Almost octave, half step short.',practice:'Compare it with Octave and Minor 7th.'},
+    'Octave':{solfege:'Do to Do',degrees:'1 to 1',keyboard:'Twelve semitones. Same note name.',sing:'Sing the same pitch class higher or lower.',color:'Stable and identical in name.',memory:'Same note, new octave.',practice:'Listen for sameness first, then register difference.'},
+    'Minor 9th':{solfege:'Do to Ra above the octave',degrees:'1 to flat 2 above 8',keyboard:'Octave plus one half step.',sing:'Sing the octave first, then add a half step.',color:'Very wide and biting.',memory:'Octave plus minor 2nd.',practice:'Reduce it to a minor 2nd after hearing the octave.'},
+    'Major 9th':{solfege:'Do to Re above the octave',degrees:'1 to 2 above 8',keyboard:'Octave plus whole step.',sing:'Sing the octave first, then add a whole step.',color:'Wide and open.',memory:'Octave plus major 2nd.',practice:'Reduce it to a major 2nd after hearing the octave.'},
+    'Minor 10th':{solfege:'Do to Me above the octave',degrees:'1 to flat 3 above 8',keyboard:'Octave plus minor third.',sing:'Sing the octave first, then add a minor third.',color:'Wide with minor color.',memory:'Octave plus minor 3rd.',practice:'Reduce it to a minor 3rd after hearing the octave.'},
+    'Major 10th':{solfege:'Do to Mi above the octave',degrees:'1 to 3 above 8',keyboard:'Octave plus major third.',sing:'Sing the octave first, then add a major third.',color:'Wide with major color.',memory:'Octave plus major 3rd.',practice:'Reduce it to a major 3rd after hearing the octave.'}
+  };
+  return map[iv&&iv.name]||{solfege:'Do to ?',degrees:'1 to ?',keyboard:'Count the semitones on the piano.',sing:'Sing the root first, then aim for the target.',color:'Listen for distance and stability.',memory:'Compare against nearby intervals.',practice:'Use one interval family at a time.'};
+}
+function i_renderAnchors(){
+  const panel=document.getElementById('i-anchorPanel');if(!panel)return;
+  const btn=document.getElementById('i-anchorToggleBtn');
+  if(btn)btn.textContent=i_anchorPanelVisible?'Hide':'Show';
+  if(i_anchorMode==='off'){panel.className='interval-anchor-panel after-staff off';return;}
+  panel.style.display='';
+  const show=i_current&&i_anchorVisible();
+  panel.className='interval-anchor-panel after-staff '+(show?'revealed':'hidden-anchor')+(i_anchorPanelVisible?'':' collapsed');
+  const status=document.getElementById('i-anchorStatus');
+  if(status)status.textContent=i_anchorPanelVisible?(show?'Anchors visible':i_anchorLabel(i_anchorMode)):'Anchors hidden';
+  const anchor=i_intervalAnchor(i_current&&i_current.interval);
+  const placeholder='Answer first to reveal this anchor.';
+  const fill=(id,value)=>{const el=document.getElementById(id);if(el)el.textContent=show?value:placeholder;};
+  fill('i-anchorSolfege',anchor.solfege);
+  fill('i-anchorDegrees',anchor.degrees);
+  fill('i-anchorKeyboard',anchor.keyboard);
+  fill('i-anchorSing',anchor.sing);
+  fill('i-anchorColor',anchor.color);
+  fill('i-anchorMemory',anchor.memory);
+  fill('i-anchorPractice',anchor.practice);
+}
+function i_focusMatches(iv,focus){
+  focus=focus||i_focus;
+  if(focus==='mixed')return true;
+  if(focus==='seconds')return /2nd$/.test(iv.name);
+  if(focus==='thirds')return /3rd$/.test(iv.name);
+  if(focus==='fourths_fifths')return iv.name==='Perfect 4th'||iv.name==='Tritone'||iv.name==='Perfect 5th';
+  if(focus==='sixths')return /6th$/.test(iv.name);
+  if(focus==='sevenths')return /7th$/.test(iv.name);
+  if(focus==='compound')return /9th$|10th$/.test(iv.name);
+  return true;
+}
+function i_intervalSet(){
+  const names=I_LEVELS[i_level]||I_LEVELS.easy;
+  let set=I_INTERVALS.filter(iv=>names.includes(iv.name));
+  if(i_focus&&i_focus!=='mixed')set=set.filter(iv=>i_focusMatches(iv,i_focus));
+  if(!set.length&&i_focus&&i_focus!=='mixed')set=I_INTERVALS.filter(iv=>i_focusMatches(iv,i_focus));
+  if(!set.length)set=I_INTERVALS.filter(iv=>names.includes(iv.name));
+  return set;
+}
+function i_findInterval(name){return I_INTERVALS.find(iv=>iv.name===name)||I_INTERVALS[0];}
+function i_pick(autoPlay){
+  const intervals=i_intervalSet();
+  let tries=0, picked=null;
+  while(tries++<150){
+    const interval=i_studyInterval&&i_studyInterval!=='random'?i_findInterval(i_studyInterval):intervals[Math.floor(Math.random()*intervals.length)];
+    const root=i_rootSetting&&i_rootSetting!=='random'?i_rootSetting:I_ROOTS[Math.floor(Math.random()*I_ROOTS.length)];
+    let dir=i_direction==='mixed'?(Math.random()>.5?'ascending':'descending'):i_direction;
+    if(dir==='harmonic')dir='harmonic';
+    const rootMidi=p_noteToMidi(root);
+    const targetMidi=(dir==='descending')?rootMidi-interval.semitones:rootMidi+interval.semitones;
+    if(targetMidi<p_noteToMidi('C2')||targetMidi>p_noteToMidi('C6'))continue;
+    const target=p_midiToNote(targetMidi);
+    picked={interval,root,target,direction:dir,notes:[root,target]};
+    break;
+  }
+  if(!picked){
+    const interval=i_findInterval('Perfect 5th');
+    picked={interval,root:'C4',target:'G4',direction:'ascending',notes:['C4','G4']};
+  }
+  i_current=picked;
+  i_waiting=false;
+  i_revealed=i_mode!=='identify';
+  i_answerSeq=[];
+  i_renderAll();
+  if(autoPlay)i_audition();
+}
+function i_modeLabel(){
+  return ({identify:'Listen and Name',playback:'Play It Back',study:'Interval Builder'}[i_mode]||'Listen and Name');
+}
+function i_directionLabel(dir){
+  return ({ascending:'Ascending',descending:'Descending',harmonic:'Harmonic'}[dir||i_direction]||'Mixed');
+}
+function i_buildKeyboard(){
+  const el=document.getElementById('i-keyboard');if(!el)return;
+  const start=p_noteToMidi('C2'), end=p_noteToMidi('C6');
+  const whiteNames=['C','D','E','F','G','A','B'];
+  const blackAfter={C:'C#',D:'D#',F:'F#',G:'G#',A:'A#'};
+  const whiteCount=Array.from({length:end-start+1},(_,i)=>p_midiToNote(start+i).slice(0,-1)).filter(n=>whiteNames.includes(n)).length;
+  const wrap=el.closest('.interval-keyboard-wrap');
+  const available=wrap?Math.max(0,wrap.clientWidth-12):0;
+  const whiteW=Math.max(32,Math.floor(available/Math.max(1,whiteCount)));
+  const blackW=Math.max(20,Math.round(whiteW*.62));
+  const whiteH=Math.max(96,Math.round(whiteW*3));
+  const blackH=Math.max(60,Math.round(whiteH*.63));
+  let whiteIndex=0;
+  el.innerHTML='';
+  for(let midi=start;midi<=end;midi++){
+    const note=p_midiToNote(midi);const name=note.slice(0,-1);const oct=note.slice(-1);
+    if(whiteNames.includes(name)){
+      const key=document.createElement('div');
+      key.className='i-key i-wk';key.dataset.note=note;key.style.left=(whiteIndex*whiteW)+'px';key.style.width=whiteW+'px';key.style.height=whiteH+'px';key.textContent=name+oct;
+      el.appendChild(key);
+      if(blackAfter[name]&&midi+1<=end){
+        const bnote=blackAfter[name]+oct;
+        const b=document.createElement('div');b.className='i-key i-bk';b.dataset.note=bnote;b.style.left=(whiteIndex*whiteW+whiteW-Math.round(blackW/2))+'px';b.style.width=blackW+'px';b.style.height=blackH+'px';b.textContent=blackAfter[name].replace('#','♯');
+        el.appendChild(b);
+      }
+      whiteIndex++;
+    }
+  }
+  el.style.width=(whiteIndex*whiteW)+'px';
+  el.style.height=(whiteH+8)+'px';
+}
+function i_getKey(note){return document.querySelector('#page-intervals .i-key[data-note="'+note+'"]');}
+function i_noteShort(note){return String(note||'').replace('#','♯');}
+
+function i_svgEsc(v){return String(v==null?'':v).replace(/[&<>]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[m]));}
+function i_parseNote(note){
+  const m=String(note||'C4').replace('♯','#').replace('♭','b').match(/^([A-G])([#b]?)(-?\d+)$/);
+  return m?{letter:m[1],acc:m[2]||'',oct:parseInt(m[3],10)}:{letter:'C',acc:'',oct:4};
+}
+const I_LETTER_INDEX={C:0,D:1,E:2,F:3,G:4,A:5,B:6};
+function i_diatonicIndex(note){const n=i_parseNote(note);return n.oct*7+I_LETTER_INDEX[n.letter];}
+function i_accSymbol(note){const n=i_parseNote(note);return n.acc==='#'?'♯':(n.acc==='b'?'♭':'');}
+function i_staffLabelName(staff){return ({auto:'Auto Staff',treble:'Treble',bass:'Bass',grand:'Grand Staff'}[staff]||'Auto Staff');}
+function i_resolvedStaff(){
+  if(i_staff&&i_staff!=='auto')return i_staff;
+  if(!i_current)return 'treble';
+  const a=p_noteToMidi(i_current.root), b=p_noteToMidi(i_current.target);
+  const lo=Math.min(a,b), hi=Math.max(a,b);
+  if(lo<p_noteToMidi('C4')&&hi>=p_noteToMidi('C4'))return 'grand';
+  if(hi<p_noteToMidi('C4'))return 'bass';
+  return 'treble';
+}
+function i_staffSystems(staff){
+  if(staff==='grand')return [{clef:'treble',top:28,label:'Treble'},{clef:'bass',top:108,label:'Bass'}];
+  return [{clef:staff==='bass'?'bass':'treble',top:40,label:staff==='bass'?'Bass':'Treble'}];
+}
+function i_noteY(note,clef,top,gap){
+  const bottom=top+4*gap;
+  const base=clef==='bass'?'G2':'E4';
+  return bottom-(i_diatonicIndex(note)-i_diatonicIndex(base))*(gap/2);
+}
+function i_noteSystem(note,staff,systems){
+  if(staff==='grand')return p_noteToMidi(note)<p_noteToMidi('C4')?systems[1]:systems[0];
+  return systems[0];
+}
+function i_drawStaffLines(systems,w,gap){
+  let svg='';
+  systems.forEach(sys=>{
+    for(let i=0;i<5;i++){const y=sys.top+i*gap;svg+='<line class="i-staff-line" x1="86" y1="'+y+'" x2="'+(w-36)+'" y2="'+y+'"/>';}
+    const clef=sys.clef==='bass'?'𝄢':'𝄞';
+    const size=sys.clef==='bass'?34:42;
+    const cy=sys.clef==='bass'?sys.top+34:sys.top+37;
+    svg+='<text class="i-staff-clef" x="44" y="'+cy+'" font-size="'+size+'">'+clef+'</text>';
+    svg+='<text class="i-staff-system-name" x="'+(w-42)+'" y="'+(sys.top-8)+'">'+sys.label.toUpperCase()+'</text>';
+  });
+  return svg;
+}
+function i_drawLedger(note,x,y,top,gap){
+  const bottom=top+4*gap;
+  let svg='';
+  const left=x-17,right=x+17;
+  for(let ly=top-gap;ly>=y-.1;ly-=gap){svg+='<line class="i-staff-ledger" x1="'+left+'" y1="'+ly+'" x2="'+right+'" y2="'+ly+'"/>';}
+  for(let ly=bottom+gap;ly<=y+.1;ly+=gap){svg+='<line class="i-staff-ledger" x1="'+left+'" y1="'+ly+'" x2="'+right+'" y2="'+ly+'"/>';}
+  return svg;
+}
+function i_drawStaffNote(note,x,y,kind,stemUp){
+  const acc=i_accSymbol(note);
+  let svg='';
+  if(acc)svg+='<text class="i-staff-acc" x="'+(x-28)+'" y="'+(y+6)+'">'+acc+'</text>';
+  svg+='<ellipse class="i-staff-note '+kind+'" cx="'+x+'" cy="'+y+'" rx="9" ry="6" transform="rotate(-18 '+x+' '+y+')"/>';
+  const stemClass=kind==='root'?'i-staff-root-stem':'i-staff-target-stem';
+  if(stemUp){svg+='<line class="i-staff-stem '+stemClass+'" x1="'+(x+8)+'" y1="'+(y-2)+'" x2="'+(x+8)+'" y2="'+(y-40)+'"/>';}
+  else {svg+='<line class="i-staff-stem '+stemClass+'" x1="'+(x-8)+'" y1="'+(y+2)+'" x2="'+(x-8)+'" y2="'+(y+40)+'"/>';}
+  svg+='<text class="i-staff-label" x="'+x+'" y="'+(y+25)+'">'+i_svgEsc(i_noteShort(note))+'</text>';
+  return svg;
+}
+function i_renderStaff(){
+  const el=document.getElementById('i-staff');
+  const meta=document.getElementById('i-staffMeta');
+  const btn=document.getElementById('i-staffToggleBtn');
+  if(!el)return;
+  if(btn)btn.textContent=i_staffVisible?'Hide':'Show';
+  el.classList.toggle('hidden',!i_staffVisible);
+  if(!i_current){el.innerHTML='';if(meta)meta.textContent=i_staffLabelName(i_staff);return;}
+  const staff=i_resolvedStaff();
+  const systems=i_staffSystems(staff);
+  const gap=10,w=720,h=staff==='grand'?178:116;
+  const showRoot=i_visualRootVisible();
+  const showTarget=i_visualTargetVisible();
+  if(meta)meta.textContent=(i_staff==='auto'?'Auto: ':'')+i_staffLabelName(staff)+' · '+i_revealLabel(i_visualReveal);
+  if(!i_staffVisible)return;
+  const dir=i_current.direction;
+  const rootSys=i_noteSystem(i_current.root,staff,systems);
+  const targetSys=i_noteSystem(i_current.target,staff,systems);
+  let xRoot=dir==='harmonic'?335:250;
+  let xTarget=dir==='harmonic'?335:455;
+  const yRoot=i_noteY(i_current.root,rootSys.clef,rootSys.top,gap);
+  const yTarget=i_noteY(i_current.target,targetSys.clef,targetSys.top,gap);
+  if(dir==='harmonic'&&rootSys===targetSys&&Math.abs(yRoot-yTarget)<=gap){xTarget+=15;}
+  let svg='<svg viewBox="0 0 '+w+' '+h+'" role="img" aria-label="Interval staff view">';
+  if(staff==='grand')svg+='<text class="i-staff-brace" x="18" y="104" font-size="96">{</text>';
+  svg+=i_drawStaffLines(systems,w,gap);
+  if(showRoot){
+    svg+=i_drawLedger(i_current.root,xRoot,yRoot,rootSys.top,gap);
+    svg+=i_drawStaffNote(i_current.root,xRoot,yRoot,'root',yRoot>rootSys.top+2*gap);
+  }
+  if(showTarget){
+    svg+=i_drawLedger(i_current.target,xTarget,yTarget,targetSys.top,gap);
+    svg+=i_drawStaffNote(i_current.target,xTarget,yTarget,'target',yTarget>targetSys.top+2*gap);
+    if(showRoot){
+      if(dir==='harmonic'){
+        const bx=Math.max(xRoot,xTarget)+38;
+        const y1=Math.min(yRoot,yTarget), y2=Math.max(yRoot,yTarget);
+        svg+='<path class="i-staff-interval-arc" d="M '+bx+' '+y1+' C '+(bx+22)+' '+((y1+y2)/2-8)+' '+(bx+22)+' '+((y1+y2)/2+8)+' '+bx+' '+y2+'"/>';
+        svg+='<text class="i-staff-interval-text" x="'+(bx+36)+'" y="'+((y1+y2)/2+4)+'">'+i_svgEsc(i_current.interval.short)+'</text>';
+      } else {
+        const arcY=Math.min(yRoot,yTarget)-34;
+        svg+='<path class="i-staff-interval-arc" d="M '+(xRoot+14)+' '+arcY+' C '+((xRoot+xTarget)/2)+' '+(arcY-30)+' '+(xTarget-14)+' '+arcY+'"/>';
+        svg+='<text class="i-staff-interval-text" x="'+((xRoot+xTarget)/2)+'" y="'+(arcY-18)+'">'+i_svgEsc(i_current.interval.short)+' · '+i_directionLabel(dir)+'</text>';
+      }
+    }
+  } else if(showRoot){
+    const gy=rootSys.top+2*gap;
+    const gx=dir==='harmonic'?xRoot+78:xTarget;
+    svg+='<ellipse class="i-staff-note hidden" cx="'+gx+'" cy="'+gy+'" rx="12" ry="8"/>';
+    svg+='<text class="i-staff-hidden-text" x="'+gx+'" y="'+(gy+5)+'">?</text>';
+    svg+='<path class="i-staff-interval-arc" d="M '+(xRoot+15)+' '+(gy-28)+' C '+((xRoot+gx)/2)+' '+(gy-52)+' '+(gx-15)+' '+(gy-28)+'"/>';
+    svg+='<text class="i-staff-interval-text" x="'+((xRoot+gx)/2)+'" y="'+(gy-46)+'">Identify by ear</text>';
+  } else {
+    const y=systems[0].top+2*gap;
+    svg+='<text class="i-staff-hidden-text" x="360" y="'+(y+5)+'">Listen by ear</text>';
+    svg+='<text class="i-staff-label" x="360" y="'+(y+26)+'">Visual Reveal: '+i_svgEsc(i_revealLabel(i_visualReveal))+'</text>';
+  }
+  svg+='</svg>';
+  el.innerHTML=svg;
+}
+function i_renderPrompt(){
+  if(!i_current)return;
+  const nameEl=document.getElementById('i-currentName');
+  const subEl=document.getElementById('i-currentSub');
+  const modeEl=document.getElementById('i-modeLabel');
+  const rootEl=document.getElementById('i-rootChip');
+  const targetEl=document.getElementById('i-targetChip');
+  const showTarget=i_mode!=='identify'||i_revealed;
+  const showRootChip=i_mode!=='identify'||i_revealed||i_visualRootVisible();
+  const guide=i_intervalGuide(i_current.interval);
+  if(modeEl)modeEl.textContent=i_modeLabel();
+  if(nameEl)nameEl.textContent=showTarget?i_current.interval.name:'Listen first';
+  if(subEl)subEl.textContent=showTarget?i_directionLabel(i_current.direction)+' · '+i_current.interval.short+' · '+i_current.interval.semitones+' semitones · '+i_focusLabel(i_focus):i_directionLabel(i_current.direction)+' · listen by ear · '+i_focusLabel(i_focus);
+  if(rootEl)rootEl.textContent='Root '+(showRootChip?i_noteShort(i_current.root):'?');
+  if(targetEl)targetEl.textContent='Target '+(showTarget?i_noteShort(i_current.target):'?');
+  const semi=document.getElementById('i-semitoneFact');if(semi)semi.textContent=showTarget?i_current.interval.semitones:'?';
+  const qual=document.getElementById('i-qualityFact');if(qual)qual.textContent=showTarget?i_current.interval.quality:'Hidden';
+  const shape=document.getElementById('i-shapeFact');if(shape)shape.textContent=showTarget?i_current.interval.shape:'Listen';
+  const focus=document.getElementById('i-focusFact');if(focus)focus.textContent=i_focusLabel(i_focus);
+  const panel=document.getElementById('i-guidePanel');if(panel)panel.className='interval-guide-panel '+(showTarget?'revealed':'hidden-guide')+(i_guideVisible?'':' collapsed');
+  const guideBtn=document.getElementById('i-guideToggleBtn');if(guideBtn)guideBtn.textContent=i_guideVisible?'Hide':'Show';
+  const status=document.getElementById('i-guideStatus');if(status)status.textContent=i_guideVisible?(showTarget?'Guide visible':'Hidden until answer'):'Guide hidden';
+  const family=document.getElementById('i-guideFamily');if(family)family.textContent=showTarget?guide.family:'—';
+  const inversion=document.getElementById('i-guideInversion');if(inversion)inversion.textContent=showTarget?guide.inversion:'—';
+  const cue=document.getElementById('i-guideCue');if(cue)cue.textContent=showTarget?guide.cue:'Answer first to reveal the ear cue.';
+  const tip=document.getElementById('i-guideTip');if(tip)tip.textContent=showTarget?guide.tip:'Use the focus dropdown to isolate one interval family at a time.';
+}
+function i_renderKeyboard(){
+  document.querySelectorAll('#page-intervals .i-key').forEach(k=>k.classList.remove('root','target','hearing','played','wrong'));
+  i_renderRevealControls();
+  if(!i_current)return;
+  if(i_visualRootVisible()){
+    const root=i_getKey(i_current.root);if(root)root.classList.add('root');
+  }
+  if(i_visualTargetVisible()){
+    const target=i_getKey(i_current.target);if(target)target.classList.add('target');
+  }
+  i_answerSeq.forEach(n=>{const el=i_getKey(n);if(el)el.classList.add('played');});
+  i_hearingNotes.forEach(n=>{const el=i_getKey(n);if(el)el.classList.add('hearing');});
+}
+function i_renderAnswers(){
+  const el=document.getElementById('i-answerButtons');if(!el)return;
+  const set=i_intervalSet();
+  if(i_mode==='playback'){
+    el.innerHTML='<button class="interval-answer-btn" disabled style="grid-column:1/-1;opacity:.75;cursor:default;">Play the two notes on your MIDI keyboard in order.</button>';
+    return;
+  }
+  el.innerHTML='';
+  set.forEach(iv=>{
+    const b=document.createElement('button');
+    b.className='interval-answer-btn'+(i_focus&&i_focus!=='mixed'?' focused-answer':'');
+    b.textContent=iv.name;
+    b.onclick=()=>i_answer(iv.name);
+    if(i_mode==='study')b.disabled=true;
+    el.appendChild(b);
+  });
+}
+function i_renderProgress(){
+  const el=document.getElementById('i-progressChips');if(!el)return;
+  if(i_mode!=='playback'||!i_current){el.innerHTML='';return;}
+  const labels=['Root','Target'];
+  el.innerHTML='';
+  i_current.notes.forEach((n,i)=>{
+    const chip=document.createElement('span');
+    chip.className='interval-progress-chip'+(i_answerSeq.length>i?' done':(i_answerSeq.length===i?' current':''));
+    chip.textContent=(i_answerSeq.length>i?'✓ ':'')+labels[i]+' '+(i_answerSeq.length>i?i_noteShort(n):'');
+    el.appendChild(chip);
+  });
+}
+function i_renderScore(){
+  const score=document.getElementById('i-score');
+  const pct=i_scoreTotal?Math.round((i_scoreCorrect/i_scoreTotal)*100):0;
+  if(score)score.textContent=i_scoreCorrect+' / '+i_scoreTotal+' · '+pct+'%';
+  const st=document.getElementById('i-streak');if(st)st.textContent=i_streak;
+  i_updateRoundDisplay();
+}
+function i_renderHistory(){
+  const el=document.getElementById('i-history');if(!el)return;
+  if(!i_history.length){el.innerHTML='<div class="p-history-empty">No attempts yet</div>';return;}
+  el.innerHTML='';
+  i_history.slice(0,8).forEach(h=>{
+    const div=document.createElement('div');
+    div.className='interval-history-item '+(h.correct?'good':'bad');
+    div.innerHTML='<span>'+h.name+'<br><small>'+i_svgEsc(h.focus||'Mixed intervals')+'</small></span><span>'+(h.correct?'✓':'✕')+' '+h.mode+'</span>';
+    el.appendChild(div);
+  });
+}
+function i_updateHelp(){
+  const el=document.getElementById('i-helpText');if(!el)return;
+  const focusText=i_focus&&i_focus!=='mixed'?' Current focus: '+i_focusLabel(i_focus)+'.':'';
+  const anchorText=i_anchorMode==='off'?' Ear anchors are hidden.':(' Ear anchors: '+i_anchorLabel(i_anchorMode)+'.');
+  const revealText=' Visual Reveal: '+i_revealLabel(i_visualReveal)+'.';
+  const roundText=i_mode==='study'?' Rounds: study mode.':(i_roundLimit==='free'?' Rounds: Free Run.':' Rounds: '+i_roundProgressText()+'.');
+  if(i_mode==='identify')el.textContent='Listen to the two notes, then choose the interval name. Visual Reveal controls whether the keyboard and staff show the answer while you listen.'+focusText+anchorText+revealText+roundText;
+  else if(i_mode==='playback')el.textContent='Listen first, then play the root and target note on MIDI in order. The chips show your progress.'+focusText+anchorText+revealText+roundText;
+  else el.textContent='Use Interval Builder to study the shape, semitone count, staff notation, inversion, ear cue, and anchors without scoring.'+focusText+anchorText+revealText+roundText;
+}
+function i_renderAll(){i_renderPrompt();i_renderAnchors();i_renderStaff();i_renderKeyboard();i_renderRevealControls();i_renderAnswers();i_renderProgress();i_renderScore();i_renderHistory();i_updateHelp();i_updateAutoFlowButtons();}
+function i_setFeedback(msg,type){const el=document.getElementById('i-feedback');if(!el)return;el.textContent=msg;el.className='interval-feedback '+(type||'');}
+function i_stopPlayback(){
+  i_playTimers.forEach(t=>clearTimeout(t));i_playTimers=[];
+  i_hearingNotes.forEach(n=>{const el=i_getKey(n);if(el)el.classList.remove('hearing');});
+  i_hearingNotes=[];
+  if(i_current){i_current.notes.forEach(n=>p_noteOff(n));}
+  i_renderKeyboard();
+}
+function i_flashHearing(notes,dur){
+  i_hearingNotes=i_visualHearingNotes(notes);i_renderKeyboard();
+  const t=setTimeout(()=>{i_hearingNotes=[];i_renderKeyboard();},dur||500);
+  i_playTimers.push(t);
+}
+function i_audition(){
+  i_clearAutoTimer();
+  if(!i_guardRoundStart())return;
+  if(!i_current)i_pick(false);
+  i_stopPlayback();
+  if(!i_current)return;
+  const root=i_current.root,target=i_current.target;
+  if(i_mode!=='study')i_waiting=true;
+  i_revealed=i_mode!=='identify';
+  i_answerSeq=[];
+  if(i_current.direction==='harmonic'){
+    p_noteOn(root,105,'demo');p_noteOn(target,105,'demo');i_flashHearing([root,target],760);
+    const t=setTimeout(()=>{p_noteOff(root);p_noteOff(target);},760);i_playTimers.push(t);
+  } else {
+    p_playPreviewNote(root,105,.55,'demo');i_flashHearing([root],520);
+    const t=setTimeout(()=>{p_playPreviewNote(target,105,.65,'demo');i_flashHearing([target],620);},720);i_playTimers.push(t);
+  }
+  const prompt=i_mode==='playback'?'Now play the root and target on MIDI.':(i_mode==='identify'?'Choose the interval name.':'Builder mode. Study the shape or choose Next.');
+  i_setFeedback(prompt,'neutral');
+  i_renderAll();
+}
+function i_start(){i_clearAutoTimer();if(!i_guardRoundStart())return;i_pick(false);i_audition();}
+function i_next(){i_clearAutoTimer();if(!i_guardRoundStart())return;i_pick(false);i_setFeedback('Next interval ready. Choose Audition or Start.','neutral');i_updateAutoFlowButtons();}
+function i_reset(){
+  i_clearAutoTimer();i_stopPlayback();i_resetSessionStats();i_pick(false);i_setFeedback('Score reset. Start a new interval.','neutral');i_renderAll();i_updateAutoFlowButtons();
+}
+function i_answer(name){
+  if(!i_current)return;
+  if(i_mode==='study'){i_setFeedback('Builder mode does not score answers. Change Mode to Listen and Name for scoring.','neutral');return;}
+  if(!i_waiting){i_setFeedback('Choose Audition or Start first.','neutral');return;}
+  const correct=name===i_current.interval.name;
+  i_revealed=true;
+  i_scoreTotal++;
+  if(correct){i_scoreCorrect++;i_streak++;i_setFeedback('Correct. '+i_current.interval.name+' from '+i_noteShort(i_current.root)+' to '+i_noteShort(i_current.target)+'.','correct');}
+  else {i_streak=0;i_setFeedback('Not quite. It was '+i_current.interval.name+' from '+i_noteShort(i_current.root)+' to '+i_noteShort(i_current.target)+'.','wrong');}
+  i_waiting=false;
+  i_history.unshift({name:i_current.interval.name,mode:'Name',focus:i_focusLabel(i_focus),correct});i_history=i_history.slice(0,8);
+  document.querySelectorAll('#page-intervals .interval-answer-btn').forEach(b=>{if(b.textContent===i_current.interval.name)b.classList.add('correct');else if(b.textContent===name)b.classList.add('wrong');});
+  const nameEl=document.getElementById('i-currentName');if(nameEl)nameEl.textContent=i_current.interval.name;
+  const targetEl=document.getElementById('i-targetChip');if(targetEl)targetEl.textContent='Target '+i_noteShort(i_current.target);
+  const target=i_getKey(i_current.target);if(target)target.classList.add('target');
+  if(typeof pg_recordEarAnswer==='function')pg_recordEarAnswer(correct);
+  i_renderStaff();i_renderKeyboard();i_renderScore();i_renderHistory();i_renderProgress();i_renderAnchors();i_updateHelp();
+  if(i_handleRoundCompletion())return;
+  i_autoAdvanceAfterAttempt();
+}
+function i_handleMidiNote(noteStr,velocity){
+  let completedAttempt=false;
+  const last=document.getElementById('i-lastMidi');if(last)last.textContent=noteStr+' vel '+velocity;
+  const dot=document.getElementById('i-midiDot');if(dot)dot.classList.add('connected');
+  p_noteOn(noteStr,velocity,'live');
+  const key=i_getKey(noteStr);if(key)key.classList.add('played');
+  if(i_mode!=='playback'||!i_current||!i_waiting){return;}
+  const expected=i_current.notes[i_answerSeq.length];
+  if(noteStr===expected){
+    i_answerSeq.push(noteStr);
+    i_setFeedback(i_answerSeq.length<2?'Good. Now play the target note.':'Correct. You played '+i_current.interval.name+'.','correct');
+    if(i_answerSeq.length>=i_current.notes.length){
+      i_scoreTotal++;i_scoreCorrect++;i_streak++;i_waiting=false;
+      i_history.unshift({name:i_current.interval.name,mode:'Play',focus:i_focusLabel(i_focus),correct:true});i_history=i_history.slice(0,8);
+      if(typeof pg_recordEarAnswer==='function')pg_recordEarAnswer(true);
+      completedAttempt=true;
+    }
+  } else {
+    i_scoreTotal++;i_streak=0;i_waiting=false;
+    if(key)key.classList.add('wrong');
+    i_setFeedback('Not quite. Expected '+i_noteShort(expected)+'. It was '+i_current.interval.name+'.','wrong');
+    i_history.unshift({name:i_current.interval.name,mode:'Play',focus:i_focusLabel(i_focus),correct:false});i_history=i_history.slice(0,8);
+    if(typeof pg_recordEarAnswer==='function')pg_recordEarAnswer(false);
+    completedAttempt=true;
+  }
+  i_renderAll();
+  if(completedAttempt)i_autoAdvanceAfterAttempt();
+}
+function i_handleMidiNoteOff(noteStr){
+  p_noteOff(noteStr);
+  const key=i_getKey(noteStr);if(key)key.classList.remove('played');
+}
+
 /* ============================================================
    RHYTHM TRAINING v1
    ============================================================ */
