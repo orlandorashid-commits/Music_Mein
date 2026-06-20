@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>MusicMein</title>
-<!-- Build: 2026-06-12 v10. Favicon unified: FaviconNew1.png. Nav brand block clickable to profile screen. -->
+<!-- Build: 2026-06-12 v10. Favicon unified: FaviconNew1.png. Nav brand block clickable to profile screen. MusicMein P3 index 225. Theory final completion pass. -->
 <link rel="icon" type="image/png" href="FaviconNew1.png">
 <link rel="apple-touch-icon" href="FaviconNew1.png">
 <meta name="application-name" content="MusicMein">
@@ -819,7 +819,7 @@ body {
 
 /* ============================================================
    THEORY REFERENCE PAGE STYLES
-   Stage 4: reference foundation, visual circles, trainer, piano map, Roman builder
+   Stage 9: reference foundation, cadence lab, matched audio utility bar, visual circles, mood and mode explorer, trainer, piano map, Roman builder
    ============================================================ */
 #page-theory .theory-wrap{max-width:1180px;margin:0 auto;padding:1.25rem 1.25rem 2.4rem;}
 #page-theory .theory-header{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:1.25rem 1.4rem;margin-bottom:.9rem;display:flex;gap:1rem;align-items:flex-start;}
@@ -935,13 +935,13 @@ body {
 #page-theory .th-circle-node{cursor:pointer;transition:opacity .15s,transform .15s;}
 #page-theory .th-circle-node:hover{opacity:.88;}
 #page-theory .th-circle-node text{pointer-events:none;font-family:'DM Mono',monospace;font-weight:900;}
-#page-theory .th-circle-major{font-size:15px;fill:var(--ink);}
-#page-theory .th-circle-minor{font-size:10px;fill:var(--ink3);}
+#page-theory .th-circle-major{font-size:14px;fill:var(--ink);}
+#page-theory .th-circle-minor{font-size:9px;fill:var(--ink3);}
 #page-theory .th-circle-active .th-circle-major,#page-theory .th-circle-active .th-circle-minor{fill:white;}
 #page-theory .th-circle-line{stroke:rgba(201,168,76,.23);stroke-width:2;}
 #page-theory .th-circle-line.active{stroke:var(--gold);stroke-width:3;}
-#page-theory .th-circle-center-title{font-family:'Playfair Display',serif;font-size:27px;font-weight:700;fill:var(--ink);}
-#page-theory .th-circle-center-sub{font-family:'DM Sans',sans-serif;font-size:12px;font-weight:700;fill:var(--ink3);letter-spacing:.08em;text-transform:uppercase;}
+#page-theory .th-circle-center-title{font-family:'Playfair Display',serif;font-size:23px;font-weight:700;fill:var(--ink);}
+#page-theory .th-circle-center-sub{font-family:'DM Sans',sans-serif;font-size:10px;font-weight:700;fill:var(--ink3);letter-spacing:.08em;text-transform:uppercase;}
 #page-theory .theory-circle-relations{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:.5rem;margin-bottom:.7rem;}
 #page-theory .theory-circle-relation{padding:.56rem .65rem;border:1px solid var(--border);border-radius:10px;background:var(--bg2);min-width:0;}
 #page-theory .theory-circle-relation span{display:block;font-size:.6rem;font-weight:900;text-transform:uppercase;letter-spacing:.08em;color:var(--ink3);margin-bottom:.2rem;}
@@ -953,7 +953,77 @@ body {
 #page-theory .theory-circle-graphic.jazz{background:radial-gradient(circle at 50% 45%,rgba(42,191,191,.22),transparent 42%),radial-gradient(circle at 75% 70%,rgba(201,168,76,.15),transparent 35%),var(--bg2);}
 #page-theory .theory-circle-graphic.blues{background:radial-gradient(circle at 50% 45%,rgba(74,158,191,.22),transparent 42%),radial-gradient(circle at 20% 70%,rgba(192,97,74,.15),transparent 34%),var(--bg2);}
 #page-theory .theory-circle-graphic.cinematic{background:radial-gradient(circle at 50% 45%,rgba(160,96,122,.24),transparent 42%),radial-gradient(circle at 80% 25%,rgba(201,168,76,.14),transparent 34%),var(--bg2);}
-@media(max-width:640px){#page-theory .theory-circle-controls{grid-template-columns:1fr;}#page-theory .th-circle-center-title{font-size:22px;}#page-theory .th-circle-major{font-size:13px;}#page-theory .th-circle-minor{font-size:9px;}}
+@media(max-width:640px){#page-theory .theory-circle-controls{grid-template-columns:1fr;}#page-theory .th-circle-center-title{font-size:19px;}#page-theory .th-circle-center-sub{font-size:9px;}#page-theory .th-circle-major{font-size:12px;}#page-theory .th-circle-minor{font-size:8px;}}
+
+
+#page-theory .theory-mood-controls{display:grid;grid-template-columns:repeat(3,minmax(150px,1fr));gap:.7rem;margin-bottom:.75rem;}
+#page-theory .theory-mood-controls select{width:100%;padding:.45rem .7rem;background:var(--bg2);border:1px solid var(--border);border-radius:8px;color:var(--ink);font-family:'DM Sans',sans-serif;font-size:.84rem;font-weight:500;}
+#page-theory .theory-mood-summary{padding:.66rem .78rem;border:1px solid rgba(160,96,122,.24);border-radius:11px;background:rgba(160,96,122,.075);font-size:.83rem;line-height:1.5;color:var(--ink2);margin-bottom:.72rem;}
+#page-theory .theory-mood-visual-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:.7rem;margin-bottom:.72rem;}
+#page-theory .theory-mode-wheel,#page-theory .theory-mood-route-graphic{border:1px solid var(--border);border-radius:14px;background:radial-gradient(circle at 50% 50%,rgba(160,96,122,.12),transparent 48%),var(--bg2);padding:.55rem;min-height:280px;overflow:hidden;}
+#page-theory .theory-mode-wheel svg,#page-theory .theory-mood-route-graphic svg{width:100%;height:auto;display:block;max-height:340px;}
+#page-theory .th-mode-node{cursor:pointer;transition:opacity .15s;}
+#page-theory .th-mode-node:hover{opacity:.9;}
+#page-theory .th-mode-node text{pointer-events:none;font-family:'DM Mono',monospace;font-weight:900;}
+#page-theory .th-mode-label{font-size:11px;fill:var(--ink);}
+#page-theory .th-mode-active .th-mode-label{fill:white;}
+#page-theory .th-mode-formula{font-size:7px;fill:var(--ink3);}
+#page-theory .th-mode-active .th-mode-formula{fill:white;}
+#page-theory .th-route-title{font-family:'Playfair Display',serif;font-size:19px;font-weight:700;fill:var(--ink);}
+#page-theory .th-route-sub{font-family:'DM Sans',sans-serif;font-size:10px;font-weight:800;fill:var(--ink3);letter-spacing:.08em;text-transform:uppercase;}
+#page-theory .th-route-line{stroke:rgba(201,168,76,.38);stroke-width:3;stroke-linecap:round;}
+#page-theory .th-route-chord{font-family:'DM Mono',monospace;font-size:12px;font-weight:900;fill:var(--ink);}
+#page-theory .th-route-roman{font-family:'DM Mono',monospace;font-size:9px;font-weight:900;fill:var(--ink3);}
+#page-theory .theory-mode-scale-strip{display:flex;flex-wrap:wrap;gap:.38rem;margin-bottom:.72rem;}
+#page-theory .theory-mode-degree{display:flex;flex-direction:column;gap:.12rem;align-items:center;justify-content:center;min-width:58px;padding:.45rem .52rem;border:1px solid var(--border);border-radius:10px;background:var(--bg2);}
+#page-theory .theory-mode-degree strong{font-family:'DM Mono',monospace;font-size:.84rem;color:var(--gold);}
+#page-theory .theory-mode-degree span{font-family:'DM Mono',monospace;font-size:.66rem;color:var(--ink3);font-weight:900;}
+#page-theory .theory-mood-recipes{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:.5rem;margin-bottom:.72rem;}
+#page-theory .theory-mood-recipe{padding:.62rem .7rem;border:1px solid var(--border);border-radius:11px;background:var(--bg2);}
+#page-theory .theory-mood-recipe span{display:block;font-size:.62rem;font-weight:900;text-transform:uppercase;letter-spacing:.08em;color:var(--ink3);margin-bottom:.2rem;}
+#page-theory .theory-mood-recipe strong{display:block;font-size:.83rem;line-height:1.35;color:var(--ink2);}
+#page-theory .theory-improv-bridge{padding:.62rem .72rem;border-left:3px solid var(--accent-theory);border-radius:0 10px 10px 0;background:rgba(160,96,122,.09);font-size:.81rem;line-height:1.48;color:var(--ink2);}
+#page-theory .theory-link-actions{display:flex;align-items:center;gap:.55rem;flex-wrap:wrap;margin-top:.65rem;}
+#page-theory .theory-link-status{font-family:'DM Mono',monospace;font-size:.72rem;color:var(--gold);min-height:1rem;}
+#page-theory .theory-cadence-controls{display:grid;grid-template-columns:minmax(170px,1fr) minmax(150px,.85fr) auto;gap:.65rem;align-items:end;margin-bottom:.72rem;}
+#page-theory .theory-cadence-controls select{width:100%;padding:.45rem .7rem;background:var(--bg2);border:1px solid var(--border);border-radius:8px;color:var(--ink);font-family:'DM Sans',sans-serif;font-size:.84rem;font-weight:500;}
+#page-theory .theory-cadence-summary{padding:.66rem .78rem;border:1px solid rgba(160,96,122,.24);border-radius:11px;background:rgba(160,96,122,.075);font-size:.83rem;line-height:1.5;color:var(--ink2);margin-bottom:.72rem;}
+#page-theory .theory-cadence-route{border:1px solid var(--border);border-radius:14px;background:radial-gradient(circle at 50% 50%,rgba(201,168,76,.10),transparent 52%),var(--bg2);padding:.65rem;margin-bottom:.72rem;overflow-x:auto;}
+#page-theory .theory-cadence-route svg{width:100%;min-width:520px;height:auto;display:block;}
+#page-theory .th-cadence-line{stroke:rgba(201,168,76,.42);stroke-width:4;stroke-linecap:round;}
+#page-theory .th-cadence-node circle{fill:var(--surface);stroke:var(--border2);stroke-width:1.6;}
+#page-theory .th-cadence-node.first circle{fill:rgba(201,168,76,.18);stroke:var(--gold);stroke-width:2.4;}
+#page-theory .th-cadence-node.last circle{fill:rgba(58,158,111,.16);stroke:#3A9E6F;stroke-width:2.4;}
+#page-theory .th-cadence-roman{font-family:'DM Mono',monospace;font-size:13px;font-weight:900;fill:var(--gold);}
+#page-theory .th-cadence-chord{font-family:'DM Mono',monospace;font-size:12px;font-weight:900;fill:var(--ink);}
+#page-theory .th-cadence-role{font-family:'DM Sans',sans-serif;font-size:9px;font-weight:900;fill:var(--ink3);letter-spacing:.08em;text-transform:uppercase;}
+#page-theory .theory-function-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(125px,1fr));gap:.5rem;}
+#page-theory .theory-function-card{padding:.62rem .68rem;border:1px solid var(--border);border-radius:11px;background:var(--bg2);min-width:0;}
+#page-theory .theory-function-card.active{border-color:rgba(201,168,76,.48);background:rgba(201,168,76,.08);}
+#page-theory .theory-function-roman{font-family:'DM Mono',monospace;font-size:.9rem;font-weight:900;color:var(--gold);margin-bottom:.1rem;}
+#page-theory .theory-function-chord{font-family:'DM Mono',monospace;font-size:.82rem;font-weight:900;color:var(--ink2);margin-bottom:.18rem;}
+#page-theory .theory-function-role{font-size:.62rem;font-weight:900;text-transform:uppercase;letter-spacing:.08em;color:var(--ink3);margin-bottom:.18rem;}
+#page-theory .theory-function-copy{font-size:.72rem;line-height:1.35;color:var(--ink3);}
+@media(max-width:760px){#page-theory .theory-cadence-controls{grid-template-columns:1fr;}#page-theory .theory-cadence-controls .p-btn{width:100%;}}
+@media(max-width:820px){#page-theory .theory-mood-visual-grid{grid-template-columns:1fr;}#page-theory .theory-mood-controls{grid-template-columns:1fr;}}
+
+
+/* Theory Stage 8: bottom audio utility bar matched to existing module controls */
+#page-theory .theory-audio-strip{margin-top:1rem;}
+#page-theory .theory-audio-strip .theory-trainer-note{margin-bottom:.65rem;}
+#page-theory .theory-bpm-row{margin:.65rem 0 .65rem;}
+#page-theory .theory-vol-row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.55rem .75rem;margin-bottom:.65rem;}
+#page-theory .theory-vol-row .p-vol-group{min-width:0;display:grid;grid-template-columns:auto minmax(90px,1fr) 34px;align-items:center;gap:.45rem;}
+#page-theory .theory-vol-row .p-bpm-slider{width:100%;min-width:0;}
+#page-theory .theory-vol-row .p-bpm-label{white-space:nowrap;}
+#page-theory .theory-vol-row .p-vol-val{min-width:34px;text-align:right;}
+#page-theory .theory-metro-inline-btn{padding:.3rem .8rem;border-radius:8px;border:1px solid var(--border);background:var(--surface);color:var(--ink2);font-family:'DM Sans',sans-serif;font-size:.72rem;font-weight:800;cursor:pointer;white-space:nowrap;flex-shrink:0;transition:all .15s;}
+#page-theory .theory-metro-inline-btn:hover{border-color:var(--gold);color:var(--gold);}
+#page-theory .theory-metro-inline-btn.active{background:var(--gold);border-color:var(--gold-dark);color:#000;}
+#page-theory .theory-synth-label{display:flex;align-items:center;gap:.35rem;margin-left:auto;font-size:.72rem;font-weight:600;color:var(--ink3);cursor:pointer;white-space:nowrap;}
+#page-theory .theory-white-key,#page-theory .theory-black-key{cursor:default;}
+#page-theory .theory-white-key.sound-hit,#page-theory .theory-black-key.sound-hit{box-shadow:0 0 0 3px rgba(201,168,76,.34),0 0 18px rgba(201,168,76,.3);transform:translateY(-2px);}
+@media(max-width:760px){#page-theory .theory-vol-row{grid-template-columns:1fr;}#page-theory .theory-bpm-row{flex-wrap:wrap;}#page-theory .theory-synth-label{margin-left:0;}}
 
 /* ============================================================
    PROGRESS PAGE STYLES
@@ -1021,6 +1091,186 @@ body {
 .progress-new-badge-toast-icon { font-size:1.8rem; }
 .progress-new-badge-toast-text { font-size:.8rem; color:var(--ink); }
 .progress-new-badge-toast-text strong { display:block; color:var(--gold); font-size:.9rem; margin-bottom:.1rem; }
+
+
+/* ============================================================
+   PROGRESS PAGE STAGE 2: learning map, coach, balance, planner
+   ============================================================ */
+#page-progress .pg2-learning-card{margin-bottom:.9rem;}
+#page-progress .pg2-module-map{display:flex;flex-direction:column;gap:.55rem;}
+#page-progress .pg2-module-row{display:grid;grid-template-columns:150px minmax(0,1fr) 88px;gap:.75rem;align-items:center;padding:.65rem .75rem;border:1px solid var(--border);border-radius:12px;background:var(--bg2);}
+#page-progress .pg2-module-name{font-size:.82rem;font-weight:800;color:var(--ink);line-height:1.2;}
+#page-progress .pg2-module-sub{font-size:.68rem;color:var(--ink3);line-height:1.35;margin-top:.15rem;}
+#page-progress .pg2-module-meter{height:9px;border-radius:999px;background:var(--surface);border:1px solid var(--border);overflow:hidden;}
+#page-progress .pg2-module-fill{height:100%;border-radius:999px;background:linear-gradient(90deg,var(--accent-progress),var(--gold));width:0%;transition:width .35s ease;}
+#page-progress .pg2-module-status{text-align:right;font-family:'DM Mono',monospace;font-size:.78rem;font-weight:900;color:var(--gold);}
+#page-progress .pg2-module-row.pending .pg2-module-fill{background:var(--border2);}
+#page-progress .pg2-module-row.pending .pg2-module-status{color:var(--ink3);}
+#page-progress .pg2-coach-grid{margin-bottom:.9rem;}
+#page-progress .pg2-next-session{display:flex;flex-direction:column;gap:.6rem;}
+#page-progress .pg2-focus-name{font-family:'Playfair Display',serif;font-size:1.25rem;font-weight:700;color:var(--ink);}
+#page-progress .pg2-focus-reason{font-size:.82rem;line-height:1.55;color:var(--ink2);padding:.6rem .7rem;border-left:3px solid var(--accent-progress);border-radius:0 9px 9px 0;background:rgba(90,143,60,.09);}
+#page-progress .pg2-focus-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:.45rem;}
+#page-progress .pg2-focus-item{padding:.48rem .58rem;border:1px solid var(--border);border-radius:9px;background:var(--bg2);font-size:.76rem;color:var(--ink2);line-height:1.35;}
+#page-progress .pg2-skill-balance{min-height:245px;display:flex;align-items:center;justify-content:center;}
+#page-progress .pg2-skill-balance svg{width:100%;max-width:330px;height:auto;display:block;}
+#page-progress .pg2-radar-grid{stroke:rgba(201,168,76,.18);stroke-width:1;fill:none;}
+#page-progress .pg2-radar-axis{stroke:rgba(201,168,76,.22);stroke-width:1;}
+#page-progress .pg2-radar-fill{fill:rgba(90,143,60,.22);stroke:var(--accent-progress);stroke-width:2;}
+#page-progress .pg2-radar-point{fill:var(--gold);stroke:var(--bg);stroke-width:2;}
+#page-progress .pg2-radar-label{font-family:'DM Sans',sans-serif;font-size:11px;font-weight:800;fill:var(--ink2);}
+#page-progress .pg2-planner-card{margin-bottom:.9rem;}
+#page-progress .pg2-planner-row{display:flex;gap:1rem;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;margin-bottom:.7rem;}
+#page-progress .pg2-planner-title{font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:700;color:var(--ink);margin-bottom:.15rem;}
+#page-progress .pg2-planner-sub{font-size:.8rem;color:var(--ink3);line-height:1.45;max-width:620px;}
+#page-progress .pg2-planner-control label{display:block;font-size:.62rem;font-weight:800;text-transform:uppercase;letter-spacing:.09em;color:var(--ink3);margin-bottom:.25rem;}
+#page-progress .pg2-planner-control select{min-width:140px;padding:.45rem .7rem;background:var(--bg2);border:1px solid var(--border);border-radius:8px;color:var(--ink);font-family:'DM Sans',sans-serif;font-size:.84rem;font-weight:600;}
+#page-progress .pg2-goal-track{height:10px;border-radius:999px;background:var(--bg2);border:1px solid var(--border);overflow:hidden;}
+#page-progress .pg2-goal-fill{height:100%;border-radius:999px;background:linear-gradient(90deg,var(--accent-progress),var(--gold));transition:width .35s ease;}
+#page-progress .pg2-goal-text{margin-top:.45rem;font-size:.78rem;color:var(--ink3);font-family:'DM Mono',monospace;}
+@media(max-width:680px){
+  #page-progress .pg2-module-row{grid-template-columns:1fr;gap:.45rem;}
+  #page-progress .pg2-module-status{text-align:left;}
+  #page-progress .pg2-skill-balance{min-height:220px;}
+}
+
+
+/* ============================================================
+   PROGRESS PAGE STAGE 3: weekly review, focus queue, report builder
+   ============================================================ */
+#page-progress .pg3-review-grid{margin-bottom:.9rem;}
+#page-progress .pg3-weekly-panel{display:flex;flex-direction:column;gap:.75rem;}
+#page-progress .pg3-review-kpis{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.5rem;}
+#page-progress .pg3-kpi{padding:.62rem .68rem;border:1px solid var(--border);border-radius:11px;background:var(--bg2);min-width:0;}
+#page-progress .pg3-kpi-label{font-size:.6rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--ink3);margin-bottom:.16rem;}
+#page-progress .pg3-kpi-value{font-family:'DM Mono',monospace;font-size:.92rem;font-weight:900;color:var(--gold);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+#page-progress .pg3-kpi-sub{font-size:.72rem;color:var(--ink3);line-height:1.35;margin-top:.18rem;}
+#page-progress .pg3-heatmap{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:.36rem;}
+#page-progress .pg3-day{border:1px solid var(--border);border-radius:10px;background:var(--bg2);padding:.5rem .25rem;text-align:center;min-height:66px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.22rem;}
+#page-progress .pg3-day-name{font-size:.58rem;font-weight:900;text-transform:uppercase;letter-spacing:.08em;color:var(--ink3);}
+#page-progress .pg3-day-count{font-family:'DM Mono',monospace;font-size:.95rem;font-weight:900;color:var(--ink2);}
+#page-progress .pg3-day.active{border-color:rgba(90,143,60,.42);background:rgba(90,143,60,.10);}
+#page-progress .pg3-day.strong{border-color:rgba(201,168,76,.50);background:rgba(201,168,76,.12);}
+#page-progress .pg3-day.strong .pg3-day-count{color:var(--gold);}
+#page-progress .pg3-review-note{padding:.62rem .72rem;border-left:3px solid var(--accent-progress);border-radius:0 9px 9px 0;background:rgba(90,143,60,.09);font-size:.8rem;line-height:1.48;color:var(--ink2);}
+#page-progress .pg3-report-panel{display:flex;flex-direction:column;gap:.65rem;}
+#page-progress .pg3-report-controls{display:flex;gap:.5rem;align-items:end;flex-wrap:wrap;}
+#page-progress .pg3-report-control{flex:1;min-width:150px;}
+#page-progress .pg3-report-control label{display:block;font-size:.62rem;font-weight:800;text-transform:uppercase;letter-spacing:.09em;color:var(--ink3);margin-bottom:.25rem;}
+#page-progress .pg3-report-control select{width:100%;padding:.45rem .7rem;background:var(--bg2);border:1px solid var(--border);border-radius:8px;color:var(--ink);font-family:'DM Sans',sans-serif;font-size:.84rem;font-weight:600;}
+#page-progress .pg3-report-text{min-height:168px;white-space:pre-wrap;font-size:.79rem;line-height:1.52;color:var(--ink2);border:1px solid var(--border);border-radius:11px;background:var(--bg2);padding:.72rem .78rem;overflow:auto;}
+#page-progress .pg3-copy-state{min-height:1.2rem;font-size:.72rem;color:var(--ink3);font-family:'DM Mono',monospace;}
+#page-progress .pg3-focus-card{margin-bottom:.9rem;}
+#page-progress .pg3-focus-queue{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:.55rem;}
+#page-progress .pg3-focus-step{padding:.68rem .72rem;border:1px solid var(--border);border-radius:12px;background:var(--bg2);display:flex;gap:.6rem;align-items:flex-start;}
+#page-progress .pg3-step-num{width:26px;height:26px;border-radius:999px;border:1px solid var(--border2);background:var(--surface);display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:.72rem;font-weight:900;color:var(--gold);flex-shrink:0;}
+#page-progress .pg3-step-title{font-size:.8rem;font-weight:900;color:var(--ink);margin-bottom:.14rem;}
+#page-progress .pg3-step-copy{font-size:.74rem;color:var(--ink3);line-height:1.38;}
+#page-progress .pg3-path-strip{display:flex;gap:.35rem;flex-wrap:wrap;margin-top:.6rem;}
+#page-progress .pg3-path-pill{padding:.22rem .5rem;border-radius:999px;border:1px solid var(--border);background:var(--bg2);font-family:'DM Mono',monospace;font-size:.68rem;font-weight:900;color:var(--ink3);}
+#page-progress .pg3-path-pill.ready{border-color:rgba(90,143,60,.38);background:rgba(90,143,60,.10);color:var(--accent-progress);}
+@media(max-width:720px){
+  #page-progress .pg3-review-kpis{grid-template-columns:1fr;}
+  #page-progress .pg3-heatmap{grid-template-columns:repeat(4,minmax(0,1fr));}
+}
+
+/* ============================================================
+   PROGRESS PAGE STAGE 4: module detail and assignment builder
+   ============================================================ */
+#page-progress .pg4-detail-grid{margin-bottom:.9rem;}
+#page-progress .pg4-controls{display:flex;align-items:end;gap:.55rem;flex-wrap:wrap;margin-bottom:.7rem;}
+#page-progress .pg4-control{flex:1;min-width:170px;}
+#page-progress .pg4-control label{display:block;font-size:.62rem;font-weight:800;text-transform:uppercase;letter-spacing:.09em;color:var(--ink3);margin-bottom:.25rem;}
+#page-progress .pg4-control select{width:100%;padding:.45rem .7rem;background:var(--bg2);border:1px solid var(--border);border-radius:8px;color:var(--ink);font-family:'DM Sans',sans-serif;font-size:.84rem;font-weight:600;}
+#page-progress .pg4-module-detail{display:flex;flex-direction:column;gap:.58rem;}
+#page-progress .pg4-module-head{padding:.68rem .75rem;border:1px solid rgba(90,143,60,.28);border-radius:12px;background:rgba(90,143,60,.08);}
+#page-progress .pg4-module-title{display:flex;align-items:center;justify-content:space-between;gap:.75rem;margin-bottom:.35rem;}
+#page-progress .pg4-module-title strong{font-family:'Playfair Display',serif;font-size:1.08rem;color:var(--ink);}
+#page-progress .pg4-module-score{font-family:'DM Mono',monospace;font-size:.86rem;font-weight:900;color:var(--gold);white-space:nowrap;}
+#page-progress .pg4-module-note{font-size:.78rem;line-height:1.45;color:var(--ink2);}
+#page-progress .pg4-mini-meter{height:8px;border-radius:999px;background:var(--bg2);border:1px solid var(--border);overflow:hidden;margin-top:.55rem;}
+#page-progress .pg4-mini-fill{height:100%;border-radius:999px;background:linear-gradient(90deg,var(--accent-progress),var(--gold));width:0%;transition:width .35s ease;}
+#page-progress .pg4-detail-grid-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.5rem;}
+#page-progress .pg4-detail-box{padding:.58rem .65rem;border:1px solid var(--border);border-radius:10px;background:var(--bg2);}
+#page-progress .pg4-detail-label{font-size:.58rem;font-weight:900;text-transform:uppercase;letter-spacing:.08em;color:var(--ink3);margin-bottom:.18rem;}
+#page-progress .pg4-detail-value{font-size:.78rem;line-height:1.35;font-weight:800;color:var(--ink2);}
+#page-progress .pg4-plan-list{display:flex;flex-direction:column;gap:.45rem;}
+#page-progress .pg4-plan-step{display:flex;gap:.55rem;align-items:flex-start;padding:.55rem .62rem;border:1px solid var(--border);border-radius:10px;background:var(--bg2);}
+#page-progress .pg4-plan-num{width:22px;height:22px;border-radius:999px;background:var(--surface);border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:.66rem;font-weight:900;color:var(--gold);flex-shrink:0;}
+#page-progress .pg4-plan-text{font-size:.76rem;line-height:1.38;color:var(--ink2);}
+#page-progress .pg4-assignment-panel{min-height:210px;border:1px solid var(--border);border-radius:12px;background:var(--bg2);padding:.75rem .8rem;display:flex;flex-direction:column;gap:.55rem;}
+#page-progress .pg4-assignment-title{font-family:'Playfair Display',serif;font-size:1.08rem;font-weight:700;color:var(--ink);}
+#page-progress .pg4-assignment-meta{font-family:'DM Mono',monospace;font-size:.72rem;font-weight:900;color:var(--gold);}
+#page-progress .pg4-assignment-copy{font-size:.78rem;line-height:1.45;color:var(--ink2);}
+#page-progress .pg4-assignment-list{display:flex;flex-direction:column;gap:.38rem;margin-top:.1rem;}
+#page-progress .pg4-assignment-item{padding:.46rem .55rem;border:1px solid var(--border);border-radius:9px;background:var(--surface);font-size:.74rem;line-height:1.35;color:var(--ink2);}
+#page-progress .pg4-actions{display:flex;align-items:center;gap:.55rem;flex-wrap:wrap;margin-top:.65rem;}
+#page-progress .pg4-copy-state{font-family:'DM Mono',monospace;font-size:.72rem;color:var(--ink3);min-height:1em;}
+@media(max-width:720px){#page-progress .pg4-detail-grid-list{grid-template-columns:1fr;}#page-progress .pg4-controls{align-items:stretch;}#page-progress .pg4-controls .p-btn{width:100%;}}
+
+
+/* ============================================================
+   PROGRESS PAGE STAGE 5: checkpoint matrix and weekly mix planner
+   ============================================================ */
+#page-progress .pg5-planner-grid{margin-bottom:.9rem;}
+#page-progress .pg5-checkpoint-panel{display:flex;flex-direction:column;gap:.55rem;}
+#page-progress .pg5-checkpoint-summary{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.45rem;margin-bottom:.15rem;}
+#page-progress .pg5-checkpoint-stat{padding:.55rem .6rem;border:1px solid var(--border);border-radius:10px;background:var(--bg2);text-align:center;min-width:0;}
+#page-progress .pg5-checkpoint-stat strong{display:block;font-family:'DM Mono',monospace;font-size:.95rem;color:var(--gold);margin-bottom:.12rem;}
+#page-progress .pg5-checkpoint-stat span{display:block;font-size:.6rem;font-weight:900;text-transform:uppercase;letter-spacing:.08em;color:var(--ink3);}
+#page-progress .pg5-checkpoint-row{display:grid;grid-template-columns:112px minmax(0,1fr) 78px;gap:.58rem;align-items:center;padding:.52rem .62rem;border:1px solid var(--border);border-radius:10px;background:var(--bg2);}
+#page-progress .pg5-checkpoint-name{font-size:.78rem;font-weight:900;color:var(--ink);line-height:1.22;}
+#page-progress .pg5-checkpoint-copy{font-size:.68rem;color:var(--ink3);line-height:1.3;margin-top:.1rem;}
+#page-progress .pg5-checkpoint-bar{height:8px;border:1px solid var(--border);border-radius:999px;background:var(--surface);overflow:hidden;}
+#page-progress .pg5-checkpoint-fill{height:100%;border-radius:999px;background:linear-gradient(90deg,var(--accent-progress),var(--gold));width:0%;transition:width .35s ease;}
+#page-progress .pg5-checkpoint-tag{text-align:right;font-family:'DM Mono',monospace;font-size:.68rem;font-weight:900;color:var(--ink3);}
+#page-progress .pg5-checkpoint-row.strong .pg5-checkpoint-tag{color:var(--gold);}
+#page-progress .pg5-checkpoint-row.review .pg5-checkpoint-tag{color:#C0614A;}
+#page-progress .pg5-checkpoint-row.build .pg5-checkpoint-tag{color:var(--accent-progress);}
+#page-progress .pg5-mix-panel{display:flex;flex-direction:column;gap:.65rem;}
+#page-progress .pg5-controls{display:flex;gap:.55rem;align-items:end;flex-wrap:wrap;}
+#page-progress .pg5-control{flex:1;min-width:170px;}
+#page-progress .pg5-control label{display:block;font-size:.62rem;font-weight:800;text-transform:uppercase;letter-spacing:.09em;color:var(--ink3);margin-bottom:.25rem;}
+#page-progress .pg5-control select{width:100%;padding:.45rem .7rem;background:var(--bg2);border:1px solid var(--border);border-radius:8px;color:var(--ink);font-family:'DM Sans',sans-serif;font-size:.84rem;font-weight:600;}
+#page-progress .pg5-week-plan{border:1px solid var(--border);border-radius:12px;background:var(--bg2);padding:.68rem .72rem;display:flex;flex-direction:column;gap:.48rem;min-height:230px;}
+#page-progress .pg5-plan-title{font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:700;color:var(--ink);}
+#page-progress .pg5-plan-sub{font-size:.76rem;line-height:1.42;color:var(--ink3);margin-top:-.22rem;}
+#page-progress .pg5-plan-day{display:grid;grid-template-columns:44px minmax(0,1fr);gap:.55rem;align-items:flex-start;padding:.5rem .55rem;border:1px solid var(--border);border-radius:10px;background:var(--surface);}
+#page-progress .pg5-day-label{font-family:'DM Mono',monospace;font-size:.68rem;font-weight:900;color:var(--gold);padding-top:.08rem;}
+#page-progress .pg5-day-task{font-size:.75rem;line-height:1.38;color:var(--ink2);}
+#page-progress .pg5-day-task strong{color:var(--ink);}
+#page-progress .pg5-copy-state{min-height:1.1rem;font-family:'DM Mono',monospace;font-size:.72rem;color:var(--ink3);}
+@media(max-width:720px){#page-progress .pg5-checkpoint-summary{grid-template-columns:repeat(2,minmax(0,1fr));}#page-progress .pg5-checkpoint-row{grid-template-columns:1fr;}#page-progress .pg5-checkpoint-tag{text-align:left;}#page-progress .pg5-controls .p-btn{width:100%;}}
+
+/* ============================================================
+   PROGRESS PAGE STAGE 6: portfolio snapshot and milestone path
+   ============================================================ */
+#page-progress .pg6-portfolio-grid{margin-bottom:.9rem;}
+#page-progress .pg6-portfolio-panel{display:flex;flex-direction:column;gap:.65rem;}
+#page-progress .pg6-portfolio-hero{border:1px solid rgba(201,168,76,.25);border-radius:12px;background:linear-gradient(135deg,rgba(201,168,76,.10),rgba(90,143,60,.08));padding:.75rem .82rem;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:.75rem;align-items:center;}
+#page-progress .pg6-portfolio-title{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:var(--ink);line-height:1.2;}
+#page-progress .pg6-portfolio-copy{font-size:.78rem;line-height:1.45;color:var(--ink2);margin-top:.18rem;}
+#page-progress .pg6-portfolio-score{font-family:'DM Mono',monospace;font-size:1.45rem;font-weight:900;color:var(--gold);text-align:right;}
+#page-progress .pg6-portfolio-score span{display:block;font-family:'DM Sans',sans-serif;font-size:.58rem;font-weight:900;text-transform:uppercase;letter-spacing:.1em;color:var(--ink3);margin-top:.08rem;}
+#page-progress .pg6-snapshot-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.5rem;}
+#page-progress .pg6-snapshot-box{border:1px solid var(--border);border-radius:11px;background:var(--bg2);padding:.62rem .68rem;min-width:0;}
+#page-progress .pg6-snapshot-label{font-size:.6rem;font-weight:900;text-transform:uppercase;letter-spacing:.09em;color:var(--ink3);margin-bottom:.16rem;}
+#page-progress .pg6-snapshot-value{font-size:.78rem;line-height:1.35;color:var(--ink2);font-weight:800;}
+#page-progress .pg6-milestone-list{display:flex;flex-direction:column;gap:.48rem;}
+#page-progress .pg6-milestone-row{display:grid;grid-template-columns:96px minmax(0,1fr) 76px;gap:.58rem;align-items:center;border:1px solid var(--border);border-radius:10px;background:var(--bg2);padding:.52rem .62rem;}
+#page-progress .pg6-milestone-name{font-size:.76rem;font-weight:900;color:var(--ink);line-height:1.2;}
+#page-progress .pg6-milestone-track{height:8px;border-radius:999px;background:var(--surface);border:1px solid var(--border);overflow:hidden;}
+#page-progress .pg6-milestone-fill{height:100%;border-radius:999px;background:linear-gradient(90deg,var(--accent-progress),var(--gold));width:0%;transition:width .35s ease;}
+#page-progress .pg6-milestone-tag{font-family:'DM Mono',monospace;font-size:.66rem;font-weight:900;color:var(--ink3);text-align:right;}
+#page-progress .pg6-report-panel{display:flex;flex-direction:column;gap:.6rem;}
+#page-progress .pg6-controls{display:flex;gap:.55rem;align-items:end;flex-wrap:wrap;}
+#page-progress .pg6-control{flex:1;min-width:170px;}
+#page-progress .pg6-control label{display:block;font-size:.62rem;font-weight:800;text-transform:uppercase;letter-spacing:.09em;color:var(--ink3);margin-bottom:.25rem;}
+#page-progress .pg6-control select{width:100%;padding:.45rem .7rem;background:var(--bg2);border:1px solid var(--border);border-radius:8px;color:var(--ink);font-family:'DM Sans',sans-serif;font-size:.84rem;font-weight:600;}
+#page-progress .pg6-report-text{border:1px solid var(--border);border-radius:12px;background:var(--bg2);padding:.75rem .82rem;min-height:230px;font-size:.78rem;line-height:1.52;color:var(--ink2);white-space:pre-wrap;}
+#page-progress .pg6-copy-state{min-height:1.1rem;font-family:'DM Mono',monospace;font-size:.72rem;color:var(--ink3);}
+@media(max-width:720px){#page-progress .pg6-portfolio-hero{grid-template-columns:1fr;}#page-progress .pg6-portfolio-score{text-align:left;}#page-progress .pg6-snapshot-grid{grid-template-columns:1fr;}#page-progress .pg6-milestone-row{grid-template-columns:1fr;}#page-progress .pg6-milestone-tag{text-align:left;}#page-progress .pg6-controls .p-btn{width:100%;}}
+
 
 /* PRACTICE PAGE frame (will be filled in Phase 2) */
 #page-practice {
@@ -3354,6 +3604,47 @@ body {
 #page-improv .improv-quick-btn:hover{border-color:var(--gold);color:var(--gold);transform:translateY(-1px);}
 #page-improv .improv-quick-btn.active{border-color:rgba(201,168,76,.62);background:rgba(201,168,76,.14);color:var(--gold);}
 #page-improv .improv-quick-note{font-size:.66rem;line-height:1.35;color:var(--ink3);margin-top:.55rem;text-align:center;}
+
+#page-improv .improv-mood-card{border-color:rgba(74,127,192,.32);background:linear-gradient(180deg,rgba(74,127,192,.055),rgba(74,127,192,.025)),var(--surface);}
+#page-improv .improv-mood-controls{display:grid;grid-template-columns:1fr;gap:.46rem;margin-bottom:.62rem;}
+#page-improv .improv-mood-controls select{width:100%;padding:.45rem .62rem;background:var(--bg2);border:1px solid var(--border);border-radius:9px;color:var(--ink);font-family:'DM Sans',sans-serif;font-size:.76rem;font-weight:800;}
+#page-improv .improv-mood-hero{border:1px solid rgba(74,127,192,.26);border-radius:12px;background:radial-gradient(circle at 25% 20%,rgba(201,168,76,.16),transparent 36%),radial-gradient(circle at 80% 75%,rgba(74,127,192,.18),transparent 42%),var(--bg2);padding:.7rem;margin-bottom:.6rem;}
+#page-improv .improv-mood-title{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;color:var(--ink);margin-bottom:.2rem;}
+#page-improv .improv-mood-sub{font-size:.72rem;color:var(--ink3);line-height:1.38;}
+#page-improv .improv-mood-wheel{width:100%;height:auto;display:block;margin:.1rem auto .5rem;max-height:210px;}
+#page-improv .improv-mood-wheel text{font-family:'DM Mono',monospace;font-weight:900;}
+#page-improv .improv-mood-chip-row{display:flex;flex-wrap:wrap;gap:.34rem;margin:.5rem 0 .45rem;}
+#page-improv .improv-mood-chip{display:inline-flex;align-items:center;gap:.25rem;padding:.26rem .48rem;border-radius:999px;border:1px solid var(--border);background:var(--bg2);font-family:'DM Mono',monospace;font-size:.66rem;font-weight:900;color:var(--ink2);}
+#page-improv .improv-mood-chip strong{color:var(--gold);}
+#page-improv .improv-mood-route{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.32rem;margin:.52rem 0;}
+#page-improv .improv-mood-step{min-height:42px;border:1px solid var(--border);border-radius:10px;background:var(--bg2);padding:.36rem .28rem;text-align:center;display:flex;flex-direction:column;justify-content:center;gap:.12rem;}
+#page-improv .improv-mood-step span{font-family:'DM Mono',monospace;font-size:.68rem;font-weight:900;color:var(--gold);}
+#page-improv .improv-mood-step small{font-size:.58rem;font-weight:800;color:var(--ink3);text-transform:uppercase;letter-spacing:.06em;}
+#page-improv .improv-mood-prompt{border:1px dashed rgba(74,127,192,.32);border-radius:10px;background:rgba(74,127,192,.07);padding:.52rem .6rem;color:var(--ink2);font-size:.72rem;line-height:1.42;margin:.52rem 0;}
+#page-improv .improv-mood-actions{display:grid;grid-template-columns:1fr 1fr;gap:.38rem;margin-top:.55rem;}
+#page-improv .improv-mood-note{font-size:.66rem;line-height:1.36;color:var(--ink3);margin-top:.5rem;text-align:center;}
+@media(max-width:940px){#page-improv .improv-mood-route{grid-template-columns:repeat(2,minmax(0,1fr));}}
+@media(max-width:520px){#page-improv .improv-mood-actions{grid-template-columns:1fr;}#page-improv .improv-mood-route{grid-template-columns:1fr;}#page-improv .improv-mood-wheel{max-height:180px;}}
+
+/* Improv Stage 22: Mood Loop Lab turns mood presets into a simple practice backing. */
+#page-improv .improv-mood-loop-card{border-color:rgba(42,191,191,.28);background:linear-gradient(180deg,rgba(42,191,191,.052),rgba(74,127,192,.024)),var(--surface);}
+#page-improv .improv-mood-loop-top{display:grid;grid-template-columns:1fr 1fr;gap:.48rem;margin-bottom:.58rem;}
+#page-improv .improv-mood-loop-top select{width:100%;padding:.45rem .62rem;background:var(--bg2);border:1px solid var(--border);border-radius:9px;color:var(--ink);font-family:'DM Sans',sans-serif;font-size:.74rem;font-weight:800;}
+#page-improv .improv-mood-loop-stage{border:1px solid rgba(42,191,191,.24);border-radius:12px;background:radial-gradient(circle at 30% 20%,rgba(42,191,191,.13),transparent 40%),var(--bg2);padding:.7rem .76rem;color:var(--ink2);font-size:.74rem;line-height:1.42;margin-bottom:.58rem;}
+#page-improv .improv-mood-loop-title{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;color:var(--ink);margin-bottom:.16rem;}
+#page-improv .improv-mood-loop-sub{font-size:.7rem;color:var(--ink3);line-height:1.38;}
+#page-improv .improv-mood-loop-steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.34rem;margin:.58rem 0;}
+#page-improv .improv-mood-loop-step{min-height:50px;border:1px solid var(--border);border-radius:11px;background:var(--bg2);padding:.38rem .26rem;text-align:center;display:flex;flex-direction:column;justify-content:center;gap:.1rem;transition:all .15s;}
+#page-improv .improv-mood-loop-step.active{border-color:rgba(42,191,191,.7);background:rgba(42,191,191,.12);box-shadow:0 0 0 2px rgba(42,191,191,.08);}
+#page-improv .improv-mood-loop-step small{font-size:.57rem;font-weight:900;color:var(--ink3);text-transform:uppercase;letter-spacing:.06em;}
+#page-improv .improv-mood-loop-step span{font-family:'DM Mono',monospace;font-size:.74rem;font-weight:900;color:var(--gold);}
+#page-improv .improv-mood-loop-step em{font-style:normal;font-family:'DM Mono',monospace;font-size:.62rem;font-weight:900;color:var(--ink3);}
+#page-improv .improv-mood-loop-actions{display:grid;grid-template-columns:1fr 1fr 1fr;gap:.38rem;margin-top:.55rem;}
+#page-improv .improv-mood-loop-cue{border:1px dashed rgba(42,191,191,.28);border-radius:10px;background:rgba(42,191,191,.055);padding:.52rem .6rem;color:var(--ink3);font-size:.68rem;line-height:1.38;margin-top:.55rem;text-align:center;}
+#page-improv .improv-mood-loop-cue.active{color:var(--ink2);border-color:rgba(201,168,76,.36);background:rgba(201,168,76,.07);}
+@media(max-width:940px){#page-improv .improv-mood-loop-steps{grid-template-columns:repeat(2,minmax(0,1fr));}}
+@media(max-width:520px){#page-improv .improv-mood-loop-top,#page-improv .improv-mood-loop-actions,#page-improv .improv-mood-loop-steps{grid-template-columns:1fr;}}
+
 @media(max-width:700px){
   #page-improv .improv-quick-grid{grid-template-columns:1fr;gap:.32rem;}
   #page-improv .improv-quick-btn{min-height:40px;font-size:.68rem;}
@@ -5447,6 +5738,66 @@ body {
               <div class="improv-quick-note">One tap setups for common improv practice. Timeline presets still use Start.</div>
             </div>
 
+            <div class="p-card improv-mood-card">
+              <div class="p-card-title">Mood Practice Bridge</div>
+              <div class="improv-mood-controls">
+                <select id="im-moodPackSelect" onchange="im_setMoodPack(this.value)">
+                  <option value="ambient">Ambient Color</option>
+                  <option value="brightPop">Bright Pop</option>
+                  <option value="darkMinor">Dark Minor</option>
+                  <option value="jazzColor">Jazz Color</option>
+                  <option value="blues">Blues</option>
+                  <option value="cinematic">Cinematic</option>
+                </select>
+              </div>
+              <div class="improv-mood-hero" id="im-moodHero">
+                <div class="improv-mood-title">Choose a mood to turn theory into a playable setup.</div>
+                <div class="improv-mood-sub">This bridges the Theory mood lens into real improv practice.</div>
+              </div>
+              <div id="im-moodWheel"></div>
+              <div class="improv-mood-chip-row" id="im-moodChips"></div>
+              <div class="improv-mood-route" id="im-moodRoute"></div>
+              <div class="improv-mood-prompt" id="im-moodPrompt">Choose a mood, then load it into Improv.</div>
+              <div class="improv-mood-actions">
+                <button class="p-btn p-btn-primary" onclick="im_applyMoodPack()">Load Mood Setup</button>
+                <button class="p-btn p-btn-sec" onclick="im_auditionMoodPack()">Audition Color</button>
+              </div>
+              <div class="improv-mood-note">Educational bridge only. It loads existing Improv controls without changing the locked pages.</div>
+            </div>
+
+            <div class="p-card improv-mood-loop-card">
+              <div class="p-card-title">Mood Loop Lab</div>
+              <div class="improv-mood-loop-top">
+                <div class="p-control-group">
+                  <label>Loop Texture</label>
+                  <select id="im-moodLoopStyleSelect" onchange="im_setMoodLoopStyle(this.value)">
+                    <option value="pad" selected>Soft Pad</option>
+                    <option value="pulse">Root Pulse</option>
+                    <option value="guide">Guide Tone Pad</option>
+                    <option value="arp">Color Arp</option>
+                  </select>
+                </div>
+                <div class="p-control-group">
+                  <label>Length</label>
+                  <select id="im-moodLoopBarsSelect" onchange="im_setMoodLoopBars(this.value)">
+                    <option value="1" selected>1 Bar Per Color</option>
+                    <option value="2">2 Bars Per Color</option>
+                    <option value="4">4 Bars Per Color</option>
+                  </select>
+                </div>
+              </div>
+              <div class="improv-mood-loop-stage" id="im-moodLoopStage">
+                Load a mood, then start a simple loop for practice.
+              </div>
+              <div class="improv-mood-loop-steps" id="im-moodLoopSteps"></div>
+              <div class="improv-mood-loop-actions">
+                <button class="p-btn p-btn-primary" id="im-moodLoopStartBtn" onclick="im_startMoodLoop()">Start Loop</button>
+                <button class="p-btn p-btn-sec" onclick="im_stopMoodLoop(true)">Stop Loop</button>
+                <button class="p-btn p-btn-sec" onclick="im_moodLoopNext()">Next Color</button>
+              </div>
+              <div class="improv-mood-loop-cue" id="im-moodLoopCue">Use this as a small backing bed while you practice the loaded mood.</div>
+            </div>
+
             <div class="p-card improv-plan-card">
               <div class="p-card-title">Practice Plan</div>
               <div class="improv-plan-top">
@@ -5698,6 +6049,7 @@ body {
               <option value="chords">Chord Formulas</option>
               <option value="symbols">Chord Symbols</option>
               <option value="progressions">Progressions</option>
+              <option value="cadences">Cadences and Function</option>
               <option value="rhythm">Rhythm Values</option>
               <option value="glossary">Glossary</option>
             </select>
@@ -5760,6 +6112,88 @@ body {
               <div id="th-keyDetail" class="theory-key-detail"></div>
             </div>
 
+            <div class="p-card theory-mood-card">
+              <div class="p-card-title">Mood and Mode Explorer</div>
+              <div class="theory-mood-controls">
+                <div class="p-control-group">
+                  <label for="th-moodLensSelect">Mood Lens</label>
+                  <select id="th-moodLensSelect" onchange="th_setCircleMood(this.value)">
+                    <option value="clean">Clean Theory</option>
+                    <option value="ambient">Ambient</option>
+                    <option value="bright">Bright Pop</option>
+                    <option value="minor">Dark Minor</option>
+                    <option value="jazz">Jazz Color</option>
+                    <option value="blues">Blues</option>
+                    <option value="cinematic">Cinematic</option>
+                  </select>
+                </div>
+                <div class="p-control-group">
+                  <label for="th-modeSelect">Mode</label>
+                  <select id="th-modeSelect" onchange="th_setMode(this.value)">
+                    <option value="ionian">Ionian</option>
+                    <option value="dorian">Dorian</option>
+                    <option value="phrygian">Phrygian</option>
+                    <option value="lydian">Lydian</option>
+                    <option value="mixolydian">Mixolydian</option>
+                    <option value="aeolian">Aeolian</option>
+                    <option value="locrian">Locrian</option>
+                  </select>
+                </div>
+                <div class="p-control-group">
+                  <label for="th-motionSelect">Motion</label>
+                  <select id="th-motionSelect" onchange="th_setMotion(this.value)">
+                    <option value="home">Home Base</option>
+                    <option value="neighbor">Neighbor Keys</option>
+                    <option value="fourths">Fourth Motion</option>
+                    <option value="fifths">Fifth Motion</option>
+                    <option value="modal">Modal Color</option>
+                  </select>
+                </div>
+              </div>
+              <div id="th-moodSummary" class="theory-mood-summary"></div>
+              <div class="theory-mood-visual-grid">
+                <div id="th-modeWheel" class="theory-mode-wheel"></div>
+                <div id="th-moodRouteGraphic" class="theory-mood-route-graphic"></div>
+              </div>
+              <div id="th-modeScaleStrip" class="theory-mode-scale-strip"></div>
+              <div id="th-moodRecipeCards" class="theory-mood-recipes"></div>
+              <div id="th-improvBridge" class="theory-improv-bridge"></div>
+              <div class="theory-link-actions">
+                <button class="p-btn p-btn-sec" onclick="th_loadMoodToBuilder()">Load Mood in Roman Builder</button>
+                <span id="th-builderLinkStatus" class="theory-link-status"></span>
+              </div>
+            </div>
+
+            <div class="p-card theory-cadence-card">
+              <div class="p-card-title">Chord Function and Cadence Lab</div>
+              <div class="theory-cadence-controls">
+                <div class="p-control-group">
+                  <label for="th-cadenceSelect">Cadence</label>
+                  <select id="th-cadenceSelect" onchange="th_setCadence(this.value)">
+                    <option value="authentic">Authentic V to I</option>
+                    <option value="plagal">Plagal IV to I</option>
+                    <option value="half">Half Cadence to V</option>
+                    <option value="deceptive">Deceptive V to vi</option>
+                    <option value="twoFiveOne">ii V I</option>
+                    <option value="minorTwoFiveOne">Minor ii V i</option>
+                    <option value="bluesTurn">Blues Turnaround</option>
+                  </select>
+                </div>
+                <div class="p-control-group">
+                  <label for="th-functionViewSelect">View</label>
+                  <select id="th-functionViewSelect" onchange="th_setFunctionView(this.value)">
+                    <option value="student">Student</option>
+                    <option value="composer">Composer</option>
+                    <option value="improviser">Improviser</option>
+                  </select>
+                </div>
+                <button class="p-btn p-btn-sec" onclick="th_loadCadenceToBuilder()">Load Cadence</button>
+              </div>
+              <div id="th-cadenceSummary" class="theory-cadence-summary"></div>
+              <div id="th-cadenceRoute" class="theory-cadence-route"></div>
+              <div id="th-functionGrid" class="theory-function-grid"></div>
+            </div>
+
             <div class="p-card theory-formula-card">
               <div class="p-card-title">Formula Lab</div>
               <div class="theory-lab-row">
@@ -5775,6 +6209,14 @@ body {
                     <option value="major7">Major 7</option>
                     <option value="minor7">Minor 7</option>
                     <option value="dominant7">Dominant 7</option>
+                    <option value="minorMajor7">Minor Major 7</option>
+                    <option value="major6">Major 6</option>
+                    <option value="minor6">Minor 6</option>
+                    <option value="major9">Major 9</option>
+                    <option value="minor9">Minor 9</option>
+                    <option value="dominant9">Dominant 9</option>
+                    <option value="dominant7b9">Dominant 7 flat 9</option>
+                    <option value="dominant7sharp9">Dominant 7 sharp 9</option>
                     <option value="minor7b5">Minor 7 flat 5</option>
                     <option value="diminished7">Diminished 7</option>
                     <option value="sus2">Sus2</option>
@@ -5876,6 +6318,44 @@ body {
             </div>
           </div>
         </div>
+
+        <div class="p-card theory-audio-strip" id="th-audioStrip">
+          <div class="p-card-title">Audio Utility</div>
+          <div class="theory-trainer-note">For reading and noodling only. Use MIDI or the computer keyboard when Browser Synth is on.</div>
+
+          <div class="p-bpm-row theory-bpm-row">
+            <span class="p-bpm-label">BPM</span>
+            <input type="range" class="p-bpm-slider" id="th-bpmSlider" min="40" max="200" value="84" oninput="th_setTheoryBpm(this.value)">
+            <span class="p-bpm-val" id="th-bpmVal">84</span>
+            <button id="th-metroToggle" class="theory-metro-inline-btn" onclick="th_toggleTheoryMetronome()">Metro Off</button>
+          </div>
+
+          <div class="p-vol-row theory-vol-row">
+            <div class="p-vol-group">
+              <span class="p-bpm-label">MASTER</span>
+              <input type="range" class="p-bpm-slider" id="th-masterSlider" min="0" max="100" value="80" oninput="th_updateMasterVol(this.value)">
+              <span class="p-bpm-val p-vol-val" id="th-masterVal">80</span>
+            </div>
+            <div class="p-vol-group">
+              <span class="p-bpm-label">METRO</span>
+              <input type="range" class="p-bpm-slider" id="th-metroSlider" min="0" max="100" value="25" oninput="th_updateMetroVol(this.value)">
+              <span class="p-bpm-val p-vol-val" id="th-metroVal">25</span>
+            </div>
+            <div class="p-vol-group">
+              <span class="p-bpm-label">LIVE KB</span>
+              <input type="range" class="p-bpm-slider" id="th-liveSlider" min="0" max="100" value="75" oninput="th_updateLiveVol(this.value)">
+              <span class="p-bpm-val p-vol-val" id="th-liveVal">75</span>
+            </div>
+          </div>
+
+          <div class="p-midi-bar" style="margin-top:.35rem;flex-wrap:wrap;gap:.5rem;">
+            <span class="p-midi-text" id="th-midiInfo" style="font-family:'DM Mono',monospace;font-size:.7rem;color:var(--ink3);">MIDI: ready</span>
+            <label class="theory-synth-label">
+              <input type="checkbox" id="th-synthToggle" onchange="th_toggleTheoryBrowserSynth(this.checked)" style="accent-color:var(--gold);width:13px;height:13px;">
+              Browser Synth
+            </label>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -5918,6 +6398,197 @@ body {
             <div class="progress-stat-sub" id="pg-streakSub">consecutive A grades</div>
           </div>
         </div>
+
+
+        <!-- Stage 2: Learning map and next session coach -->
+        <div class="progress-card pg2-learning-card">
+          <div class="progress-section-title"><span class="accent-dot"></span>Learning Map</div>
+          <div id="pg2-moduleMap" class="pg2-module-map">
+            <div class="progress-empty">Open a module to start building your learning map</div>
+          </div>
+        </div>
+
+        <div class="progress-two-col pg2-coach-grid">
+          <div class="progress-card pg2-next-card">
+            <div class="progress-section-title"><span class="accent-dot"></span>Next Session Coach</div>
+            <div id="pg2-nextSession" class="pg2-next-session">
+              <div class="progress-empty">Your next practice suggestion will appear here</div>
+            </div>
+          </div>
+          <div class="progress-card pg2-balance-card">
+            <div class="progress-section-title"><span class="accent-dot"></span>Skill Balance</div>
+            <div id="pg2-skillBalance" class="pg2-skill-balance">
+              <div class="progress-empty">Complete a few activities to see your balance chart</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="progress-card pg2-planner-card">
+          <div class="progress-section-title"><span class="accent-dot"></span>Progress Planner</div>
+          <div class="pg2-planner-row">
+            <div class="pg2-planner-copy">
+              <div class="pg2-planner-title" id="pg2-planTitle">Build a balanced week</div>
+              <div class="pg2-planner-sub" id="pg2-planSub">Choose a target and the dashboard will compare it against your recent work.</div>
+            </div>
+            <div class="pg2-planner-control">
+              <label for="pg2-weeklyGoalSelect">Target</label>
+              <select id="pg2-weeklyGoalSelect" onchange="pg2_setWeeklyGoal(this.value)">
+                <option value="3">3 sessions</option>
+                <option value="5">5 sessions</option>
+                <option value="7">7 sessions</option>
+                <option value="10">10 sessions</option>
+              </select>
+            </div>
+          </div>
+          <div class="pg2-goal-track">
+            <div class="pg2-goal-fill" id="pg2-goalFill" style="width:0%"></div>
+          </div>
+          <div class="pg2-goal-text" id="pg2-goalText">No recent sessions yet</div>
+        </div>
+
+        <!-- Stage 3: Weekly review, focus queue, and report builder -->
+        <div class="progress-two-col pg3-review-grid">
+          <div class="progress-card pg3-weekly-card">
+            <div class="progress-section-title"><span class="accent-dot"></span>Weekly Review</div>
+            <div class="pg3-weekly-panel">
+              <div class="pg3-review-kpis" id="pg3-reviewKpis">
+                <div class="progress-empty">Weekly review will appear after activity is tracked</div>
+              </div>
+              <div class="pg3-heatmap" id="pg3-weekHeatmap"></div>
+              <div class="pg3-review-note" id="pg3-weeklyNote">Use this as a simple snapshot of recent work.</div>
+            </div>
+          </div>
+          <div class="progress-card pg3-report-card">
+            <div class="progress-section-title"><span class="accent-dot"></span>Session Report</div>
+            <div class="pg3-report-panel">
+              <div class="pg3-report-controls">
+                <div class="pg3-report-control">
+                  <label for="pg3-reportType">Report Style</label>
+                  <select id="pg3-reportType" onchange="pg3_renderReport()">
+                    <option value="student">Student Summary</option>
+                    <option value="teacher">Teacher Notes</option>
+                    <option value="parent">Parent Friendly</option>
+                  </select>
+                </div>
+                <button class="p-btn secondary" type="button" onclick="pg3_copyReport()">Copy Report</button>
+              </div>
+              <div class="pg3-report-text" id="pg3-reportText">Open Progress after a few activities to generate a useful report.</div>
+              <div class="pg3-copy-state" id="pg3-copyState"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="progress-card pg3-focus-card">
+          <div class="progress-section-title"><span class="accent-dot"></span>Focus Queue</div>
+          <div id="pg3-focusQueue" class="pg3-focus-queue">
+            <div class="progress-empty">Your focus queue will appear here</div>
+          </div>
+          <div id="pg3-pathStrip" class="pg3-path-strip"></div>
+        </div>
+
+        <!-- Stage 4: Module detail and assignment builder -->
+        <div class="progress-two-col pg4-detail-grid">
+          <div class="progress-card pg4-detail-card">
+            <div class="progress-section-title"><span class="accent-dot"></span>Module Detail</div>
+            <div class="pg4-controls">
+              <div class="pg4-control">
+                <label for="pg4-moduleSelect">Module</label>
+                <select id="pg4-moduleSelect" onchange="pg4_setModule(this.value)">
+                  <option value="auto">Coach Pick</option>
+                  <option value="practice">Practice</option>
+                  <option value="ear">Ear Training</option>
+                  <option value="rhythm">Rhythm</option>
+                  <option value="sight">Sight Reading</option>
+                  <option value="intervals">Intervals</option>
+                  <option value="improv">Improv</option>
+                  <option value="theory">Theory</option>
+                </select>
+              </div>
+              <button class="p-btn p-btn-sec" type="button" onclick="pg4_openSelectedModule()">Open Module</button>
+            </div>
+            <div id="pg4-moduleDetail" class="pg4-module-detail">
+              <div class="progress-empty">Choose a module to see the detail view</div>
+            </div>
+          </div>
+          <div class="progress-card pg4-assignment-card">
+            <div class="progress-section-title"><span class="accent-dot"></span>Practice Assignment</div>
+            <div id="pg4-assignmentPanel" class="pg4-assignment-panel">
+              <div class="progress-empty">Your next assignment will appear here</div>
+            </div>
+            <div class="pg4-actions">
+              <button class="p-btn p-btn-sec" type="button" onclick="pg4_copyAssignment()">Copy Assignment</button>
+              <span id="pg4-copyState" class="pg4-copy-state"></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Stage 5: Checkpoint matrix and weekly mix planner -->
+        <div class="progress-two-col pg5-planner-grid">
+          <div class="progress-card pg5-checkpoint-card">
+            <div class="progress-section-title"><span class="accent-dot"></span>Checkpoint Matrix</div>
+            <div id="pg5-checkpointMatrix" class="pg5-checkpoint-panel">
+              <div class="progress-empty">Checkpoint status will appear after modules report activity</div>
+            </div>
+          </div>
+          <div class="progress-card pg5-mix-card">
+            <div class="progress-section-title"><span class="accent-dot"></span>Weekly Mix Planner</div>
+            <div class="pg5-mix-panel">
+              <div class="pg5-controls">
+                <div class="pg5-control">
+                  <label for="pg5-mixSelect">Mix Type</label>
+                  <select id="pg5-mixSelect" onchange="pg5_setMix(this.value)">
+                    <option value="balanced">Balanced Week</option>
+                    <option value="review">Review Weak Spots</option>
+                    <option value="explore">Explore New Modules</option>
+                    <option value="teacher">Teacher Check-In</option>
+                  </select>
+                </div>
+                <button class="p-btn p-btn-sec" type="button" onclick="pg5_copyWeekPlan()">Copy Plan</button>
+              </div>
+              <div id="pg5-weekPlan" class="pg5-week-plan">
+                <div class="progress-empty">Choose a mix type to build a short weekly plan</div>
+              </div>
+              <div id="pg5-copyState" class="pg5-copy-state"></div>
+            </div>
+          </div>
+
+
+        <!-- Stage 6: Portfolio snapshot and milestone path -->
+        <div class="progress-two-col pg6-portfolio-grid">
+          <div class="progress-card pg6-portfolio-card">
+            <div class="progress-section-title"><span class="accent-dot"></span>Portfolio Snapshot</div>
+            <div id="pg6-portfolioSnapshot" class="pg6-portfolio-panel">
+              <div class="progress-empty">Portfolio summary will appear after activity is available</div>
+            </div>
+          </div>
+          <div class="progress-card pg6-report-card">
+            <div class="progress-section-title"><span class="accent-dot"></span>Progress Snapshot</div>
+            <div class="pg6-report-panel">
+              <div class="pg6-controls">
+                <div class="pg6-control">
+                  <label for="pg6-reportStyle">Snapshot Style</label>
+                  <select id="pg6-reportStyle" onchange="pg6_setReportStyle(this.value)">
+                    <option value="student">Student View</option>
+                    <option value="teacher">Teacher View</option>
+                    <option value="parent">Parent View</option>
+                  </select>
+                </div>
+                <button class="p-btn p-btn-sec" type="button" onclick="pg6_copySnapshot()">Copy Snapshot</button>
+              </div>
+              <div id="pg6-reportText" class="pg6-report-text">Open Progress after a few activities to generate a snapshot.</div>
+              <div id="pg6-copyState" class="pg6-copy-state"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="progress-card pg6-milestone-card">
+          <div class="progress-section-title"><span class="accent-dot"></span>Milestone Path</div>
+          <div id="pg6-milestonePath" class="pg6-milestone-list">
+            <div class="progress-empty">Milestone path will appear here</div>
+          </div>
+        </div>
+        </div>
+
 
         <!-- Score chart -->
         <div class="progress-chart-section">
@@ -6381,6 +7052,7 @@ function switchPage(page) {
   }
   if(currentPage==='intervals'&&page!=='intervals'&&typeof i_stopPlayback==='function')i_stopPlayback();
   if(currentPage==='improv'&&page!=='improv'&&typeof im_stopAllNotes==='function')im_stopAllNotes(true);
+  if(currentPage==='theory'&&page!=='theory'&&typeof th_stopTheoryMetronome==='function')th_stopTheoryMetronome();
   currentPage = page;
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
@@ -6412,7 +7084,7 @@ function switchPage(page) {
 
 /* ============================================================
    THEORY REFERENCE PAGE
-   Stage 4: reference foundation, visual circles, trainer, piano map, Roman builder
+   Stage 9: reference foundation, cadence lab, matched audio utility bar, visual circles, mood and mode explorer, trainer, piano map, Roman builder
    ============================================================ */
 const th_keys=['C','G','D','A','E','B','F#','C#','F','Bb','Eb','Ab','Db','Gb','Cb'];
 const th_keyData={
@@ -6439,7 +7111,7 @@ const th_circleBaseNodes=[
   {label:'D',minor:'Bm',key:'D',aliases:['D']},
   {label:'A',minor:'F#m',key:'A',aliases:['A']},
   {label:'E',minor:'C#m',key:'E',aliases:['E']},
-  {label:'B / Cb',minor:'G#m / Abm',key:'B',aliases:['B','Cb']},
+  {label:'B',minor:'G#m',key:'B',aliases:['B']},
   {label:'F# / Gb',minor:'D#m / Ebm',key:'F#',aliases:['F#','Gb']},
   {label:'Db / C#',minor:'Bbm / A#m',key:'Db',aliases:['Db','C#']},
   {label:'Ab',minor:'Fm',key:'Ab',aliases:['Ab']},
@@ -6456,6 +7128,25 @@ const th_circleMoodData={
   blues:{label:'Blues',active:'#4A9EBF',node:'#1A3030',accent:'#C0614A',copy:'Blues lens points toward I, IV, V, dominant 7 colors, minor pentatonic color over major harmony, and call and response.'},
   cinematic:{label:'Cinematic',active:'#A0607A',node:'#1A3030',accent:'#C9A84C',copy:'Cinematic lens points toward relative major and minor contrast, chromatic mediants, pedal tones, and broad key center shifts.'}
 };
+const th_modeData={
+  ionian:{label:'Ionian',formula:['1','2','3','4','5','6','7'],copy:'Ionian is the major scale sound. It feels settled, clear, and direct.',use:'major melodies, pop hooks, hymns, simple themes'},
+  dorian:{label:'Dorian',formula:['1','2','b3','4','5','6','b7'],copy:'Dorian is minor with a brighter 6. It feels cool, soulful, and usable over minor grooves.',use:'funk, jazz minor, modal vamps, cinematic minor'},
+  phrygian:{label:'Phrygian',formula:['1','b2','b3','4','5','b6','b7'],copy:'Phrygian has a tense flat 2. It feels dark, Spanish flavored, and dramatic.',use:'dark riffs, Spanish color, dramatic scoring'},
+  lydian:{label:'Lydian',formula:['1','2','3','#4','5','6','7'],copy:'Lydian is major with a raised 4. It feels floating, wide, and cinematic.',use:'ambient major, film color, dreamy pads'},
+  mixolydian:{label:'Mixolydian',formula:['1','2','3','4','5','6','b7'],copy:'Mixolydian is major with a flat 7. It feels bluesy, open, and less formal than major.',use:'blues, rock, gospel, dominant grooves'},
+  aeolian:{label:'Aeolian',formula:['1','2','b3','4','5','b6','b7'],copy:'Aeolian is natural minor. It feels familiar, emotional, and centered in minor.',use:'minor songs, darker pop, dramatic progressions'},
+  locrian:{label:'Locrian',formula:['1','b2','b3','4','b5','b6','b7'],copy:'Locrian has a flat 5. It feels unstable and tense, so it is usually used for special color.',use:'m7b5 chords, tension, advanced harmony'}
+};
+const th_moodRecipeData={
+  clean:{label:'Clean Theory',progression:['I','IV','V'],colors:['major scale','primary triads','clear cadence'],texture:'block chords, simple scale tones',bridge:'Use this lens to explain the theory first. Then switch mood lenses to hear how the same key map changes color.'},
+  ambient:{label:'Ambient',progression:['I','V','vi','IV'],colors:['sus2','sus4','add9','major 7'],texture:'wide spacing, slow changes, pedal tones',bridge:'This belongs naturally in Improv later. It can suggest open voicings, gentle rhythms, and long harmonic motion.'},
+  bright:{label:'Bright Pop',progression:['I','V','vi','IV'],colors:['major triads','add9','clean inversions'],texture:'steady pulse, clear top notes, simple bass',bridge:'This can feed an Improv pop mode later by suggesting strong hooks and easy four chord loops.'},
+  minor:{label:'Dark Minor',progression:['vi','IV','I','V'],colors:['minor triads','natural minor','modal mixture'],texture:'lower register, repeated tones, darker bass motion',bridge:'This can later become an Improv dark color mode with minor loops, relative major contrast, and modal turns.'},
+  jazz:{label:'Jazz Color',progression:['ii','V','I'],colors:['minor 7','dominant 7','major 7','guide tones'],texture:'shell voicings, voice leading, walking roots',bridge:'This is perfect for an Improv jazz mode because the circle already explains ii V I movement by fourths.'},
+  blues:{label:'Blues',progression:['I','IV','V'],colors:['dominant 7','minor pentatonic','blue notes'],texture:'call and response, short riffs, shuffle feel',bridge:'This can later drive an Improv blues mode with I7, IV7, V7, pentatonic targets, and response phrases.'},
+  cinematic:{label:'Cinematic',progression:['I','vi','IV','V'],colors:['pedal tone','relative minor','major 7','sus color'],texture:'wide register, slow bass, strong contrast',bridge:'This can later become an Improv cinematic mode with pedal tones, big spacing, and emotional key shifts.'}
+};
+
 const th_topicData={
   overview:{title:'Overview',levelText:{beginner:'Theory names the musical patterns you already hear and play.',intermediate:'Theory helps you connect sound, symbols, keyboard shapes, and progressions.',advanced:'Theory gives you a map for analysis, reharmonization, composition, and improvisation.'},examples:['Scale degrees: 1 2 3 4 5 6 7','Chord formula: 1 3 5','Progression: I IV V'],practice:'Use this as the reference hub when Practice, Sight Reading, Intervals, or Improv shows a pattern you want to understand.'},
   circle:{title:'Circle of Fifths',levelText:{beginner:'The circle orders keys by fifths and shows how many sharps or flats each key uses.',intermediate:'It also shows nearby keys, relative minors, and common modulation paths.',advanced:'Use it to plan harmonic movement, secondary dominants, borrowed chords, and key centers.'},examples:['C has no sharps or flats','G adds F#','F adds Bb'],practice:'Use this with Sight Reading when changing key signatures, and with Improv when choosing related keys.'},
@@ -6466,6 +7157,7 @@ const th_topicData={
   chords:{title:'Chord Formulas',levelText:{beginner:'Chord formulas tell you which scale degrees make a chord.',intermediate:'Changing one chord tone changes the quality, such as major to minor or dominant.',advanced:'Chord formulas are the foundation for voicings, extensions, substitutions, and reharmonization.'},examples:['Major: 1 3 5','Minor: 1 b3 5','Dominant 7: 1 3 5 b7'],practice:'Use this with Practice and Improv when building chords in every key.'},
   symbols:{title:'Chord Symbols',levelText:{beginner:'Chord symbols are shorthand instructions for harmony.',intermediate:'Symbols tell you the root, quality, extensions, and alterations.',advanced:'Reading symbols quickly helps you comp, arrange, and improvise from lead sheets.'},examples:['Cmaj7: C E G B','Cm7: C Eb G Bb','G7: G B D F'],practice:'Use this with Improv when reading progressions and with Practice when drilling chord families.'},
   progressions:{title:'Progressions',levelText:{beginner:'A progression is a sequence of chords that creates direction.',intermediate:'Roman numerals let the same progression move to any key.',advanced:'Progressions reveal cadences, substitutions, turnarounds, and song form.'},examples:['I IV V','ii V I','I V vi IV'],practice:'Use this with Improv to hear chord motion and with Ear Training to recognize common changes.'},
+  cadences:{title:'Cadences and Function',levelText:{beginner:'A cadence is a chord motion that makes a phrase feel finished, paused, or redirected.',intermediate:'Chord function explains why I feels like home, IV prepares motion, V creates pull, and vi can surprise the ear.',advanced:'Cadence control connects Roman numerals, voice leading, circle motion, and improvisation targets.'},examples:['Authentic: V to I','Plagal: IV to I','Deceptive: V to vi','Jazz: ii V I'],practice:'Use this with the Roman Numeral Builder and Improv when you want progressions to feel intentional instead of random.'},
   rhythm:{title:'Rhythm Values',levelText:{beginner:'Rhythm values tell you how long notes and rests last.',intermediate:'Subdivision helps you place notes inside the beat with accuracy.',advanced:'Rhythmic fluency supports syncopation, phrasing, comping, and groove.'},examples:['Quarter note: 1 beat in 4/4','Eighth notes: 2 per beat','Triplets: 3 evenly spaced notes per beat'],practice:'Use this with Rhythm Training to connect notation, count, and timing.'},
   glossary:{title:'Glossary',levelText:{beginner:'The glossary gives plain language definitions for common music terms.',intermediate:'Use it to connect vocabulary across reading, ear training, harmony, and rhythm.',advanced:'Reference terms while analyzing music or explaining a musical choice.'},examples:['Tonic: home note or chord','Dominant: fifth scale degree or V chord','Inversion: chord with a non-root bass note'],practice:'Use this when a term appears in another page and you want a fast explanation.'}
 };
@@ -6479,6 +7171,14 @@ const th_formulas={
   major7:{name:'Major 7',formula:['1','3','5','7'],explain:'A major 7 chord adds the natural 7th to a major triad for a smooth, polished sound.'},
   minor7:{name:'Minor 7',formula:['1','b3','5','b7'],explain:'A minor 7 chord adds b7 to a minor triad and is common in jazz, soul, pop, and modal music.'},
   dominant7:{name:'Dominant 7',formula:['1','3','5','b7'],explain:'A dominant 7 chord combines a major triad with b7 and usually wants to resolve.'},
+  minorMajor7:{name:'Minor Major 7',formula:['1','b3','5','7'],explain:'A minor major 7 chord keeps the minor 3rd but adds a natural 7th for a dramatic, cinematic minor sound.'},
+  major6:{name:'Major 6',formula:['1','3','5','6'],explain:'A major 6 chord adds the 6th to a major triad for a warm, classic color.'},
+  minor6:{name:'Minor 6',formula:['1','b3','5','6'],explain:'A minor 6 chord adds a natural 6th to a minor triad for a jazzy minor color.'},
+  major9:{name:'Major 9',formula:['1','3','5','7','9'],explain:'A major 9 chord extends major 7 with the 9th for a smooth, open color.'},
+  minor9:{name:'Minor 9',formula:['1','b3','5','b7','9'],explain:'A minor 9 chord extends minor 7 with the 9th for a deeper, softer minor color.'},
+  dominant9:{name:'Dominant 9',formula:['1','3','5','b7','9'],explain:'A dominant 9 chord extends dominant 7 with the 9th and keeps the same pull toward resolution.'},
+  dominant7b9:{name:'Dominant 7 flat 9',formula:['1','3','5','b7','b9'],explain:'A dominant 7 flat 9 chord adds a tense flat 9 above a dominant 7, often used before minor resolution.'},
+  dominant7sharp9:{name:'Dominant 7 sharp 9',formula:['1','3','5','b7','#9'],explain:'A dominant 7 sharp 9 chord adds bluesy bite and altered dominant tension.'},
   minor7b5:{name:'Minor 7 flat 5',formula:['1','b3','b5','b7'],explain:'Minor 7 flat 5 is common as the ii chord in minor keys and creates strong pull toward V.'},
   diminished7:{name:'Diminished 7',formula:['1','b3','b5','bb7'],explain:'A diminished 7 chord stacks minor thirds and creates strong tension and movement.'},
   sus2:{name:'Sus2',formula:['1','2','5'],explain:'A sus2 chord replaces the 3rd with the 2nd, making the quality open and unresolved.'},
@@ -6486,7 +7186,7 @@ const th_formulas={
   add9:{name:'Add9',formula:['1','3','5','9'],explain:'An add9 chord keeps the triad and adds the 9th for extra color without adding the 7th.'}
 };
 const th_chordGuide=[
-  ['Major triad','1 3 5'],['Minor triad','1 b3 5'],['Diminished triad','1 b3 b5'],['Augmented triad','1 3 #5'],['Major 7','1 3 5 7'],['Minor 7','1 b3 5 b7'],['Dominant 7','1 3 5 b7'],['Minor 7 flat 5','1 b3 b5 b7'],['Diminished 7','1 b3 b5 bb7'],['Sus2','1 2 5'],['Sus4','1 4 5'],['Add9','1 3 5 9']
+  ['Major triad','1 3 5'],['Minor triad','1 b3 5'],['Diminished triad','1 b3 b5'],['Augmented triad','1 3 #5'],['Major 7','1 3 5 7'],['Minor 7','1 b3 5 b7'],['Dominant 7','1 3 5 b7'],['Minor Major 7','1 b3 5 7'],['Major 6','1 3 5 6'],['Minor 6','1 b3 5 6'],['Major 9','1 3 5 7 9'],['Minor 9','1 b3 5 b7 9'],['Dominant 9','1 3 5 b7 9'],['Dominant 7 flat 9','1 3 5 b7 b9'],['Dominant 7 sharp 9','1 3 5 b7 #9'],['Minor 7 flat 5','1 b3 b5 b7'],['Diminished 7','1 b3 b5 bb7'],['Sus2','1 2 5'],['Sus4','1 4 5'],['Add9','1 3 5 9']
 ];
 const th_progressions=[
   {name:'Primary chords',roman:['I','IV','V'],use:'Basic folk, rock, blues, hymns, and early songwriting.'},
@@ -6496,13 +7196,31 @@ const th_progressions=[
   {name:'12 bar blues',roman:['I','I','I','I','IV','IV','I','I','V','IV','I','V'],use:'Standard blues form and a strong comping practice template.'},
   {name:'Minor cadence',roman:['iiø','V','i'],use:'The minor key version of ii V I with stronger tension.'}
 ];
+const th_cadenceData={
+  authentic:{label:'Authentic Cadence',roman:['V','I'],roles:['dominant','tonic'],copy:'Strong ending. V creates tension and I releases it.',student:'Hear this as question to answer.',composer:'Use this when a phrase needs a clear ending.',improviser:'Target the 3rd or 7th of V, then resolve to a chord tone of I.'},
+  plagal:{label:'Plagal Cadence',roman:['IV','I'],roles:['pre-dominant','tonic'],copy:'Gentler ending. IV opens the sound and I settles it.',student:'Hear this as lift to home.',composer:'Use this for softer closure or hymn style motion.',improviser:'Lean on shared tones and resolve simply into I.'},
+  half:{label:'Half Cadence',roman:['I','V'],roles:['tonic','dominant'],copy:'Open ending. The phrase pauses on V and wants to continue.',student:'Hear this as home moving to suspense.',composer:'Use this when the phrase should keep going.',improviser:'Leave space after V so the next phrase can answer.'},
+  deceptive:{label:'Deceptive Cadence',roman:['V','vi'],roles:['dominant','tonic substitute'],copy:'Surprise ending. V points to I but lands on vi instead.',student:'Hear this as expected resolution turning emotional.',composer:'Use this to extend a phrase or avoid final closure.',improviser:'Treat vi as a softer landing and answer with a melodic turn.'},
+  twoFiveOne:{label:'ii V I',roman:['ii','V','I'],roles:['pre-dominant','dominant','tonic'],copy:'Jazz cadence. ii prepares V, and V resolves to I.',student:'Hear this as setup, tension, release.',composer:'Use this to organize harmonic motion by fourths.',improviser:'Guide tones are the main targets, especially 3rds and 7ths.'},
+  minorTwoFiveOne:{label:'Minor ii V i',roman:['iiø','V','i'],roles:['pre-dominant','dominant','minor tonic'],copy:'Minor cadence. ii half diminished prepares V, then resolves to minor i.',student:'Hear this as darker setup, strong tension, minor home.',composer:'Use this for minor standards, dramatic cues, and darker resolution.',improviser:'Use minor color carefully and resolve altered dominant tension into i.'},
+  bluesTurn:{label:'Blues Turnaround',roman:['I','IV','I','V'],roles:['tonic','pre-dominant','tonic','dominant'],copy:'Blues loop. I moves to IV, comes home, then V turns the form around.',student:'Hear this as home, away, home, turn.',composer:'Use this to keep a blues form cycling.',improviser:'Use short call and response phrases and leave V ready to restart.'}
+};
+const th_functionData=[
+  {roman:'I',role:'Tonic',copy:'Home base. Stable, resolved, and centered.'},
+  {roman:'ii',role:'Pre-dominant',copy:'Prepares dominant motion, especially in ii V I.'},
+  {roman:'iii',role:'Tonic color',copy:'Shares notes with I and can soften the harmony.'},
+  {roman:'IV',role:'Pre-dominant',copy:'Opens the sound and often moves toward V or back to I.'},
+  {roman:'V',role:'Dominant',copy:'Creates pull and wants resolution.'},
+  {roman:'vi',role:'Tonic substitute',copy:'Relative minor color and a common deceptive landing.'},
+  {roman:'vii°',role:'Leading tension',copy:'Unstable chord that points strongly back to I.'}
+];
 const th_glossary=[
   ['Accidental','A sharp, flat, or natural sign that changes a note outside the current key signature.'],['Bar','Another word for measure, a small group of beats in written music.'],['Beat','The steady pulse you feel and count while playing.'],['Chord','Three or more notes sounding together, or implied as one harmony.'],['Chord tone','A note that belongs directly to the current chord.'],['Clef','A symbol that tells you which staff lines and spaces represent which pitches.'],['Degree','A numbered note of a scale, such as 1 for tonic or 5 for dominant.'],['Dominant','The fifth scale degree, or the chord built on that degree.'],['Flat','A sign that lowers a note by one half step.'],['Half step','The smallest move on the piano, from one key to the very next key.'],['Harmony','The vertical sound made by chords and chord movement.'],['Interval','The distance between two notes.'],['Inversion','A chord position where a note other than the root is in the bass.'],['Key','The tonal home of a piece or section.'],['Key signature','The sharps or flats placed at the start of the staff for a key.'],['Ledger line','A short extra staff line used for notes above or below the staff.'],['Major','A scale or chord quality often heard as bright, stable, or open.'],['Measure','A group of beats separated by bar lines.'],['Melody','A line of notes heard as the main tune or phrase.'],['Minor','A scale or chord quality often heard as darker, softer, or more tense.'],['Mode','A scale pattern with its own tonal center and color.'],['Natural','A sign that cancels a sharp or flat.'],['Octave','The distance from one note name to the next higher or lower same note name.'],['Phrase','A musical sentence or complete thought.'],['Progression','A sequence of chords.'],['Relative minor','The minor key that shares the same key signature as a major key.'],['Rhythm','The placement and length of sounds and silences in time.'],['Root','The note that names a chord and acts as its foundation.'],['Scale','An ordered set of notes used as a musical map.'],['Sharp','A sign that raises a note by one half step.'],['Staff','The five lines and four spaces used for written music.'],['Subdivision','Dividing the beat into smaller equal parts.'],['Tonic','The home note or home chord of a key.'],['Triad','A three note chord built from a root, 3rd, and 5th.'],['Voice leading','The smooth movement of individual notes from chord to chord.'],['Whole step','A move of two half steps on the piano.'],['Cadence','A harmonic arrival point that makes a phrase feel finished or paused.'],['Extension','A chord tone above the 7th, such as 9, 11, or 13.'],['Guide tone','A chord tone, often the 3rd or 7th, that clearly defines the harmony.'],['Modulation','A change from one key center to another.'],['Resolution','The release of musical tension into a more stable sound.'],['Syncopation','An accent or note placement that emphasizes offbeats or weaker beats.']
 ];
 const th_pc={'C':0,'B#':0,'C#':1,'Db':1,'D':2,'D#':3,'Eb':3,'E':4,'Fb':4,'E#':5,'F':5,'F#':6,'Gb':6,'G':7,'G#':8,'Ab':8,'A':9,'A#':10,'Bb':10,'B':11,'Cb':11};
 const th_sharpNames=['C','C#','D','D#','E','F','F#','G','G#','A','A#','B'];
 const th_flatNames=['C','Db','D','Eb','E','F','Gb','G','Ab','A','Bb','B'];
-let th_state={topic:'overview',level:'beginner',key:'C',formula:'majorScale',mapMode:'formula',circleMode:'fifths',circleMood:'clean',search:''};
+let th_state={topic:'overview',level:'beginner',key:'C',formula:'majorScale',mapMode:'formula',circleMode:'fifths',circleMood:'clean',mode:'ionian',motion:'home',cadence:'authentic',functionView:'student',search:''};
 const th_drillLabels={mixed:'Mixed Review',keys:'Key Signatures',formulas:'Formula Notes',chords:'Chord Formulas',progressions:'Progressions',glossary:'Glossary Terms'};
 const th_pathFocus=[
   {type:'keys',label:'Read a key signature'},
@@ -6512,10 +7230,11 @@ const th_pathFocus=[
   {type:'glossary',label:'Define theory vocabulary'}
 ];
 let th_drillState={mode:'mixed',active:false,current:null,answered:false,asked:0,correct:0,streak:0,best:0,history:[]};
-const th_romanPalette=['I','ii','iii','IV','V','vi','vii°','iiø'];
+const th_romanPalette=['I','ii','iii','IV','V','vi','vii°','i','iv','v','iiø'];
 let th_builderState=['I','IV','V'];
 function th_initTheory(){
   th_syncControls();
+  th_setupTheoryAudioKeys();
   th_renderTheory();
 }
 function th_syncControls(){
@@ -6526,6 +7245,11 @@ function th_syncControls(){
   const mapMode=document.getElementById('th-mapModeSelect'); if(mapMode)mapMode.value=th_state.mapMode;
   const circleMode=document.getElementById('th-circleModeSelect'); if(circleMode)circleMode.value=th_state.circleMode;
   const circleMood=document.getElementById('th-circleMoodSelect'); if(circleMood)circleMood.value=th_state.circleMood;
+  const moodLens=document.getElementById('th-moodLensSelect'); if(moodLens)moodLens.value=th_state.circleMood;
+  const mode=document.getElementById('th-modeSelect'); if(mode)mode.value=th_state.mode;
+  const motion=document.getElementById('th-motionSelect'); if(motion)motion.value=th_state.motion;
+  const cadence=document.getElementById('th-cadenceSelect'); if(cadence)cadence.value=th_state.cadence;
+  const functionView=document.getElementById('th-functionViewSelect'); if(functionView)functionView.value=th_state.functionView;
   const search=document.getElementById('th-searchInput'); if(search)search.value=th_state.search;
   const drill=document.getElementById('th-drillModeSelect'); if(drill)drill.value=th_drillState.mode;
 }
@@ -6535,16 +7259,23 @@ function th_setKey(v){th_state.key=v;th_renderTheory();}
 function th_setFormula(v){th_state.formula=v;th_renderFormulaLab();th_renderPianoMap();if(th_drillState.mode==='formulas'&&th_drillState.current&&!th_drillState.answered)th_nextDrill();}
 function th_setMapMode(v){th_state.mapMode=v||'formula';th_renderPianoMap();}
 function th_setCircleMode(v){th_state.circleMode=v||'fifths';if(th_state.topic==='circle'||th_state.topic==='circle4')th_state.topic=th_state.circleMode==='fourths'?'circle4':'circle';th_renderTheory();}
-function th_setCircleMood(v){th_state.circleMood=v||'clean';th_renderCircle();}
+function th_setCircleMood(v){th_state.circleMood=v||'clean';th_syncControls();th_renderCircle();th_renderMoodModeExplorer();}
+function th_setMode(v){th_state.mode=v||'ionian';th_renderMoodModeExplorer();}
+function th_setMotion(v){th_state.motion=v||'home';th_renderMoodModeExplorer();}
+function th_setCadence(v){th_state.cadence=v||'authentic';th_renderCadenceLab();}
+function th_setFunctionView(v){th_state.functionView=v||'student';th_renderCadenceLab();}
 function th_setSearch(v){th_state.search=(v||'').trim().toLowerCase();th_renderTopicCard();th_renderGlossary();}
 function th_setDrillMode(v){th_drillState.mode=v||'mixed';th_drillState.current=null;th_drillState.answered=false;th_drillState.active=false;th_renderTrainer();th_renderTheoryPath();th_renderMissedReview();}
 function th_renderTheory(){
   th_syncControls();
   th_renderTopicCard();
   th_renderCircle();
+  th_renderMoodModeExplorer();
+  th_renderCadenceLab();
   th_renderKeyGuide();
   th_renderFormulaLab();
   th_renderPianoMap();
+  th_renderAudioStrip();
   th_renderChordGuide();
   th_renderProgressions();
   th_renderRomanBuilder();
@@ -6602,7 +7333,7 @@ function th_renderCircleGraphic(){
   const activeNode=nodes[activeIndex]||nodes[0];
   const prevNode=nodes[(activeIndex-1+nodes.length)%nodes.length];
   const nextNode=nodes[(activeIndex+1)%nodes.length];
-  const cx=310,cy=310,r=226;
+  const cx=310,cy=310,r=220,nodeRadius=36,activeNodeRadius=38,centerRadius=122;
   const points=nodes.map((node,i)=>{
     const angle=(-90+(360/nodes.length)*i)*Math.PI/180;
     return {node,i,x:cx+Math.cos(angle)*r,y:cy+Math.sin(angle)*r};
@@ -6617,10 +7348,11 @@ function th_renderCircleGraphic(){
     const fill=active?mood.active:'var(--surface2)';
     const stroke=active?mood.accent:'var(--border2)';
     const clickKey=th_circleClickKey(pt.node);
+    const radius=active?activeNodeRadius:nodeRadius;
     return `<g class="th-circle-node ${active?'th-circle-active':''}" onclick="th_setKey('${th_escape(clickKey)}')">
-      <circle cx="${pt.x.toFixed(1)}" cy="${pt.y.toFixed(1)}" r="39" fill="${fill}" stroke="${stroke}" stroke-width="${active?3:1.5}"></circle>
-      <text class="th-circle-major" x="${pt.x.toFixed(1)}" y="${(pt.y-4).toFixed(1)}" text-anchor="middle">${th_escape(pt.node.label)}</text>
-      <text class="th-circle-minor" x="${pt.x.toFixed(1)}" y="${(pt.y+15).toFixed(1)}" text-anchor="middle">${th_escape(pt.node.minor)}</text>
+      <circle cx="${pt.x.toFixed(1)}" cy="${pt.y.toFixed(1)}" r="${radius}" fill="${fill}" stroke="${stroke}" stroke-width="${active?3:1.5}"></circle>
+      <text class="th-circle-major" x="${pt.x.toFixed(1)}" y="${(pt.y-5).toFixed(1)}" text-anchor="middle">${th_escape(pt.node.label)}</text>
+      <text class="th-circle-minor" x="${pt.x.toFixed(1)}" y="${(pt.y+12).toFixed(1)}" text-anchor="middle">${th_escape(pt.node.minor)}</text>
     </g>`;
   }).join('');
   const title=th_state.circleMode==='fourths'?'Circle of Fourths':'Circle of Fifths';
@@ -6635,13 +7367,13 @@ function th_renderCircleGraphic(){
       </radialGradient>
     </defs>
     <circle cx="310" cy="310" r="278" fill="url(#thCircleGlow)"></circle>
-    <circle cx="310" cy="310" r="226" fill="none" stroke="rgba(201,168,76,.18)" stroke-width="4"></circle>
+    <circle cx="310" cy="310" r="220" fill="none" stroke="rgba(201,168,76,.18)" stroke-width="4"></circle>
     ${lines}
     ${nodeSvg}
-    <circle cx="310" cy="310" r="104" fill="var(--surface)" stroke="${mood.active}" stroke-width="2"></circle>
-    <text class="th-circle-center-title" x="310" y="293" text-anchor="middle">${th_escape(title)}</text>
-    <text class="th-circle-center-sub" x="310" y="320" text-anchor="middle">${th_escape(direction)}</text>
-    <text class="th-circle-center-sub" x="310" y="344" text-anchor="middle">Key ${th_escape(th_state.key)}  |  ${th_escape(mood.label)}</text>
+    <circle cx="310" cy="310" r="${centerRadius}" fill="var(--surface)" stroke="${mood.active}" stroke-width="2"></circle>
+    <text class="th-circle-center-title" x="310" y="298" text-anchor="middle">${th_escape(title)}</text>
+    <text class="th-circle-center-sub" x="310" y="323" text-anchor="middle">${th_escape(direction)}</text>
+    <text class="th-circle-center-sub" x="310" y="342" text-anchor="middle">Key ${th_escape(th_state.key)}  |  ${th_escape(mood.label)}</text>
   </svg>`;
   if(explain){
     const modeCopy=th_state.circleMode==='fourths'
@@ -6677,6 +7409,151 @@ function th_renderKeyGuide(){
     <div class="theory-guide-row"><strong>${th_escape(th_state.key)} major:</strong> ${th_escape(count)}. Accidentals: ${th_escape(d.accidentals)}.</div>
     <div class="theory-guide-row"><strong>Relative minor:</strong> ${th_escape(d.relative)} uses the same key signature.</div>
     <div class="theory-guide-row">${th_escape(majorRule)}</div>`;
+}
+function th_renderMoodModeExplorer(){
+  th_syncControls();
+  const summary=document.getElementById('th-moodSummary');
+  const wheel=document.getElementById('th-modeWheel');
+  const route=document.getElementById('th-moodRouteGraphic');
+  const strip=document.getElementById('th-modeScaleStrip');
+  const recipes=document.getElementById('th-moodRecipeCards');
+  const bridge=document.getElementById('th-improvBridge');
+  if(!summary&&!wheel&&!route&&!strip&&!recipes&&!bridge)return;
+  const mode=th_modeData[th_state.mode]||th_modeData.ionian;
+  const mood=th_moodRecipeData[th_state.circleMood]||th_moodRecipeData.clean;
+  const lens=th_circleMoodData[th_state.circleMood]||th_circleMoodData.clean;
+  const notes=th_formulaNotes(th_state.key,mode.formula);
+  const chords=th_progressionChords(th_state.key,mood.progression);
+  if(summary)summary.innerHTML=`<strong>${th_escape(mood.label)} in ${th_escape(th_state.key)}</strong>: ${th_escape(mode.copy)} The ${th_escape(th_motionLabel(th_state.motion))} view explains how to use this sound without guessing.`;
+  if(wheel)wheel.innerHTML=th_renderModeWheelSvg(mode,lens);
+  if(route)route.innerHTML=th_renderMoodRouteSvg(mood,chords,lens);
+  if(strip)strip.innerHTML=mode.formula.map((f,i)=>`<div class="theory-mode-degree"><strong>${th_escape(notes[i])}</strong><span>${th_escape(f)}</span></div>`).join('');
+  if(recipes)recipes.innerHTML=[
+    ['Progression',mood.progression.join(' ')+' = '+chords.join('  ')],
+    ['Color tones',mood.colors.join(', ')],
+    ['Texture',mood.texture],
+    ['Mode use',mode.use]
+  ].map(x=>`<div class="theory-mood-recipe"><span>${th_escape(x[0])}</span><strong>${th_escape(x[1])}</strong></div>`).join('');
+  if(bridge)bridge.innerHTML=`<strong>Improvisation bridge:</strong> ${th_escape(mood.bridge)} For now, this stays educational inside Theory. Later, the Improv page can use these same settings to generate chord targets, phrase prompts, and voicing ideas.`;
+}
+function th_motionLabel(motion){
+  const map={home:'Home Base',neighbor:'Neighbor Keys',fourths:'Fourth Motion',fifths:'Fifth Motion',modal:'Modal Color'};
+  return map[motion]||map.home;
+}
+function th_renderModeWheelSvg(activeMode,lens){
+  const modes=Object.keys(th_modeData);
+  const cx=180,cy=180,r=114;
+  const nodes=modes.map((id,i)=>{
+    const a=(-90+i*360/modes.length)*Math.PI/180;
+    const x=cx+Math.cos(a)*r;
+    const y=cy+Math.sin(a)*r;
+    const m=th_modeData[id];
+    const active=id===th_state.mode;
+    return `<g class="th-mode-node ${active?'th-mode-active':''}" onclick="th_setMode('${id}')">
+      <circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${active?31:28}" fill="${active?lens.active:'var(--surface)'}" stroke="${active?lens.accent:'var(--border2)'}" stroke-width="${active?3:1.5}"></circle>
+      <text class="th-mode-label" x="${x.toFixed(1)}" y="${(y-3).toFixed(1)}" text-anchor="middle">${th_escape(m.label)}</text>
+      <text class="th-mode-formula" x="${x.toFixed(1)}" y="${(y+10).toFixed(1)}" text-anchor="middle">${th_escape(m.formula.join(' '))}</text>
+    </g>`;
+  }).join('');
+  return `<svg viewBox="0 0 360 360" role="img" aria-label="Mode wheel">
+    <circle cx="${cx}" cy="${cy}" r="92" fill="none" stroke="rgba(201,168,76,.22)" stroke-width="2"></circle>
+    <circle cx="${cx}" cy="${cy}" r="52" fill="rgba(160,96,122,.12)" stroke="rgba(160,96,122,.35)" stroke-width="2"></circle>
+    <text class="th-route-title" x="${cx}" y="${cy-3}" text-anchor="middle">${th_escape(activeMode.label)}</text>
+    <text class="th-route-sub" x="${cx}" y="${cy+16}" text-anchor="middle">mode color</text>
+    ${nodes}
+  </svg>`;
+}
+function th_renderMoodRouteSvg(mood,chords,lens){
+  const pts=[[78,195],[150,112],[225,112],[292,195]];
+  const roman=mood.progression;
+  const lines=pts.slice(0,-1).map((p,i)=>`<line class="th-route-line" x1="${p[0]}" y1="${p[1]}" x2="${pts[i+1][0]}" y2="${pts[i+1][1]}"></line>`).join('');
+  const nodes=pts.map((p,i)=>`<g>
+    <circle cx="${p[0]}" cy="${p[1]}" r="34" fill="${i===0?lens.active:'var(--surface)'}" stroke="${lens.accent}" stroke-width="${i===0?3:1.5}"></circle>
+    <text class="th-route-chord" x="${p[0]}" y="${p[1]-2}" text-anchor="middle" fill="${i===0?'white':'var(--ink)'}">${th_escape(chords[i]||'')}</text>
+    <text class="th-route-roman" x="${p[0]}" y="${p[1]+14}" text-anchor="middle" fill="${i===0?'white':'var(--ink3)'}">${th_escape(roman[i]||'')}</text>
+  </g>`).join('');
+  return `<svg viewBox="0 0 370 300" role="img" aria-label="Mood progression route">
+    <text class="th-route-title" x="185" y="38" text-anchor="middle">${th_escape(mood.label)} Route</text>
+    <text class="th-route-sub" x="185" y="58" text-anchor="middle">${th_escape(th_motionLabel(th_state.motion))}</text>
+    ${lines}
+    ${nodes}
+    <text class="th-route-sub" x="185" y="258" text-anchor="middle">${th_escape(mood.colors.join('  '))}</text>
+  </svg>`;
+}
+
+function th_loadMoodToBuilder(){
+  const mood=th_moodRecipeData[th_state.circleMood]||th_moodRecipeData.clean;
+  th_builderState=mood.progression.slice();
+  th_renderRomanBuilder();
+  th_renderCadenceLab();
+  const status=document.getElementById('th-builderLinkStatus');
+  if(status)status.textContent=`Loaded ${mood.progression.join(' ')} in ${th_state.key}.`;
+}
+function th_loadCadenceToBuilder(){
+  const cadence=th_cadenceData[th_state.cadence]||th_cadenceData.authentic;
+  th_builderState=cadence.roman.slice();
+  th_renderRomanBuilder();
+  th_renderCadenceLab();
+  const status=document.getElementById('th-builderLinkStatus');
+  if(status)status.textContent=`Loaded ${cadence.roman.join(' ')} cadence in ${th_state.key}.`;
+}
+function th_loadProgressionToBuilder(idx){
+  const preset=th_progressions[idx];
+  if(!preset)return;
+  th_builderState=preset.roman.slice();
+  th_renderRomanBuilder();
+  th_renderCadenceLab();
+  const status=document.getElementById('th-builderLinkStatus');
+  if(status)status.textContent=`Loaded ${preset.roman.join(' ')} from Progression Guide.`;
+}
+function th_renderCadenceLab(){
+  th_syncControls();
+  const summary=document.getElementById('th-cadenceSummary');
+  const route=document.getElementById('th-cadenceRoute');
+  const grid=document.getElementById('th-functionGrid');
+  if(!summary&&!route&&!grid)return;
+  const cadence=th_cadenceData[th_state.cadence]||th_cadenceData.authentic;
+  const chords=th_chordsForRomanList(th_state.key,cadence.roman);
+  const viewCopy=cadence[th_state.functionView]||cadence.student;
+  if(summary)summary.innerHTML=`<strong>${th_escape(cadence.label)} in ${th_escape(th_state.key)}</strong>: ${th_escape(cadence.copy)} <br><strong>${th_escape(th_functionViewLabel(th_state.functionView))} view:</strong> ${th_escape(viewCopy)}`;
+  if(route)route.innerHTML=th_renderCadenceRouteSvg(cadence,chords);
+  if(grid){
+    const activeSet=new Set(cadence.roman);
+    grid.innerHTML=th_functionData.map(item=>{
+      const chord=th_chordForRoman(th_state.key,item.roman);
+      return `<div class="theory-function-card ${activeSet.has(item.roman)?'active':''}">
+        <div class="theory-function-roman">${th_escape(item.roman)}</div>
+        <div class="theory-function-chord">${th_escape(chord)}</div>
+        <div class="theory-function-role">${th_escape(item.role)}</div>
+        <div class="theory-function-copy">${th_escape(item.copy)}</div>
+      </div>`;
+    }).join('');
+  }
+}
+function th_functionViewLabel(view){
+  const map={student:'Student',composer:'Composer',improviser:'Improviser'};
+  return map[view]||map.student;
+}
+function th_renderCadenceRouteSvg(cadence,chords){
+  const count=Math.max(cadence.roman.length,2);
+  const width=620;
+  const y=105;
+  const gap=count>1?440/(count-1):0;
+  const start=90;
+  const pts=cadence.roman.map((r,i)=>({x:start+i*gap,y,roman:r,chord:chords[i]||'',role:cadence.roles[i]||''}));
+  const lines=pts.slice(0,-1).map((p,i)=>`<line class="th-cadence-line" x1="${p.x+34}" y1="${p.y}" x2="${pts[i+1].x-34}" y2="${pts[i+1].y}"></line>`).join('');
+  const nodes=pts.map((p,i)=>`<g class="th-cadence-node ${i===0?'first':''} ${i===pts.length-1?'last':''}">
+    <circle cx="${p.x}" cy="${p.y}" r="38"></circle>
+    <text class="th-cadence-roman" x="${p.x}" y="${p.y-7}" text-anchor="middle">${th_escape(p.roman)}</text>
+    <text class="th-cadence-chord" x="${p.x}" y="${p.y+10}" text-anchor="middle">${th_escape(p.chord)}</text>
+    <text class="th-cadence-role" x="${p.x}" y="${p.y+58}" text-anchor="middle">${th_escape(p.role)}</text>
+  </g>`).join('');
+  return `<svg viewBox="0 0 ${width} 190" role="img" aria-label="${th_escape(cadence.label)} route">
+    <text class="th-route-title" x="310" y="30" text-anchor="middle">${th_escape(cadence.label)}</text>
+    <text class="th-route-sub" x="310" y="50" text-anchor="middle">${th_escape(th_state.key)} key center</text>
+    ${lines}
+    ${nodes}
+  </svg>`;
 }
 function th_renderFormulaLab(){
   const sel=document.getElementById('th-formulaSelect'); if(sel)sel.value=th_state.formula;
@@ -6739,14 +7616,14 @@ function th_renderTheoryKeyboard(items){
       const pc=th_pc[name];
       const active=activeByPc[pc];
       const label=active?`${active.label} ${active.note}`:`${name}${octave}`;
-      whiteHtml+=`<div class="theory-white-key ${active?'lit':''}"><span>${th_escape(label)}</span></div>`;
+      whiteHtml+=`<div class="theory-white-key ${active?'lit':''}" data-note="${name}${octave}"><span>${th_escape(label)}</span></div>`;
       if(blackAfter[name]){
         const bName=blackAfter[name];
         const bPc=th_pc[bName];
         const bActive=activeByPc[bPc];
         const bLabel=bActive?`${bActive.label} ${bActive.note}`:bName;
         const left=(whiteIndex+1)*whiteWidth-13;
-        blackHtml+=`<div class="theory-black-key ${bActive?'lit':''}" style="left:${left}px"><span>${th_escape(bLabel)}</span></div>`;
+        blackHtml+=`<div class="theory-black-key ${bActive?'lit':''}" data-note="${bName}${octave}" style="left:${left}px"><span>${th_escape(bLabel)}</span></div>`;
       }
       whiteIndex+=1;
     });
@@ -6769,19 +7646,23 @@ function th_setBuilderPreset(idx){
   const preset=th_progressions[idx];
   th_builderState=preset?preset.roman.slice():['I','IV','V'];
   th_renderRomanBuilder();
+  th_renderCadenceLab();
 }
 function th_addRoman(roman){
   if(th_builderState.length>=16)return;
   th_builderState.push(roman);
   th_renderRomanBuilder();
+  th_renderCadenceLab();
 }
 function th_removeRoman(idx){
   th_builderState.splice(idx,1);
   th_renderRomanBuilder();
+  th_renderCadenceLab();
 }
 function th_clearRoman(){
   th_builderState=[];
   th_renderRomanBuilder();
+  th_renderCadenceLab();
 }
 function th_renderRomanBuilder(){
   const pal=document.getElementById('th-romanPalette');
@@ -6802,9 +7683,9 @@ function th_renderChordGuide(){
 }
 function th_renderProgressions(){
   const el=document.getElementById('th-progressionGuide'); if(!el)return;
-  el.innerHTML=th_progressions.map(p=>{
+  el.innerHTML=th_progressions.map((p,i)=>{
     const chords=th_progressionChords(th_state.key,p.roman);
-    return `<div class="theory-prog-card"><div class="theory-prog-title"><span class="theory-prog-roman">${th_escape(p.roman.join(' '))}</span><span class="theory-pill">${th_escape(p.name)}</span></div><div class="theory-prog-notes">${th_escape(chords.join('  '))}</div><div class="theory-prog-use">${th_escape(p.use)}</div></div>`;
+    return `<div class="theory-prog-card"><div class="theory-prog-title"><span class="theory-prog-roman">${th_escape(p.roman.join(' '))}</span><span class="theory-pill">${th_escape(p.name)}</span></div><div class="theory-prog-notes">${th_escape(chords.join('  '))}</div><div class="theory-prog-use">${th_escape(p.use)}</div><button class="theory-roman-btn action" style="margin-top:.5rem" onclick="th_loadProgressionToBuilder(${i})">Load in Builder</button></div>`;
   }).join('');
 }
 function th_renderGlossary(){
@@ -7011,6 +7892,150 @@ function th_renderMissedReview(){
   if(!missed.length){el.innerHTML='<div class="theory-empty">No missed answers yet.</div>';return;}
   el.innerHTML=missed.map(h=>`<div class="theory-mistake-item"><strong>${th_escape(h.type)}</strong>${th_escape(h.prompt)}<br>Answer: ${th_escape(h.answer)}</div>`).join('');
 }
+
+
+/* ============================================================
+   THEORY AUDIO UTILITY BAR
+   Stage 7: shared metronome, master, metro, live keyboard, MIDI ready, browser synth
+   ============================================================ */
+let th_audioState={bpm:84,metroOn:false,metroTimer:null,beat:0,keyboardReady:false,master:80,metro:25,live:75,status:'Browser Synth Off'};
+const th_keyComputerMap={a:'C4',w:'C#4',s:'D4',e:'D#4',d:'E4',f:'F4',t:'F#4',g:'G4',y:'G#4',h:'A4',u:'A#4',j:'B4',k:'C5'};
+function th_setupTheoryAudioKeys(){
+  if(th_audioState.keyboardReady)return;
+  th_audioState.keyboardReady=true;
+  document.addEventListener('keydown',function(ev){
+    if(currentPage!=='theory'||ev.repeat)return;
+    const tag=(ev.target&&ev.target.tagName||'').toLowerCase();
+    if(tag==='input'||tag==='select'||tag==='textarea')return;
+    const note=th_keyComputerMap[ev.key.toLowerCase()];
+    if(!note)return;
+    ev.preventDefault();
+    th_playTheoryLiveNote(note,92);
+  });
+}
+function th_browserSynthIsOn(){
+  return !!(typeof p_browserSynthEnabled!=='undefined'&&p_browserSynthEnabled&&(!p_isActiveAudioTab||p_isActiveAudioTab()));
+}
+function th_setTheoryStatus(txt){th_audioState.status=txt||'';}
+function th_syncTheoryUtilityBar(){
+  const bpm=document.getElementById('th-bpmSlider');
+  const bpmVal=document.getElementById('th-bpmVal');
+  const master=document.getElementById('th-masterSlider');
+  const masterVal=document.getElementById('th-masterVal');
+  const metro=document.getElementById('th-metroSlider');
+  const metroVal=document.getElementById('th-metroVal');
+  const live=document.getElementById('th-liveSlider');
+  const liveVal=document.getElementById('th-liveVal');
+  const metroBtn=document.getElementById('th-metroToggle');
+  const synth=document.getElementById('th-synthToggle');
+  if(bpm)bpm.value=th_audioState.bpm;if(bpmVal)bpmVal.textContent=th_audioState.bpm;
+  if(master)master.value=th_audioState.master;if(masterVal)masterVal.textContent=th_audioState.master;
+  if(metro)metro.value=th_audioState.metro;if(metroVal)metroVal.textContent=th_audioState.metro;
+  if(live)live.value=th_audioState.live;if(liveVal)liveVal.textContent=th_audioState.live;
+  if(synth&&typeof p_browserSynthEnabled!=='undefined')synth.checked=!!p_browserSynthEnabled;
+  if(metroBtn){metroBtn.classList.toggle('active',th_audioState.metroOn);metroBtn.textContent=th_audioState.metroOn?'Metro On':'Metro Off';}
+}
+function th_renderAudioStrip(){th_syncTheoryUtilityBar();}
+function th_setTheoryBpm(v){
+  const val=Math.max(40,Math.min(200,parseInt(v,10)||84));
+  th_audioState.bpm=val;
+  const el=document.getElementById('th-bpmVal');if(el)el.textContent=val;
+  if(th_audioState.metroOn){th_stopTheoryMetronome(false);th_startTheoryMetronome();}
+  th_syncTheoryUtilityBar();
+}
+function th_updateMasterVol(v){
+  const val=Math.max(0,Math.min(100,parseInt(v,10)||0));
+  th_audioState.master=val;
+  const el=document.getElementById('th-masterVal');if(el)el.textContent=val;
+  if(typeof p_updateMasterVol==='function')p_updateMasterVol(val);
+}
+function th_updateMetroVol(v){
+  const val=Math.max(0,Math.min(100,parseInt(v,10)||0));
+  th_audioState.metro=val;
+  const el=document.getElementById('th-metroVal');if(el)el.textContent=val;
+  if(typeof p_updateMetroVol==='function')p_updateMetroVol(val);
+}
+function th_updateLiveVol(v){
+  const val=Math.max(0,Math.min(100,parseInt(v,10)||0));
+  th_audioState.live=val;
+  const el=document.getElementById('th-liveVal');if(el)el.textContent=val;
+  if(typeof p_updateLiveVol==='function')p_updateLiveVol(val);
+}
+function th_toggleTheoryBrowserSynth(checked){
+  if(typeof p_toggleBrowserSynth==='function')p_toggleBrowserSynth(!!checked);
+  th_syncTheoryUtilityBar();
+}
+function th_toggleTheoryMetronome(){
+  if(th_audioState.metroOn)th_stopTheoryMetronome();
+  else th_startTheoryMetronome();
+  th_syncTheoryUtilityBar();
+}
+function th_startTheoryMetronome(){
+  th_audioState.metroOn=true;
+  th_audioState.beat=0;
+  th_metroTick();
+  th_audioState.metroTimer=setInterval(th_metroTick,60000/th_audioState.bpm);
+}
+function th_stopTheoryMetronome(updateStatus=true){
+  th_audioState.metroOn=false;
+  if(th_audioState.metroTimer)clearInterval(th_audioState.metroTimer);
+  th_audioState.metroTimer=null;
+  if(updateStatus)th_syncTheoryUtilityBar();
+}
+function th_metroTick(){
+  const accent=th_audioState.beat%4===0;
+  th_audioState.beat=(th_audioState.beat+1)%4;
+  th_playTheoryClick(accent);
+}
+function th_playTheoryClick(accent){
+  if(!th_browserSynthIsOn())return;
+  if(typeof r_playClick==='function'){r_playClick(!!accent);return;}
+  try{
+    const ctx=(typeof p_getCtx==='function')?p_getCtx():null;if(!ctx)return;
+    const o=ctx.createOscillator(),g=ctx.createGain();
+    o.type='square';o.frequency.value=accent?1320:880;
+    const now=ctx.currentTime;
+    g.gain.setValueAtTime(0.0001,now);g.gain.exponentialRampToValueAtTime(accent?0.15:0.09,now+0.004);g.gain.exponentialRampToValueAtTime(0.0001,now+0.055);
+    o.connect(g);g.connect((typeof p_metroGain!=='undefined'&&p_metroGain)?p_metroGain:((typeof p_masterGain!=='undefined'&&p_masterGain)?p_masterGain:ctx.destination));
+    o.start(now);o.stop(now+0.065);
+  }catch(e){}
+}
+function th_playTheoryLiveNote(note,velocity){
+  if(!th_browserSynthIsOn()){th_setTheoryStatus('Browser Synth Off');return;}
+  if(typeof p_claimAudioOwnership==='function')p_claimAudioOwnership();
+  if(typeof p_noteOn==='function'){
+    p_noteOn(note,velocity||90,'live');
+    setTimeout(()=>{if(typeof p_noteOff==='function')p_noteOff(note);},620);
+    th_flashTheoryKey(note);
+  }
+}
+function th_noteToMidi(note){
+  const m=String(note||'').match(/^([A-G](?:#|b)?)(-?\d+)?$/);
+  if(!m)return null;
+  const pc=th_pc[m[1]];
+  if(pc===undefined)return null;
+  const octave=m[2]!==undefined?parseInt(m[2],10):4;
+  return (octave+1)*12+pc;
+}
+function th_midiToFreq(midi){return 440*Math.pow(2,(midi-69)/12);}
+function th_soundName(note){
+  const pc=th_pc[String(note).replace(/\d/g,'')];
+  if(pc===undefined)return 'C';
+  const flatKeys=['F','Bb','Eb','Ab','Db','Gb','Cb'];
+  return flatKeys.includes(th_state.key)?th_flatNames[pc]:th_sharpNames[pc];
+}
+function th_playTheoryNote(note,durationShort){th_playTheoryLiveNote(note,durationShort?88:96);}
+function th_flashTheoryKey(note){
+  const clean=String(note).replace(/[^A-G#b0-9-]/g,'');
+  document.querySelectorAll(`#page-theory [data-note="${clean}"]`).forEach(el=>{
+    el.classList.add('sound-hit','active');
+    setTimeout(()=>el.classList.remove('sound-hit','active'),170);
+  });
+}
+function th_playSelectedKey(){th_playTheoryLiveNote(th_soundName(th_state.key)+'4',96);}
+function th_playCurrentMap(){return;}
+function th_playBuilderRoots(){return;}
+function th_playNoteSequence(notes,gap){return;}
 
 /* ============================================================
    DECORATIVE LOGO KEYS
@@ -9699,7 +10724,7 @@ function p_isActiveAudioTab() {
 
 function p_setBrowserSynthEnabled(enabled, reason) {
   p_browserSynthEnabled = enabled;
-  ['p-synthToggle','e-synthToggle','i-synthToggle','im-synthToggle'].forEach(id=>{
+  ['p-synthToggle','e-synthToggle','i-synthToggle','im-synthToggle','th-synthToggle'].forEach(id=>{
     const cb=document.getElementById(id);
     if(cb) cb.checked=enabled;
   });
@@ -9707,7 +10732,7 @@ function p_setBrowserSynthEnabled(enabled, reason) {
     p_activeVoices.forEach((_, note) => p_noteOff(note));
     p_activeVoices.clear();
   }
-  ['p-audioOwnerStatus','i-audioOwnerStatus'].forEach(id=>{
+  ['p-audioOwnerStatus','i-audioOwnerStatus','th-audioOwnerStatus'].forEach(id=>{
     const status=document.getElementById(id);
     if(status && reason) status.textContent=reason;
   });
@@ -9716,7 +10741,7 @@ function p_setBrowserSynthEnabled(enabled, reason) {
 function p_updateAudioOwnerStatus() {
   const isOwner = p_isActiveAudioTab();
   const desired = isOwner && p_userWantsBrowserSynth;
-  ['p-synthToggle','e-synthToggle','i-synthToggle'].forEach(id=>{
+  ['p-synthToggle','e-synthToggle','i-synthToggle','th-synthToggle'].forEach(id=>{
     const cb=document.getElementById(id);
     if(cb) cb.checked=desired;
   });
@@ -16733,10 +17758,769 @@ function pg_render() {
   }
 }
 
+/* ============================================================
+   PROGRESS PAGE STAGE 2: learning map, coach, balance, planner
+   ============================================================ */
+const PG2_GOAL_KEY='mm_progressWeeklyGoal';
+
+function pg2_readPracticeHistory(){
+  try{const d=localStorage.getItem('km_phistory');return d?JSON.parse(d):[];}catch(e){return [];}
+}
+function pg2_avg(items,field){
+  if(!items||!items.length)return 0;
+  const sum=items.reduce((a,b)=>a+(Number(b[field])||0),0);
+  return Math.round(sum/items.length);
+}
+function pg2_safePct(correct,total){return total?Math.round((correct/total)*100):0;}
+function pg2_sessionScore(correct,total){return total?pg2_safePct(correct,total):0;}
+function pg2_getGoal(){
+  const v=parseInt(localStorage.getItem(PG2_GOAL_KEY)||'5',10);
+  return [3,5,7,10].includes(v)?v:5;
+}
+function pg2_setWeeklyGoal(value){
+  const v=parseInt(value,10)||5;
+  try{localStorage.setItem(PG2_GOAL_KEY,String(v));}catch(e){}
+  pg2_renderDashboard();
+}
+function pg2_moduleData(){
+  const practice=pg2_readPracticeHistory();
+  const practiceAvg=pg2_avg(practice,'score');
+  const rhythmAvg=pg2_avg(pg_rhythmHistory||[],'score');
+  const intervalTotal=(typeof i_scoreTotal!=='undefined')?i_scoreTotal:0;
+  const intervalCorrect=(typeof i_scoreCorrect!=='undefined')?i_scoreCorrect:0;
+  const sightTotal=(typeof s_scoreTotal!=='undefined')?s_scoreTotal:0;
+  const sightCorrect=(typeof s_scoreCorrect!=='undefined')?s_scoreCorrect:0;
+  const improvAttempts=(typeof im_attempts!=='undefined')?im_attempts:0;
+  const improvCorrect=(typeof im_correct!=='undefined')?im_correct:0;
+  const theoryAsked=(typeof th_drillState!=='undefined')?th_drillState.asked:0;
+  const theoryCorrect=(typeof th_drillState!=='undefined')?th_drillState.correct:0;
+  return [
+    {id:'practice',name:'Practice',sub:practice.length?practice.length+' exercises saved':'No saved exercises yet',score:practiceAvg,active:practice.length>0,coach:['Run one short scale or chord session','Use a familiar key first','Aim for clean accuracy before speed']},
+    {id:'ear',name:'Ear Training',sub:(pg_earStats&&pg_earStats.total)?pg_earStats.total+' answers tracked':'No ear answers yet',score:(pg_earStats&&pg_earStats.total)?pg_earStats.pct:0,active:!!(pg_earStats&&pg_earStats.total),coach:['Identify notes with note buttons','Repeat missed intervals slowly','Keep the session short and accurate']},
+    {id:'rhythm',name:'Rhythm',sub:(pg_rhythmHistory&&pg_rhythmHistory.length)?pg_rhythmHistory.length+' rhythm attempts':'No rhythm attempts yet',score:rhythmAvg,active:!!(pg_rhythmHistory&&pg_rhythmHistory.length),coach:['Tap a four bar pattern','Use a comfortable tempo','Repeat once after the first score']},
+    {id:'sight',name:'Sight Reading',sub:sightTotal?sightCorrect+' / '+sightTotal+' current session':'Ready, not saved yet',score:pg2_sessionScore(sightCorrect,sightTotal),active:sightTotal>0,coach:['Read one short exercise','Use a simple key first','Say the notes before starting']},
+    {id:'intervals',name:'Intervals',sub:intervalTotal?intervalCorrect+' / '+intervalTotal+' current session':'Ready, not saved yet',score:pg2_sessionScore(intervalCorrect,intervalTotal),active:intervalTotal>0,coach:['Review one interval family','Play the answer after guessing','Use Review Misses if available']},
+    {id:'improv',name:'Improv',sub:improvAttempts?improvCorrect+' / '+improvAttempts+' current session':'Ready, not saved yet',score:pg2_sessionScore(improvCorrect,improvAttempts),active:improvAttempts>0,coach:['Use a simple progression','Target chord tones first','Try one mood or voicing color']},
+    {id:'theory',name:'Theory',sub:theoryAsked?theoryCorrect+' / '+theoryAsked+' trainer answers':'Use the trainer to track session skill',score:pg2_sessionScore(theoryCorrect,theoryAsked),active:theoryAsked>0,coach:['Run a five question theory drill','Use the circle graphic before answering','Translate one progression into a key']}
+  ];
+}
+function pg2_statusLabel(module){
+  if(!module.active)return 'Start';
+  if(module.score>=90)return 'Strong';
+  if(module.score>=75)return 'Good';
+  if(module.score>=55)return 'Building';
+  return 'Review';
+}
+function pg2_renderModuleMap(modules){
+  const el=document.getElementById('pg2-moduleMap');if(!el)return;
+  el.innerHTML='';
+  modules.forEach(m=>{
+    const row=document.createElement('div');
+    row.className='pg2-module-row'+(m.active?'':' pending');
+    const pct=m.active?Math.max(5,Math.min(100,m.score)):0;
+    row.innerHTML='<div><div class="pg2-module-name">'+m.name+'</div><div class="pg2-module-sub">'+m.sub+'</div></div><div class="pg2-module-meter"><div class="pg2-module-fill" style="width:'+pct+'%"></div></div><div class="pg2-module-status">'+(m.active?m.score+'%':pg2_statusLabel(m))+'</div>';
+    el.appendChild(row);
+  });
+}
+function pg2_pickNext(modules){
+  const active=modules.filter(m=>m.active);
+  if(!active.length)return modules.find(m=>m.id==='practice')||modules[0];
+  const lowActive=[...active].sort((a,b)=>a.score-b.score)[0];
+  const notStarted=modules.find(m=>!m.active&&['ear','rhythm','theory','sight','intervals','improv'].includes(m.id));
+  if(lowActive&&lowActive.score<70)return lowActive;
+  return notStarted||lowActive||modules[0];
+}
+function pg2_renderNextSession(modules){
+  const el=document.getElementById('pg2-nextSession');if(!el)return;
+  const next=pg2_pickNext(modules);
+  if(!next){el.innerHTML='<div class="progress-empty">No recommendation available yet</div>';return;}
+  const reason=next.active
+    ? 'This area is currently your clearest growth target. A short focused session here will balance the rest of your work.'
+    : 'This area has little or no tracked activity yet. Starting it will give your progress map a more complete picture.';
+  el.innerHTML='<div class="pg2-focus-name">'+next.name+'</div><div class="pg2-focus-reason">'+reason+'</div><div class="pg2-focus-list">'+next.coach.map(item=>'<div class="pg2-focus-item">'+item+'</div>').join('')+'</div>';
+}
+function pg2_radarPoint(cx,cy,r,angleDeg,value){
+  const a=(angleDeg-90)*Math.PI/180;
+  const rr=r*(Math.max(0,Math.min(100,value))/100);
+  return {x:cx+Math.cos(a)*rr,y:cy+Math.sin(a)*rr};
+}
+function pg2_renderSkillBalance(modules){
+  const el=document.getElementById('pg2-skillBalance');if(!el)return;
+  const picked=['practice','ear','rhythm','sight','intervals','improv','theory'].map(id=>modules.find(m=>m.id===id)).filter(Boolean);
+  const cx=170,cy=145,r=92;
+  const points=picked.map((m,i)=>pg2_radarPoint(cx,cy,r,(360/picked.length)*i,m.active?m.score:8));
+  const poly=points.map(p=>p.x.toFixed(1)+','+p.y.toFixed(1)).join(' ');
+  let rings='';
+  [25,50,75,100].forEach(level=>{
+    const ring=picked.map((m,i)=>pg2_radarPoint(cx,cy,r,(360/picked.length)*i,level));
+    rings+='<polygon class="pg2-radar-grid" points="'+ring.map(p=>p.x.toFixed(1)+','+p.y.toFixed(1)).join(' ')+'" />';
+  });
+  let axes='';
+  let labels='';
+  picked.forEach((m,i)=>{
+    const end=pg2_radarPoint(cx,cy,r,(360/picked.length)*i,100);
+    const lab=pg2_radarPoint(cx,cy,r+25,(360/picked.length)*i,100);
+    axes+='<line class="pg2-radar-axis" x1="'+cx+'" y1="'+cy+'" x2="'+end.x.toFixed(1)+'" y2="'+end.y.toFixed(1)+'" />';
+    labels+='<text class="pg2-radar-label" x="'+lab.x.toFixed(1)+'" y="'+lab.y.toFixed(1)+'" text-anchor="middle">'+m.name.replace('Ear Training','Ear').replace('Sight Reading','Sight')+'</text>';
+  });
+  const dots=points.map(p=>'<circle class="pg2-radar-point" cx="'+p.x.toFixed(1)+'" cy="'+p.y.toFixed(1)+'" r="4" />').join('');
+  el.innerHTML='<svg viewBox="0 0 340 290" role="img" aria-label="Skill balance chart">'+rings+axes+'<polygon class="pg2-radar-fill" points="'+poly+'" />'+dots+labels+'</svg>';
+}
+function pg2_recentCount(){
+  const practice=pg2_readPracticeHistory().length;
+  const rhythm=(pg_rhythmHistory||[]).length;
+  const ear=(pg_earStats&&pg_earStats.total)?Math.min(3,Math.floor(pg_earStats.total/5)):0;
+  const theory=(typeof th_drillState!=='undefined'&&th_drillState.asked)?1:0;
+  return Math.min(practice+rhythm+ear+theory,50);
+}
+function pg2_renderPlanner(){
+  const sel=document.getElementById('pg2-weeklyGoalSelect');
+  const goal=pg2_getGoal();
+  if(sel)sel.value=String(goal);
+  const current=pg2_recentCount();
+  const pct=Math.min(100,Math.round((current/goal)*100));
+  const fill=document.getElementById('pg2-goalFill');if(fill)fill.style.width=pct+'%';
+  const txt=document.getElementById('pg2-goalText');
+  if(txt)txt.textContent=current+' tracked activities toward a '+goal+' session target. Use this as a simple recent work target until dated history is added.';
+}
+function pg2_renderDashboard(){
+  if(!document.getElementById('page-progress'))return;
+  if(typeof pg_loadEarStats==='function')pg_loadEarStats();
+  if(typeof pg_loadRhythmHistory==='function')pg_loadRhythmHistory();
+  const modules=pg2_moduleData();
+  pg2_renderModuleMap(modules);
+  pg2_renderNextSession(modules);
+  pg2_renderSkillBalance(modules);
+  pg2_renderPlanner();
+}
+const _pg2_originalRender = pg_render;
+pg_render = function(){
+  _pg2_originalRender();
+  pg2_renderDashboard();
+};
+
+/* ============================================================
+   PROGRESS PAGE STAGE 3: weekly review, focus queue, report builder
+   ============================================================ */
+function pg3_escape(value){
+  return String(value==null?'':value).replace(/[&<>"]/g,function(ch){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[ch];});
+}
+function pg3_readPracticeHistory(){
+  try{const d=localStorage.getItem('km_phistory');return d?JSON.parse(d):[];}catch(e){return [];}
+}
+function pg3_activityItems(){
+  const now=Date.now();
+  const items=[];
+  pg3_readPracticeHistory().slice(0,30).forEach((h,i)=>{
+    items.push({type:'Practice',name:h.name||'Practice exercise',score:Number(h.score)||0,ts:h.ts||h.date||h.time||(now-(i*8*60*60*1000))});
+  });
+  (pg_rhythmHistory||[]).slice(0,20).forEach((h,i)=>{
+    items.push({type:'Rhythm',name:h.name||'Rhythm attempt',score:Number(h.score)||0,ts:h.ts||h.date||h.time||(now-(i*10*60*60*1000))});
+  });
+  if(typeof th_drillState!=='undefined'&&th_drillState.asked){
+    items.push({type:'Theory',name:'Theory trainer',score:th_drillState.asked?Math.round((th_drillState.correct/th_drillState.asked)*100):0,ts:now});
+  }
+  if(pg_earStats&&pg_earStats.total){
+    items.push({type:'Ear Training',name:'Ear training answers',score:pg_earStats.pct||0,ts:now-(2*60*60*1000)});
+  }
+  return items.sort((a,b)=>(Number(b.ts)||0)-(Number(a.ts)||0));
+}
+function pg3_shortDay(d){return ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'][d.getDay()];}
+function pg3_dayKey(ts){
+  const d=new Date(ts);return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+}
+function pg3_weekDays(){
+  const today=new Date();today.setHours(0,0,0,0);
+  const days=[];
+  for(let i=6;i>=0;i--){const d=new Date(today);d.setDate(today.getDate()-i);days.push(d);}
+  return days;
+}
+function pg3_pickStrongest(modules){
+  const active=modules.filter(m=>m.active);
+  if(!active.length)return null;
+  return active.slice().sort((a,b)=>b.score-a.score)[0];
+}
+function pg3_pickReviewTarget(modules){
+  const active=modules.filter(m=>m.active);
+  if(active.length)return active.slice().sort((a,b)=>a.score-b.score)[0];
+  return modules.find(m=>!m.active)||modules[0]||null;
+}
+function pg3_renderWeeklyReview(modules){
+  const items=pg3_activityItems();
+  const kpis=document.getElementById('pg3-reviewKpis');
+  const heat=document.getElementById('pg3-weekHeatmap');
+  const note=document.getElementById('pg3-weeklyNote');
+  const strong=pg3_pickStrongest(modules);
+  const review=pg3_pickReviewTarget(modules);
+  const activeCount=modules.filter(m=>m.active).length;
+  if(kpis){
+    kpis.innerHTML=''
+      +'<div class="pg3-kpi"><div class="pg3-kpi-label">Recent Work</div><div class="pg3-kpi-value">'+items.length+'</div><div class="pg3-kpi-sub">Tracked activities across the app</div></div>'
+      +'<div class="pg3-kpi"><div class="pg3-kpi-label">Strongest</div><div class="pg3-kpi-value">'+pg3_escape(strong?strong.name:'Pending')+'</div><div class="pg3-kpi-sub">'+(strong?strong.score+' percent current strength':'Complete an activity to set this')+'</div></div>'
+      +'<div class="pg3-kpi"><div class="pg3-kpi-label">Review Target</div><div class="pg3-kpi-value">'+pg3_escape(review?review.name:'Practice')+'</div><div class="pg3-kpi-sub">'+(review&&review.active?review.score+' percent. Keep it short and focused':'Start this area to balance your map')+'</div></div>'
+      +'<div class="pg3-kpi"><div class="pg3-kpi-label">Coverage</div><div class="pg3-kpi-value">'+activeCount+' / '+modules.length+'</div><div class="pg3-kpi-sub">Modules with tracked activity</div></div>';
+  }
+  if(heat){
+    const counts={};
+    items.forEach(it=>{const key=pg3_dayKey(it.ts||Date.now());counts[key]=(counts[key]||0)+1;});
+    heat.innerHTML=pg3_weekDays().map(d=>{
+      const key=pg3_dayKey(d.getTime());
+      const c=counts[key]||0;
+      const cls=c>=3?' strong':(c>0?' active':'');
+      return '<div class="pg3-day'+cls+'"><div class="pg3-day-name">'+pg3_shortDay(d)+'</div><div class="pg3-day-count">'+c+'</div></div>';
+    }).join('');
+  }
+  if(note){
+    const next=review?review.name:'Practice';
+    note.textContent=items.length
+      ? 'This snapshot is based on recent local activity. Best next move: give '+next+' one focused session, then return here to see the map rebalance.'
+      : 'No dated activity is available yet. Complete a few short activities, then this review will become more meaningful.';
+  }
+}
+function pg3_focusSteps(modules){
+  const target=pg3_pickReviewTarget(modules)||modules[0];
+  const strong=pg3_pickStrongest(modules);
+  const support=modules.find(m=>!m.active&&m!==target)||strong||target;
+  return [
+    {title:'Warmup',copy:'Start with two minutes in Practice or Sight Reading to get the hands moving.'},
+    {title:'Main Focus',copy:'Work on '+(target?target.name:'Practice')+' because it is the clearest growth area right now.'},
+    {title:'Theory Link',copy:'Use the Theory page to name the key, chord, scale, or interval behind the exercise.'},
+    {title:'Contrast',copy:'Add one quick pass in '+(support?support.name:'Ear Training')+' so the session is not one dimensional.'},
+    {title:'Finish',copy:'End by repeating the first task and aim for a cleaner score or faster recognition.'}
+  ];
+}
+function pg3_renderFocusQueue(modules){
+  const el=document.getElementById('pg3-focusQueue');
+  const strip=document.getElementById('pg3-pathStrip');
+  if(el){
+    el.innerHTML=pg3_focusSteps(modules).map((s,i)=>'<div class="pg3-focus-step"><div class="pg3-step-num">'+(i+1)+'</div><div><div class="pg3-step-title">'+pg3_escape(s.title)+'</div><div class="pg3-step-copy">'+pg3_escape(s.copy)+'</div></div></div>').join('');
+  }
+  if(strip){
+    strip.innerHTML=modules.map(m=>'<span class="pg3-path-pill '+(m.active?'ready':'')+'">'+pg3_escape(m.name.replace('Ear Training','Ear').replace('Sight Reading','Sight'))+'</span>').join('');
+  }
+}
+function pg3_reportLines(modules,type){
+  const items=pg3_activityItems();
+  const profileName=activeProfile&&activeProfile.name?activeProfile.name:'Student';
+  const strong=pg3_pickStrongest(modules);
+  const review=pg3_pickReviewTarget(modules);
+  const activeCount=modules.filter(m=>m.active).length;
+  const avg=items.length?Math.round(items.reduce((a,b)=>a+(Number(b.score)||0),0)/items.length):0;
+  const next=review?review.name:'Practice';
+  if(type==='teacher'){
+    return [
+      'MusicMein Teacher Notes for '+profileName,
+      '',
+      'Recent activity: '+items.length+' tracked activities.',
+      'Coverage: '+activeCount+' of '+modules.length+' learning areas have activity.',
+      'Average recent score: '+(items.length?avg+' percent':'not enough data yet')+'.',
+      'Strong area: '+(strong?strong.name+' at '+strong.score+' percent':'pending more data')+'.',
+      'Priority area: '+next+'.',
+      '',
+      'Suggested assignment:',
+      '1. Complete one focused '+next+' activity.',
+      '2. Connect the activity to one Theory concept.',
+      '3. Repeat the original task and compare the result.'
+    ];
+  }
+  if(type==='parent'){
+    return [
+      'MusicMein Progress Summary for '+profileName,
+      '',
+      profileName+' has '+items.length+' recent tracked activities in MusicMein.',
+      'The current strongest area is '+(strong?strong.name:'still being established')+'.',
+      'The next helpful area is '+next+'.',
+      '',
+      'Recommended next step:',
+      'A short focused session is better than a long unfocused one. Aim for one clean activity, then one repeat.'
+    ];
+  }
+  return [
+    'MusicMein Student Summary',
+    '',
+    'Recent work: '+items.length+' tracked activities.',
+    'Best area right now: '+(strong?strong.name+' at '+strong.score+' percent':'not enough data yet')+'.',
+    'Next focus: '+next+'.',
+    'Coverage: '+activeCount+' of '+modules.length+' areas started.',
+    '',
+    'Plan:',
+    'Start with a warmup, spend most of the session on '+next+', then finish by repeating the first task.'
+  ];
+}
+function pg3_renderReport(){
+  const el=document.getElementById('pg3-reportText');
+  if(!el)return;
+  const sel=document.getElementById('pg3-reportType');
+  const type=sel?sel.value:'student';
+  const modules=(typeof pg2_moduleData==='function')?pg2_moduleData():[];
+  el.textContent=pg3_reportLines(modules,type).join('\n');
+}
+function pg3_copyReport(){
+  const el=document.getElementById('pg3-reportText');
+  const state=document.getElementById('pg3-copyState');
+  if(!el)return;
+  const text=el.textContent||'';
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(text).then(()=>{if(state)state.textContent='Report copied';}).catch(()=>{if(state)state.textContent='Select the report text and copy manually';});
+  } else if(state){
+    state.textContent='Select the report text and copy manually';
+  }
+}
+function pg3_renderDashboard(){
+  if(!document.getElementById('page-progress'))return;
+  if(typeof pg_loadEarStats==='function')pg_loadEarStats();
+  if(typeof pg_loadRhythmHistory==='function')pg_loadRhythmHistory();
+  const modules=(typeof pg2_moduleData==='function')?pg2_moduleData():[];
+  pg3_renderWeeklyReview(modules);
+  pg3_renderFocusQueue(modules);
+  pg3_renderReport();
+}
+const _pg3_originalPg2RenderDashboard=pg2_renderDashboard;
+pg2_renderDashboard=function(){
+  _pg3_originalPg2RenderDashboard();
+  pg3_renderDashboard();
+};
+
+/* ============================================================
+   PROGRESS PAGE STAGE 4: module detail and assignment builder
+   ============================================================ */
+const PG4_MODULE_KEY='mm_progressDetailModule';
+let pg4_lastAssignmentText='';
+
+function pg4_getModuleChoice(){
+  const saved=localStorage.getItem(PG4_MODULE_KEY)||'auto';
+  return ['auto','practice','ear','rhythm','sight','intervals','improv','theory'].includes(saved)?saved:'auto';
+}
+function pg4_setModule(value){
+  const v=value||'auto';
+  try{localStorage.setItem(PG4_MODULE_KEY,v);}catch(e){}
+  pg4_renderDashboard();
+}
+function pg4_selectedModule(modules){
+  const choice=pg4_getModuleChoice();
+  if(choice!=='auto')return modules.find(m=>m.id===choice)||modules[0]||null;
+  if(typeof pg3_pickReviewTarget==='function')return pg3_pickReviewTarget(modules);
+  return modules.find(m=>m.active)||modules[0]||null;
+}
+function pg4_moduleStatus(module){
+  if(!module)return 'Pending';
+  if(!module.active)return 'Ready to start';
+  if(module.score>=90)return 'Strong';
+  if(module.score>=75)return 'Stable';
+  if(module.score>=60)return 'Needs review';
+  return 'Needs attention';
+}
+function pg4_moduleEvidence(module){
+  if(!module)return 'No module selected';
+  if(module.active)return module.sub||'Recent local activity is available';
+  return module.sub||'No tracked activity yet';
+}
+function pg4_modulePlan(module){
+  if(!module)return ['Choose one learning area','Complete one short task','Return to Progress and review the map'];
+  const base={
+    practice:['Pick one scale, chord, or progression','Play it slowly with clean timing','Repeat once and compare accuracy'],
+    ear:['Listen once without guessing too fast','Answer using the clearest option','Replay the missed item and name the interval or chord out loud'],
+    rhythm:['Set a simple meter and tempo','Tap one short pattern with the metronome','Repeat until the pulse feels steady'],
+    sight:['Read the key and clef first','Say the notes before playing','Play one short line without stopping'],
+    intervals:['Choose one interval family','Hear it, sing it, then play it','Use the reveal only after answering'],
+    improv:['Load one simple progression','Target chord tones before color tones','Record one short idea and repeat it cleaner'],
+    theory:['Read one concept card','Use the visual map or keyboard as reference','Answer five trainer questions']
+  };
+  return base[module.id]||module.coach||['Start one focused activity','Keep it short','Repeat the first task'];
+}
+function pg4_assignmentLines(module){
+  const profileName=activeProfile&&activeProfile.name?activeProfile.name:'Student';
+  const plan=pg4_modulePlan(module);
+  const status=pg4_moduleStatus(module);
+  const score=module&&module.active?module.score+' percent':'not tracked yet';
+  return [
+    'MusicMein Assignment for '+profileName,
+    '',
+    'Focus area: '+(module?module.name:'Practice'),
+    'Current status: '+status,
+    'Current score: '+score,
+    '',
+    'Steps:',
+    '1. '+plan[0],
+    '2. '+plan[1],
+    '3. '+plan[2],
+    '',
+    'Finish by returning to Progress and checking whether the learning map changed.'
+  ];
+}
+function pg4_renderModuleDetail(modules){
+  const sel=document.getElementById('pg4-moduleSelect');
+  const el=document.getElementById('pg4-moduleDetail');
+  if(sel)sel.value=pg4_getModuleChoice();
+  if(!el)return;
+  const module=pg4_selectedModule(modules);
+  if(!module){el.innerHTML='<div class="progress-empty">No module data available yet</div>';return;}
+  const pct=module.active?Math.max(0,Math.min(100,module.score||0)):0;
+  const plan=pg4_modulePlan(module);
+  const evidence=pg4_moduleEvidence(module);
+  el.innerHTML=''
+    +'<div class="pg4-module-head"><div class="pg4-module-title"><strong>'+pg3_escape(module.name)+'</strong><span class="pg4-module-score">'+(module.active?pct+'%':'New')+'</span></div><div class="pg4-module-note">'+pg3_escape(module.active?'This module has recent activity. Use the details below to decide whether to review or move forward.':'This module is ready but has little or no tracked activity yet. A short starter session will make the dashboard more useful.')+'</div><div class="pg4-mini-meter"><div class="pg4-mini-fill" style="width:'+pct+'%"></div></div></div>'
+    +'<div class="pg4-detail-grid-list">'
+      +'<div class="pg4-detail-box"><div class="pg4-detail-label">Status</div><div class="pg4-detail-value">'+pg3_escape(pg4_moduleStatus(module))+'</div></div>'
+      +'<div class="pg4-detail-box"><div class="pg4-detail-label">Evidence</div><div class="pg4-detail-value">'+pg3_escape(evidence)+'</div></div>'
+    +'</div>'
+    +'<div class="pg4-plan-list">'+plan.map((p,i)=>'<div class="pg4-plan-step"><div class="pg4-plan-num">'+(i+1)+'</div><div class="pg4-plan-text">'+pg3_escape(p)+'</div></div>').join('')+'</div>';
+}
+function pg4_renderAssignment(modules){
+  const el=document.getElementById('pg4-assignmentPanel');
+  if(!el)return;
+  const module=pg4_selectedModule(modules);
+  if(!module){el.innerHTML='<div class="progress-empty">No assignment available yet</div>';return;}
+  const plan=pg4_modulePlan(module);
+  pg4_lastAssignmentText=pg4_assignmentLines(module).join('\n');
+  el.innerHTML=''
+    +'<div class="pg4-assignment-title">Next focused assignment</div>'
+    +'<div class="pg4-assignment-meta">'+pg3_escape(module.name)+' · '+pg3_escape(pg4_moduleStatus(module))+'</div>'
+    +'<div class="pg4-assignment-copy">Keep this short and repeatable. The goal is to build one clean result, not to cover every feature in the module.</div>'
+    +'<div class="pg4-assignment-list">'+plan.map((p,i)=>'<div class="pg4-assignment-item">'+(i+1)+'. '+pg3_escape(p)+'</div>').join('')+'</div>';
+}
+function pg4_openSelectedModule(){
+  const modules=(typeof pg2_moduleData==='function')?pg2_moduleData():[];
+  const module=pg4_selectedModule(modules);
+  if(module&&typeof switchPage==='function')switchPage(module.id);
+}
+function pg4_copyAssignment(){
+  const state=document.getElementById('pg4-copyState');
+  const text=pg4_lastAssignmentText||'';
+  if(!text){if(state)state.textContent='Nothing to copy yet';return;}
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(text).then(()=>{if(state)state.textContent='Assignment copied';}).catch(()=>{if(state)state.textContent='Select and copy manually';});
+  } else if(state){
+    state.textContent='Select and copy manually';
+  }
+}
+function pg4_renderDashboard(){
+  if(!document.getElementById('page-progress'))return;
+  const modules=(typeof pg2_moduleData==='function')?pg2_moduleData():[];
+  pg4_renderModuleDetail(modules);
+  pg4_renderAssignment(modules);
+}
+const _pg4_originalPg3RenderDashboard=pg3_renderDashboard;
+pg3_renderDashboard=function(){
+  _pg4_originalPg3RenderDashboard();
+  pg4_renderDashboard();
+};
 
 
 /* ============================================================
-   IMPROV TRAINING Stage 1: no-hint chord reaction trainer
+   PROGRESS PAGE STAGE 5: checkpoint matrix and weekly mix planner
+   ============================================================ */
+const PG5_MIX_KEY='mm_progressWeeklyMix';
+let pg5_lastPlanText='';
+
+function pg5_getMix(){
+  const saved=localStorage.getItem(PG5_MIX_KEY)||'balanced';
+  return ['balanced','review','explore','teacher'].includes(saved)?saved:'balanced';
+}
+function pg5_setMix(value){
+  const v=value||'balanced';
+  try{localStorage.setItem(PG5_MIX_KEY,v);}catch(e){}
+  pg5_renderDashboard();
+}
+function pg5_checkpointTag(module){
+  if(!module||!module.active)return {key:'start',label:'Start',copy:'Open this module once this week'};
+  if(module.score>=90)return {key:'strong',label:'Strong',copy:'Maintain with a short review'};
+  if(module.score>=75)return {key:'steady',label:'Steady',copy:'Keep it in rotation'};
+  if(module.score>=60)return {key:'build',label:'Build',copy:'Repeat a focused task'};
+  return {key:'review',label:'Review',copy:'Use a slower setup and repeat'};
+}
+function pg5_renderCheckpointMatrix(modules){
+  const el=document.getElementById('pg5-checkpointMatrix');
+  if(!el)return;
+  const list=(modules||[]).slice();
+  if(!list.length){el.innerHTML='<div class="progress-empty">No checkpoint data available yet</div>';return;}
+  const started=list.filter(m=>m.active).length;
+  const strong=list.filter(m=>m.active&&m.score>=90).length;
+  const review=list.filter(m=>m.active&&m.score<60).length;
+  const coverage=Math.round((started/list.length)*100);
+  const summary=''
+    +'<div class="pg5-checkpoint-summary">'
+      +'<div class="pg5-checkpoint-stat"><strong>'+started+'/'+list.length+'</strong><span>Started</span></div>'
+      +'<div class="pg5-checkpoint-stat"><strong>'+coverage+'%</strong><span>Coverage</span></div>'
+      +'<div class="pg5-checkpoint-stat"><strong>'+strong+'</strong><span>Strong</span></div>'
+      +'<div class="pg5-checkpoint-stat"><strong>'+review+'</strong><span>Review</span></div>'
+    +'</div>';
+  const rows=list.map(m=>{
+    const tag=pg5_checkpointTag(m);
+    const pct=m.active?Math.max(5,Math.min(100,m.score||0)):0;
+    return '<div class="pg5-checkpoint-row '+tag.key+'">'
+      +'<div><div class="pg5-checkpoint-name">'+pg3_escape(m.name)+'</div><div class="pg5-checkpoint-copy">'+pg3_escape(tag.copy)+'</div></div>'
+      +'<div class="pg5-checkpoint-bar"><div class="pg5-checkpoint-fill" style="width:'+pct+'%"></div></div>'
+      +'<div class="pg5-checkpoint-tag">'+pg3_escape(tag.label)+'</div>'
+    +'</div>';
+  }).join('');
+  el.innerHTML=summary+rows;
+}
+function pg5_dedupeModules(list){
+  const out=[];
+  (list||[]).forEach(m=>{if(m&&!out.some(x=>x.id===m.id))out.push(m);});
+  return out;
+}
+function pg5_pickWeekModules(modules,mix){
+  const all=(modules||[]).slice();
+  const active=all.filter(m=>m.active);
+  const notStarted=all.filter(m=>!m.active);
+  const lowActive=active.slice().sort((a,b)=>a.score-b.score);
+  const strong=active.slice().sort((a,b)=>b.score-a.score);
+  const next=(typeof pg2_pickNext==='function')?pg2_pickNext(all):all[0];
+  let picks=[];
+  if(mix==='review')picks=lowActive.concat(notStarted,all);
+  else if(mix==='explore')picks=notStarted.concat([next],lowActive,strong,all);
+  else if(mix==='teacher')picks=[next].concat(lowActive.slice(0,2),strong.slice(0,1),notStarted.slice(0,2),all);
+  else picks=[next].concat(notStarted.slice(0,1),lowActive.slice(0,2),strong.slice(0,1),all);
+  picks=pg5_dedupeModules(picks);
+  while(picks.length<5&&all.length)picks.push(all[picks.length%all.length]);
+  return picks.slice(0,5);
+}
+function pg5_mixTitle(mix){
+  return ({balanced:'Balanced Week',review:'Review Weak Spots',explore:'Explore New Modules',teacher:'Teacher Check-In'}[mix]||'Balanced Week');
+}
+function pg5_mixSub(mix){
+  return ({
+    balanced:'A simple five step rotation that touches weak areas, new areas, and one stronger area.',
+    review:'A repair week built around the lowest scoring or least stable areas first.',
+    explore:'A discovery week for opening modules that have little or no tracked activity yet.',
+    teacher:'A check-in plan that makes it easy to review evidence and assign the next focused task.'
+  }[mix]||'A simple five step rotation for the week.');
+}
+function pg5_dayTask(module,idx,mix){
+  const plan=(typeof pg4_modulePlan==='function')?pg4_modulePlan(module):(module&&module.coach?module.coach:['Complete one focused task']);
+  const action=plan[idx%plan.length]||plan[0]||'Complete one focused task';
+  if(mix==='teacher')return 'Check '+module.name+': '+pg4_moduleStatus(module)+'. Assign: '+action+'.';
+  if(mix==='review')return 'Review '+module.name+': '+action+'. Repeat once before moving on.';
+  if(mix==='explore'&&!module.active)return 'Start '+module.name+': '+action+'. Keep it short so the dashboard can begin tracking it.';
+  return module.name+': '+action+'.';
+}
+function pg5_weekPlanLines(modules,mix){
+  const days=['Mon','Tue','Wed','Thu','Fri'];
+  const picks=pg5_pickWeekModules(modules,mix);
+  const profileName=activeProfile&&activeProfile.name?activeProfile.name:'Student';
+  const lines=['MusicMein '+pg5_mixTitle(mix)+' for '+profileName,''];
+  days.forEach((day,i)=>{
+    const m=picks[i]||picks[0]||modules[0];
+    lines.push(day+': '+(m?pg5_dayTask(m,i,mix):'Complete one short focused session.'));
+  });
+  lines.push('');
+  lines.push('Keep each session short, focused, and repeatable. Return to Progress after each activity.');
+  return lines;
+}
+function pg5_renderWeekPlan(modules){
+  const el=document.getElementById('pg5-weekPlan');
+  if(!el)return;
+  const sel=document.getElementById('pg5-mixSelect');
+  const mix=pg5_getMix();
+  if(sel)sel.value=mix;
+  const days=['Mon','Tue','Wed','Thu','Fri'];
+  const picks=pg5_pickWeekModules(modules||[],mix);
+  pg5_lastPlanText=pg5_weekPlanLines(modules||[],mix).join('\n');
+  let html='<div class="pg5-plan-title">'+pg3_escape(pg5_mixTitle(mix))+'</div><div class="pg5-plan-sub">'+pg3_escape(pg5_mixSub(mix))+'</div>';
+  days.forEach((day,i)=>{
+    const m=picks[i]||picks[0];
+    const task=m?pg5_dayTask(m,i,mix):'Complete one short focused session.';
+    html+='<div class="pg5-plan-day"><div class="pg5-day-label">'+day+'</div><div class="pg5-day-task"><strong>'+(m?pg3_escape(m.name):'Practice')+'</strong><br>'+pg3_escape(task)+'</div></div>';
+  });
+  el.innerHTML=html;
+}
+function pg5_copyWeekPlan(){
+  const state=document.getElementById('pg5-copyState');
+  const text=pg5_lastPlanText||'';
+  if(!text){if(state)state.textContent='Nothing to copy yet';return;}
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(text).then(()=>{if(state)state.textContent='Plan copied';}).catch(()=>{if(state)state.textContent='Select and copy manually';});
+  }else if(state){
+    state.textContent='Select and copy manually';
+  }
+}
+function pg5_renderDashboard(){
+  if(!document.getElementById('page-progress'))return;
+  const modules=(typeof pg2_moduleData==='function')?pg2_moduleData():[];
+  pg5_renderCheckpointMatrix(modules);
+  pg5_renderWeekPlan(modules);
+}
+const _pg5_originalPg4RenderDashboard=pg4_renderDashboard;
+pg4_renderDashboard=function(){
+  _pg5_originalPg4RenderDashboard();
+  pg5_renderDashboard();
+};
+
+
+/* ============================================================
+   PROGRESS PAGE STAGE 6: portfolio snapshot and milestone path
+   ============================================================ */
+const PG6_STYLE_KEY='mm_progressSnapshotStyle';
+let pg6_lastSnapshotText='';
+
+function pg6_escape(value){
+  return String(value==null?'':value).replace(/[&<>"]/g,function(ch){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[ch];});
+}
+function pg6_getStyle(){
+  const saved=localStorage.getItem(PG6_STYLE_KEY)||'student';
+  return ['student','teacher','parent'].includes(saved)?saved:'student';
+}
+function pg6_setReportStyle(value){
+  const v=value||'student';
+  try{localStorage.setItem(PG6_STYLE_KEY,v);}catch(e){}
+  pg6_renderDashboard();
+}
+function pg6_activeModules(modules){return (modules||[]).filter(function(m){return m&&m.active;});}
+function pg6_avgScore(modules){
+  const active=pg6_activeModules(modules);
+  if(!active.length)return 0;
+  return Math.round(active.reduce(function(sum,m){return sum+(Number(m.score)||0);},0)/active.length);
+}
+function pg6_rankModules(modules){
+  return (modules||[]).slice().sort(function(a,b){
+    const aa=a&&a.active?1:0;
+    const bb=b&&b.active?1:0;
+    if(aa!==bb)return bb-aa;
+    return (Number(b.score)||0)-(Number(a.score)||0);
+  });
+}
+function pg6_statusFor(module){
+  if(!module||!module.active)return {label:'Start',pct:10,copy:'Open once'};
+  const score=Number(module.score)||0;
+  if(score>=90)return {label:'Strong',pct:100,copy:'Maintain'};
+  if(score>=75)return {label:'Steady',pct:78,copy:'Keep going'};
+  if(score>=60)return {label:'Build',pct:56,copy:'Repeat'};
+  return {label:'Review',pct:34,copy:'Slow down'};
+}
+function pg6_focusNames(modules,kind){
+  const list=(modules||[]).slice();
+  if(kind==='strong'){
+    return list.filter(function(m){return m.active&&m.score>=75;}).sort(function(a,b){return b.score-a.score;}).map(function(m){return m.name;}).slice(0,2);
+  }
+  const review=list.filter(function(m){return !m.active||m.score<75;}).sort(function(a,b){
+    if((a.active?1:0)!==(b.active?1:0))return (a.active?1:0)-(b.active?1:0);
+    return (a.score||0)-(b.score||0);
+  }).map(function(m){return m.name;}).slice(0,2);
+  return review;
+}
+function pg6_primaryFocus(modules){
+  const review=pg6_focusNames(modules,'review');
+  if(review.length)return review[0];
+  const ranked=pg6_rankModules(modules);
+  return ranked[0]?ranked[0].name:'Practice';
+}
+function pg6_renderPortfolio(modules){
+  const el=document.getElementById('pg6-portfolioSnapshot');
+  if(!el)return;
+  const list=modules||[];
+  if(!list.length){el.innerHTML='<div class="progress-empty">No portfolio data available yet</div>';return;}
+  const active=pg6_activeModules(list);
+  const avg=pg6_avgScore(list);
+  const coverage=Math.round((active.length/list.length)*100);
+  const strong=pg6_focusNames(list,'strong');
+  const review=pg6_focusNames(list,'review');
+  const focus=pg6_primaryFocus(list);
+  const title=active.length?'Current MusicMein Portfolio':'Portfolio Not Started Yet';
+  const copy=active.length
+    ? 'This snapshot combines module coverage, recent scores, and next steps into one simple student profile.'
+    : 'Open a few modules and complete short sessions to begin building a meaningful portfolio.';
+  el.innerHTML=''
+    +'<div class="pg6-portfolio-hero">'
+      +'<div><div class="pg6-portfolio-title">'+title+'</div><div class="pg6-portfolio-copy">'+copy+'</div></div>'
+      +'<div class="pg6-portfolio-score">'+avg+'%<span>Active Avg</span></div>'
+    +'</div>'
+    +'<div class="pg6-snapshot-grid">'
+      +'<div class="pg6-snapshot-box"><div class="pg6-snapshot-label">Coverage</div><div class="pg6-snapshot-value">'+active.length+' of '+list.length+' modules · '+coverage+'%</div></div>'
+      +'<div class="pg6-snapshot-box"><div class="pg6-snapshot-label">Strong Areas</div><div class="pg6-snapshot-value">'+(strong.length?pg6_escape(strong.join(', ')):'None yet')+'</div></div>'
+      +'<div class="pg6-snapshot-box"><div class="pg6-snapshot-label">Next Focus</div><div class="pg6-snapshot-value">'+pg6_escape(focus)+'</div></div>'
+    +'</div>'
+    +'<div class="pg6-snapshot-box"><div class="pg6-snapshot-label">Review Areas</div><div class="pg6-snapshot-value">'+(review.length?pg6_escape(review.join(', ')):'No urgent review area')+'</div></div>';
+}
+function pg6_renderMilestones(modules){
+  const el=document.getElementById('pg6-milestonePath');
+  if(!el)return;
+  const list=modules||[];
+  if(!list.length){el.innerHTML='<div class="progress-empty">No milestone data available yet</div>';return;}
+  el.innerHTML=list.map(function(m){
+    const status=pg6_statusFor(m);
+    return '<div class="pg6-milestone-row">'
+      +'<div><div class="pg6-milestone-name">'+pg6_escape(m.name)+'</div></div>'
+      +'<div class="pg6-milestone-track"><div class="pg6-milestone-fill" style="width:'+status.pct+'%"></div></div>'
+      +'<div class="pg6-milestone-tag">'+status.label+'</div>'
+    +'</div>';
+  }).join('');
+}
+function pg6_snapshotLines(modules){
+  const list=modules||[];
+  const active=pg6_activeModules(list);
+  const avg=pg6_avgScore(list);
+  const coverage=list.length?Math.round((active.length/list.length)*100):0;
+  const strong=pg6_focusNames(list,'strong');
+  const review=pg6_focusNames(list,'review');
+  const focus=pg6_primaryFocus(list);
+  const style=pg6_getStyle();
+  if(style==='teacher'){
+    return [
+      'MusicMein Teacher Snapshot',
+      'Coverage: '+active.length+' of '+list.length+' modules active ('+coverage+'%).',
+      'Active module average: '+avg+'%.',
+      'Strong areas: '+(strong.length?strong.join(', '):'none yet')+'.',
+      'Review areas: '+(review.length?review.join(', '):'none urgent')+'.',
+      'Suggested next focus: '+focus+'.',
+      'Teaching note: use the next lesson to confirm accuracy, then assign one focused module task.'
+    ];
+  }
+  if(style==='parent'){
+    return [
+      'MusicMein Progress Snapshot',
+      'The student has started '+active.length+' of '+list.length+' learning areas.',
+      'Current active average: '+avg+'%.',
+      'Areas going well: '+(strong.length?strong.join(', '):'still developing')+'.',
+      'Next helpful focus: '+focus+'.',
+      'Simple goal: keep sessions short, consistent, and focused on one skill at a time.'
+    ];
+  }
+  return [
+    'My MusicMein Snapshot',
+    'I have started '+active.length+' of '+list.length+' modules, with '+coverage+'% coverage.',
+    'My active average is '+avg+'%.',
+    'Strong areas: '+(strong.length?strong.join(', '):'none yet')+'.',
+    'Next focus: '+focus+'.',
+    'Practice goal: complete one focused session, then review the result before moving on.'
+  ];
+}
+function pg6_renderSnapshot(modules){
+  const select=document.getElementById('pg6-reportStyle');
+  if(select)select.value=pg6_getStyle();
+  const el=document.getElementById('pg6-reportText');
+  if(!el)return;
+  const lines=pg6_snapshotLines(modules);
+  pg6_lastSnapshotText=lines.join('\n');
+  el.textContent=pg6_lastSnapshotText;
+}
+function pg6_copySnapshot(){
+  const state=document.getElementById('pg6-copyState');
+  const text=pg6_lastSnapshotText||'';
+  if(!text){if(state)state.textContent='Nothing to copy yet';return;}
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(text).then(function(){if(state)state.textContent='Snapshot copied';}).catch(function(){if(state)state.textContent='Select and copy manually';});
+  }else if(state){
+    state.textContent='Select and copy manually';
+  }
+}
+function pg6_renderDashboard(){
+  if(!document.getElementById('page-progress'))return;
+  const modules=(typeof pg2_moduleData==='function')?pg2_moduleData():[];
+  pg6_renderPortfolio(modules);
+  pg6_renderMilestones(modules);
+  pg6_renderSnapshot(modules);
+}
+const _pg6_originalPg5RenderDashboard=pg5_renderDashboard;
+pg5_renderDashboard=function(){
+  _pg6_originalPg5RenderDashboard();
+  pg6_renderDashboard();
+};
+
+
+/* ============================================================
+   IMPROV TRAINING Stage 2: mood practice bridge, no-hint chord reaction trainer
    ============================================================ */
 const IM_NOTE_NAMES_FLAT=['C','Db','D','Eb','E','F','Gb','G','Ab','A','Bb','B'];
 const IM_NOTE_NAMES_SHARP=['C','C#','D','D#','E','F','F#','G','G#','A','A#','B'];
@@ -16772,6 +18556,18 @@ const IM_PATH_LEVELS=[
   {level:7,title:'Ear Phrase Echo',desc:'Listen to a short call and play it back by ear.',goal:'3 correct ear phrases',skill:'ear',goalGood:3,settings:{mode:'callResponse',difficulty:'medium',callStyle:'guideFinish',soloSource:'chordTones',phraseLength:4,targetRole:'random'}},
   {level:8,title:'Final Challenge',desc:'Mix chords, target notes, guide tones, phrases, and approaches.',goal:'8 correct mixed review prompts',skill:'mixed',goalGood:8,settings:{mode:'challenge',difficulty:'hard',challengeFocus:'mixed',progressionKind:'iiVI',voicing:'guide',soloSource:'chordTones',targetRole:'random',phraseLength:4}}
 ];
+
+
+const IM_MOOD_PACKS=[
+  {key:'ambient',title:'Ambient Color',subtitle:'Open, floating, slow moving harmony.',mode:'Lydian or Dorian',center:'Modal vamp',route:['i11','IVmaj9','i11','bVIIadd9'],chips:['9ths','11ths','Pedal tones','Space'],settings:{mode:'timeline',difficulty:'medium',progressionKind:'modalVamp',voicing:'rootless9',inversionRule:'any',guidance:'formula',soloSource:'scale',targetRole:'color',barsPerChord:2,countOffBars:1,backing:'guidePad'},prompt:'Use fewer notes. Hold color tones longer, repeat small shapes, and let the backing breathe.'},
+  {key:'brightPop',title:'Bright Pop',subtitle:'Clear major color with simple singable targets.',mode:'Ionian or Lydian',center:'I vi ii V',route:['I','vi','ii','V'],chips:['Major 7','6th','9th','Stepwise'],settings:{mode:'phrase',difficulty:'medium',progressionKind:'oneSixTwoFive',voicing:'full7',inversionRule:'any',guidance:'formula',soloSource:'scale',targetRole:'third',phraseLength:4,backing:'off'},prompt:'Build short phrases that sound like hooks. Land on the 3rd or 6th and keep the contour easy to sing.'},
+  {key:'darkMinor',title:'Dark Minor',subtitle:'Minor gravity, close guide tones, and controlled tension.',mode:'Aeolian or Dorian',center:'Minor ii V i',route:['iiø','V7','i7','i7'],chips:['b3','b6','b7','Resolution'],settings:{mode:'guideLine',difficulty:'medium',progressionKind:'minorTwoFive',guideLineMode:'closest',voicing:'guide',inversionRule:'any',guidance:'formula',soloSource:'guideTones',targetRole:'seventh',backing:'off'},prompt:'Aim for clean voice leading. Let the tension point to the i chord instead of playing too many notes.'},
+  {key:'jazzColor',title:'Jazz Color',subtitle:'Guide tones, rootless colors, and ii V I motion.',mode:'Dorian to Mixolydian to Ionian',center:'ii V I',route:['ii7','V7','Imaj7','Imaj9'],chips:['3rds','7ths','9ths','Voice leading'],settings:{mode:'timeline',difficulty:'medium',progressionKind:'iiVI',voicing:'rootless9',inversionRule:'any',guidance:'formula',soloSource:'guideTones',targetRole:'random',barsPerChord:1,countOffBars:1,backing:'chordPad'},prompt:'Hear the 3rd and 7th move first. Add 9ths after the guide tones feel stable.'},
+  {key:'blues',title:'Blues',subtitle:'Dominant color, call and response, and bend-like targets.',mode:'Mixolydian and minor pentatonic',center:'I IV V blues',route:['I7','IV7','I7','V7'],chips:['b3 to 3','b7','Call response','Grit'],settings:{mode:'callResponse',difficulty:'medium',progressionKind:'blues',callStyle:'leapMix',soloSource:'pentatonic',targetRole:'third',phraseLength:4,backing:'rootPulse'},prompt:'Make it conversational. Answer the call with a short idea and aim the last note toward the 3rd or b7.'},
+  {key:'cinematic',title:'Cinematic',subtitle:'Wide shapes, modal color, and dramatic resolution.',mode:'Aeolian, Phrygian, or Lydian',center:'Modal movement',route:['i','bVI','bVII','i'],chips:['Pedal','Wide intervals','Suspense','Release'],settings:{mode:'motif',difficulty:'medium',progressionKind:'modalVamp',motifMove:'sequenceDown',soloSource:'scale',targetRole:'color',phraseLength:5,backing:'guidePad'},prompt:'Start with a small motif, move it through the color, then resolve with space instead of speed.'}
+];
+let im_moodPack='ambient';
+let im_moodLoopStyle='pad', im_moodLoopBars=1, im_moodLoopRunning=false, im_moodLoopStep=0, im_moodLoopTimer=null, im_moodLoopTimers=[];
 
 const IM_QUICK_FOCUS=[
   {key:'warmup',title:'Warm Up Chords',desc:'Full 7th chord shapes with no hints.',settings:{mode:'chord',difficulty:'easy',voicing:'full7',inversionRule:'exact',guidance:'noHint',chordType:'all',soloSource:'chordTones',targetRole:'random',backing:'off'}},
@@ -16964,6 +18760,182 @@ function im_renderImprovPath(){
 function im_setImprovControl(id,value){const el=document.getElementById(id);if(el&&value!==undefined&&value!==null)el.value=String(value);}
 
 function im_quickFocusObj(key=im_quickFocus){return IM_QUICK_FOCUS.find(p=>p.key===key)||null;}
+
+function im_moodPackObj(key=im_moodPack){return IM_MOOD_PACKS.find(p=>p.key===key)||IM_MOOD_PACKS[0];}
+function im_setMoodPack(key){im_moodPack=key||'ambient';if(im_moodLoopRunning)im_stopMoodLoop(false);im_renderMoodBridge();im_renderMoodLoopLab();}
+function im_moodWheelSvg(pack){
+  const labels=['Color','Chord','Line','Space'];
+  const accent=['rgba(201,168,76,.78)','rgba(74,127,192,.72)','rgba(42,191,191,.68)','rgba(160,96,122,.72)'];
+  const nodes=labels.map((label,i)=>{
+    const angle=(-90+i*90)*Math.PI/180;
+    const x=110+Math.cos(angle)*72;
+    const y=110+Math.sin(angle)*72;
+    return `<g><circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="29" fill="${accent[i]}" stroke="rgba(255,255,255,.22)" stroke-width="2"/><text x="${x.toFixed(1)}" y="${(y+4).toFixed(1)}" text-anchor="middle" font-size="10" fill="white">${label}</text></g>`;
+  }).join('');
+  return `<svg class="improv-mood-wheel" viewBox="0 0 220 220" role="img" aria-label="Mood color wheel"><circle cx="110" cy="110" r="88" fill="none" stroke="rgba(201,168,76,.22)" stroke-width="2"/><circle cx="110" cy="110" r="50" fill="rgba(0,0,0,.18)" stroke="rgba(255,255,255,.14)" stroke-width="1"/>${nodes}<text x="110" y="104" text-anchor="middle" font-size="14" fill="var(--ink)">${im_escapeText(pack.title.split(' ')[0])}</text><text x="110" y="122" text-anchor="middle" font-size="8" fill="var(--ink3)">${im_escapeText(pack.mode.split(' ')[0])}</text></svg>`;
+}
+function im_renderMoodBridge(){
+  const pack=im_moodPackObj();
+  const sel=document.getElementById('im-moodPackSelect');if(sel)sel.value=pack.key;
+  const hero=document.getElementById('im-moodHero');
+  if(hero)hero.innerHTML=`<div class="improv-mood-title">${im_escapeText(pack.title)}</div><div class="improv-mood-sub">${im_escapeText(pack.subtitle)} ${im_escapeText(pack.mode)}. ${im_escapeText(pack.center)}.</div>`;
+  const wheel=document.getElementById('im-moodWheel');if(wheel)wheel.innerHTML=im_moodWheelSvg(pack);
+  const chips=document.getElementById('im-moodChips');
+  if(chips)chips.innerHTML=pack.chips.map((c,i)=>`<span class="improv-mood-chip"><strong>${i+1}</strong>${im_escapeText(c)}</span>`).join('');
+  const route=document.getElementById('im-moodRoute');
+  if(route)route.innerHTML=pack.route.map((r,i)=>`<div class="improv-mood-step"><small>Step ${i+1}</small><span>${im_escapeText(r)}</span></div>`).join('');
+  const prompt=document.getElementById('im-moodPrompt');if(prompt)prompt.textContent=pack.prompt;
+}
+
+function im_setMoodLoopStyle(value){
+  im_moodLoopStyle=value||'pad';
+  im_renderMoodLoopLab();
+}
+function im_setMoodLoopBars(value){
+  im_moodLoopBars=Math.max(1,Math.min(4,parseInt(value,10)||1));
+  if(im_moodLoopRunning){
+    im_startMoodLoop();
+  }else{
+    im_renderMoodLoopLab();
+  }
+}
+function im_moodLoopProgression(){
+  const pack=im_moodPackObj();
+  const root={pc:0,name:'C'};
+  const kind=(pack.settings&&pack.settings.progressionKind)||'iiVI';
+  const savedIi=im_iiVIType;
+  if(pack.key==='darkMinor'||pack.key==='cinematic')im_iiVIType='minor';
+  else im_iiVIType='major';
+  let prog=[];
+  try{prog=im_buildProgression(root,kind,true)||[];}catch(e){prog=[];}
+  im_iiVIType=savedIi;
+  if(!prog.length)prog=[im_chordObj(0,'maj7'),im_chordObj(5,'maj7'),im_chordObj(7,'dom7'),im_chordObj(0,'maj7')];
+  return prog.slice(0,4);
+}
+function im_moodLoopStyleLabel(){
+  return {pad:'Soft Pad',pulse:'Root Pulse',guide:'Guide Tone Pad',arp:'Color Arp'}[im_moodLoopStyle]||'Soft Pad';
+}
+function im_renderMoodLoopLab(){
+  const pack=im_moodPackObj();
+  const styleSel=document.getElementById('im-moodLoopStyleSelect');if(styleSel)styleSel.value=im_moodLoopStyle;
+  const barsSel=document.getElementById('im-moodLoopBarsSelect');if(barsSel)barsSel.value=String(im_moodLoopBars);
+  const stage=document.getElementById('im-moodLoopStage');
+  if(stage){
+    const state=im_moodLoopRunning?'Loop running':'Loop ready';
+    stage.innerHTML=`<div class="improv-mood-loop-title">${im_escapeText(pack.title)} Practice Bed</div><div class="improv-mood-loop-sub">${im_escapeText(state)}. ${im_escapeText(im_moodLoopStyleLabel())}, ${im_moodLoopBars} bar${im_moodLoopBars===1?'':'s'} per color, ${im_bpm} BPM. Practice target: ${im_escapeText(pack.mode)}.</div>`;
+  }
+  const prog=im_moodLoopProgression();
+  const steps=document.getElementById('im-moodLoopSteps');
+  if(steps){
+    steps.innerHTML=prog.map((ch,i)=>`<div class="improv-mood-loop-step ${i===im_moodLoopStep?'active':''}"><small>Color ${i+1}</small><span>${im_escapeText(ch.name)}</span><em>${im_escapeText((IM_CHORD_TYPES[ch.type]||{}).label||ch.type)}</em></div>`).join('');
+  }
+  const start=document.getElementById('im-moodLoopStartBtn');if(start)start.textContent=im_moodLoopRunning?'Restart Loop':'Start Loop';
+  const cue=document.getElementById('im-moodLoopCue');
+  if(cue){
+    const ch=prog[im_moodLoopStep%prog.length];
+    cue.classList.toggle('active',!!im_moodLoopRunning);
+    cue.textContent=im_moodLoopRunning&&ch?('Current color: '+ch.name+'. Keep the phrase simple and land on one of the mood color tones.'):('Start the loop, then improvise short phrases using '+pack.chips.join(', ')+'.');
+  }
+}
+function im_moodLoopClearTimers(){
+  if(im_moodLoopTimer){clearInterval(im_moodLoopTimer);im_moodLoopTimer=null;}
+  (im_moodLoopTimers||[]).forEach(t=>clearTimeout(t));
+  im_moodLoopTimers=[];
+}
+function im_moodLoopNotes(chord){
+  if(!chord)return [];
+  if(im_moodLoopStyle==='pulse')return [im_pcToNote(chord.rootPc,2)];
+  if(im_moodLoopStyle==='guide')return im_entriesToNotes(im_currentGuideEntries(chord),chord.rootPc,3);
+  const spec=im_targetSpec(chord.rootPc,chord.type,im_moodLoopStyle==='arp'?'rootless9':'full7');
+  return im_entriesToNotes(spec.entries,chord.rootPc,3);
+}
+function im_playMoodLoopChord(chord){
+  if(!chord)return;
+  const notes=im_moodLoopNotes(chord);
+  const beat=im_msPerBeat();
+  const velocity=im_backingVelocity();
+  im_clearBackingTimers(true);
+  if(im_moodLoopStyle==='arp'){
+    const gap=Math.max(90,Math.min(260,beat*0.42));
+    notes.forEach((n,i)=>{
+      im_moodLoopTimers.push(setTimeout(()=>im_playBackingSynthNote(n,velocity,Math.max(190,beat*0.72)),i*gap));
+    });
+  }else if(im_moodLoopStyle==='pulse'){
+    im_playBackingNotes(notes,Math.max(160,beat*.55),velocity);
+  }else{
+    im_playBackingNotes(notes,Math.max(520,beat*3.2*im_moodLoopBars),velocity);
+  }
+}
+function im_playMoodLoopStep(){
+  const prog=im_moodLoopProgression();
+  if(!prog.length)return;
+  im_moodLoopStep=((im_moodLoopStep%prog.length)+prog.length)%prog.length;
+  const chord=prog[im_moodLoopStep];
+  im_playMoodLoopChord(chord);
+  im_renderMoodLoopLab();
+}
+function im_startMoodLoop(){
+  if(typeof p_claimAudioOwnership==='function')p_claimAudioOwnership();
+  if(typeof p_setBrowserSynthEnabled==='function'&&typeof p_browserSynthEnabled!=='undefined'&&!p_browserSynthEnabled)p_setBrowserSynthEnabled(true,'Improv mood loop');
+  im_stopTimeline(false);
+  im_moodLoopClearTimers();
+  im_moodLoopRunning=true;
+  im_moodLoopStep=0;
+  im_playMoodLoopStep();
+  im_moodLoopTimer=setInterval(()=>{
+    const prog=im_moodLoopProgression();
+    im_moodLoopStep=(im_moodLoopStep+1)%Math.max(1,prog.length);
+    im_playMoodLoopStep();
+  },Math.max(800,im_msPerBeat()*4*im_moodLoopBars));
+  im_setFeedback('Mood loop started. Use it as a simple backing bed for the selected mood.','info');
+}
+function im_stopMoodLoop(showMsg=true){
+  const wasRunning=!!im_moodLoopRunning;
+  im_moodLoopRunning=false;
+  im_moodLoopClearTimers();
+  im_clearBackingTimers(true);
+  im_renderMoodLoopLab();
+  if(showMsg&&wasRunning)im_setFeedback('Mood loop stopped.','info');
+}
+function im_moodLoopNext(){
+  const prog=im_moodLoopProgression();
+  im_moodLoopStep=(im_moodLoopStep+1)%Math.max(1,prog.length);
+  im_playMoodLoopStep();
+  if(!im_moodLoopRunning)im_setFeedback('Previewing the next mood color.','info');
+}
+function im_applyMoodPack(){
+  const pack=im_moodPackObj();
+  im_stopMoodLoop(false);
+  im_stopTimeline(false);
+  im_quickFocus='custom';
+  im_applyQuickSettings(pack.settings);
+  im_readSettings();
+  im_setBackingUI();
+  im_applyModeLatchDefault(im_mode);
+  im_saveSettings();
+  im_newQuestion();
+  im_renderQuickFocus();
+  im_renderPracticePlan();
+  im_renderDailyGoal();
+  im_renderCoachPick();
+  im_renderMoodBridge();
+  im_renderMoodLoopLab();
+  im_updateMobileSettingsSummary();
+  im_setFeedback('Loaded mood setup: '+pack.title+'.','info');
+}
+function im_auditionMoodPack(){
+  const pack=im_moodPackObj();
+  im_applyQuickSettings(pack.settings);
+  im_readSettings();
+  im_setBackingUI();
+  const root={pc:0,name:'C'};
+  const prog=im_buildProgression(root,im_progressionKind,true).slice(0,4);
+  const notes=prog.map(ch=>im_pcToNote(ch.pc,3));
+  im_clearAuditionTimers();
+  notes.forEach((n,i)=>{im_auditionTimers.push(setTimeout(()=>im_playBackingSynthNote(im_noteStrToMidi(n),0.56,0.34),i*360));});
+  im_setFeedback('Auditioning the color route for '+pack.title+'.','info');
+}
+
 function im_applyQuickSettings(s){
   if(!s)return;
   im_setImprovControl('im-modeSelect',s.mode);im_setImprovControl('im-diffSelect',s.difficulty);im_setImprovControl('im-progressionSelect',s.progressionKind);im_setImprovControl('im-voicingSelect',s.voicing);im_setImprovControl('im-inversionRuleSelect',s.inversionRule);im_setImprovControl('im-guidanceSelect',s.guidance);im_setImprovControl('im-chordTypeSelect',s.chordType);im_setImprovControl('im-soloSourceSelect',s.soloSource);im_setImprovControl('im-targetRoleSelect',s.targetRole);im_setImprovControl('im-guideLineSelect',s.guideLineMode);im_setImprovControl('im-callStyleSelect',s.callStyle);im_setImprovControl('im-motifMoveSelect',s.motifMove);im_setImprovControl('im-approachTypeSelect',s.approachType);im_setImprovControl('im-challengeFocusSelect',s.challengeFocus);im_setImprovControl('im-phraseLengthSelect',s.phraseLength);im_setImprovControl('im-barsPerChordSelect',s.barsPerChord);im_setImprovControl('im-countOffSelect',s.countOffBars);im_setImprovControl('im-backingSelect',s.backing);
@@ -18071,7 +20043,14 @@ function im_auditionContext(){
   im_playAuditionChord(spec.entries,im_currentRootPc,950,0);
   im_setFeedback('Auditioning the current chord.','info');
 }
-function im_stopAllNotes(silent=false){im_clearAuditionTimers(true);im_clearBackingTimers(true);im_stopTimeline(false);im_clearInput(true);if(!silent)im_setFeedback('Stopped.','info');}
+function im_stopAllNotes(silent=false){
+  try{im_stopMoodLoop(false);}catch(e){console.warn('improv mood loop cleanup skipped',e);try{if(im_moodLoopTimer)clearInterval(im_moodLoopTimer);(im_moodLoopTimers||[]).forEach(t=>clearTimeout(t));im_moodLoopTimer=null;im_moodLoopTimers=[];im_moodLoopRunning=false;}catch(_e){}}
+  try{im_clearAuditionTimers(true);}catch(e){console.warn('improv audition cleanup skipped',e);}
+  try{im_clearBackingTimers(true);}catch(e){console.warn('improv backing cleanup skipped',e);}
+  try{im_stopTimeline(false);}catch(e){console.warn('improv timeline cleanup skipped',e);try{if(im_metroTimer)clearInterval(im_metroTimer);im_metroTimer=null;im_timelineRunning=false;im_countOffRunning=false;im_metroOn=false;}catch(_e){}}
+  try{im_clearInput(true);}catch(e){console.warn('improv input cleanup skipped',e);}
+  if(!silent){try{im_setFeedback('Stopped.','info');}catch(e){}}
+}
 function im_msPerBeat(){return Math.max(120,60000/(parseInt(im_bpm,10)||100));}
 function im_flashMetroDot(accent=false){
   const dot=document.getElementById('im-metroDot');if(!dot)return;
@@ -18928,16 +20907,40 @@ function im_syncAudioControls(){
   if(p_midiAccess&&p_midiAccess.inputs&&Array.from(p_midiAccess.inputs.values()).length){const d=document.getElementById('im-midiDot');if(d)d.classList.add('connected');const t=document.getElementById('im-midiText');if(t)t.textContent='MIDI: '+Array.from(p_midiAccess.inputs.values())[0].name;}
 }
 function im_init(){
-  im_applySavedSettings();im_readSettings();im_buildKeyboard();im_updateScore();im_renderHistory();im_renderSessionReview();im_renderImprovPath();im_renderQuickFocus();im_renderPracticePlan();im_renderDailyGoal();im_renderWeeklyStreak();im_renderMilestones();im_renderCoachPick();im_renderSessionRecap();im_renderSessionJournal();im_newQuestion();im_syncAudioControls();im_showDetected();im_renderTimeline();im_setTimelineButtons();im_toggleMobileSettings(false);im_updateMobileSettingsSummary();
+  im_applySavedSettings();im_readSettings();im_buildKeyboard();im_updateScore();im_renderHistory();im_renderSessionReview();im_renderImprovPath();im_renderQuickFocus();im_renderMoodBridge();im_renderMoodLoopLab();im_renderPracticePlan();im_renderDailyGoal();im_renderWeeklyStreak();im_renderMilestones();im_renderCoachPick();im_renderSessionRecap();im_renderSessionJournal();im_newQuestion();im_syncAudioControls();im_showDetected();im_renderTimeline();im_setTimelineButtons();im_toggleMobileSettings(false);im_updateMobileSettingsSummary();
 }
 
 /* ── Hook switchPage to render progress on demand ─────────────────── */
 const _orig_switchPage = switchPage;
+function im_safeNavigationCleanup(){
+  try{if(typeof im_stopMetronome==='function')im_stopMetronome(true);}catch(e){console.warn('improv metronome cleanup skipped',e);}
+  try{if(typeof im_planPauseTimer==='function')im_planPauseTimer(true);}catch(e){console.warn('improv plan timer cleanup skipped',e);try{if(im_planTimer)clearInterval(im_planTimer);im_planTimer=null;im_planTimerRunning=false;}catch(_e){}}
+  try{if(typeof im_stopAllNotes==='function')im_stopAllNotes(true);}catch(e){console.warn('improv sound cleanup skipped',e);}
+}
+function mm_forceSwitchPage(page){
+  currentPage=page;
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));
+  const pageEl=document.getElementById('page-'+page);if(pageEl)pageEl.classList.add('active');
+  const tabEl=document.querySelector('.nav-tab[data-page="'+page+'"]');if(tabEl)tabEl.classList.add('active');
+  if(page==='sight'&&typeof s_init==='function'&&!window.__musicMeinSightInit){s_init();window.__musicMeinSightInit=true;}
+  if(page==='intervals'&&typeof i_init==='function'&&!window.__musicMeinIntervalsInit){i_init();window.__musicMeinIntervalsInit=true;}
+  if(page==='improv'&&typeof im_init==='function'&&!window.__musicMeinImprovInit){im_init();window.__musicMeinImprovInit=true;}
+  if(page==='theory'&&typeof th_initTheory==='function'&&!window.__musicMeinTheoryInit){th_initTheory();window.__musicMeinTheoryInit=true;}
+  if(page==='theory'&&window.__musicMeinTheoryInit&&typeof th_renderTheory==='function')th_renderTheory();
+}
 switchPage = function(page) {
-  if(page!=='improv'&&typeof im_stopMetronome==='function')im_stopMetronome(true);
-  if(page!=='improv'&&typeof im_planPauseTimer==='function')im_planPauseTimer(true);
-  _orig_switchPage(page);
-  if (page === 'progress') pg_render();
+  const leavingImprov=currentPage==='improv'&&page!=='improv';
+  if(leavingImprov)im_safeNavigationCleanup();
+  try{
+    _orig_switchPage(page);
+  }catch(e){
+    console.warn('page switch recovered after cleanup error',e);
+    mm_forceSwitchPage(page);
+  }
+  if(page==='progress'&&typeof pg_render==='function'){
+    try{pg_render();}catch(e){console.warn('progress render skipped',e);}
+  }
 };
 
 /* ── Hook history saves to check badges ───────────────────────────── */
